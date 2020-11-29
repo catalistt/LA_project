@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  product_id: one
+  group_id: one
+  discount: 1.5
+
+two:
+  product_id: two
+  group_id: two
+  discount: 1.5

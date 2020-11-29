@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  vehicle_plate: MyString
+  adquisition_date: 2020-11-29 16:16:14
+  policy_number: 1
+  ensurance_company: MyString
+
+two:
+  vehicle_plate: MyString
+  adquisition_date: 2020-11-29 16:16:14
+  policy_number: 1
+  ensurance_company: MyString

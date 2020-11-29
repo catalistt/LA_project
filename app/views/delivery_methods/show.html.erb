@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Vehicle plate:</strong>
+  <%= @delivery_method.vehicle_plate %>
+</p>
+
+<p>
+  <strong>Adquisition date:</strong>
+  <%= @delivery_method.adquisition_date %>
+</p>
+
+<p>
+  <strong>Policy number:</strong>
+  <%= @delivery_method.policy_number %>
+</p>
+
+<p>
+  <strong>Ensurance company:</strong>
+  <%= @delivery_method.ensurance_company %>
+</p>
+
+<%= link_to 'Edit', edit_delivery_method_path(@delivery_method) %> |
+<%= link_to 'Back', delivery_methods_path %>

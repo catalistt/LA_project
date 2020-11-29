@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Product:</strong>
+  <%= @group_discount.product_id %>
+</p>
+
+<p>
+  <strong>Group:</strong>
+  <%= @group_discount.group_id %>
+</p>
+
+<p>
+  <strong>Discount:</strong>
+  <%= @group_discount.discount %>
+</p>
+
+<%= link_to 'Edit', edit_group_discount_path(@group_discount) %> |
+<%= link_to 'Back', group_discounts_path %>

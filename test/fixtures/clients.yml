@@ -1,0 +1,21 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  business_name: MyString
+  rut: MyString
+  address: MyString
+  user_id: one
+  phone_number: MyString
+  schedule: MyString
+  special_agreeement: MyString
+  group_id: one
+
+two:
+  business_name: MyString
+  rut: MyString
+  address: MyString
+  user_id: two
+  phone_number: MyString
+  schedule: MyString
+  special_agreeement: MyString
+  group_id: two

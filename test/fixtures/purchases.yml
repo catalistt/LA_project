@@ -1,0 +1,21 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  product_id: one
+  supplier_id: one
+  invoice_number: 1
+  price: 1.5
+  quantity: 1
+  subtotal: 1.5
+  expiration_date: 2020-11-29 16:34:00
+  second_expiration_date: 2020-11-29 16:34:00
+
+two:
+  product_id: two
+  supplier_id: two
+  invoice_number: 1
+  price: 1.5
+  quantity: 1
+  subtotal: 1.5
+  expiration_date: 2020-11-29 16:34:00
+  second_expiration_date: 2020-11-29 16:34:00

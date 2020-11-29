@@ -1,0 +1,31 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Group Discounts</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Product</th>
+      <th>Group</th>
+      <th>Discount</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @group_discounts.each do |group_discount| %>
+      <tr>
+        <td><%= group_discount.product_id %></td>
+        <td><%= group_discount.group_id %></td>
+        <td><%= group_discount.discount %></td>
+        <td><%= link_to 'Show', group_discount %></td>
+        <td><%= link_to 'Edit', edit_group_discount_path(group_discount) %></td>
+        <td><%= link_to 'Destroy', group_discount, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Group Discount', new_group_discount_path %>

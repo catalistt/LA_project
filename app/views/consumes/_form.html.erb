@@ -1,0 +1,37 @@
+<%= form_with(model: consume, local: true) do |form| %>
+  <% if consume.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(consume.errors.count, "error") %> prohibited this consume from being saved:</h2>
+
+      <ul>
+      <% consume.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :user_id_id %>
+    <%= form.text_field :user_id_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :resource_id_id %>
+    <%= form.text_field :resource_id_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :quantity %>
+    <%= form.number_field :quantity %>
+  </div>
+
+  <div class="field">
+    <%= form.label :total_amount %>
+    <%= form.text_field :total_amount %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

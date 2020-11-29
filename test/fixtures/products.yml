@@ -1,0 +1,23 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  cod: MyString
+  name: MyString
+  type: 
+  packaging: MyString
+  format: MyString
+  description: MyString
+  unit: MyString
+  extra_tax: 1.5
+  stardard_price: 1.5
+
+two:
+  cod: MyString
+  name: MyString
+  type: 
+  packaging: MyString
+  format: MyString
+  description: MyString
+  unit: MyString
+  extra_tax: 1.5
+  stardard_price: 1.5

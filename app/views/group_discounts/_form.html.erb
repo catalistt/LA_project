@@ -1,0 +1,32 @@
+<%= form_with(model: group_discount, local: true) do |form| %>
+  <% if group_discount.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(group_discount.errors.count, "error") %> prohibited this group_discount from being saved:</h2>
+
+      <ul>
+      <% group_discount.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :product_id_id %>
+    <%= form.text_field :product_id_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :group_id_id %>
+    <%= form.text_field :group_id_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :discount %>
+    <%= form.text_field :discount %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

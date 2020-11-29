@@ -1,0 +1,44 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Product:</strong>
+  <%= @purchase.product_id %>
+</p>
+
+<p>
+  <strong>Supplier:</strong>
+  <%= @purchase.supplier_id %>
+</p>
+
+<p>
+  <strong>Invoice number:</strong>
+  <%= @purchase.invoice_number %>
+</p>
+
+<p>
+  <strong>Price:</strong>
+  <%= @purchase.price %>
+</p>
+
+<p>
+  <strong>Quantity:</strong>
+  <%= @purchase.quantity %>
+</p>
+
+<p>
+  <strong>Subtotal:</strong>
+  <%= @purchase.subtotal %>
+</p>
+
+<p>
+  <strong>Expiration date:</strong>
+  <%= @purchase.expiration_date %>
+</p>
+
+<p>
+  <strong>Second expiration date:</strong>
+  <%= @purchase.second_expiration_date %>
+</p>
+
+<%= link_to 'Edit', edit_purchase_path(@purchase) %> |
+<%= link_to 'Back', purchases_path %>
