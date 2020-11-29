@@ -1,0 +1,39 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Product:</strong>
+  <%= @add_product.product_id %>
+</p>
+
+<p>
+  <strong>Order:</strong>
+  <%= @add_product.order_id %>
+</p>
+
+<p>
+  <strong>Price:</strong>
+  <%= @add_product.price %>
+</p>
+
+<p>
+  <strong>Discount:</strong>
+  <%= @add_product.discount %>
+</p>
+
+<p>
+  <strong>Quantity:</strong>
+  <%= @add_product.quantity %>
+</p>
+
+<p>
+  <strong>Total product amount:</strong>
+  <%= @add_product.total_product_amount %>
+</p>
+
+<p>
+  <strong>Packaging amount:</strong>
+  <%= @add_product.packaging_amount %>
+</p>
+
+<%= link_to 'Edit', edit_add_product_path(@add_product) %> |
+<%= link_to 'Back', add_products_path %>

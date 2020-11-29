@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  product_id: one
+  initial_stock: 1
+  added: 1
+  removed: 1
+  final_stock: 1
+
+two:
+  product_id: two
+  initial_stock: 1
+  added: 1
+  removed: 1
+  final_stock: 1

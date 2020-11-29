@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Product:</strong>
+  <%= @stock_movement.product_id %>
+</p>
+
+<p>
+  <strong>Initial stock:</strong>
+  <%= @stock_movement.initial_stock %>
+</p>
+
+<p>
+  <strong>Added:</strong>
+  <%= @stock_movement.added %>
+</p>
+
+<p>
+  <strong>Removed:</strong>
+  <%= @stock_movement.removed %>
+</p>
+
+<p>
+  <strong>Final stock:</strong>
+  <%= @stock_movement.final_stock %>
+</p>
+
+<%= link_to 'Edit', edit_stock_movement_path(@stock_movement) %> |
+<%= link_to 'Back', stock_movements_path %>

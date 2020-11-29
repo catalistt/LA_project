@@ -6,5 +6,6 @@ class User < ApplicationRecord
   has_many :clients
   has_many :consumes
   has_many :resources, through: :consume
+  has_many :orders
 
 end

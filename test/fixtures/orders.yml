@@ -1,0 +1,33 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  client_id: one
+  user_id: one
+  delivery_method_id: one
+  net_amount: 1.5
+  total_iva: 1.5
+  total_extra_taxes: 1.5
+  total_amount: 1.5
+  total_packaging_amount: 1.5
+  visit_start: 2020-11-29 16:42:08
+  visit_end: 2020-11-29 16:42:08
+  discount_amount: 1.5
+  discount_comment: MyString
+  create_invoive: false
+  responsable: 1
+
+two:
+  client_id: two
+  user_id: two
+  delivery_method_id: two
+  net_amount: 1.5
+  total_iva: 1.5
+  total_extra_taxes: 1.5
+  total_amount: 1.5
+  total_packaging_amount: 1.5
+  visit_start: 2020-11-29 16:42:08
+  visit_end: 2020-11-29 16:42:08
+  discount_amount: 1.5
+  discount_comment: MyString
+  create_invoive: false
+  responsable: 1

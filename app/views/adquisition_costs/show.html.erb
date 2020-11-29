@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Product:</strong>
+  <%= @adquisition_cost.product_id %>
+</p>
+
+<p>
+  <strong>Cost:</strong>
+  <%= @adquisition_cost.cost %>
+</p>
+
+<%= link_to 'Edit', edit_adquisition_cost_path(@adquisition_cost) %> |
+<%= link_to 'Back', adquisition_costs_path %>

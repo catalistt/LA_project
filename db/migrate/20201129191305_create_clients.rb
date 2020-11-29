@@ -4,13 +4,14 @@ class CreateClients < ActiveRecord::Migration[5.2]
       t.string :business_name
       t.string :rut
       t.string :address
-      t.references :user_id, foreign_key: true
+      t.references :user, foreign_key: true
       t.string :phone_number
       t.string :schedule
       t.string :special_agreeement
-      t.references :group_id, foreign_key: true
+      t.references :group, foreign_key: true
 
       t.timestamps
     end
+    
   end
 end

@@ -1,4 +1,4 @@
 class GroupDiscount < ApplicationRecord
-  belongs_to :product_id
-  belongs_to :group_id
+  belongs_to :product
+  belongs_to :group
 end

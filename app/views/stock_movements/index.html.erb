@@ -1,0 +1,35 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Stock Movements</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Product</th>
+      <th>Initial stock</th>
+      <th>Added</th>
+      <th>Removed</th>
+      <th>Final stock</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @stock_movements.each do |stock_movement| %>
+      <tr>
+        <td><%= stock_movement.product_id %></td>
+        <td><%= stock_movement.initial_stock %></td>
+        <td><%= stock_movement.added %></td>
+        <td><%= stock_movement.removed %></td>
+        <td><%= stock_movement.final_stock %></td>
+        <td><%= link_to 'Show', stock_movement %></td>
+        <td><%= link_to 'Edit', edit_stock_movement_path(stock_movement) %></td>
+        <td><%= link_to 'Destroy', stock_movement, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Stock Movement', new_stock_movement_path %>

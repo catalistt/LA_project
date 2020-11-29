@@ -1,0 +1,74 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Client:</strong>
+  <%= @order.client_id %>
+</p>
+
+<p>
+  <strong>User:</strong>
+  <%= @order.user_id %>
+</p>
+
+<p>
+  <strong>Delivery method:</strong>
+  <%= @order.delivery_method_id %>
+</p>
+
+<p>
+  <strong>Net amount:</strong>
+  <%= @order.net_amount %>
+</p>
+
+<p>
+  <strong>Total iva:</strong>
+  <%= @order.total_iva %>
+</p>
+
+<p>
+  <strong>Total extra taxes:</strong>
+  <%= @order.total_extra_taxes %>
+</p>
+
+<p>
+  <strong>Total amount:</strong>
+  <%= @order.total_amount %>
+</p>
+
+<p>
+  <strong>Total packaging amount:</strong>
+  <%= @order.total_packaging_amount %>
+</p>
+
+<p>
+  <strong>Visit start:</strong>
+  <%= @order.visit_start %>
+</p>
+
+<p>
+  <strong>Visit end:</strong>
+  <%= @order.visit_end %>
+</p>
+
+<p>
+  <strong>Discount amount:</strong>
+  <%= @order.discount_amount %>
+</p>
+
+<p>
+  <strong>Discount comment:</strong>
+  <%= @order.discount_comment %>
+</p>
+
+<p>
+  <strong>Create invoive:</strong>
+  <%= @order.create_invoive %>
+</p>
+
+<p>
+  <strong>Responsable:</strong>
+  <%= @order.responsable %>
+</p>
+
+<%= link_to 'Edit', edit_order_path(@order) %> |
+<%= link_to 'Back', orders_path %>
