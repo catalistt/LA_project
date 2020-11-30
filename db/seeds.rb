@@ -5,3 +5,9 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+
+
+Supplier.create(name: "COMERCIAL CCU SPA", rut: "	99.554.560-8")
+Product.create(cod: "A01", name: "COCA COLA 3LT DESECHABLE", type: "BEBIDA", packaging: "DESECHABLE", format: "3LT", description: "Display de 6 unidades", unit: "display", extra_tax: 0.18, standard_price: 11862)
+PaymentMethod.create(name: "efectivo")
+Group.create(name: "Almacenes y botillerias")
