@@ -29,7 +29,13 @@ gem 'jbuilder', '~> 2.5'
 
 
 gem 'devise'
-
+gem 'activeadmin'
+gem 'cocoon'
+gem 'bootstrap'
+gem 'jquery-rails'
+gem 'select2-rails'
+gem 'rolify'
+gem 'cancancan', '~> 2.0'
 # Use ActiveStorage variant
 # gem 'mini_magick', '~> 4.8'
 

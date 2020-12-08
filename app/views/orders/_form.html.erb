@@ -1,87 +1,96 @@
-<%= form_with(model: order, local: true) do |form| %>
-  <% if order.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(order.errors.count, "error") %> prohibited this order from being saved:</h2>
+<div class="row">
+  <div class="col-4 offset-4">
+  <h1><%= title%></h1>
+  <br>
+    <%= form_with(model: order, local: true) do |form| %>
+      <% if order.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(order.errors.count, "error") %> prohibited this order from being saved:</h2>
 
-      <ul>
-      <% order.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
+          <ul>
+          <% order.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+          </ul>
+        </div>
       <% end %>
-      </ul>
-    </div>
-  <% end %>
 
-  <div class="field">
-    <%= form.label :client_id_id %>
-    <%= form.text_field :client_id_id %>
-  </div>
+      <div class="form-group">
+        <%= form.label :client_id, class: "control-label"%>
+        <%= form.collection_select :client_id, Client.all, :id, :name, prompt: true%>
+      </div>
 
-  <div class="field">
-    <%= form.label :user_id_id %>
-    <%= form.text_field :user_id_id %>
-  </div>
+      <div class="form-group">
+        <%= form.label :delivery_method_id, class:"control-label" %>
+        <%= form.collection_select :delivery_method_id, DeliveryMethod.all, :id, :vehicle_plate, prompt: true%>
+      </div>
 
-  <div class="field">
-    <%= form.label :delivery_method_id_id %>
-    <%= form.text_field :delivery_method_id_id %>
-  </div>
+      <div class="form-group">
+        <%= form.hidden_field :net_amount, class: "form-control" %>
+      </div>
 
-  <div class="field">
-    <%= form.label :net_amount %>
-    <%= form.text_field :net_amount %>
-  </div>
+      <div class="form-group">
+        <%= form.hidden_field :total_iva, class: "form-control" %>
+      </div>
 
-  <div class="field">
-    <%= form.label :total_iva %>
-    <%= form.text_field :total_iva %>
-  </div>
+      <div class="form-group">
+        <%= form.hidden_field :total_extra_taxes, class: "form-control" %>
+      </div>
 
-  <div class="field">
-    <%= form.label :total_extra_taxes %>
-    <%= form.text_field :total_extra_taxes %>
-  </div>
+      <div class="form-group">
+        <%= form.hidden_field :total_amount, class: "form-control" %>
+      </div>
 
-  <div class="field">
-    <%= form.label :total_amount %>
-    <%= form.text_field :total_amount %>
-  </div>
+      <div class="form-group">
+        <%= form.hidden_field :total_packaging_amount, class: "form-control" %>
+      </div>
+      
+      <!--
+      <div class="form-group">
+        <%= form.label :visit_start, class:"control-label" %>
+        <%= form.datetime_select :visit_start, class: "form-control" %>
+      </div>
 
-  <div class="field">
-    <%= form.label :total_packaging_amount %>
-    <%= form.text_field :total_packaging_amount %>
-  </div>
+      <div class="form-group">
+        <%= form.label :visit_end, class:"control-label" %>
+        <%= form.datetime_select :visit_end, class: "form-control" %>
+      </div>
 
-  <div class="field">
-    <%= form.label :visit_start %>
-    <%= form.datetime_select :visit_start %>
-  </div>
+      <div class="form-group">
+        <%= form.label :discount_amount, class:"control-label" %>
+        <%= form.text_field :discount_amount, class: "form-control" %>
+      </div>
 
-  <div class="field">
-    <%= form.label :visit_end %>
-    <%= form.datetime_select :visit_end %>
-  </div>
+      <div class="form-group">
+        <%= form.label :discount_comment, class:"control-label"%>
+        <%= form.text_field :discount_comment, class: "form-control" %>
+      </div>
 
-  <div class="field">
-    <%= form.label :discount_amount %>
-    <%= form.text_field :discount_amount %>
-  </div>
+      -->
 
-  <div class="field">
-    <%= form.label :discount_comment %>
-    <%= form.text_field :discount_comment %>
-  </div>
+      <div class="form-group">
+        <%= form.label :create_invoive, class:"control-label" %>
+        <%= form.check_box :create_invoive%>
+      </div>
 
-  <div class="field">
-    <%= form.label :create_invoive %>
-    <%= form.check_box :create_invoive %>
+      <!--
+      <div class="form-group">
+        <%= form.label :responsable, class:"control-label" %>
+        <%= form.number_field :responsable, class: "form-control" %>
+      </div>
+      -->
+      <h3>Productos</h3>
+      <div class="field" id="add_products">
+        <%= form.fields_for :add_products do |add_product_form| %>
+          <%= render 'add_product_fields', f: add_product_form %>
+        <% end %>
+        <div class="links">
+          <%= link_to_add_association 'Add product', form, :add_products %>
+        </div>
+      </div>
+      <div>
+        <%= form.submit "Ingresar orden", class:"btn btn-success" %>
+      </div>
+    <% end %>
   </div>
-
-  <div class="field">
-    <%= form.label :responsable %>
-    <%= form.number_field :responsable %>
-  </div>
-
-  <div class="actions">
-    <%= form.submit %>
-  </div>
-<% end %>
+</div>

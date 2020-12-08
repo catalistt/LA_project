@@ -1,0 +1,24 @@
+<div class="nested-fields">
+  <div class="field">
+    <%= f.label :product_id %>
+    <%= f.select :product, [], class:"add_item" %>
+  </div>
+
+  <div class="field">
+    <%= f.label :price %>
+    <%= f.text_field :price %>
+  </div>
+
+  <div class="field">
+    <%= f.label :discount %>
+    <%= f.text_field :discount %>
+  </div>
+
+  <div class="field">
+    <%= f.label :quantity %>
+    <%= f.text_field :price  %>
+  </div>
+
+
+  <%= link_to_remove_association "remove product", f %>
+</div>

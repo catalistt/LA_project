@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  devise_for :admin_users, ActiveAdmin::Devise.config
+  ActiveAdmin.routes(self)
   resources :payments
   resources :payment_methods
   resources :adquisition_costs
@@ -15,5 +17,6 @@ Rails.application.routes.draw do
   resources :clients
   resources :groups
   devise_for :users
+  get 'home/index'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

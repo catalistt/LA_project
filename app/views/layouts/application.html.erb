@@ -4,16 +4,21 @@
     <title>LAProject</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-
-    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
   <body>
+    <% if current_page?(home_index_path) %>
+    <% else %>
+      <%= render 'shared/navbar' %>
+    <% end %>
     <% flash.each do |type, msg| %>
       <div class="alert alert-<%= type %>">
         <%= msg %>
       </div>
+    
     <% end %>
     <%= yield %>
   </body>
