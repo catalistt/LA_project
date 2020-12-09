@@ -2,3 +2,36 @@
  @import "bootstrap";
  @import "select2";
 
+ .home-page {
+  background-color: black;
+  width: 100%;
+  height: 100%;
+  background-repeat: no-repeat;
+  background-size: contain;}
+
+
+  html, body {
+    margin: 0;
+    height: 100%;
+}
+
+.inicio {
+  color: white;
+  font-family: 'Oswald', sans-serif;
+  padding-top: 50px;
+  text-align: center;
+}
+
+.text-home {
+  border-radius: 25px;
+  background: #082E71;
+  padding: 20px;
+  height: 150px;
+}
+
+.landing-title {
+  text-align: center;
+}
+
+
+
