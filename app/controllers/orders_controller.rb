@@ -5,12 +5,12 @@ class OrdersController < ApplicationController
   # GET /orders.json
   def index
     @pending_orders = Order.where(visit_end: nil)
-    @delivered_orders = Order.where.not(category: [nil, ""])
+    @delivered_orders = Order.where.not(visit_end: nil)
     @orders = Order.all
   end
 
   def dashboard_clients
-    @orders_by_amount = Order.group(:client_id).order(total_amount: :asc).sum(:total_amount)
+    @orders_by_amount = Order.select(:client_id).group(:client_id).count
   end
 
   def my_order
