@@ -69,7 +69,7 @@ class OrdersController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def order_params
-      params.require(:order).permit(:client_id_id, :user_id_id, :delivery_method_id_id, :net_amount, :total_iva, :total_extra_taxes, :total_amount, :total_packaging_amount, :visit_start, :visit_end, :discount_amount, :discount_comment, :create_invoive, :responsable,
+      params.require(:order).permit(:client_id, :user_id, :delivery_method_id, :net_amount, :total_iva, :total_extra_taxes, :total_amount, :total_packaging_amount, :visit_start, :visit_end, :discount_amount, :discount_comment, :create_invoive, :responsable,
       add_products_attributes: [:product_id, :price, :discount, :quantity],
       add_clients_attributes: [:client_id, :business_name],
       add_delivery_methods_attributes: [:delivery_method_id, :vehicle_plate, :policy_number, :ensurance_company])

@@ -70,8 +70,9 @@ class AddProductsController < ApplicationController
     # Only allow a list of trusted parameters through.
     def add_product_params
       params.require(:add_product).permit(:product_id, :order_id, :price, :discount, :quantity, :total_product_amount, :packaging_amount, 
-      add_products_attributes: [:product_id, :price, :discount, :quantity],
+      add_products_attributes: [:product_id, :price, :discount, :quantity, :total_product_amount, :packaging_amount],
       add_clients_attributes: [:client_id, :business_name],
-      add_delivery_methods_attributes: [:delivery_method_id, :vehicle_plate, :policy_number, :ensurance_company])
+      add_delivery_methods_attributes: [:delivery_method_id, :vehicle_plate, :policy_number, :ensurance_company],
+      add_orders_attributes: [:client_id, :user_id, :delivery_method_id])
     end
 end
