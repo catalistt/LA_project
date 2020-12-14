@@ -1,4 +1,6 @@
 <br>
-<h2> Evaluación y comportamiento clientes </h2>
-<%= pie_chart @orders_by_amount, title: "VENTAS POR CLIENTE - RANKING"%>
+<h2> Evaluación y comportamiento clientes - Rankings </h2>
+<%= pie_chart @orders_by_count, title: "Cantidad de ventas por cliente" %>
+<%= pie_chart @orders_by_sum, title: "Monto de ventas por cliente"%>
+
 <br/>
