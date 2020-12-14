@@ -1,4 +1,8 @@
-<%= form_with(model: product, local: true) do |form| %>
+
+<div class="row">
+<div class="col-4 offset-4">
+  <br>  
+  <%= form_with(model: product, local: true) do |form| %>
   <% if product.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(product.errors.count, "error") %> prohibited this product from being saved:</h2>
@@ -11,48 +15,48 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= form.label :cod %>
+  <div class="form-group">
+    <%= form.label :Código %>
     <%= form.text_field :cod %>
   </div>
 
-  <div class="field">
-    <%= form.label :name %>
+  <div class="form-group">
+    <%= form.label :Nombre %>
     <%= form.text_field :name %>
   </div>
 
-  <div class="field">
-    <%= form.label :type %>
-    <%= form.text_field :type %>
+  <div class="form-group">
+    <%= form.label :Categoria %>
+    <%= form.text_field :category %>
   </div>
 
-  <div class="field">
-    <%= form.label :packaging %>
+  <div class="form-group">
+    <%= form.label :Envase %>
     <%= form.text_field :packaging %>
   </div>
 
-  <div class="field">
-    <%= form.label :format %>
+  <div class="form-group">
+    <%= form.label :Formato %>
     <%= form.text_field :format %>
   </div>
 
-  <div class="field">
-    <%= form.label :description %>
+  <div class="form-group">
+    <%= form.label :Descripción %>
     <%= form.text_field :description %>
   </div>
 
-  <div class="field">
-    <%= form.label :unit %>
+  <div class="form-group">
+    <%= form.label :Unidad %>
     <%= form.text_field :unit %>
   </div>
 
-  <div class="field">
-    <%= form.label :extra_tax %>
+  <div class="form-group">
+    <%= form.label :Impuesto_extra %>
     <%= form.text_field :extra_tax %>
   </div>
 
-  <div class="field">
-    <%= form.label :stardard_price %>
+  <div class="form-group">
+    <%= form.label :Precio_ruta %>
     <%= form.text_field :stardard_price %>
   </div>
 
@@ -60,3 +64,5 @@
     <%= form.submit %>
   </div>
 <% end %>
+</div>
+</div>

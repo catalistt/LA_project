@@ -9,5 +9,6 @@ class User < ApplicationRecord
   has_many :resources, through: :consume
   has_many :orders
   enum gender: [:masculino, :femenino, :otro]
+  accepts_nested_attributes_for :orders, allow_destroy: true
 
 end

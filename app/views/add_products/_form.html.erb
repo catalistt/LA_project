@@ -12,37 +12,38 @@
   <% end %>
 
   <div class="field">
-    <%= form.label :product_id_id %>
-    <%= form.text_field :product_id_id %>
+    <%= form.label :Productos, class: "control-label"%>
+    <%= form.collection_select :product_id, Product.all, :id, :name, prompt: true%>
+  </div>
+
+
+  <div class="field">
+    <%= form.label :Orden %>
+    <%= form.text_field :order_id %>
   </div>
 
   <div class="field">
-    <%= form.label :order_id_id %>
-    <%= form.text_field :order_id_id %>
-  </div>
-
-  <div class="field">
-    <%= form.label :price %>
+    <%= form.label :Precio%>
     <%= form.text_field :price %>
   </div>
 
   <div class="field">
-    <%= form.label :discount %>
+    <%= form.label :Descuento %>
     <%= form.number_field :discount %>
   </div>
 
   <div class="field">
-    <%= form.label :quantity %>
+    <%= form.label :Cantidad %>
     <%= form.number_field :quantity %>
   </div>
 
   <div class="field">
-    <%= form.label :total_product_amount %>
+    <%= form.label :Precio_total %>
     <%= form.text_field :total_product_amount %>
   </div>
 
   <div class="field">
-    <%= form.label :packaging_amount %>
+    <%= form.label :Precio_envases %>
     <%= form.text_field :packaging_amount %>
   </div>
 

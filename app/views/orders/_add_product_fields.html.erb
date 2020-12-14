@@ -1,22 +1,33 @@
 <div class="nested-fields">
   <div class="field">
-    <%= f.label :product_id %>
-    <%= f.select :product, [], class:"add_item" %>
+    <%= f.label :Productos %>
+    <%= f.collection_select :product_id, Product.all, :id, :name, prompt: true%>
   </div>
 
+
   <div class="field">
-    <%= f.label :price %>
+    <%= f.label :Precio %>
     <%= f.text_field :price %>
   </div>
 
   <div class="field">
-    <%= f.label :discount %>
+    <%= f.label :Descuento %>
     <%= f.text_field :discount %>
   </div>
 
   <div class="field">
-    <%= f.label :quantity %>
+    <%= f.label :Cantidad %>
     <%= f.text_field :price  %>
+  </div>
+
+  <div class="field">
+    <%= f.label :Precio_total %>
+    <%= f.text_field :total_product_amount %>
+  </div>
+
+  <div class="field">
+    <%= f.label :Precio_envases %>
+    <%= f.text_field :packaging_amount %>
   </div>
 
 
