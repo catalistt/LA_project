@@ -29,8 +29,9 @@
       Órdenes
     </a>
     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-      <%= link_to 'Órdenes', orders_path, class: "nav-link" %> 
-      <%= link_to 'Nueva orden', new_order_path, class: "nav-link" %>      
+      <%= link_to 'Todas las ordenes', orders_path, class: "nav-link" %> 
+      <%= link_to 'Nueva orden', new_order_path, class: "nav-link" %> 
+      <%= link_to 'Mis órdenes', orders_my_order_path, class: "nav-link" %>      
     </div>
     </li>
     <li class="nav-item dropdown active">
@@ -53,6 +54,9 @@
           <%= link_to 'Pagos pendientes', class: "nav-link" %>
         </div>
       </li>
+      <% if current_user.has_role? :admin %>
+        <%= link_to 'Admin sitio', admin_dashboard_path, class: "nav-link" %> 
+      <% end %>
       <li class="nav-item">
         <%= link_to 'Cerrar Sesión', destroy_user_session_path, method: :delete, class: "nav-link" %>
       </li>

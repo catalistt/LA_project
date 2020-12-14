@@ -4,7 +4,19 @@ class OrdersController < ApplicationController
   # GET /orders
   # GET /orders.json
   def index
+    @pending_orders = Order.where(visit_end: nil)
+    @delivered_orders = Order.where.not(category: [nil, ""])
     @orders = Order.all
+  end
+
+  def dashboard_clients
+    @orders_by_amount = Order.group(:client_id).order(total_amount: :asc).sum(:total_amount)
+  end
+
+  def my_order
+    @orders = Order.where(user: current_user)
+    @pending_orders = Order.where(visit_end: nil)
+    @delivered_orders = Order.where.not(visit_end: nil )
   end
 
   # GET /orders/1
@@ -42,7 +54,7 @@ class OrdersController < ApplicationController
   def update
     respond_to do |format|
       if @order.update(order_params)
-        format.html { redirect_to @order, notice: 'Order was successfully updated.' }
+        format.html { redirect_to @order, notice: 'La orden se acutalizó exitosamente.' }
         format.json { render :show, status: :ok, location: @order }
       else
         format.html { render :edit }

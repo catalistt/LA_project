@@ -1,5 +1,7 @@
 {
   "name": "LA_project",
   "private": true,
-  "dependencies": {}
+  "dependencies": {
+    "highcharts": "^8.2.2"
+  }
 }

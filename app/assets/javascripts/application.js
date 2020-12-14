@@ -16,6 +16,8 @@
 //= require cocoon
 //= require popper
 //= require bootstrap
+//= require highcharts
+//= require chartkick
 //= require select2
 //= require turbolinks
 //= require_tree .

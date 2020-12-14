@@ -1,0 +1,89 @@
+<p id="notice"><%= notice %></p>
+<h1>Mis órdenes</h1>
+<br>
+<h2>Órdenes pendiente de entrega<h2>
+<br>
+<table class="table table-striped">
+  <thead class="">
+    <tr>
+      <th>Fecha creación</th> 
+      <th>Cliente</th>
+      <th>Vendedor</th>
+      <th>Patente vehículo</th>
+      <th>Total pedido</th>
+      <th>Total envases</th>
+      <th>Monto de descuento</th>
+      <th>Detalle descuento </th>
+      <th>¿Va con factura?</th>
+      <th>Responsable de entrega</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @pending_orders.each do |order| %>
+      <tr>
+        <td><%= order.created_at %></td>
+        <td><%= order.client_id %></td>
+        <td><%= order.user_id %></td>
+        <td><%= order.delivery_method_id %></td>
+        <td><%= order.total_amount %></td>
+        <td><%= order.total_packaging_amount %></td>
+        <td><%= order.discount_amount %></td>
+        <td><%= order.discount_comment %></td>
+        <td><%= order.create_invoive %></td>
+        <td><%= order.responsable %></td>
+        <td><%= link_to 'Mostrar detalle', order, class:"btn bg-light" %></td>
+        <td><%= link_to 'Editar orden', edit_order_path(order), class:"btn bg-light" %></td>
+        <td><%= link_to 'Eliminar órden', order, method: :delete,class:"btn bg-light",  data: { confirm: 'Estas seguro/a?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<br>
+<br>
+<h2>Órdenes entregadas<h2>
+<br>
+<table class="table table-striped">
+  <thead class="">
+    <tr>
+      <th>Fecha creación</th> 
+      <th>Cliente</th>
+      <th>Vendedor</th>
+      <th>Patente vehículo</th>
+      <th>Total neto</th>
+      <th>Total pedido</th>
+      <th>Total envases</th>
+      <th>Monto de descuento</th>
+      <th>Detalle descuento </th>
+      <th>¿Va con factura?</th>
+      <th>Responsable de entrega</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @delivered_orders.each do |order| %>
+      <tr>
+        <td><%= order.created_at %></td>
+        <td><%= order.client_id %></td>
+        <td><%= order.user_id %></td>
+        <td><%= order.delivery_method_id %></td>
+        <td><%= order.net_amount %></td>
+        <td><%= order.total_amount %></td>
+        <td><%= order.total_packaging_amount %></td>
+        <td><%= order.discount_amount %></td>
+        <td><%= order.discount_comment %></td>
+        <td><%= order.create_invoive %></td>
+        <td><%= order.responsable %></td>
+        <td><%= link_to 'Mostrar detalle', order, class:"btn bg-light" %></td>
+        <td><%= link_to 'Editar orden', edit_order_path(order), class:"btn bg-light" %></td>
+        <td><%= link_to 'Eliminar órden', order, method: :delete,class:"btn bg-light",  data: { confirm: 'Estas seguro/a?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+<%= link_to 'Nueva orden', new_order_path %>
+

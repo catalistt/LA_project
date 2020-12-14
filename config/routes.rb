@@ -1,6 +1,10 @@
 Rails.application.routes.draw do
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
+  get "orders/my_order", to: "orders#my_order"
+  get 'home/index'
+  get 'home/dashboard'
+  get 'orders/dashboard_clients'
   resources :payments
   resources :payment_methods
   resources :adquisition_costs
@@ -17,13 +21,7 @@ Rails.application.routes.draw do
   resources :clients
   resources :groups
   devise_for :users
-  get 'home/index'
-  get 'home/dashboard'
-  root 'home#index'
 
-  authenticated :user do
-    root 'home#dashboard'
-  end
   root 'home#index'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

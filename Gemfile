@@ -36,6 +36,11 @@ gem 'jquery-rails'
 gem 'select2-rails'
 gem 'rolify'
 gem 'cancancan', '~> 2.0'
+gem 'ransack'
+gem 'faker'
+gem 'chartkick'
+gem 'highcharts-rails'
+
 # Use ActiveStorage variant
 # gem 'mini_magick', '~> 4.8'
 
