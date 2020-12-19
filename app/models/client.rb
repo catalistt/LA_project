@@ -5,6 +5,6 @@ class Client < ApplicationRecord
   accepts_nested_attributes_for :orders, allow_destroy: true
 
   def to_s
-    name
+    business_name
   end
 end

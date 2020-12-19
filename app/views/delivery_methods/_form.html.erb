@@ -1,37 +1,41 @@
-<%= form_with(model: delivery_method, local: true) do |form| %>
-  <% if delivery_method.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(delivery_method.errors.count, "error") %> prohibited this delivery_method from being saved:</h2>
+<div class="row">
+  <div class="col-4 offset-4">
+    <%= form_with(model: delivery_method, local: true) do |form| %>
+      <% if delivery_method.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(delivery_method.errors.count, "error") %> prohibited this delivery_method from being saved:</h2>
 
-      <ul>
-      <% delivery_method.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
+          <ul>
+          <% delivery_method.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+          </ul>
+        </div>
       <% end %>
-      </ul>
-    </div>
-  <% end %>
 
-  <div class="field">
-    <%= form.label :vehicle_plate %>
-    <%= form.text_field :vehicle_plate %>
-  </div>
+      <div class="form-group">
+        <%= form.label :Patente %>
+        <%= form.text_field :vehicle_plate %>
+      </div>
 
-  <div class="field">
-    <%= form.label :adquisition_date %>
-    <%= form.datetime_select :adquisition_date %>
-  </div>
+      <div class="form-group">
+        <%= form.label :Fecha_de_adquisición %>
+        <%= form.date_select :adquisition_date %>
+      </div>
 
-  <div class="field">
-    <%= form.label :policy_number %>
-    <%= form.number_field :policy_number %>
-  </div>
+      <div class="form-group">
+        <%= form.label :Número_de_poliza %>
+        <%= form.number_field :policy_number %>
+      </div>
 
-  <div class="field">
-    <%= form.label :ensurance_company %>
-    <%= form.text_field :ensurance_company %>
-  </div>
+      <div class="form-group">
+        <%= form.label :Compañía_de_seguros %>
+        <%= form.text_field :ensurance_company %>
+      </div>
 
-  <div class="actions">
-    <%= form.submit %>
+      <div class="actions">
+        <%= form.submit "Crear vehículo", class:"btn btn-info" %>
+      </div>
+    <% end %>
   </div>
-<% end %>
+</div>

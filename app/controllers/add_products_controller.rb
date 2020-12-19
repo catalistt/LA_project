@@ -7,6 +7,10 @@ class AddProductsController < ApplicationController
     @add_products = AddProduct.all
   end
 
+  def st_price
+    @add_product.default_price(2)
+  end
+
   # GET /add_products/1
   # GET /add_products/1.json
   def show

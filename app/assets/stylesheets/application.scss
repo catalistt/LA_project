@@ -13,6 +13,10 @@
   html, body {
     margin: 0;
     height: 100%; 
+    background-image: url(back4.jpg);
+    backdrop-filter: brightness(150%) saturate(150%) blur(1rem);
+    font-family: 'Oswald', sans-serif;
+    font-size: large;
 }
 
 .inicio {
@@ -32,6 +36,5 @@
 .landing-title {
   text-align: center;
 }
-
 
 

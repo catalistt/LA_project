@@ -1,13 +1,13 @@
 <div class="nested-fields">
-  <div class="field">
+  <div class="field st-product">
     <%= f.label :Productos %>
-    <%= f.collection_select :product_id, Product.all, :id, :name, prompt: true%>
+    <%= f.collection_select :product_id, Product.all, :id, :name, prompt: true %>
   </div>
 
 
-  <div class="field">
+  <div class="field st-price">
     <%= f.label :Precio %>
-    <%= f.text_field :price %>
+    <%= f.text_field :price%>
   </div>
 
   <div class="field">

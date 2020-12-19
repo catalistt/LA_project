@@ -1,3 +1,4 @@
+<br>
 <%= form_with(model: payment, local: true) do |form| %>
   <% if payment.errors.any? %>
     <div id="error_explanation">
@@ -10,28 +11,27 @@
       </ul>
     </div>
   <% end %>
-
-  <div class="field">
-    <%= form.label :order_id %>
-    <%= form.text_field :order_id %>
+  <div class="form-group">
+    <%= form.label :Orden, class: "control-label"%>
+    <%= form.select(:order, order_with_name)%>
   </div>
 
-  <div class="field">
-    <%= form.label :payment_method_id %>
-    <%= form.text_field :payment_method_id %>
+  <div class="form-group">
+    <%= form.label :Método_de_pago, class: "control-label"%>
+    <%= form.collection_select :payment_method_id, PaymentMethod.all, :id, :name, prompt: true%>
   </div>
 
-  <div class="field">
-    <%= form.label :amount_payed %>
-    <%= form.text_field :amount_payed %>
+  <div class="form-group">
+    <%= form.label :Monto_pagado %>
+    <%= form.number_field :amount_payed %>
   </div>
 
-  <div class="field">
-    <%= form.label :status %>
-    <%= form.number_field :status %>
+  <div class="form-group">
+    <%= form.label :Estado %>
+    <%= form.select(:status, order_status) %>
   </div>
 
   <div class="actions">
-    <%= form.submit %>
+    <%= form.submit "Registrar", class:"btn btn-info" %>
   </div>
 <% end %>

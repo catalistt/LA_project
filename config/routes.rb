@@ -9,11 +9,16 @@ Rails.application.routes.draw do
   resources :payment_methods
   resources :adquisition_costs
   resources :stock_movements
-  resources :add_products
+  resources :add_products do
+    get :st_price
+  end
   resources :orders
   resources :purchases
   resources :group_discounts
-  resources :products
+  resources :products do
+    get :st_price
+  end
+  
   resources :consumes
   resources :resources
   resources :delivery_methods
@@ -21,6 +26,7 @@ Rails.application.routes.draw do
   resources :clients
   resources :groups
   devise_for :users
+
 
   root 'home#index'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html

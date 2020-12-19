@@ -17,7 +17,7 @@
 
   <div class="form-group">
     <%= form.label :Código %>
-    <%= form.text_field :cod %>
+    <%= form.text_field :code %>
   </div>
 
   <div class="form-group">
@@ -27,7 +27,7 @@
 
   <div class="form-group">
     <%= form.label :Categoria %>
-    <%= form.text_field :category %>
+    <%= form.select(:category, categories)%>
   </div>
 
   <div class="form-group">
@@ -52,12 +52,12 @@
 
   <div class="form-group">
     <%= form.label :Impuesto_extra %>
-    <%= form.text_field :extra_tax %>
+    <%= form.select(:extra_tax, taxes) %>
   </div>
 
   <div class="form-group">
     <%= form.label :Precio_ruta %>
-    <%= form.text_field :stardard_price %>
+    <%= form.number_field :standard_price %>
   </div>
 
   <div class="actions">

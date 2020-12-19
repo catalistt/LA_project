@@ -14,13 +14,13 @@ class ProductsTest < ApplicationSystemTestCase
     visit products_url
     click_on "New Product"
 
-    fill_in "Cod", with: @product.cod
+    fill_in "Cod", with: @product.code
     fill_in "Description", with: @product.description
     fill_in "Extra tax", with: @product.extra_tax
     fill_in "Format", with: @product.format
     fill_in "Name", with: @product.name
     fill_in "Packaging", with: @product.packaging
-    fill_in "Stardard price", with: @product.stardard_price
+    fill_in "Stardard price", with: @product.standard_price
     fill_in "Type", with: @product.type
     fill_in "Unit", with: @product.unit
     click_on "Create Product"
