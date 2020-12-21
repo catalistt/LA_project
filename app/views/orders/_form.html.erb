@@ -1,101 +1,119 @@
-<div class="row">
-  <div class="col-4 offset-4">
-  <h1><%= title%></h1>
-  <br>
-    <%= form_with(model: order, local: true) do |form| %>
-      <% if order.errors.any? %>
-        <div id="error_explanation">
-          <h2><%= pluralize(order.errors.count, "error") %> prohibited this order from being saved:</h2>
+<div class="container">
+  <div class="row">
+    <div class="col-4 offset-1">
+    <h1><%= title%></h1>
+    </div>
+    </div>
+    <div class="row bg-white border border-info pt-3">
+    <h4 class="ml-3">Datos básicos </h4>
+    <div class="col-2"><br><br>
+      <%= form_with(model: order, local: true) do |form| %>
+        <% if order.errors.any? %>
+          <div id="error_explanation">
+            <h2><%= pluralize(order.errors.count, "error") %> prohibited this order from being saved:</h2>
 
-          <ul>
-          <% order.errors.full_messages.each do |message| %>
-            <li><%= message %></li>
-          <% end %>
-          </ul>
-        </div>
-      <% end %>
-
-      <div class="form-group">
-        <%= form.label :Cliente, class: "control-label"%>
-        <%= form.collection_select :client_id, Client.all, :id, :business_name, prompt: true%>
-      </div>
-
-      <div class="form-group">
-        <%= form.label :Vendedor, class: "control-label"%>
-        <%= form.collection_select :user_id, User.all, :id, :name, prompt: true%>
-      </div>
-
-      <div class="form-group">
-        <%= form.label :Despacho_por, class:"control-label" %>
-        <%= form.collection_select :delivery_method_id, DeliveryMethod.all, :id, :vehicle_plate, prompt: true%>
-      </div>
-
-      <div class="form-group">
-        <%= form.hidden_field :net_amount, class: "form-control" %>
-      </div>
-
-      <div class="form-group">
-        <%= form.hidden_field :total_iva, class: "form-control" %>
-      </div>
-
-      <div class="form-group">
-        <%= form.hidden_field :total_extra_taxes, class: "form-control" %>
-      </div>
-
-      <div class="form-group">
-        <%= form.hidden_field :total_amount, class: "form-control" %>
-      </div>
-
-      <div class="form-group">
-        <%= form.hidden_field :total_packaging_amount, class: "form-control" %>
-      </div>
-      
-      <!--
-      <div class="form-group">
-        <%= form.label :visit_start, class:"control-label" %>
-        <%= form.datetime_select :visit_start, class: "form-control" %>
-      </div>
-
-      <div class="form-group">
-        <%= form.label :visit_end, class:"control-label" %>
-        <%= form.datetime_select :visit_end, class: "form-control" %>
-      </div>
-
-      <div class="form-group">
-        <%= form.label :discount_amount, class:"control-label" %>
-        <%= form.text_field :discount_amount, class: "form-control" %>
-      </div>
-
-      <div class="form-group">
-        <%= form.label :discount_comment, class:"control-label"%>
-        <%= form.text_field :discount_comment, class: "form-control" %>
-      </div>
-
-      -->
-
-      <div class="form-group">
-        <%= form.label :create_invoive, class:"control-label" %>
-        <%= form.check_box :create_invoive%>
-      </div>
-
-      <!--
-      <div class="form-group">
-        <%= form.label :responsable, class:"control-label" %>
-        <%= form.number_field :responsable, class: "form-control" %>
-      </div>
-      -->
-      <h3>Productos</h3>
-      <div class="field" id="add_products">
-        <%= form.fields_for :add_products do |add_product_form| %>
-          <%= render 'add_product_fields', f: add_product_form %>
+            <ul>
+            <% order.errors.full_messages.each do |message| %>
+              <li><%= message %></li>
+            <% end %>
+            </ul>
+          </div>
         <% end %>
-        <div class="links">
-          <%= link_to_add_association 'Add product', form, :add_products %>
+       
+        <div class="form-group">
+          <%= form.label :Cliente, class: "control-label"%>
+          <%= form.collection_select :client_id, Client.all, :id, :business_name, prompt: true%>
         </div>
-      </div>
-      <div>
-        <%= form.submit "Ingresar orden", class:"btn btn-success" %>
-      </div>
-    <% end %>
+        </div>
+
+        <div class="col-2"><br><br>
+
+        <div class="form-group">
+          <%= form.label :Vendedor, class: "control-label"%>
+          <%= form.collection_select :user_id, User.all, :id, :name, prompt: true%>
+        </div>
+        </div>
+
+        <div class="col-2"><br><br>
+        <div class="form-group">
+          <%= form.label :Despacho_por, class:"control-label" %>
+          <%= form.collection_select :delivery_method_id, DeliveryMethod.all, :id, :vehicle_plate, prompt: true%>
+        </div>
+        </div>
+        <div class="form-group">
+          <%= form.hidden_field :net_amount, class: "form-control" %>
+        </div>
+
+        <div class="form-group">
+          <%= form.hidden_field :total_iva, class: "form-control" %>
+        </div>
+
+        <div class="form-group">
+          <%= form.hidden_field :total_extra_taxes, class: "form-control" %>
+        </div>
+
+        <div class="form-group">
+          <%= form.hidden_field :total_amount, class: "form-control" %>
+        </div>
+
+        <div class="form-group">
+          <%= form.hidden_field :total_packaging_amount, class: "form-control" %>
+        </div>
+        
+        <!--
+        <div class="form-group">
+          <%= form.label :visit_start, class:"control-label" %>
+          <%= form.datetime_select :visit_start, class: "form-control" %>
+        </div>
+
+        <div class="form-group">
+          <%= form.label :visit_end, class:"control-label" %>
+          <%= form.datetime_select :visit_end, class: "form-control" %>
+        </div>
+
+        <div class="form-group">
+          <%= form.label :discount_amount, class:"control-label" %>
+          <%= form.text_field :discount_amount, class: "form-control" %>
+        </div>
+
+        <div class="form-group">
+          <%= form.label :discount_comment, class:"control-label"%>
+          <%= form.text_field :discount_comment, class: "form-control" %>
+        </div>
+
+        -->
+        <div class="col-2"><br><br>
+        <div class="form-group">
+          <%= form.label :Hacer_factura, class:"control-label" %>
+          <%= form.check_box :create_invoive%>
+        </div>
+        </div>
+
+        <!--
+        <div class="form-group">
+          <%= form.label :responsable, class:"control-label" %>
+          <%= form.number_field :responsable, class: "form-control" %>
+        </div>
+        <br> 
+        </div>
+        </div>
+        -->
+        <div class="container">
+        <div class="row">
+        <h4 class="ml-3">Agregar productos</h4>
+          <div class="field" id="add_products">
+            <%= form.fields_for :add_products do |add_product_form| %>
+              <%= render 'add_product_fields', f: add_product_form %>
+            <% end %>
+            <div class="links">
+            <br>
+              <%= link_to_add_association 'Añadir nuevo producto', form, :add_products, class:"btn btn-info ml-5" %>
+            </div>
+          
+          <div>
+          <br>
+            <%= form.submit "Ingresar orden", class:"btn btn-success ml-5", data: { confirm: '¿Estas seguro/a?' } %><br><br>
+          </div>
+          </div>
+      <% end %>
   </div>
-</div>

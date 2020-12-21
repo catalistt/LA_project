@@ -14,10 +14,7 @@
   </head>
 
   <body>
-    <% if current_page?(home_index_path) || current_page?(root_path) %>
-    <% else %>
-      <%= render 'shared/navbar' %>
-    <% end %>
+    <%= render 'shared/navbar' %>
     <% flash.each do |type, msg| %>
       <div class="alert alert-<%= type %>">
         <%= msg %>
