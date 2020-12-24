@@ -41,7 +41,7 @@ class OrdersController < ApplicationController
     
     respond_to do |format|
       if @order.save
-        format.html { redirect_to @order, notice: 'Order was successfully created.' }
+        format.html { redirect_to @order, notice: 'La orden se creó correctamente' }
         format.json { render :show, status: :created, location: @order }
       else
         format.html { render :new }
@@ -67,9 +67,11 @@ class OrdersController < ApplicationController
   # DELETE /orders/1
   # DELETE /orders/1.json
   def destroy
+    @user = current_user.name
     @order.destroy
     respond_to do |format|
-      format.html { redirect_to orders_url, notice: 'Order was successfully destroyed.' }
+      ModelMailer.deleted_order_notification(@order, @user).deliver
+      format.html { redirect_to orders_url, notice: 'La orden fue eliminada' }
       format.json { head :no_content }
     end
   end
