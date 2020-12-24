@@ -40,6 +40,8 @@ gem 'ransack'
 gem 'faker'
 gem 'chartkick'
 gem 'highcharts-rails'
+gem 'select2-rails'
+
 
 
 # Use ActiveStorage variant

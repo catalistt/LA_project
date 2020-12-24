@@ -21,3 +21,18 @@
 //= require select2
 //= require turbolinks
 //= require_tree .
+
+
+$(document).on('turbolinks:load', function(){
+  $('#js-searchable-payment').select2({
+    allowClear: true,
+    placeholder: "Digita n° de orden o cliente",
+  });
+  $(document).on('cocoon:after-insert', function(){
+
+    $('#js-searchable-order').select2({
+      allowClear: true,
+      placeholder: "Digita código o nombre",
+    });
+  });
+});

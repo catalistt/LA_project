@@ -16,7 +16,7 @@ Rails.application.routes.draw do
   resources :purchases
   resources :group_discounts
   resources :products do
-    get :st_price
+    get :st_product
   end
   
   resources :consumes

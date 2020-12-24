@@ -7,8 +7,10 @@ class AddProductsController < ApplicationController
     @add_products = AddProduct.all
   end
 
-  def st_price
-    @add_product.default_price(2)
+  def st_price(product_name)
+    product_match = Product.where(name: product)
+    id_product = product_match.find {|p| p.name == product_name}.id
+    AddProduct.default_price(id_product)
   end
 
   # GET /add_products/1

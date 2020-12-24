@@ -12,22 +12,22 @@
     </div>
   <% end %>
   <div class="form-group">
-    <%= form.label :Orden, class: "control-label"%>
-    <%= form.select(:order, order_with_name)%>
+    <%= form.label :Orden, class: "control-label"%><br>
+    <%= form.select(:order, order_with_name, {}, class:"form-control", id: 'js-searchable-payment', multiple: true)%>
   </div>
 
   <div class="form-group">
-    <%= form.label :Método_de_pago, class: "control-label"%>
+    <%= form.label :Método_de_pago, class: "control-label"%><br>
     <%= form.collection_select :payment_method_id, PaymentMethod.all, :id, :name, prompt: true%>
   </div>
 
   <div class="form-group">
-    <%= form.label :Monto_pagado %>
+    <%= form.label :Monto_pagado %><br>
     <%= form.number_field :amount_payed %>
   </div>
 
   <div class="form-group">
-    <%= form.label :Estado %>
+    <%= form.label :Estado %><br>
     <%= form.select(:status, order_status) %>
   </div>
 
