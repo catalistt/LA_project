@@ -41,8 +41,9 @@ gem 'faker'
 gem 'chartkick'
 gem 'highcharts-rails'
 gem 'select2-rails'
-
-
+gem 'sendgrid-ruby'
+gem 'sendgrid-actionmailer'
+gem 'omniauth-google-oauth2'
 
 # Use ActiveStorage variant
 # gem 'mini_magick', '~> 4.8'

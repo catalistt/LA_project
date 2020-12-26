@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
+  devise_for :users, controllers: { omniauth_callbacks: 'users/omniauth_callbacks' }
   get "orders/my_order", to: "orders#my_order"
   get 'home/index'
   get 'home/dashboard'
@@ -25,7 +26,6 @@ Rails.application.routes.draw do
   resources :suppliers
   resources :clients
   resources :groups
-  devise_for :users
 
   unauthenticated :user do
     root 'home#index'
