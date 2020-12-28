@@ -40,10 +40,11 @@ gem 'ransack'
 gem 'faker'
 gem 'chartkick'
 gem 'highcharts-rails'
-gem 'select2-rails'
 gem 'sendgrid-ruby'
 gem 'sendgrid-actionmailer'
 gem 'omniauth-google-oauth2'
+gem 'omniauth-facebook'
+gem 'dotenv-rails', groups: [:development, :test]
 
 # Use ActiveStorage variant
 # gem 'mini_magick', '~> 4.8'
