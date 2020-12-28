@@ -8,7 +8,9 @@ class Order < ApplicationRecord
   has_many :payment_methods, through: :payments
   accepts_nested_attributes_for :add_products, allow_destroy: true
   accepts_nested_attributes_for :payments, allow_destroy: true
+  delegate :business_name, to: :client, prefix: true, allow_nil: true 
+  delegate :name, to: :user, prefix: true, allow_nil: true 
+  delegate :vehicle_plate, to: :delivery_method, prefix: true, allow_nil: true 
 
-  paginates_per 50  
-  
+  paginates_per 50
 end

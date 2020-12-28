@@ -40,11 +40,15 @@ gem 'ransack'
 gem 'faker'
 gem 'chartkick'
 gem 'highcharts-rails'
-gem 'sendgrid-ruby'
-gem 'sendgrid-actionmailer'
 gem 'omniauth-google-oauth2'
 gem 'omniauth-facebook'
 gem 'dotenv-rails', groups: [:development, :test]
+gem 'simple_form'
+gem 'pg_search'
+gem 'acts-as-taggable-on', '~> 6.0'
+gem 'caxlsx'
+gem 'caxlsx_rails'
+
 
 # Use ActiveStorage variant
 # gem 'mini_magick', '~> 4.8'

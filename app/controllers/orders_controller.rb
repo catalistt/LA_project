@@ -1,14 +1,5 @@
 class OrdersController < ApplicationController
   before_action :set_order, only: [:show, :edit, :update, :destroy]
-
-  # GET /orders
-  # GET /orders.json
-  def index
-    @pending_orders = Order.where(visit_end: nil)
-    @delivered_orders = Order.where.not(visit_end: nil)
-    @orders = Order.all
-  end
-
   def dashboard_clients
     @orders_by_count = Order.select(:client_id).group(:client_id).count
     @orders_by_sum = Order.select(:client_id, :total_amount).group(:client_id).sum(:total_amount)
@@ -20,17 +11,27 @@ class OrdersController < ApplicationController
     @delivered_orders = Order.where.not(visit_end: nil )
   end
 
-  # GET /orders/1
-  # GET /orders/1.json
+  def index 
+    @pending_orders = Order.where(visit_end: nil)
+    @delivered_orders = Order.where.not(visit_end: nil)
+    @orders = Order.all
+    respond_to do |format|
+      format.html
+      format.xlsx {
+        render xlsx: "index", filename: "orders-#{DateTime.now.to_date}.xlsx"
+      }
+    end
+  end
+
   def show
   end
 
-  # GET /orders/new
+
   def new
     @order = Order.new
   end
 
-  # GET /orders/1/edit
+
   def edit
   end
 
@@ -86,7 +87,7 @@ class OrdersController < ApplicationController
     def order_params
       params.require(:order).permit(:client_id, :user_id, :delivery_method_id, :net_amount, :total_iva, :total_extra_taxes, :total_amount, :total_packaging_amount, :visit_start, :visit_end, :discount_amount, :discount_comment, :create_invoive, :responsable,
       add_products_attributes: [:id, :order_id, :product_id, :price, :discount, :quantity],
-      add_clients_attributes: [:id, :business_name],
+      add_clients_attributes: [:business_name],
       add_delivery_methods_attributes: [:id, :vehicle_plate, :policy_number, :ensurance_company])
     end
 end

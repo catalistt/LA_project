@@ -20,4 +20,8 @@ class User < ApplicationRecord
     end
   end
 
+  def to_s
+    name
+  end
+
 end
