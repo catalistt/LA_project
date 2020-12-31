@@ -19,7 +19,11 @@
       </a>
       <div class="dropdown-menu" aria-labelledby="navbarDropdown">
         <%= link_to 'Productos', products_path, class: "nav-link" %> 
-        <%= link_to 'Nuevo producto', new_product_path, class: "nav-link" %>      
+        <%= link_to 'Nuevo producto', new_product_path, class: "nav-link" %>
+        <%= link_to 'Ver movimientos de stock', stock_movements_path, class: "nav-link" %>    
+        <%= link_to 'Añadir o quitar stock', new_stock_movement_path, class: "nav-link" %>
+        <%= link_to 'Nuevo costo de producto', new_adquisition_cost_path, class: "nav-link" %>
+        <%= link_to 'Costo de productos', adquisition_costs_path, class: "nav-link" %>
       </div>
     </li>
 
@@ -43,7 +47,6 @@
       <div class="dropdown-menu" aria-labelledby="navbarDropdown">
         <%= link_to 'Ver pagos registrados', payments_path, class: "nav-link" %> 
         <%= link_to 'Registrar nuevo pago', new_payment_path, class: "nav-link" %> 
-        <%= link_to 'Ver pagos pendientes', class: "nav-link" %> 
       </div>
     </li>
 
@@ -55,6 +58,8 @@
           <%= link_to 'Detalle clientes', clients_path, class: "nav-link" %> 
           <%= link_to 'Nuevo cliente', new_client_path, class: "nav-link" %> 
           <%= link_to 'Rankings clientes', orders_dashboard_clients_path ,class: "nav-link" %>
+          <%= link_to 'Detalle grupos', groups_path ,class: "nav-link" %>
+          <%= link_to 'Nuevo grupo', new_group_path ,class: "nav-link" %>
         </div>
       </li>
 
@@ -63,10 +68,11 @@
         Transportes
       </a>
       <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-        <%= link_to 'Detalle transportes', clients_path, class: "nav-link" %> 
+        <%= link_to 'Detalle transportes', delivery_methods_path, class: "nav-link" %> 
         <%= link_to 'Nuevo transporte', new_delivery_method_path, class: "nav-link" %> 
       </div>
     </li>
+    
 
     <li class="nav-item dropdown active">
     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -76,10 +82,7 @@
       <%= link_to 'Detalle ventas', home_dashboard_path, class: "nav-link" %>
     </div>
     </li>
-
-      
-
-      <li class="nav-item dropdown ml-5 pl-5">
+      <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           Configuración
         </a>
@@ -92,10 +95,10 @@
         <%= link_to 'Admin sitio', admin_dashboard_path, class: "nav-link" %> 
       <% end %>
     </ul>
-    <form class="form-inline my-2 my-lg-0">
-      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-    </form>
+    <div class="pr-5 mr-5">
+      <i class="fas fa-user"></i>
+      <%= "#{current_user}" %>
+    </div>
   </div>
   <% end %>
 </nav>

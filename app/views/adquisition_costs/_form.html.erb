@@ -11,17 +11,17 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= form.label :product_id_id %>
-    <%= form.text_field :product_id_id %>
+  <div class="form-group">
+    <%= form.label :Producto %><br> 
+    <%= form.select(:product, product_with_code, {}, id: 'js-searchable-stock') %>
   </div>
 
-  <div class="field">
-    <%= form.label :cost %>
+  <div class="form-group">
+    <%= form.label :Costo %>
     <%= form.text_field :cost %>
   </div>
 
   <div class="actions">
-    <%= form.submit %>
+    <%= form.submit "Agregar costo", class:"btn btn-info"%>
   </div>
 <% end %>

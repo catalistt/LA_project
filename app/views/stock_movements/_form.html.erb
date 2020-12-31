@@ -11,32 +11,32 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= form.label :product_id_id %>
-    <%= form.text_field :product_id_id %>
+  <div class="form-group">
+    <%= form.label :Producto %><br> 
+    <%= form.select(:product, product_with_code, {}, id: 'js-searchable-stock') %>
   </div>
 
-  <div class="field">
-    <%= form.label :initial_stock %>
+  <div class="form-group">
+    <%= form.label :Stock_inicial %>
     <%= form.number_field :initial_stock %>
   </div>
 
-  <div class="field">
-    <%= form.label :added %>
+  <div class="form-group">
+    <%= form.label :Cantidad_a_añadir %>
     <%= form.number_field :added %>
   </div>
 
-  <div class="field">
-    <%= form.label :removed %>
+  <div class="form-group">
+    <%= form.label :Cantidad_a_quitar %>
     <%= form.number_field :removed %>
   </div>
 
-  <div class="field">
-    <%= form.label :final_stock %>
+  <div class="form-group">
+    <%= form.label :Stock_final %>
     <%= form.number_field :final_stock %>
   </div>
 
   <div class="actions">
-    <%= form.submit %>
+    <%= form.submit "Añadir cambio de stock", class:"btn btn-info"%><br>
   </div>
 <% end %>

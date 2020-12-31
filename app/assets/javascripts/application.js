@@ -28,6 +28,10 @@ $(document).on('turbolinks:load', function(){
     allowClear: true,
     placeholder: "Digita n° de orden o cliente",
   });
+  $('#js-searchable-stock').select2({
+    allowClear: true,
+    placeholder: "Digita código o nombre",
+  });
   $(document).on('cocoon:after-insert', function(){
 
     $('#js-searchable-order').select2({

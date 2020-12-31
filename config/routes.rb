@@ -2,9 +2,8 @@ Rails.application.routes.draw do
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
   devise_for :users, controllers: {
-    registrations: 'users/registrations',
     omniauth_callbacks: 'users/omniauth_callbacks' }
-  get "orders/my_order", to: "orders#my_order"
+  get 'orders/my_order' , to: "orders#my_order"
   get 'home/index'
   get 'home/dashboard'
   get 'orders/dashboard_clients'
