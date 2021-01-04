@@ -48,8 +48,8 @@ gem 'pg_search'
 gem 'acts-as-taggable-on', '~> 6.0'
 gem 'caxlsx'
 gem 'caxlsx_rails'
-
-
+gem 'wicked_pdf'
+gem 'wkhtmltopdf-binary'
 # Use ActiveStorage variant
 # gem 'mini_magick', '~> 4.8'
 

@@ -1,14 +1,12 @@
-
-<div class="container">
-  <div class="row">
-    <div class="col-5">
+<div class="row">
+  <div class="col-4 offset-1">
         <h1>Órdenes</h1>
         <%= link_to 'Exportar a Excel', orders_path(format: :xlsx), class:"btn btn-info" %><br>
         <br>
         <table class="table table-striped bg-light" id="orders">
           <thead class="text-center">
             <tr>
-              <th>Fecha<th> 
+              <th>Fecha</th> 
               <th>Cliente</th>
               <th>Vendedor</th>
               <th>Despacho</th>
@@ -23,11 +21,9 @@
               <th>Comentario del descuento</th>
               <th>¿Crear factura?</th>
               <th>Encargado de camión</th>
-              
               <th colspan="3"></th>
             </tr>
           </thead>
-
           <tbody>
             <% @orders.each do |order| %>
               <tr>
@@ -60,4 +56,3 @@
       </div>
     </div>
   </div>
-</div>

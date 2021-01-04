@@ -13,4 +13,6 @@ class Order < ApplicationRecord
   delegate :vehicle_plate, to: :delivery_method, prefix: true, allow_nil: true 
 
   paginates_per 50
+
+
 end

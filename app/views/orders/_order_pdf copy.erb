@@ -1,0 +1,137 @@
+<div class="container bg-white">
+<!--Sección logo e información básica -->
+  <div class="row">
+    <div class="col-6 offset-1 justify-content-center">
+    <% if request.format == 'application/pdf' %>
+        <br><%= wicked_pdf_image_tag("logoLA.png", class: "img-responsive", id: "navbar-logo", size: "185" ) %>
+       <% else %>
+       <br><%= image_tag("logoLA.png", class: "img-responsive", id: "navbar-logo", size: "185" ) %>
+       <% end %>
+      
+      </div>
+    <div class="col-4 bg-white border border-danger mt-3">
+      <br><h5 class="text-center">RUT: 76.712.576-3</h5>
+      <h5 class="text-center text-bold">COMPROBANTE DE VENTA</h5>
+      <h5 class="text-center">N°<%= @order.id %></h5>
+      <h6 class="text-center">Documento no tributario</h6>
+    </div>
+  </div>
+
+<!--Sección Los Amigos -->
+    <div class="row">
+      <div class="col-11 m-3">
+        <h6 class="text-right">Fecha de emisión: <%=@order.date.strftime("%d/%m/%Y") %></h6>
+        <h2>Sociedad Comercial C y C Los Amigos SPA</h2>
+        <div class="row">
+          <div class="col-1">
+            <h6 class="text-blue">Giro:</h6>
+            <h6 class="text-blue">Dirección:</h6>
+            <h6 class="text-blue">Comuna:</h6>
+            <h6 class="text-blue">Región:</h6>
+          </div>
+          <div class="col-8">
+            <h6>VENTA AL POR MENOR DE BEBIDAS ALCOHÓLICAS Y NO ALCOHÓLICAS.</h6>
+            <h6>General del Canto 50, of. 301.</h6>
+            <h6>Providencia.</h6>
+            <h6>Metropolitana.</h6>
+          </div>
+        </div>
+      </div>
+    </div>
+<!--Sección información receptor -->
+  <div class="row">
+    <div class="col-11 ml-3 bg-blue">
+      <h5 class="text-center pt-1">Información del receptor</h5>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-11 ml-3 border pt-1 border-dark">
+      <div class="row">
+        <div class="col-1">
+          <h6 class="text-blue">Cliente/a:</h6>
+          <h6 class="text-blue">RUT:</h6>
+          <h6 class="text-blue">Dirección:</h6>
+        </div>
+        <div class="col-3">
+          <h6><%= @order.client.business_name %></h6>
+          <h6><%= @order.client.rut %></h6>
+          <h6><%= @order.client.address %></h6>
+        </div>
+        <div class="col-1">
+          <h6 class="text-blue">Vendedor:</h6>
+          <h6 class="text-blue">Horario:</h6>
+        </div>
+        <div class="col-3">
+          <h6><%= @order.user_name %></h6>
+          <h6><%= @order.client.schedule %></h6>
+        </div>
+      </div>
+    </div>
+  </div><br>
+
+  <!--Sección información de la orden-->
+    <div class="row pr-3">
+      <div class="col-11 ml-3 bg-blue">
+        <h5 class="text-center pt-1">Detalle del documento</h5>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-11 ml-1 pr-0 mr-0">
+        <table class="table table-striped border border-dark">
+          <thead class="text-center">
+            <tr>
+              <th>Código</th> 
+              <th>Producto</th>
+              <th>Cantidad</th>
+              <th>Porcentaje impuesto extra</th>
+              <th>Porcentaje de descuento</th>
+              <th>Total item</th>
+            </tr>
+          </thead>
+          <tbody class="text-center">
+            <% @order.add_products.each do |item| %>
+              <tr>
+                <td><%= item.product.code %></td>
+                <td><%= item.product.name %></td>
+                <td><%= item.quantity %></td>
+                <td><%= item.product.extra_tax %></td>
+                <td><%= item.discount %></td>
+                <td><%= item.total_product_amount %></td>
+              </tr>  
+            <% end %>
+          </tbody>
+        </table>  
+      </div>
+    </div>
+    <!--Sección información de montos-->
+    <div class="row">
+      <div class="col-8"></div>
+        <div class="col-3 text-right bg-blue">
+          <h5 class="text-center pt-1">Detalle montos</h5>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-8"></div>
+      <div class="col-3 pl-0 border border-dark">
+        <div class="row m-2">
+          <div class="col-6">
+            <h6 class="text-blue"> Monto neto:</h6>
+            <h6 class="text-blue"> IVA:</h6>
+            <h6 class="text-blue"> Imptos. extra:</h6>
+            <h6 class="text-blue text-bold"> Total:</h6>
+          </div>
+          <div class="col-6">
+            <h6>$ <%= @order.net_amount %></h6>
+            <h6>$ <%= @order.total_iva %></h6>
+            <h6>$ <%= @order.total_extra_taxes %></h6>
+            <h6 class="text-bold">$ <%= @order.total_amount %></h6>
+          </div>
+        </div>
+      </div>
+    </div><br><br>
+  </div><br><br>          
+
+
+</div>
+<br><br>
+        
