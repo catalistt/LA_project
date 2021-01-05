@@ -20,6 +20,13 @@
           </div>
         <% end %>
        
+          <div class="form-group">
+            <%= form.label :Fecha_de_entrega, class:"control-label" %>
+            <%= form.date_select :date,  {:use_month_names => ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre','Diciembre'], discard_year: true, selected: Date.today} %>
+          </div>
+        </div>
+       
+        <div class="col-2"><br><br>
         <div class="form-group">
           <%= form.label :Cliente, class: "control-label"%>
           <%= form.collection_select :client_id, Client.all, :id, :business_name, prompt: true%>
@@ -103,7 +110,7 @@
         <h4 class="ml-3">Agregar productos</h4>
           <div class="field" id="add_products">
             <%= form.fields_for :add_products do |add_product_form| %>
-              <%= render 'add_product_fields', f: add_product_form %>
+              <%= render 'add_product_fields', f: add_product_form %> , 'data-association-insertion-node' => "#order-products", 'data-association-insertion-method' => "append", :wrap_object => Proc.new {|add_product| add_product.build_product; add_product } %>
             <% end %>
             <div class="links">
             <br>

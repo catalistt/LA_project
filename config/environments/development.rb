@@ -35,12 +35,6 @@ Rails.application.configure do
   config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
   config.action_mailer.perform_caching = false
 
-  #Mails with SendGrid
-  config.action_mailer.delivery_method = :sendgrid_actionmailer
-  config.action_mailer.sendgrid_actionmailer_settings = {
-  api_key: ENV['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'],
-  raise_delivery_errors: true}
-
   # Print deprecation notices to the Rails logger.
   config.active_support.deprecation = :log
 

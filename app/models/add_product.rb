@@ -1,8 +1,8 @@
 class AddProduct < ApplicationRecord
+  attr_accessor :product_attributes
   belongs_to :product
   belongs_to :order
 
-  def default_price(id_product)
-    Product.find(id_product).standard_price
-  end
+  accepts_nested_attributes_for :product, :reject_if => :all_blank
+  
 end

@@ -83,7 +83,7 @@ class OrdersController < ApplicationController
     @user = current_user.name
     @order.destroy
     respond_to do |format|
-      #ModelMailer.deleted_order_notification(@order, @user).deliver
+      UserNotifierMailer.send_deleted_order(@order).deliver
       format.html { redirect_to orders_url, notice: 'La orden fue eliminada' }
       format.json { head :no_content }
     end
@@ -97,9 +97,9 @@ class OrdersController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def order_params
-      params.require(:order).permit(:client_id, :user_id, :delivery_method_id, :net_amount, :total_iva, :total_extra_taxes, :total_amount, :total_packaging_amount, :visit_start, :visit_end, :discount_amount, :discount_comment, :create_invoive, :responsable,
-      add_products_attributes: [:id, :order_id, :product_id, :price, :discount, :quantity],
-      add_clients_attributes: [:id, :business_name],
+      params.require(:order).permit(:client_id, :user_id, :delivery_method_id, :net_amount, :total_iva, :total_extra_taxes, :total_amount, :total_packaging_amount, :visit_start, :visit_end, :discount_amount, :discount_comment, :create_invoive, :responsable, :date,
+      add_products_attributes: [:id, :order_id, :product_id, :price, :discount, :quantity, :total_product_amount, :extra_tax_id],
+      add_clients_attributes: [:id, :business_name, :user_id, :rut, :address, :phone_number, :schedule, :special_agreeement, :group_id],
       add_delivery_methods_attributes: [:id, :vehicle_plate, :policy_number, :ensurance_company])
     end
 end

@@ -79,6 +79,6 @@ class AddProductsController < ApplicationController
       add_products_attributes: [:product_id, :price, :discount, :quantity, :total_product_amount, :packaging_amount],
       add_clients_attributes: [:client_id, :business_name],
       add_delivery_methods_attributes: [:delivery_method_id, :vehicle_plate, :policy_number, :ensurance_company],
-      add_orders_attributes: [:client_id, :user_id, :delivery_method_id])
+      add_orders_attributes: [:order_id, :client_id, :user_id, :delivery_method_id])
     end
 end
