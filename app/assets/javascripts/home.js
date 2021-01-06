@@ -1,4 +1,4 @@
-$(document).on('turbolinks:load', function(){
+/* $(document).on('turbolinks:load', function(){
   $(function() {
     $('input[name="daterange"]').daterangepicker({
       locale: {
@@ -9,3 +9,4 @@ $(document).on('turbolinks:load', function(){
     });
   });
 });
+*/

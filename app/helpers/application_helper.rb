@@ -29,15 +29,4 @@ module ApplicationHelper
     end
     return payments_name
   end
-
-  def product_with_code
-
-    products_name = []
-    Product.all.each do |product|
-      element = ["#{product.code} - #{product.name}"]
-      products_name.push(element)
-    end
-    return products_name
-  end
-
 end

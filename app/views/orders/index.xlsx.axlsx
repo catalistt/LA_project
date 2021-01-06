@@ -1,6 +1,7 @@
 wb = xlsx_package.workbook
 wb.add_worksheet(name: "Orders") do |sheet|
+sheet.add_row ['id de la orden','Despacho', 'monto neto', 'IVA', 'Otros impuestos', 'Monto total', 'Monto envases', 'Hora despacho inicio', 'Hora despacho fin', 'Dcto en despacho', 'Comentario dcto', 'Factura', 'Responsable']
   @orders.each do |order|
-    sheet.add_row [order.id, order.client_id, order.total_amount]
+    sheet.add_row [order.id, order.user_id, order.net_amount, order.total_iva, order.total_extra_taxes, order.total_amount, order.total_packaging_amount, order.visit_start, order.visit_end, order.discount_amount, order.discount_comment, order.create_invoive, order.responsable]
   end
 end

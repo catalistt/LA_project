@@ -6,7 +6,7 @@
     <div class="col-4"><br><br>
       <div class="field st-product">
         <%= f.label :Producto, class:"field" %><br> 
-        <%= f.select(:product, product_with_code, {}, id: 'js-searchable-order') %>
+        <%= f.select(:product, Product.all.map {|product| ["#{product.code} - #{product.name}", product.id] }, {} ,id: 'js-searchable-order') %>
       </div>
      </div> 
      
