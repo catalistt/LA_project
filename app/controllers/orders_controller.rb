@@ -1,5 +1,6 @@
 class OrdersController < ApplicationController
   before_action :set_order, only: [:show, :edit, :update, :destroy]
+
   def dashboard_clients
     @orders_by_count = Order.select(:client_id).group(:client_id).count
     @orders_by_sum = Order.select(:client_id, :total_amount).group(:client_id).sum(:total_amount)
@@ -37,21 +38,16 @@ class OrdersController < ApplicationController
     end 
   end
 
-
-
   def new
     @order = Order.new
   end
 
-
   def edit
   end
 
-  # POST /orders
-  # POST /orders.json
   def create
     @order = Order.new(order_params)
-    
+    @order.user_id = Client.find(order_params[:client_id]).user_id
     respond_to do |format|
       if @order.save
         format.html { redirect_to @order, notice: 'La orden se creó correctamente' }
@@ -63,8 +59,6 @@ class OrdersController < ApplicationController
     end
   end
 
-  # PATCH/PUT /orders/1
-  # PATCH/PUT /orders/1.json
   def update
     respond_to do |format|
       if @order.update(order_params)
@@ -77,9 +71,7 @@ class OrdersController < ApplicationController
     end
   end
 
-  # DELETE /orders/1
-  # DELETE /orders/1.json
-  def destroy
+  def destroy 
     @user = current_user.name
     @order.destroy
     respond_to do |format|
@@ -98,8 +90,9 @@ class OrdersController < ApplicationController
     # Only allow a list of trusted parameters through.
     def order_params
       params.require(:order).permit(:client_id, :user_id, :delivery_method_id, :net_amount, :total_iva, :total_extra_taxes, :total_amount, :total_packaging_amount, :visit_start, :visit_end, :discount_amount, :discount_comment, :create_invoive, :responsable, :date,
-      add_products_attributes: [:id, :order_id, :product_id, :price, :discount, :quantity, :total_product_amount, :extra_tax_id],
+      add_products_attributes: [:id, :order_id, :product_id, :price, :discount, :quantity, :total_product_amount, :extra_tax_id, :packaging_amount],
       add_clients_attributes: [:id, :business_name, :user_id, :rut, :address, :phone_number, :schedule, :special_agreeement, :group_id],
-      add_delivery_methods_attributes: [:id, :vehicle_plate, :policy_number, :ensurance_company])
+      add_delivery_methods_attributes: [:id, :vehicle_plate, :policy_number, :ensurance_company],
+      add_add_products_attributes: [:id, :order_id, :product_id, :price, :discount, :quantity, :total_product_amount, :extra_tax_id, :packaging_amount])
     end
 end
