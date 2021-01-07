@@ -8,7 +8,7 @@
       <div class="col-2">
         <h4 class="ml-3">Datos básicos </h4>
       </div>
-        <%= form_with(model: order, local: true) do |form| %>
+        <%= form_with(model: order, remote: true) do |form| %>
           <% if order.errors.any? %>
             <div id="error_explanation">
               <h2><%= pluralize(order.errors.count, "error") %> prohibited this order from being saved:</h2>
@@ -20,21 +20,21 @@
             </div>
           <% end %>
           <div class="row">
-            <div class="col-2 offset-1"><br><br>
+            <div class="col-2 offset-1"><br>
               <div class="form-group">
                 <%= form.label :Fecha_de_entrega, class:"control-label" %>
                 <%= form.date_select :date,  {:use_month_names => ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre','Diciembre'], discard_year: true, selected: Date.today} %>
               </div>
             </div>
     
-            <div class="col-2"><br><br>
+            <div class="col-2"><br>
               <div class="form-group">
                 <%= form.label :Cliente, class: "control-label"%><br> 
                 <%= form.collection_select :client_id, Client.all, :id, :business_name, prompt: true%>
               </div>
             </div>
 
-            <div class="col-2"><br><br>
+            <div class="col-2"><br>
               <div class="form-group">
                 <%= form.label :Despacho_por, class:"control-label" %>
                 <%= form.collection_select :delivery_method_id, DeliveryMethod.all, :id, :vehicle_plate, prompt: true%>
@@ -83,7 +83,7 @@
             </div>
 
             -->
-            <div class="col-2"><br><br>
+            <div class="col-2"><br>
               <div class="form-group">
                 <%= form.label :Hacer_factura, class:"control-label" %><br>
                 <%= form.check_box :create_invoive, :style => "width: 25px; height: 25px;"%>
@@ -106,13 +106,13 @@
                 <%= form.fields_for :add_products do |add_product_form| %>
                   <%= render 'add_product_fields', f: add_product_form %>
                 <% end %>
-                <div class="links"><br><br>
+                <div class="links"><br>
                   <%= link_to_add_association 'Añadir nuevo producto', form, :add_products, class:"btn btn-info ml-5" %>
                 </div>
               </div>
             </div>
               <div><br>
-                <%= form.submit "Ingresar orden", class:"btn btn-success ml-5 ", data: { confirm: '¿Estas seguro/a?' } %><br><br>
+                <%= form.submit "Ingresar orden", class:"btn btn-success ml-5 "%><br><br>
               </div>
           </div>
         <% end %>

@@ -48,6 +48,7 @@ gem 'caxlsx_rails'
 gem 'wicked_pdf'
 gem 'wkhtmltopdf-binary'
 gem 'sendgrid'
+gem 'font-awesome-rails'
 # Use ActiveStorage variant
 # gem 'mini_magick', '~> 4.8'
 

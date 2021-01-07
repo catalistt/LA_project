@@ -1,10 +1,13 @@
 class AddProductsController < ApplicationController
   before_action :set_add_product, only: [:show, :edit, :update, :destroy]
 
-  # GET /add_products
-  # GET /add_products.json
   def index
     @add_products = AddProduct.all
+  end
+
+  def search
+    @product = Product.search(params[:search])
+    respond_to :js
   end
 
   def st_price(product_name)
@@ -13,22 +16,10 @@ class AddProductsController < ApplicationController
     AddProduct.default_price(id_product)
   end
 
-  # GET /add_products/1
-  # GET /add_products/1.json
-  def show
-  end
-
-  # GET /add_products/new
   def new
     @add_product = AddProduct.new
   end
 
-  # GET /add_products/1/edit
-  def edit
-  end
-
-  # POST /add_products
-  # POST /add_products.json
   def create
     @add_product = AddProduct.new(add_product_params)
 
@@ -43,8 +34,6 @@ class AddProductsController < ApplicationController
     end
   end
 
-  # PATCH/PUT /add_products/1
-  # PATCH/PUT /add_products/1.json
   def update
     respond_to do |format|
       if @add_product.update(add_product_params)
@@ -57,8 +46,6 @@ class AddProductsController < ApplicationController
     end
   end
 
-  # DELETE /add_products/1
-  # DELETE /add_products/1.json
   def destroy
     @add_product.destroy
     respond_to do |format|

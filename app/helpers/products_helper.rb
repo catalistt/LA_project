@@ -12,4 +12,5 @@ module ProductsHelper
   def taxes
     [["Cervezas y otros alcoholes", 0.18], [ "Bebidas azucaradas", 0.25]]
   end
+
 end
