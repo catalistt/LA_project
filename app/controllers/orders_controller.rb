@@ -75,7 +75,7 @@ class OrdersController < ApplicationController
     @user = current_user.name
     @order.destroy
     respond_to do |format|
-      UserNotifierMailer.send_deleted_order(@order).deliver
+      ModelMailer.deleted_order_notification(@order, @user).deliver
       format.html { redirect_to orders_url, notice: 'La orden fue eliminada' }
       format.json { head :no_content }
     end

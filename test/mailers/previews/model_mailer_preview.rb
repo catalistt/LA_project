@@ -12,7 +12,7 @@ class ModelMailerPreview < ActionMailer::Preview
   end
 
   # Preview this email at http://localhost:3000/rails/mailers/model_mailer/deleted_order_notification
-  def deleted_order_notification
+  def deleted_order_notification(order, user)
     ModelMailer.deleted_order_notification
   end
 

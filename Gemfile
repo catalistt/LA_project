@@ -39,7 +39,7 @@ gem 'chartkick'
 gem 'highcharts-rails'
 gem 'omniauth-google-oauth2'
 gem 'omniauth-facebook'
-gem 'dotenv-rails', groups: [:development, :test]
+gem 'dotenv-rails', groups: [:development, :test, :production]
 gem 'simple_form'
 gem 'pg_search'
 gem 'acts-as-taggable-on', '~> 6.0'
@@ -47,7 +47,7 @@ gem 'caxlsx'
 gem 'caxlsx_rails'
 gem 'wicked_pdf'
 gem 'wkhtmltopdf-binary'
-gem 'sendgrid'
+gem 'sendgrid-ruby'
 gem 'font-awesome-rails'
 # Use ActiveStorage variant
 # gem 'mini_magick', '~> 4.8'
