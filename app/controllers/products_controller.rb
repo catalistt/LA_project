@@ -7,11 +7,10 @@ class ProductsController < ApplicationController
   end
 
   def set_price
-    product_id = params[:id]
-    @product = Product.find(product_id).price
+    @product_price = Product.find(params[:product_id]).standard_price
     respond_to do |format|
       format.html
-      format.json {render json: @product}
+      format.json {render json: @product_price}
     end
   end
 
