@@ -18,7 +18,7 @@
      <div class="col-3 offset-1 discount"><br>
       <div class="field">
         <%= f.label :Descuento %><br>
-        <%= f.select(:discount, discounts, class: "p_discount") %>
+        <%= f.select :discount, options_for_select(discounts), {include_blank: false }, { autofocus: 'true', class: 'custom-select p_discount'} %>
       </div>
       </div>
     </div>

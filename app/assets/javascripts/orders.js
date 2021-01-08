@@ -15,27 +15,29 @@ $(document).on('turbolinks:load', function() {
             
           }
       })  
-      getTotalAmount($(this));
+      getTotalAmount(parentContainer);
     });
 
 
     $('.quantity').on('keyup', function() {
-      getTotalAmount($(this));
+      var parentContainer = $(this).parent().parent().parent().parent();
+      getTotalAmount(parentContainer);
     });
 
     $('.p-price').on('keyup', function() {
-      getTotalAmount($(this));
+      var parentContainer = $(this).parent().parent().parent().parent();
+      getTotalAmount(parentContainer);
     });
 
-    $('.discount').on('keyup', function() {
-      getTotalAmount($(this));
+    $('.discount').on('change', function() {
+      var parentContainer = $(this).parent().parent();
+      getTotalAmount(parentContainer);
     });
 
   })
 })
 
-function getTotalAmount(element){
-  var parentContainer = element.parent().parent().parent().parent();
+function getTotalAmount(parentContainer){
   var price = parentContainer.find('.p-price').val();
   var discount = parentContainer.find('.p_discount').val() || 0;
   var quantity = parentContainer.find('.quantity').val();
