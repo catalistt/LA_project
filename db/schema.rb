@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_01_07_001428) do
+ActiveRecord::Schema.define(version: 2021_01_07_181320) do
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.string "namespace"
@@ -96,6 +96,12 @@ ActiveRecord::Schema.define(version: 2021_01_07_001428) do
     t.string "ensurance_company"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "brand"
+    t.string "vehicle_model"
+    t.string "max_weight"
+    t.string "consume"
+    t.string "emergency_number"
+    t.date "last_revision"
   end
 
   create_table "group_discounts", force: :cascade do |t|

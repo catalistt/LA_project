@@ -12,14 +12,12 @@ Rails.application.routes.draw do
   resources :payment_methods
   resources :adquisition_costs
   resources :stock_movements
-  resources :add_products do
-    get :set_price
-  end
+  resources :add_products 
   resources :orders
   resources :purchases
   resources :group_discounts
   resources :products do
-    get :set_product
+    get :set_price
   end
   
   resources :consumes

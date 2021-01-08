@@ -1,28 +1,33 @@
 class ProductsController < ApplicationController
-  before_action :set_product, only: [:show, :edit, :update, :destroy]
+  before_action :set_product, only: [:show, :edit, :update, :destroy, :set_price]
 
-  # GET /products
-  # GET /products.json
+
   def index
     @products = Product.all
   end
-  # GET /products/1
-  # GET /products/1.json
+
+  def set_price
+    product_id = params[:set_price]
+    @product = Product.find(product_id).price
+    respond_to do |format|
+      format.html
+      format.json {render json: @product}
+    end
+  end
+
   def show
   end
 
-  # GET /products/new
+
   def new
     @product = Product.new
 
   end
 
-  # GET /products/1/edit
   def edit
   end
 
-  # POST /products
-  # POST /products.json
+
   def create
     @product = Product.new(product_params)
 

@@ -19,18 +19,28 @@
       </div>
 
       <div class="form-group">
-        <%= form.label :Fecha_de_adquisición %>
-        <%= form.date_select :adquisition_date %>
+        <%= form.label :Marca %>
+        <%= form.text_field :brand%>
       </div>
 
       <div class="form-group">
-        <%= form.label :Número_de_poliza %>
-        <%= form.number_field :policy_number %>
+        <%= form.label :Modelo%>
+        <%= form.text_field :vehicle_model %>
       </div>
 
       <div class="form-group">
-        <%= form.label :Compañía_de_seguros %>
-        <%= form.text_field :ensurance_company %>
+        <%= form.label :Peso_máximo %>
+        <%= form.text_field :max_weight %>
+      </div>
+
+      <div class="form-group">
+        <%= form.label :Consumo_aproximado %>
+        <%= form.text_field :consume %>
+      </div>
+
+      <div class="form-group">
+        <%= form.label :Número_de_emergencia %>
+        <%= form.text_field :emergency_number %>
       </div>
 
       <div class="actions">

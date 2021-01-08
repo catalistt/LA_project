@@ -7,9 +7,12 @@
     <thead>
       <tr>
         <th>Patente</th>
-        <th>Fecha de adquisición</th>
-        <th>Póliza</th>
-        <th>Compañía de seguros</th>
+        <th>Marca</th>
+        <th>Modelo</th>
+        <th>Peso máximo</th>
+        <th>Consumo aproximado</th>
+        <th>Última revisión</th>
+        <th>Número de emergencia</th>
         <th colspan="3"></th>
       </tr>
     </thead>
@@ -18,9 +21,12 @@
       <% @delivery_methods.each do |delivery_method| %>
         <tr>
           <td><%= delivery_method.vehicle_plate %></td>
-          <td><%= delivery_method.adquisition_date %></td>
-          <td><%= delivery_method.policy_number %></td>
-          <td><%= delivery_method.ensurance_company %></td>
+          <td><%= delivery_method.brand %></td>
+          <td><%= delivery_method.vehicle_model %></td>
+          <td><%= delivery_method.max_weight %></td>
+          <td><%= delivery_method.consume %></td>
+          <td><%= delivery_method.last_revision %></td>
+          <td><%= delivery_method.emergency_number %></td>
           <td><%= link_to 'Mostrar', delivery_method, class:"btn btn-info" %></td>
           <td><%= link_to 'Editar', edit_delivery_method_path(delivery_method), class:"btn btn-info" %></td>
           <td><%= link_to 'Eliminar', delivery_method, method: :delete, data: { confirm: 'Estás seguro/a de eliminar el registro?' }, class:"btn btn-info" %></td>

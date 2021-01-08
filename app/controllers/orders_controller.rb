@@ -15,7 +15,7 @@ class OrdersController < ApplicationController
   def index 
     @pending_orders = Order.where(visit_end: nil)
     @delivered_orders = Order.where.not(visit_end: nil)
-    @orders = Order.all
+    @orders = Order.all.order('created_at DESC')
     respond_to do |format|
       format.html
       format.xlsx {

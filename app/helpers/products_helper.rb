@@ -6,7 +6,7 @@ module ProductsHelper
   end
 
   def categories
-  [["Bebida", "soda"], [ "Cerveza", "beer"], ["Vino", "wine"], ["Snack", "snack"], ["Agua","water"]]
+  [["ENERGETICA", "energetic"], ["BEBIDA ISOTONICA", "isotonic"], ["NECTAR", "nectar"], ["PROMOCION", "promotion"], ["SERVICIO", "service"], ["TE", "tea"], ["BEBIDA", "soda"], [ "CERVEZA", "beer"], ["VINO", "wine"], ["SNACK", "snack"], ["AGUAS","water"]]
   end
 
   def taxes
