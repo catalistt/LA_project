@@ -1,5 +1,5 @@
 class ProductsController < ApplicationController
-  before_action :set_product, only: [:show, :edit, :update, :destroy, :set_price]
+  before_action :set_product, only: [:show, :edit, :update, :destroy]
 
 
   def index
@@ -7,7 +7,7 @@ class ProductsController < ApplicationController
   end
 
   def set_price
-    product_id = params[:set_price]
+    product_id = params[:id]
     @product = Product.find(product_id).price
     respond_to do |format|
       format.html

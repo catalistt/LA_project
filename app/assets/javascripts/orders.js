@@ -7,7 +7,7 @@ $(document).on('turbolinks:load', function() {
         type:"GET",
         url:"products/set_price",
         dataType:"json",
-        data: {set_price: product_id},
+        data: {id: product_id},
         success:function(result){
           alert(result);
           console.log(result);  
