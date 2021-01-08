@@ -1,11 +1,10 @@
 $(document).on('turbolinks:load', function() {
   $(document).on('cocoon:after-insert', function(){
     $('.st-product').on('change', function() {
-      var parent_container = $(this).parent(".products_container")
-      var input_price = $(this).siblings(".p-price")
-      var input_packaging = $(this).siblings('.packaging');
+      var parentContainer = $(this).parent().parent().parent().parent();
+      var input_price = parentContainer.find(".p-price")
+      var input_packaging = parentContainer.find('.packaging');
       var product_id= $(this).val();
-      debugger;
         $.ajax({
           type:"GET",
           url:"/products/"+product_id+"/set_price",
@@ -15,31 +14,33 @@ $(document).on('turbolinks:load', function() {
             input_packaging.val(0);
             
           }
-      })    
+      })  
+      getTotalAmount($(this));
     });
 
 
-    $('.quantity').on('change', function() {
-      getTotalAmount();
+    $('.quantity').on('keyup', function() {
+      getTotalAmount($(this));
     });
 
-    $('.p-price').on('change', function() {
-      getTotalAmount();
+    $('.p-price').on('keyup', function() {
+      getTotalAmount($(this));
     });
 
-    $('.discount').on('change', function() {
-      getTotalAmount();
+    $('.discount').on('keyup', function() {
+      getTotalAmount($(this));
     });
 
   })
 })
 
-function getTotalAmount(){
-  var price = $(this).siblings('.p-price');
-  var discount = $(this).siblings('.p_discount');
-  var quantity = $(this).siblings('.quantity');
+function getTotalAmount(element){
+  var parentContainer = element.parent().parent().parent().parent();
+  var price = parentContainer.find('.p-price').val();
+  var discount = parentContainer.find('.p_discount').val() || 0;
+  var quantity = parentContainer.find('.quantity').val();
   if(!isNaN(price) || !isNaN(discount) || !isNaN(quantity)) {
-    var total_amount = $(this).siblings('.p_total_amount');
+    var total_amount = parentContainer.find('.p_total_amount');
     var multiply = (price - (discount* price))* quantity;
     total_amount.val(Math.round(multiply))
   }
