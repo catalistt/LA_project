@@ -3,8 +3,8 @@
 <div class="row">
   <div class="col-6 offset-3">
   <h2> Evaluación y comportamiento clientes - Rankings </h2>
-    <%= pie_chart @my_orders, title: "Ventas hechas" %>
-    <%= pie_chart @my_amount, title: "Monto recaudado en ventas"%>
+    <%= pie_chart @orders_by_count, title: "Ventas hechas" %>
+    <%= pie_chart @orders_by_sum, title: "Monto recaudado en ventas"%>
   </div>
 </div>
 

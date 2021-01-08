@@ -22,7 +22,7 @@ class Order < ApplicationRecord
   delegate :vehicle_plate, to: :delivery_method, prefix: true, allow_nil: true 
 
   paginates_per 50
-
+  
   before_save do
     total = self.add_products.map { |product| product.quantity * product.total_product_amount }.sum-to_s.to_d
     if total == nil
