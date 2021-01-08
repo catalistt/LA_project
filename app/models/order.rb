@@ -23,20 +23,18 @@ class Order < ApplicationRecord
 
   paginates_per 50
 
-  #def total_amount
-  #  self.add_products.map { |product| product.quantity * product.total_product_amount }.sum
-  #end
-
-  #def total_iva
-  #    total_amount * 0.19
-  #end
-
-  #def net_amount
-  #    total_amount - total_iva
-  #end
-
-  #def total_extra_taxes
-  #    self.add_products.map { |product| product.quantity * product.extra_tax }.sum
-  #end
-
+  before_save do
+    total = self.add_products.map { |product| product.quantity * product.total_product_amount }.sum-to_s.to_d
+    if total == nil
+      total = "0.0".to_d
+    end
+    self.total_amount = total.to_s.to_d
+    self.total_iva = self.total_amount * 0.19
+    self.net_amount = total - (total*0.19)
+    if self.total_extra_taxes == nil
+      self.total_extra_taxes = "0.0".to_d
+    else
+      self.total_extra_taxes = self.add_products.map { |product| product.quantity * product.extra_tax_id.to_i }.sum.to_s.to_d
+    end
+  end
 end

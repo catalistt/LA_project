@@ -1,25 +1,25 @@
 <div class="nested-fields">
 
-<div class="container ml-3">
+<div class="container ml-3 products_container">
   <div class="row">
     <div class="col-4"><br>
-      <div class="field st-product">
+      <div class="field">
         <%= f.label :Producto, class:"field" %><br> 
-        <%= f.select(:product_id, Product.all.map {|product| ["#{product.code} - #{product.name}", product.id] }, {} ,id: 'js-searchable-order') %>
+        <%= f.select(:product_id, Product.all.map {|product| ["#{product.code} - #{product.name}", product.id] }, {} ,class:"st-product") %>
       </div>
      </div> 
      
      <div class="col-2 offset-2"><br>
       <div class="field st-price">
         <%= f.label :Precio %><br>
-        <%= f.text_field :price, id: "p-price"%>
+        <%= f.text_field :price, class: "p-price"%>
       </div>
      </div>
 
      <div class="col-3 offset-1 discount"><br>
       <div class="field">
         <%= f.label :Descuento %><br>
-        <%= f.select(:discount, discounts) %>
+        <%= f.select(:discount, discounts, class: "p_discount") %>
       </div>
       </div>
     </div>
@@ -28,21 +28,21 @@
         <div class="col-3"><br>
           <div class="field">
             <%= f.label :Cantidad %>
-            <%= f.number_field :quantity, id: "quantity"  %>
+            <%= f.number_field :quantity, class: "quantity"  %>
           </div>
         </div>
 
         <div class="col-3"><br>
           <div class="field">
             <%= f.label :Precio_total %>
-            <%= f.number_field :total_product_amount %>
+            <%= f.number_field :total_product_amount, class:"p_total_amount" %>
           </div>
         </div>
 
         <div class="col-3"><br>
           <div class="field">
             <%= f.label :Costo_envases %>
-            <%= f.number_field :packaging_amount, id: "packaging" %>
+            <%= f.number_field :packaging_amount, class: "packaging" %>
           </div>
         </div>    
         <div class="col-3"><br><br>

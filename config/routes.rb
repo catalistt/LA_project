@@ -7,7 +7,6 @@ Rails.application.routes.draw do
   get 'home/index'
   get 'home/dashboard'
   get 'orders/dashboard_clients'
-  get 'add_products/search'
   resources :payments
   resources :payment_methods
   resources :adquisition_costs
