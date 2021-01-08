@@ -2,8 +2,8 @@
 A custom business management application to keep track of sales, clients, products, deliveries, etc. it was created to help in the business and its daily operation.
 
 ## The app was created with:
-*Ruby 2.5.3
-*Rails 2.5.3
+- Ruby 2.5.3
+- Rails 2.5.3
 
 And uploaded to Heroku.
 
