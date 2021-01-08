@@ -3,10 +3,12 @@ Rails.application.routes.draw do
   ActiveAdmin.routes(self)
   devise_for :users, controllers: {
     omniauth_callbacks: 'users/omniauth_callbacks' }
+  resources :users, only: [:show, :edit, :update]  
   get 'orders/my_order' , to: "orders#my_order"
   get 'home/index'
   get 'home/dashboard'
   get 'orders/dashboard_clients'
+  get 'orders/my_detail'
   resources :payments
   resources :payment_methods
   resources :adquisition_costs

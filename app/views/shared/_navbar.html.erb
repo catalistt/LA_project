@@ -73,7 +73,7 @@
       </div>
     </li>
     
-
+    <!--
     <li class="nav-item dropdown active">
     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
       Resúmenes
@@ -82,11 +82,13 @@
       <%= link_to 'Detalle ventas', home_dashboard_path, class: "nav-link" %>
     </div>
     </li>
+    -->
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           Configuración
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <%= link_to 'Mi comportamiento', orders_my_detail_path, class: "nav-link" %> 
           <%= link_to 'Editar perfil', edit_user_registration_path, class: "nav-link" %> 
           <%= link_to 'Cerrar sesión', destroy_user_session_path, method: :delete, class: "nav-link" %>
         </div>

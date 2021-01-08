@@ -6,6 +6,11 @@ class OrdersController < ApplicationController
     @orders_by_sum = Order.select(:client_id, :total_amount).group(:client_id).sum(:total_amount)
   end
 
+  def my_detail
+    @my_orders = Order.where(user_id: current_user.id).select(:client_id).group(:client_id).count
+    @my_amounts = Order.where(user_id: current_user.id).select(:client_id, :total_amount).group(:client_id).sum(:total_amount)
+  end
+
   def my_order
     @orders = Order.where(user: current_user)
     @pending_orders = Order.where(visit_end: nil)
