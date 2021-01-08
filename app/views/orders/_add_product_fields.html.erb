@@ -12,11 +12,11 @@
      <div class="col-2 offset-2"><br>
       <div class="field st-price">
         <%= f.label :Precio %><br>
-        <%= f.text_field :price%>
+        <%= f.text_field :price, id: "p-price"%>
       </div>
      </div>
 
-     <div class="col-3 offset-1"><br>
+     <div class="col-3 offset-1 discount"><br>
       <div class="field">
         <%= f.label :Descuento %><br>
         <%= f.select(:discount, discounts) %>
@@ -28,7 +28,7 @@
         <div class="col-3"><br>
           <div class="field">
             <%= f.label :Cantidad %>
-            <%= f.number_field :price  %>
+            <%= f.number_field :quantity, id: "quantity"  %>
           </div>
         </div>
 
@@ -42,7 +42,7 @@
         <div class="col-3"><br>
           <div class="field">
             <%= f.label :Costo_envases %>
-            <%= f.number_field :packaging_amount %>
+            <%= f.number_field :packaging_amount, id: "packaging" %>
           </div>
         </div>    
         <div class="col-3"><br><br>
