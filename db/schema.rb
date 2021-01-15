@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_01_09_022744) do
+ActiveRecord::Schema.define(version: 2021_01_15_205351) do
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.string "namespace"
@@ -36,8 +36,9 @@ ActiveRecord::Schema.define(version: 2021_01_09_022744) do
     t.float "packaging_amount"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "extra_tax_id"
-    t.index ["extra_tax_id"], name: "index_add_products_on_extra_tax_id"
+    t.float "extra_tax"
+    t.float "net_product_amount"
+    t.index ["extra_tax"], name: "index_add_products_on_extra_tax"
     t.index ["order_id"], name: "index_add_products_on_order_id"
     t.index ["product_id"], name: "index_add_products_on_product_id"
   end

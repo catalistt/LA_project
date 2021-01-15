@@ -1,28 +1,28 @@
 class GroupDiscountsController < ApplicationController
   before_action :set_group_discount, only: [:show, :edit, :update, :destroy]
 
-  # GET /group_discounts
-  # GET /group_discounts.json
   def index
     @group_discounts = GroupDiscount.all
   end
 
-  # GET /group_discounts/1
-  # GET /group_discounts/1.json
+  def aut_discount
+    @group_discount = GroupDiscount.where(product_id: params[:product_id], group_id: params[:group_id])
+    respond_to do |format|
+      format.html
+      format.json {render json: @group_discount}
+    end
+  end
+
   def show
   end
 
-  # GET /group_discounts/new
   def new
     @group_discount = GroupDiscount.new
   end
 
-  # GET /group_discounts/1/edit
   def edit
   end
 
-  # POST /group_discounts
-  # POST /group_discounts.json
   def create
     @group_discount = GroupDiscount.new(group_discount_params)
 
@@ -37,8 +37,6 @@ class GroupDiscountsController < ApplicationController
     end
   end
 
-  # PATCH/PUT /group_discounts/1
-  # PATCH/PUT /group_discounts/1.json
   def update
     respond_to do |format|
       if @group_discount.update(group_discount_params)
@@ -51,8 +49,6 @@ class GroupDiscountsController < ApplicationController
     end
   end
 
-  # DELETE /group_discounts/1
-  # DELETE /group_discounts/1.json
   def destroy
     @group_discount.destroy
     respond_to do |format|
@@ -69,6 +65,6 @@ class GroupDiscountsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def group_discount_params
-      params.require(:group_discount).permit(:product_id_id, :group_id_id, :discount)
+      params.require(:group_discount).permit(:product_id, :group_id, :discount)
     end
 end

@@ -24,17 +24,16 @@ class Order < ApplicationRecord
   paginates_per 50
   
   before_save do
-    total = self.add_products.map { |product| product.quantity * product.total_product_amount }.sum-to_s.to_d
-    if total == nil
-      total = "0.0".to_d
-    end
-    self.total_amount = total.to_s.to_d
-    self.total_iva = self.total_amount * 0.19
-    self.net_amount = total - (total*0.19)
+    #Net
+    net_amount = self.add_products.map { |product| product.net_product_amount}.sum
+    self.net_amount = net_amount
+    #IVA
+    self.total_iva = net_amount * 0.19
+    #Extra taxes
     if self.total_extra_taxes == nil
       self.total_extra_taxes = "0.0".to_d
     else
-      self.total_extra_taxes = self.add_products.map { |product| product.quantity * product.extra_tax_id.to_i }.sum.to_s.to_d
-    end
+      self.total_extra_taxes = self.add_products.map { |product| product.extra_tax }.sum
+    end    
+    self.total_amount = self.add_products.map { |product| product.total_product_amount}.sum
   end
-end

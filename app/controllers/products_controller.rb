@@ -14,6 +14,12 @@ class ProductsController < ApplicationController
     end
   end
 
+  def set_group_discount
+    @product_id = Product.find(params[:product_id]).group_discounts
+    
+
+  end
+
   def show
   end
 
@@ -74,6 +80,7 @@ class ProductsController < ApplicationController
     
     # Only allow a list of trusted parameters through.
     def product_params
-      params.require(:product).permit(:code, :name, :category, :packaging, :format, :description, :unit, :extra_tax, :standard_price)
+      params.require(:product).permit(:code, :name, :category, :packaging, :format, :description, :unit, :extra_tax, :standard_price,
+      group_discounts_attributes: [:id, :product_id, :group_id, :discount])
     end
 end

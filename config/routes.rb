@@ -16,7 +16,9 @@ Rails.application.routes.draw do
   resources :add_products 
   resources :orders
   resources :purchases
-  resources :group_discounts
+  resources :group_discounts do
+    get :aut_discount
+  end
   resources :products do
     get :set_price
   end
@@ -25,7 +27,9 @@ Rails.application.routes.draw do
   resources :resources
   resources :delivery_methods
   resources :suppliers
-  resources :clients
+  resources :clients do
+    get :set_group
+  end
   resources :groups
 
   unauthenticated :user do
