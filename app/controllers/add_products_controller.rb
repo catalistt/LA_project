@@ -10,12 +10,6 @@ class AddProductsController < ApplicationController
     respond_to :js
   end
 
-  def st_price(product_name)
-    product_match = Product.where(name: product)
-    id_product = product_match.find {|p| p.name == product_name}.id
-    AddProduct.default_price(id_product)
-  end
-
   def new
     @add_product = AddProduct.new
   end

@@ -96,7 +96,7 @@
                   <td><%= item.quantity %></td>
                   <td><%= item.product.extra_tax %></td>
                   <td><%= item.discount %></td>
-                  <td><%= item.total_product_amount %></td>
+                  <td><%= number_with_delimiter(item.total_product_amount.round) %></td>
                 </tr>  
               <% end %>
             </tbody>
@@ -121,10 +121,10 @@
               <h6 class="text-blue text-bold"> Total:</h6>
             </div>
             <div class="col w-35 d-table-cell">
-              <h6>$ <%= @order.net_amount %></h6>
-              <h6>$ <%= @order.total_iva %></h6>
-              <h6>$ <%= @order.total_extra_taxes %></h6>
-              <h6 class="text-bold">$ <%= @order.total_amount %></h6>
+              <h6>$ <%= number_with_delimiter(@order.net_amount.round) %></h6>
+              <h6>$ <%= number_with_delimiter(@order.total_iva.round) %></h6>
+              <h6>$ <%= number_with_delimiter(@order.total_extra_taxes.round) %></h6>
+              <h6 class="text-bold">$ <%= number_with_delimiter(@order.total_amount.round) %></h6>
             </div>
           </div>
         </div>

@@ -7,17 +7,16 @@ class ProductsController < ApplicationController
   end
 
   def set_price
-    @product_price = Product.find(params[:product_id]).standard_price
+    @product = Product.find(params[:product_id])
+    @product_info = {standard_price: @product.standard_price, extra_tax: @product.extra_tax}
     respond_to do |format|
       format.html
-      format.json {render json: @product_price}
+      format.json {render json: @product_info}
     end
   end
 
   def set_group_discount
     @product_id = Product.find(params[:product_id]).group_discounts
-    
-
   end
 
   def show
@@ -66,7 +65,7 @@ class ProductsController < ApplicationController
   def destroy
     @product.destroy
     respond_to do |format|
-      format.html { redirect_to products_url, notice: 'Product was successfully destroyed.' }
+      format.html { redirect_to products_url, notice: 'El producto fue eliminado exitosamente.' }
       format.json { head :no_content }
     end
   end

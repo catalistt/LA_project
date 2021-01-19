@@ -38,6 +38,12 @@
           </div>
         </div>
 
+        <div class="form-group hidden">
+          <%= f.hidden_field :extra_tax, class: "form-control set-extra-tax" %>
+          <%= f.hidden_field :net_product_amount, class: "form-control set-net-amount" %>
+        </div>
+
+
         <div class="col-3"><br>
           <div class="field">
             <%= f.label :Descuento_de_grupo %>

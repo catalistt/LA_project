@@ -31,10 +31,10 @@
                 <td><%= order.client_business_name %></td>
                 <td><%= order.user_name %></td>
                 <td><%= order.delivery_method_vehicle_plate %></td>
-                <td><%= order.net_amount %></td>
-                <td><%= order.total_iva %></td>
-                <td><%= order.total_extra_taxes %></td>
-                <td><%= order.total_amount %></td>
+                <td><%= order.net_amount.round %></td>
+                <td><%= order.total_iva.round %></td>
+                <td><%= order.total_extra_taxes.round %></td>
+                <td><%= order.total_amount.round %></td>
                 <td><%= order.total_packaging_amount %></td>
                 <td><%= order.visit_start %></td>
                 <td><%= order.visit_end %></td>
