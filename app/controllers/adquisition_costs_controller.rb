@@ -69,6 +69,6 @@ class AdquisitionCostsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def adquisition_cost_params
-      params.require(:adquisition_cost).permit(:product_id_id, :cost)
+      params.require(:adquisition_cost).permit(:product_id, :cost)
     end
 end

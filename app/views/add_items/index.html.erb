@@ -1,0 +1,37 @@
+<div class="container">
+  <div class="row">
+    <div class="col-12">  
+      <br><h1>Detalle de productos por factura</h1><br>
+
+      <table class="table table-striped bg-light">
+        <thead>
+          <tr>
+            <th>N° de compra asociada</th>
+            <th>Producto</th>
+            <th>Cantidad</th>
+            <th>Precio unitario</th>
+            <th>Monto total producto</th>
+            <th>Fecha de vencimiento 1</th>
+            <th>Fecha de vencimiento 2</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <% @add_items.each do |add_item| %>
+            <tr>
+              <td><%= add_item.purchase.id %></td>
+              <td><%= add_item.product.name %></td>
+              <td><%= add_item.quantity %></td>
+              <td><%= add_item.price %></td>
+              <td><%= add_item.total_product_amount %></td>
+              <td><%= add_item.expiration_date %></td>
+              <td><%= add_item.second_expiration_date %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+
+      <br>
+    </div>
+  </div>
+</div>

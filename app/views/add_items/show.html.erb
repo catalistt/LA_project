@@ -1,0 +1,39 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Product:</strong>
+  <%= @add_item.product %>
+</p>
+
+<p>
+  <strong>Quantity:</strong>
+  <%= @add_item.quantity %>
+</p>
+
+<p>
+  <strong>Total product amount:</strong>
+  <%= @add_item.total_product_amount %>
+</p>
+
+<p>
+  <strong>Price:</strong>
+  <%= @add_item.price %>
+</p>
+
+<p>
+  <strong>Expiration date:</strong>
+  <%= @add_item.expiration_date %>
+</p>
+
+<p>
+  <strong>Second expiration date:</strong>
+  <%= @add_item.second_expiration_date %>
+</p>
+
+<p>
+  <strong>Purchase:</strong>
+  <%= @add_item.purchase %>
+</p>
+
+<%= link_to 'Edit', edit_add_item_path(@add_item) %> |
+<%= link_to 'Back', add_items_path %>

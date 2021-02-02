@@ -1,5 +1,12 @@
-<h1>New Group Discount</h1>
 
-<%= render 'form', group_discount: @group_discount %>
+<div class="row">
+  <div class="col-4 offset-4">
+  <br>
+    <h1>Nuevo descuento de grupo</h1>
 
-<%= link_to 'Back', group_discounts_path %>
+    <%= render 'form', group_discount: @group_discount %>
+    <br>
+    <%= link_to 'Ver todos los descuentos', group_discounts_path, class:"btn btn-info" %>
+ 
+  </div>
+</div>

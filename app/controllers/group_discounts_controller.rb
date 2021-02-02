@@ -6,7 +6,7 @@ class GroupDiscountsController < ApplicationController
   end
 
   def aut_discount
-    @group_discount = GroupDiscount.where(product_id: params[:product_id], group_id: params[:group_id])
+    @group_discount = GroupDiscount.select(:discount).where(product_id: group_discount_params[:product_id], group_id: group_discount_params[:group_id])
     respond_to do |format|
       format.html
       format.json {render json: @group_discount}
@@ -28,7 +28,7 @@ class GroupDiscountsController < ApplicationController
 
     respond_to do |format|
       if @group_discount.save
-        format.html { redirect_to @group_discount, notice: 'Group discount was successfully created.' }
+        format.html { redirect_to @group_discount, notice: 'El descuento fue creado con éxito' }
         format.json { render :show, status: :created, location: @group_discount }
       else
         format.html { render :new }
@@ -65,6 +65,8 @@ class GroupDiscountsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def group_discount_params
-      params.require(:group_discount).permit(:product_id, :group_id, :discount)
+      params.permit(:product_id, :group_id, :discount, 
+      product_attributes: [:id, :name],
+      group_attributes: [:id, :name])
     end
 end

@@ -8,7 +8,8 @@ class ProductsController < ApplicationController
 
   def set_price
     @product = Product.find(params[:product_id])
-    @product_info = {standard_price: @product.standard_price, extra_tax: @product.extra_tax}
+    @product_prices = {Ruta: @product.standard_price, Precio_1: @product.cost * 0.055 + @product.cost, Precio_2: @product.cost * 0.075 + @product.cost, Precio_3: @product.cost * 0.095 + @product.cost, Precio_4: @product.cost * 0.115 + @product.cost, Precio_5: @product.cost * 0.135 + @product.cost}
+    @product_info = {standard_price: @product.standard_price, extra_tax: @product.extra_tax, cost: @product_prices, unit: @product.units}
     respond_to do |format|
       format.html
       format.json {render json: @product_info}
@@ -25,7 +26,6 @@ class ProductsController < ApplicationController
 
   def new
     @product = Product.new
-
   end
 
   def edit

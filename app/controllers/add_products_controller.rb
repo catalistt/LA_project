@@ -3,6 +3,7 @@ class AddProductsController < ApplicationController
 
   def index
     @add_products = AddProduct.all
+
   end
 
   def search
@@ -16,7 +17,6 @@ class AddProductsController < ApplicationController
 
   def create
     @add_product = AddProduct.new(add_product_params)
-
     respond_to do |format|
       if @add_product.save
         format.html { redirect_to @add_product, notice: 'Add product was successfully created.' }
@@ -58,6 +58,7 @@ class AddProductsController < ApplicationController
     def add_product_params
       params.require(:add_product).permit(:product_id, :order_id, :price, :discount, :quantity, :total_product_amount, :packaging_amount, 
       add_products_attributes: [:product_id, :price, :discount, :quantity, :total_product_amount, :packaging_amount],
+      add_items_attributes: [product_id, :quantity, :total_product_amount, :price, :expiration_date, :second_expiration_date, :purchase_id],
       add_clients_attributes: [:client_id, :business_name],
       add_delivery_methods_attributes: [:delivery_method_id, :vehicle_plate, :policy_number, :ensurance_company],
       add_orders_attributes: [:order_id, :client_id, :user_id, :delivery_method_id])

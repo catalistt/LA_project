@@ -20,24 +20,17 @@
             </div>
           <% end %>
           <div class="row">
-            <div class="col-2 offset-1"><br>
+            <div class="col-3 offset-1"><br>
               <div class="form-group">
                 <%= form.label :Fecha_de_entrega, class:"control-label" %>
-                <%= form.date_select :date,  {:use_month_names => ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre','Diciembre'], discard_year: true, selected: Date.today} %>
+                <%= form.date_select :date, {:use_month_names => ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre','Diciembre'], discard_year: true, selected: Date.today}, class:"custom-select" %>
               </div>
             </div>
     
-            <div class="col-2"><br>
+            <div class="col-3"><br>
               <div class="form-group set-client">
                 <%= form.label :Cliente, class: "control-label"%><br> 
-                <%= form.collection_select :client_id, Client.all, :id, :business_name, prompt: true%>
-              </div>
-            </div>
-
-            <div class="col-2"><br>
-              <div class="form-group">
-                <%= form.label :Despacho_por, class:"control-label" %>
-                <%= form.collection_select :delivery_method_id, DeliveryMethod.all, :id, :vehicle_plate, prompt: true%>
+                <%= form.select(:client_id, Client.all.map {|client| ["#{client.id} - #{client.business_name}", client.id] }, { :include_blank => 'Ingresar cliente' },class:"custom-select") %>
               </div>
             </div>
 
@@ -111,9 +104,10 @@
                 </div>
               </div>
             </div>
-              <div><br>
-                <%= form.submit "Ingresar orden", class:"btn btn-success ml-5 offset-5"%><br><br>
+              <div><br><br>
+                <%= form.submit "Ingresar orden", class:"btn btn-success ml-5 offset-5"%>
               </div>
+              <br>
           </div>
         <% end %>
     </div>

@@ -1,0 +1,34 @@
+<div class="nested-fields">
+  <div class="container ml-3 items_container">
+    <div class="row">
+      <div class="col-4"><br>
+        <div class="field">
+          <%= f.label :Producto, class:"field" %>
+          <%= f.select(:product_id, Product.all.map {|product| ["#{product.code} - #{product.name}", product.id] }, { :include_blank => 'Digita el código o nombre del producto' } ,class:"item-product custom-select") %>
+        </div>
+      </div> 
+      
+      <div class="col-3"><br>
+        <div class="field">
+          <%= f.label :Precio_bruto_unitario %><br>
+          <%= f.number_field :price, class: "form-control form-control", step:"any", class:"item-price" %>
+        </div>
+      </div>
+
+      <div class="col-3"><br>
+        <div class="field">
+          <%= f.label :Cantidad %>
+          <%= f.number_field :quantity, class: "form-control", step:"any", class:"item-quantity"  %>
+        </div>
+      </div> 
+    </div>
+
+      <div class="form-group hidden">
+        <%= f.hidden_field :total_product_amount, class: "form-control item-amount" %>
+      </div>
+
+    <div class="col-3 offset-1"><br><br>
+      <%= link_to_remove_association "Eliminar producto", f , class:"btn btn-danger"%>
+    </div>
+  </div>
+</div>

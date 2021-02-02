@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :add_items
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
   devise_for :users, controllers: {
@@ -16,9 +17,8 @@ Rails.application.routes.draw do
   resources :add_products 
   resources :orders
   resources :purchases
-  resources :group_discounts do
-    get :aut_discount
-  end
+  resources :group_discounts
+  get :aut_discount, :to => "group_discounts#aut_discount"
   resources :products do
     get :set_price
   end

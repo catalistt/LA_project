@@ -12,21 +12,24 @@
   <% end %>
 
   <div class="field">
-    <%= form.label :product_id_id %>
-    <%= form.text_field :product_id_id %>
+  <%= form.label :Producto, class:"field" %><br> 
+  <%= form.select(:product_id, Product.all.map {|product| ["#{product.code} - #{product.name}", product.id] }, { :include_blank => 'Digita el código o nombre del producto' } ,class:"custom-select") %><br>
   </div>
 
+  <br>
   <div class="field">
-    <%= form.label :group_id_id %>
-    <%= form.text_field :group_id_id %>
+    <%= form.label :Grupo%>
+    <%= form.select(:group_id, Group.all.map {|group| ["#{group.name}", group.id] }, { :include_blank => 'Elegir grupo' } ,class:"custom-select") %><br>
   </div>
 
+  <br>
   <div class="field">
-    <%= form.label :discount %>
-    <%= form.text_field :discount %>
+    <%= form.label :Descuento %><br>
+    <%= form.number_field :discount, step:"any" %>
   </div>
 
+  <br>
   <div class="actions">
-    <%= form.submit %>
+    <%= form.submit "Ingresar descuento", class:"btn btn-success" %><br>
   </div>
 <% end %>

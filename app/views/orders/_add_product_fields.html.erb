@@ -3,24 +3,24 @@
   <div class="row">
     <div class="col-4"><br>
       <div class="field">
-        <%= f.label :Producto, class:"field" %><br> 
+        <%= f.label :Producto, class:"field" %>
         <%= f.select(:product_id, Product.all.map {|product| ["#{product.code} - #{product.name}", product.id] }, { :include_blank => 'Digita el código o nombre del producto' } ,class:"st-product custom-select") %>
       </div>
      </div> 
      
-     <div class="col-2 offset-1"><br>
+     <div class="col-3"><br>
       <div class="field st-price">
         <%= f.label :Precio %><br>
-        <%= f.text_field :price, class: "p-price form-control"%>
+        <%= f.number_field :price, class: "p-price form-control custom-select" %>
       </div>
      </div>
 
-     <div class="col-3 offset-1 discount"><br>
+     <div class="col-3"><br>
       <div class="field">
-        <%= f.label :Descuento_manual %><br>
-        <%= f.select :discount, options_for_select(discounts), {include_blank: false }, { autofocus: 'true', class: 'custom-select p_discount'} %>
+        <%= f.label :Descuento_de_grupo %>
+        <%= f.number_field :packaging_amount, class: "group_discount form-control",step:"any" %>
       </div>
-      </div>
+     </div> 
     </div>
 
       <div class="row">
@@ -42,15 +42,8 @@
           <%= f.hidden_field :extra_tax, class: "form-control set-extra-tax" %>
           <%= f.hidden_field :net_product_amount, class: "form-control set-net-amount" %>
         </div>
-
-
-        <div class="col-3"><br>
-          <div class="field">
-            <%= f.label :Descuento_de_grupo %>
-            <%= f.number_field :packaging_amount, class: "packaging form-control" %>
-          </div>
-        </div>    
-        <div class="col-3"><br><br>
+   
+        <div class="col-3 offset-1"><br><br>
           <%= link_to_remove_association "Eliminar producto", f , class:"btn btn-danger"%>
         </div>
       </div>

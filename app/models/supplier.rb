@@ -1,4 +1,8 @@
 class Supplier < ApplicationRecord
   has_many :purchases
-  has_many :products, through: :purchases
+
+  def to_s
+    name
+  end
 end
+
