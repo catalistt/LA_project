@@ -8,27 +8,35 @@
         </div>
       </div> 
       
-      <div class="col-3"><br>
+      <div class="col-2"><br>
         <div class="field">
           <%= f.label :Precio_bruto_unitario %><br>
-          <%= f.number_field :price, class: "form-control form-control", step:"any", class:"item-price" %>
+          <%= f.number_field :price, class: "form-control form-control", step:"any", class:"item-price form-control" %>
         </div>
       </div>
 
-      <div class="col-3"><br>
+      <div class="col-1"><br>
         <div class="field">
           <%= f.label :Cantidad %>
-          <%= f.number_field :quantity, class: "form-control", step:"any", class:"item-quantity"  %>
+          <%= f.number_field :quantity, class: "form-control", step:"any", class:"item-quantity form-control"  %>
         </div>
       </div> 
-    </div>
 
-      <div class="form-group hidden">
-        <%= f.hidden_field :total_product_amount, class: "form-control item-amount" %>
+      <div class="form-group col-3"><br>
+        <div class="field">
+          <%= f.label :Total_bruto_del_producto %>
+          <%= f.number_field :total_product_amount, class: "form-control item-amount form-control" %>
+        </div>
       </div>
 
-    <div class="col-3 offset-1"><br><br>
-      <%= link_to_remove_association "Eliminar producto", f , class:"btn btn-danger"%>
+      <div class="col-2"><br><br>
+       <%= link_to_remove_association "Eliminar producto", f , class:"btn btn-danger"%>
+      </div>
+
     </div>
+
+      
+
+    
   </div>
 </div>

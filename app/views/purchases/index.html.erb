@@ -17,9 +17,9 @@
         <tbody>
           <% @purchases.each do |purchase| %>
             <tr>
-              <td><%= purchase.supplier_id %></td>
+              <td><%= purchase.supplier.name %></td>
               <td><%= purchase.invoice_number %></td>
-              <td><%= purchase.total_amount %></td>
+              <td>$<%= number_with_delimiter(purchase.total_amount.round) %></td>
               <td><%= link_to 'Editar compra', edit_purchase_path(purchase), class:"btn btn-info" %></td>
               <td><%= link_to 'Eliminar compra', purchase, method: :delete, data: { confirm: 'Estas seguro/a de eliminar la compra?' }, class: "btn btn-danger" %></td>
             </tr>

@@ -4,6 +4,6 @@ class PaymentMethod < ApplicationRecord
   accepts_nested_attributes_for :orders, allow_destroy: true
   accepts_nested_attributes_for :payments, allow_destroy: true
   def to_s
-    payment_method
+    name
   end
 end

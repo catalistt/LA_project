@@ -13,27 +13,27 @@
 
   <div class="form-group">
     <%= form.label :Producto, class:"field" %><br> 
-    <%= form.select(:product_id, Product.all.map {|product| ["#{product.code} - #{product.name}", product.id] }, {} ,class:"st-product") %>
+    <%= form.select(:product_id, Product.all.map {|product| ["#{product.code} - #{product.name}", product.id] }, {} ,class:"stock-product") %>
   </div>
 
   <div class="form-group">
     <%= form.label :Stock_inicial %>
-    <%= form.number_field :initial_stock %>
+    <%= form.number_field :initial_stock, class:"initial-stock" %>
   </div>
 
   <div class="form-group">
     <%= form.label :Cantidad_a_añadir %>
-    <%= form.number_field :added %>
+    <%= form.number_field :added, class:"added-stock" %>
   </div>
 
   <div class="form-group">
     <%= form.label :Cantidad_a_quitar %>
-    <%= form.number_field :removed %>
+    <%= form.number_field :removed, class:"removed-stock" %>
   </div>
 
   <div class="form-group">
     <%= form.label :Stock_final %>
-    <%= form.number_field :final_stock %>
+    <%= form.number_field :final_stock, class:"final-stock" %>
   </div>
 
   <div class="actions">

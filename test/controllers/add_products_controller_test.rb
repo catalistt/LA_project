@@ -17,7 +17,7 @@ class AddProductsControllerTest < ActionDispatch::IntegrationTest
 
   test "should create add_product" do
     assert_difference('AddProduct.count') do
-      post add_products_url, params: { add_product: { discount: @add_product.discount, order_id_id: @add_product.order_id_id, packaging_amount: @add_product.packaging_amount, price: @add_product.price, product_id_id: @add_product.product_id_id, quantity: @add_product.quantity, total_product_amount: @add_product.total_product_amount } }
+      post add_products_url, params: { add_product: { discount: @add_product.discount, order_id_id: @add_product.order_id_id, packaging_amount: @add_product.packaging_amount, price: @add_product.price, product_id: @add_product.product_id, quantity: @add_product.quantity, total_product_amount: @add_product.total_product_amount } }
     end
 
     assert_redirected_to add_product_url(AddProduct.last)

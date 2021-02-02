@@ -7,7 +7,9 @@
     <table class="table table-striped bg-light"> 
       <thead>
         <tr>
-          <th>Orden asociada</th>
+          <th>N° Orden asociada</th>
+          <th>Cliente/a</th>
+          <th>Monto total de la orden</th>
           <th>Método de pago</th>
           <th>Monto pagado</th>
           <th>Estado</th>
@@ -18,13 +20,15 @@
       <tbody>
         <% @payments.each do |payment| %>
           <tr>
-            <td><%= payment.order %></td>
+            <td><%= payment.order.id %></td>
+            <td><%= payment.order.client.business_name %></td>
+            <td>$ <%= number_with_delimiter(payment.order.total_amount.round) %></td>
             <td><%= payment.payment_method %></td>
-            <td><%= payment.amount_payed %></td>
+            <td>$ <%= number_with_delimiter(payment.amount_payed.round) %></td>
             <td><%= payment.status %></td>
             <td><%= link_to 'Show', payment %></td>
             <td><%= link_to 'Edit', edit_payment_path(payment) %></td>
-            <td><%= link_to 'Destroy', payment, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+            <td><%= link_to 'Destroy', payment, method: :delete, data: { confirm: '¿Estas seguro/a de eliminar el pago?' } %></td>
           </tr>
         <% end %>
       </tbody>

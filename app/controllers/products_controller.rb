@@ -20,6 +20,13 @@ class ProductsController < ApplicationController
     @product_id = Product.find(params[:product_id]).group_discounts
   end
 
+  def set_product_stock
+    @product_stock = Product.find(params[:product_id]).stock
+    respond_to do |format|
+      format.json {render json: @product_stock}
+    end
+  end
+
   def show
   end
 

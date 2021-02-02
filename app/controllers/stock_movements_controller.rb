@@ -69,6 +69,6 @@ class StockMovementsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def stock_movement_params
-      params.require(:stock_movement).permit(:product_id_id, :initial_stock, :added, :removed, :final_stock)
+      params.require(:stock_movement).permit(:product_id, :initial_stock, :added, :removed, :final_stock)
     end
 end

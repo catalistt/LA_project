@@ -21,6 +21,7 @@ Rails.application.routes.draw do
   get :aut_discount, :to => "group_discounts#aut_discount"
   resources :products do
     get :set_price
+    get :set_product_stock
   end
   
   resources :consumes
