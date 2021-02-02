@@ -8,6 +8,7 @@ $(document).on('turbolinks:load', function() {
 function getTotalAmount(parentContainer){
   /* Obtengo los valores de los containers de price, discount y quantity */
   var price = parentContainer.find('.p-price').val() || 0;
+  var hidden_price = parentContainer.find('hidden-price');
   var discount = parentContainer.find('.p_discount').val() || 0;
   var quantity = parentContainer.find('.quantity').val() || 0;
   var group_discount = parentContainer.find('.group_discount').val() || 0;
@@ -39,27 +40,23 @@ function getTotalAmount(parentContainer){
   }
 
 function getDataCocoon(){
-  $('.st-product').on('keyup change', function() {
+  $('.st-product').on('change', function() {
     var parentContainer = $(this).parent().parent().parent().parent();
-    var input_price = parentContainer.find(".p-price");
+    var cost = parentContainer.find(".p-price").val();
+    var hidden_price = parentContainer.find("hidden-price");
     var input_extra_tax = parentContainer.find(".set-extra-tax");
     var input_g_discount = parentContainer.find(".group_discount");
     var product_id= $(this).val();
       $.ajax({
         type:"GET",
         url:"/products/"+product_id+"/set_price",
-        dataType:"json",
         success:function(result){
           input_extra_tax.val(result.extra_tax);
-          var prices = result.cost; 
-          input_price.val(result.standard_price)
-          $.each(prices, function(name, val) {
-            input_price.append(new Option(name, val)
-            );
-          debugger;
-        });
-
-        } 
+          input_price.val(result.standard_price);
+          if(cost !== 1){
+            hidden_price.val(cost * result.cost + result.cost);
+          }
+        }
     })
     /* Obtener el descuento según grupo (por defecto) */
         var client_id= $('#order_client_id').val();

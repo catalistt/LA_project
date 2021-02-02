@@ -38,7 +38,7 @@ gem 'chartkick'
 gem 'highcharts-rails'
 gem 'omniauth-google-oauth2'
 gem 'omniauth-facebook'
-gem 'dotenv-rails', groups: [:development, :test, :production]
+gem 'dotenv-rails'
 gem 'simple_form'
 gem 'pg_search'
 gem 'acts-as-taggable-on', '~> 6.0'
