@@ -53,11 +53,19 @@ class OrdersController < ApplicationController
   def create
     @order = Order.new(order_params)
     @order.user_id = Client.find(order_params[:client_id]).user_id
+   
     respond_to do |format|
       if @order.save
+        @order.add_products.each do |add_product|
+          product = add_product.product
+          StockMovement.create(removed: add_product.quantity, product_id: product.id)
+          product.stock -= add_product.quantity
+          product.save
+        end
         format.html { redirect_to @order, notice: 'La orden se creó correctamente' }
         format.json { render :show, status: :created, location: @order }
       else
+        puts @order.errors.first
         format.html { render :new }
         format.json { render json: @order.errors, status: :unprocessable_entity }
       end

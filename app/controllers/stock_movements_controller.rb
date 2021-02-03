@@ -25,9 +25,13 @@ class StockMovementsController < ApplicationController
   # POST /stock_movements.json
   def create
     @stock_movement = StockMovement.new(stock_movement_params)
+    @product = @stock_movement.product
+    @product.stock += @stock_movement.added - @stock_movement.removed
+
 
     respond_to do |format|
       if @stock_movement.save
+        @product.save
         format.html { redirect_to @stock_movement, notice: 'Stock movement was successfully created.' }
         format.json { render :show, status: :created, location: @stock_movement }
       else

@@ -1,7 +1,7 @@
 class Order < ApplicationRecord
   belongs_to :client
   belongs_to :user
-  belongs_to :delivery_method
+  belongs_to :delivery_method, optional: true
 
   #Relacion con products y add_products
   has_many :add_products, inverse_of: :order

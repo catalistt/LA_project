@@ -39,12 +39,13 @@ function getTotalAmount(parentContainer){
   }
 
 function getDataCocoon(){
-  $('.st-product').on('keyup change', function() {
+  $('.st-product').on('change', function() {
     var parentContainer = $(this).parent().parent().parent().parent();
     var input_price = parentContainer.find(".p-price");
     var input_extra_tax = parentContainer.find(".set-extra-tax");
     var input_g_discount = parentContainer.find(".group_discount");
     var product_id= $(this).val();
+    console.log(product_id)
       $.ajax({
         type:"GET",
         url:"/products/"+product_id+"/set_price",
@@ -52,17 +53,12 @@ function getDataCocoon(){
         success:function(result){
           input_extra_tax.val(result.extra_tax);
           var prices = result.cost; 
-          input_price.val(result.standard_price)
-          $.each(prices, function(name, val) {
-            input_price.append(new Option(name, val)
-            );
-          debugger;
-        });
-
+          input_price.val(result.standard_price);
         } 
     })
     /* Obtener el descuento según grupo (por defecto) */
         var client_id= $('#order_client_id').val();
+        console.log(client_id);
         $.ajax({
           type: "GET",
           url: "/clients/"+client_id+"/set_group",
@@ -103,17 +99,3 @@ function getDataCocoon(){
     getTotalAmount(parentContainer);
   });
 }
-
-
-
-/* Que se active cocoon (nuevo producto) con enter */
-function enter(){
-  $('#add-button').on("enterKey",function(e){
-    });
-    $('#add-button').keyup(function(e){
-    if(e.keyCode == 13)
-    {
-      $(this).trigger("enterKey");
-    }
-    });
-  }  

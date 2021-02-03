@@ -52,8 +52,9 @@ class AddItemsController < InheritedResources::Base
     # Only allow a list of trusted parameters through.
     def add_item_params
       params.require(:add_item).permit(:product_id, :quantity, :total_product_amount, :price, :expiration_date, :second_expiration_date, :purchase_id,
-      add_products_attributes: [:product_id, :price, :discount, :quantity, :total_product_amount, :packaging_amount],
-      add_purchases_attributes: [:supplier_id, :invoice_number, :total_amount])
+      products_attributes: [:product_id, :code, :name, :category, :packaging, :format, :description, :unit, :extra_tax, :standard_price],
+      purchases_attributes: [:supplier_id, :invoice_number, :total_amount])
+      
     end
 
 end
