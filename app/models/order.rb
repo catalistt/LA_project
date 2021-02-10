@@ -28,9 +28,10 @@ class Order < ApplicationRecord
     self.net_amount = self.add_products.map { |product| product.net_product_amount}.sum.round
     #IVA
     self.total_iva = net_amount * 0.19
-    #Extra taxes
-    self.total_extra_taxes = self.add_products.map { |product| product.extra_tax }.sum.round  
     #Total 
     self.total_amount = self.add_products.map { |product| product.total_product_amount}.sum.round
+    #Extra taxes
+    self.total_extra_taxes = self.add_products.map { |product| product.extra_tax* product.net_product_amount }.sum.round  
+    
   end
 end

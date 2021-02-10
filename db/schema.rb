@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_02_01_225637) do
+ActiveRecord::Schema.define(version: 2021_02_09_045217) do
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.string "namespace"
@@ -222,11 +222,12 @@ ActiveRecord::Schema.define(version: 2021_02_01_225637) do
   create_table "stock_movements", force: :cascade do |t|
     t.integer "product_id"
     t.integer "initial_stock"
-    t.integer "added"
-    t.integer "removed"
     t.integer "final_stock"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "movement_type"
+    t.integer "stock_quantity"
+    t.string "id_document"
     t.index ["product_id"], name: "index_stock_movements_on_product_id"
   end
 

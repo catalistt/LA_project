@@ -6,23 +6,30 @@
     <table class="table table-striped bg-light">
       <thead>
         <tr>
+          <th>Fecha de creación</th>
+          <th>Código</th>
           <th>Producto</th>
           <th>Stock inicial</th>
-          <th>Cantidad añadida</th>
-          <th>Cantidad eliminada</th>
+          <th>Movimiento de stock </th>
           <th>Stock final</th>
-          <th colspan="3"></th>
+          <th>Transacción asociada</th>
+          <th>Id documento</th>
+          
         </tr>
       </thead>
 
-      <tbody>
+      <tbody class="text-center">
         <% @stock_movements.each do |stock_movement| %>
           <tr>
-            <td><%= stock_movement.product_id %></td>
+            <td><%= stock_movement.created_at.strftime("%d-%m-%Y %I:%M %p") %></td> 
+            <td><%= stock_movement.product.code %></td>
+            <td><%= stock_movement.product.name %></td>
             <td><%= stock_movement.initial_stock %></td>
-            <td><%= stock_movement.added %></td>
-            <td><%= stock_movement.removed %></td>
+            <td><%= stock_movement.final_stock - stock_movement.initial_stock %></td>
             <td><%= stock_movement.final_stock %></td>
+            <td><%= stock_movement.movement_type %></td>
+            <td><%= stock_movement.id_document || 0 %></td>
+                       
           </tr>
         <% end %>
       </tbody>
@@ -30,6 +37,6 @@
 
     <br>
 
-    <%= link_to 'Nuevo movimiento de stock', new_stock_movement_path, class:"btn btn-info"%>
+    <%= link_to 'Nuevo movimiento de stock', new_stock_movement_path, class:"btn btn-info text-bold"%>
   </div>
 </div>

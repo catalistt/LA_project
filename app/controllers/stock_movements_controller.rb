@@ -4,7 +4,7 @@ class StockMovementsController < ApplicationController
   # GET /stock_movements
   # GET /stock_movements.json
   def index
-    @stock_movements = StockMovement.all
+    @stock_movements = StockMovement.all.order(created_at: :desc)
   end
 
   # GET /stock_movements/1
@@ -21,19 +21,15 @@ class StockMovementsController < ApplicationController
   def edit
   end
 
-  # POST /stock_movements
-  # POST /stock_movements.json
   def create
     @stock_movement = StockMovement.new(stock_movement_params)
     @product = @stock_movement.product
-    @product.stock += @stock_movement.added - @stock_movement.removed
-
-
+    @product.stock = @stock_movement.final_stock
     respond_to do |format|
       if @stock_movement.save
         @product.save
-        format.html { redirect_to @stock_movement, notice: 'Stock movement was successfully created.' }
-        format.json { render :show, status: :created, location: @stock_movement }
+        format.html { redirect_to @stock_movement, notice: 'Se creó correctamente el movimiento de stock' }
+        format.json { render :index, status: :created, location: @stock_movement }
       else
         format.html { render :new }
         format.json { render json: @stock_movement.errors, status: :unprocessable_entity }
@@ -41,8 +37,6 @@ class StockMovementsController < ApplicationController
     end
   end
 
-  # PATCH/PUT /stock_movements/1
-  # PATCH/PUT /stock_movements/1.json
   def update
     respond_to do |format|
       if @stock_movement.update(stock_movement_params)
@@ -73,6 +67,6 @@ class StockMovementsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def stock_movement_params
-      params.require(:stock_movement).permit(:product_id, :initial_stock, :added, :removed, :final_stock)
+      params.require(:stock_movement).permit(:product_id, :initial_stock, :movement_type, :stock_quantity, :final_stock, :id_document)
     end
 end

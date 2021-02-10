@@ -8,10 +8,10 @@ class ProductsController < ApplicationController
 
   def set_price
     @product = Product.find(params[:product_id])
-    @product_info = {standard_price: @product.standard_price, extra_tax: @product.extra_tax, unit: @product.units}
+    @product_info = {standard_price: @product.standard_price, extra_tax: @product.extra_tax, cost: @product.cost, unit: @product.units, stock: @product.stock}
     respond_to do |format|
       format.html
-      format.js {render js: @product_info}
+      format.json {render json: @product_info}
     end
   end
 
@@ -85,7 +85,7 @@ class ProductsController < ApplicationController
     
     # Only allow a list of trusted parameters through.
     def product_params
-      params.require(:product).permit(:code, :name, :category, :packaging, :format, :description, :unit, :extra_tax, :standard_price,
+      params.require(:product).permit(:code, :cost, :name, :category, :packaging, :format, :description, :unit, :units, :extra_tax, :standard_price,
       group_discounts_attributes: [:id, :product_id, :group_id, :discount])
     end
 end

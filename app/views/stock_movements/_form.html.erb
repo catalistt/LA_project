@@ -9,31 +9,35 @@
       <% end %>
       </ul>
     </div>
-  <% end %>
+  <% end %><br>
 
-  <div class="form-group">
+  <div class="form-group text-bold h5">
     <%= form.label :Producto, class:"field" %><br> 
-    <%= form.select(:product_id, Product.all.map {|product| ["#{product.code} - #{product.name}", product.id] }, {} ,class:"stock-product") %>
+    <%= form.select(:product_id, Product.all.map {|product| ["#{product.code} - #{product.name}", product.id] }, {} ,class:"stock-product custom-select") %>
   </div>
 
-  <div class="form-group">
-    <%= form.label :Stock_inicial %>
-    <%= form.number_field :initial_stock, class:"initial-stock" %>
+  <div class="form-group text-bold h5">
+    <%= form.label :Stock_actual %>
+    <%= form.number_field :initial_stock, class:"initial-stock form-control" %>
   </div>
 
-  <div class="form-group">
-    <%= form.label :Cantidad_a_añadir %>
-    <%= form.number_field :added, class:"added-stock" %>
+  <div class="form-group text-bold h5">
+    <%= form.label :Elegir_movimiento %>
+    <%= select_tag(:movement_type, options_for_select(['Suma de stock manual' , 'Resta de stock manual']), class:"custom-select move-type") %>
   </div>
 
-  <div class="form-group">
-    <%= form.label :Cantidad_a_quitar %>
-    <%= form.number_field :removed, class:"removed-stock" %>
+  <div class="form-group text-bold h5">
+    <%= form.label :Cantidad_por_agregar_o_quitar %>
+    <%= form.number_field :stock_quantity, class:"quantity-stock form-control" %>
   </div>
 
-  <div class="form-group">
+  <div class="form-group text-bold h5">
     <%= form.label :Stock_final %>
-    <%= form.number_field :final_stock, class:"final-stock" %>
+    <%= form.number_field :final_stock, class:"final-stock form-control" %>
+  </div>
+
+  <div class="form-group hidden">
+    <%= form.hidden_field :id_document, class: "form-control id-document" %>
   </div>
 
   <div class="actions">

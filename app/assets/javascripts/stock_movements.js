@@ -8,8 +8,22 @@ $(document).on('turbolinks:load', function() {
       dataType:"json",
       success:function(result){
       $('.initial-stock').val(result) || 0;
-      console.log(result)
      }
     });
+  });
+
+  $('.quantity-stock').on('keyup change', function(){
+    var quantity_st = parseInt($(this).val());
+    var initial_st = parseInt($('.initial-stock').val());
+    var move_type = $('.move-type').val();
+    var total =  0;
+    $('.id-document').val(0);
+    if(move_type == "Suma de stock manual"){
+      total = initial_st + quantity_st;
+    }
+    else{
+      total = initial_st - quantity_st;
+    };
+    $('.final-stock').val(total);
   });
 });

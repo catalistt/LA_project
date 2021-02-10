@@ -1,3 +1,4 @@
+/*
 $(document).on('turbolinks:load', function() {
   $(document).on('cocoon:after-insert', function(){
     getDataCocoon();
@@ -27,3 +28,5 @@ function getDataCocoon(){
     })
   });
 }
+*/
+

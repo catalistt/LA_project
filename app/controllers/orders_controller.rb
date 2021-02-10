@@ -58,7 +58,7 @@ class OrdersController < ApplicationController
       if @order.save
         @order.add_products.each do |add_product|
           product = add_product.product
-          StockMovement.create(removed: add_product.quantity, product_id: product.id)
+          StockMovement.create(initial_stock: product.stock, product_id: product.id, final_stock: product.stock - add_product.quantity, movement_type: "Creación orden", stock_quantity: add_product.quantity, id_document: @order.id )
           product.stock -= add_product.quantity
           product.save
         end
@@ -76,7 +76,22 @@ class OrdersController < ApplicationController
     
     respond_to do |format|
       if @order.update(order_params)
-        format.html { redirect_to @order, notice: 'La orden se acutalizó exitosamente.' }
+
+        #Agregar lógica del update Stock
+        @order.add_products.each do |add_product|
+          product = add_product.product
+          order = @order.id.to_s
+          previous_quantity = StockMovement.where(id_document: order, movement_type: ["Creación orden", "Actualización de orden"], product_id: product.id).last.stock_quantity
+          if previous_quantity == nil
+            previous_quantity = 0
+          end
+          #Si la diferencia es positiva, quitaron productos de la orden
+          dif = previous_quantity - add_product.quantity
+          StockMovement.create(initial_stock: product.stock, product_id: product.id, final_stock: product.stock + dif, movement_type: "Actualización de orden", stock_quantity: add_product.quantity, id_document: @order.id )
+          product.stock += dif
+          product.save
+        end
+        format.html { redirect_to @order, notice: 'La orden se actualizó exitosamente.' }
         format.json { render :show, status: :ok, location: @order }
       else
         format.html { render :edit }
@@ -89,6 +104,12 @@ class OrdersController < ApplicationController
     @user = current_user.name
     @order.destroy
     respond_to do |format|
+      @order.add_products.each do |add_product|
+        product = add_product.product
+        StockMovement.create(initial_stock: product.stock, product_id: product.id, final_stock: product.stock + add_product.quantity, movement_type: "Eliminación de orden", stock_quantity: add_product.quantity, id_document: @order.id )
+        product.stock += add_product.quantity
+        product.save
+      end
       ModelMailer.deleted_order_notification(@order, @user).deliver
       format.html { redirect_to orders_url, notice: 'La orden fue eliminada' }
       format.json { head :no_content }

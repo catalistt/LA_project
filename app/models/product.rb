@@ -10,7 +10,7 @@ class Product < ApplicationRecord
   has_many :add_items, dependent: :destroy
   has_many :purchases, through: :add_items, dependent: :destroy
 
-  has_many :stock_movements, dependent: :destroy
+  has_many :stock_movements
   has_many :adquisition_costs, dependent: :destroy
   enum category: [:soda, :beer, :wine, :snack, :water, :energetic, :isotonic, :nectar, :service, :promotion, :tea]
  

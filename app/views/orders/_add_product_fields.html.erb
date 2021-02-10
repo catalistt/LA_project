@@ -4,14 +4,15 @@
       <div class="col-4"><br>
         <div class="field">
           <%= f.label :Producto, class:"field" %>
-          <%= f.select(:product_id, Product.all.map {|product| ["#{product.code} - #{product.name}", product.id] }, { :include_blank => 'Digita el código o nombre del producto' } ,class:"st-product custom-select") %>
+          <%= f.select(:product_id, Product.all.map {|product| ["#{product.code} - #{product.name} - #{product.stock}", product.id] }, { :include_blank => 'Digita el código o nombre del producto' } ,class:"st-product custom-select") %>
         </div>
       </div> 
       
       <div class="col-3"><br>
         <div class="field st-price">
           <%= f.label :Precio %><br>
-          <%= f.number_field :price, class: "p-price form-control custom-select" %>
+          <%= f.select :price, product_costs, {}, class: "p-price form-control custom-select" %>
+          <%= hidden_field_tag :hidden, 0, "data-id" => 'hidden-price' %>
         </div>
       </div>
 
