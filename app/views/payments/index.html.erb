@@ -10,7 +10,7 @@
           <th>N° Orden asociada</th>
           <th>Cliente/a</th>
           <th>Monto total de la orden</th>
-          <th>Método de pago</th>
+          <th>Método de pago</th> 
           <th>Monto pagado</th>
           <th>Estado</th>
           <th colspan="3"></th>
@@ -19,16 +19,19 @@
 
       <tbody>
         <% @payments.each do |payment| %>
-          <tr>
+          <tr> 
             <td><%= payment.order.id %></td>
             <td><%= payment.order.client.business_name %></td>
             <td>$ <%= number_with_delimiter(payment.order.total_amount.round) %></td>
             <td><%= payment.payment_method %></td>
             <td>$ <%= number_with_delimiter(payment.amount_payed.round) %></td>
-            <td><%= payment.status %></td>
-            <td><%= link_to 'Show', payment %></td>
-            <td><%= link_to 'Edit', edit_payment_path(payment) %></td>
-            <td><%= link_to 'Destroy', payment, method: :delete, data: { confirm: '¿Estas seguro/a de eliminar el pago?' } %></td>
+              <% if payment.order.total_amount > payment.amount_payed %>
+                <td><%= "Pago parcial" %></td>
+              <% else %>
+                <td><%= "Pago total" %></td>
+              <% end %>
+            <td><%= link_to 'Editar', edit_payment_path(payment), class:"btn btn-info" %></td>
+            <td><%= link_to 'Eliminar', payment, method: :delete, data: { confirm: '¿Estas seguro/a de eliminar el pago?' }, class:"btn btn-danger" %></td>
           </tr>
         <% end %>
       </tbody>

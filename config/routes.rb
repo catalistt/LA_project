@@ -6,6 +6,7 @@ Rails.application.routes.draw do
     omniauth_callbacks: 'users/omniauth_callbacks' }
   resources :users, only: [:show, :edit, :update]  
   get 'orders/my_order' , to: "orders#my_order"
+  get 'payments/set_pendings' , to: "payments#set_pendings"
   get 'home/index'
   get 'home/dashboard'
   get 'orders/dashboard_clients'

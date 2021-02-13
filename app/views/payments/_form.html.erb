@@ -1,37 +1,60 @@
-<br>
-<%= form_with(model: payment, local: true) do |form| %>
-  <% if payment.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(payment.errors.count, "error") %> prohibited this payment from being saved:</h2>
+<div class="row">
+  <div class="col-8 offset-2"><br>
+    <h1 class="offset-4 text-bold">Registrar pago</h1><br>
+    <%= form_with(model: payment, local: true) do |form| %>
+      <% if payment.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(payment.errors.count, "error") %> prohibited this payment from being saved:</h2>
 
-      <ul>
-      <% payment.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
+          <ul>
+          <% payment.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+          </ul>
+        </div>
       <% end %>
-      </ul>
+    <div class="row">
+      <div class="col-4">
+        <div class="form-group">
+          <%= form.label :Orden, class: "control-label h4"%><br>
+          <%= form.select(:order_id, Order.order(created_at: :desc).map {|order| ["#{order.id} - #{order.client.business_name}", order.id] }, { :include_blank => 'Elegir orden' } ,class:"order-payment form-control") %>
+        </div>
+      </div>
+
+      <div class="col-4">
+        <div class="form-group offset-1">
+          <%= form.label :Saldo_pendiente_de_la_orden, class: "control-label h4"%><br>
+          <%= form.text_field "order-payment-status", class:"order-payment-status form-control" %>
+        </div>
+      </div>
+
+      <div class="col-4">
+        <div class="form-group offset-1">
+          <%= form.label :Total_pendiente_cliente, class: "control-label h4"%><br>
+          <%= form.text_field "client-payment-status", class:"client-payment-status form-control" %>
+        </div>
+      </div>
     </div>
-  <% end %>
-  <div class="form-group">
-    <%= form.label :Orden, class: "control-label"%><br>
-    <%= form.select(:order_id, Order.order(created_at: :desc).map {|order| ["#{order.id} - #{order.client.business_name} - $#{number_with_delimiter(order.total_amount.round)}", order.id] }, {} ,class:"order-payment") %>
-  </div>
 
-  <div class="form-group">
-    <%= form.label :Método_de_pago, class: "control-label"%><br>
-    <%= form.collection_select :payment_method_id, PaymentMethod.all, :id, :name, prompt: true%>
-  </div>
+    <div class="row">
+      <div class="col-4">
+        <div class="form-group">
+          <%= form.label :Método_de_pago, class: "control-label h4"%><br>
+          <%= form.collection_select :payment_method_id, PaymentMethod.all, :id, :name,{ :include_blank => 'Elegir método' },class:"custom-select" %>
+        </div>
+      </div>
 
-  <div class="form-group">
-    <%= form.label :Monto_pagado %><br>
-    <%= form.number_field :amount_payed %>
-  </div>
+      <div class="col-4">
+        <div class="form-group offset-1">
+          <%= form.label :Monto_a_pagar, class:"h4"%><br>
+          <%= form.number_field :amount_payed, class:"form-control" %>
+        </div>
+      </div>
+    </div>
 
-  <div class="form-group">
-    <%= form.label :Estado %><br>
-    <%= form.select(:status, order_status) %>
+      <div class="actions"><br>
+        <%= form.submit "Registrar", class:"btn btn-info" %>
+      </div>
+    <% end %>
   </div>
-
-  <div class="actions">
-    <%= form.submit "Registrar", class:"btn btn-info" %>
-  </div>
-<% end %>
+</div>

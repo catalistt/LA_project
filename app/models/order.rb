@@ -12,9 +12,6 @@ class Order < ApplicationRecord
   #Relacion con payments y payment_methods
   has_many :payments
   has_many :payment_methods, through: :payments
-  accepts_nested_attributes_for :payments, allow_destroy: true
-  accepts_nested_attributes_for :payment_methods
-
 
   #Delegate ayuda a acceder más fácil a atributos de modelos relacionados
   delegate :business_name, to: :client, prefix: true, allow_nil: true 

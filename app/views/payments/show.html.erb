@@ -1,24 +1,31 @@
-<p id="notice"><%= notice %></p>
+<div class="container">
+  <div class="row">
+    <div class="col-8 offset-3"><br>
+      <h2 class="text-bold">Resumen del pago</h2> 
+      <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Order:</strong>
-  <%= @payment.order %>
-</p>
+      <p>
+        <strong>Orden:</strong>
+        <%= @payment.order.id %>
+      </p>
 
-<p>
-  <strong>Payment method:</strong>
-  <%= @payment.payment_method %>
-</p>
+      <p>
+        <strong>Cliente:</strong>
+        <%= @payment.order.client.business_name %>
+      </p>
 
-<p>
-  <strong>Amount payed:</strong>
-  <%= @payment.amount_payed %>
-</p>
 
-<p>
-  <strong>Status:</strong>
-  <%= @payment.status %>
-</p>
+      <p>
+        <strong>Método de pago:</strong>
+        <%= @payment.payment_method %>
+      </p>
 
-<%= link_to 'Edit', edit_payment_path(@payment) %> |
-<%= link_to 'Back', payments_path %>
+      <p>
+        <strong>Monto pagado:</strong>
+        <%= number_with_delimiter(@payment.amount_payed.round) %>
+      </p>
+      <%= link_to 'Editar', edit_payment_path(@payment), class:"btn btn-danger"%>
+      <%= link_to 'Ingresar otro pago', payments_path, class:"btn btn-info" %>
+    </div>
+  </div>
+</div>

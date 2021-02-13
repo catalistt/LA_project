@@ -81,9 +81,11 @@ class OrdersController < ApplicationController
         @order.add_products.each do |add_product|
           product = add_product.product
           order = @order.id.to_s
-          previous_quantity = StockMovement.where(id_document: order, movement_type: ["Creación orden", "Actualización de orden"], product_id: product.id).last.stock_quantity
-          if previous_quantity == nil
+          previous_quantity = StockMovement.where(id_document: order, movement_type: ["Creación orden", "Actualización de orden"], product_id: product.id)
+          if previous_quantity == []
             previous_quantity = 0
+          else 
+            previous_quantity = StockMovement.where(id_document: order, movement_type: ["Creación orden", "Actualización de orden"], product_id: product.id).last.stock_quantity
           end
           #Si la diferencia es positiva, quitaron productos de la orden
           dif = previous_quantity - add_product.quantity

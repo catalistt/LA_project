@@ -50,7 +50,7 @@ function getDataCocoon(){
         success:function(result){
           input_extra_tax.val(result.extra_tax);
           console.log(result.stock <= 0)
-          if (result.stock <= 0){
+          if (result.stock <= 0 || result.stock < quantity){
             quantity.attr('disabled', true);
           }
           else{

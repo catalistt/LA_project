@@ -28,6 +28,7 @@ class AdquisitionCostsController < ApplicationController
 
     respond_to do |format|
       if @adquisition_cost.save
+        Product.find(@adquisition_cost.product_id).update(cost: @adquisition_cost.cost)
         format.html { redirect_to @adquisition_cost, notice: 'Adquisition cost was successfully created.' }
         format.json { render :show, status: :created, location: @adquisition_cost }
       else
