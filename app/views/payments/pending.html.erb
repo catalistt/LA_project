@@ -1,0 +1,38 @@
+<div class="container">
+  <div class="row">
+    <div class="dropdown"><br>
+      <h4>Elegir vendedor </h4><%= select_tag(:user, options_for_select(@sellers), class:"custom-select seller  ")%>
+    </div>
+  </div><br>
+  <div class="row">
+    <table class="table table-striped bg-light" id="orders">
+      <thead class="text-center">
+        <tr>
+          <th>N° Orden</th> 
+          <th>Fecha Orden</th>
+          <th>Cliente</th>
+          <th>Vendedor</th>
+          <th>Saldo pendiente</th>
+        </tr>
+      </thead>
+      <tbody class="text-center">
+        <% @orders.each do |order| %>
+          <tr>
+            <% @order_payments = Payment.where(order_id: order.id) %>
+            <% @total_order_payed = 0 %>
+            <% @order_payments.each do |order_payment| %>
+              <% @total_order_payed += order_payment.amount_payed %>
+            <% end %>
+            <% if order.total_amount > @total_order_payed %>
+            <td><%= order.id %></td>
+            <td><%= order.created_at.strftime("%d-%m-%Y") %></td>
+            <td><%= order.client.business_name %></td>
+            <td><%= order.client.user.name %></td>
+            <td>$ <%= number_with_delimiter((order.total_amount - @total_order_payed).round) %></td>
+            <% end %>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>

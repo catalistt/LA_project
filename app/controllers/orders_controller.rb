@@ -76,7 +76,7 @@ class OrdersController < ApplicationController
     
     respond_to do |format|
       if @order.update(order_params)
-
+        #Añadir lógica de eliminación del AddProduct
         #Agregar lógica del update Stock
         @order.add_products.each do |add_product|
           product = add_product.product
@@ -112,7 +112,6 @@ class OrdersController < ApplicationController
         product.stock += add_product.quantity
         product.save
       end
-      ModelMailer.deleted_order_notification(@order, @user).deliver
       format.html { redirect_to orders_url, notice: 'La orden fue eliminada' }
       format.json { head :no_content }
     end

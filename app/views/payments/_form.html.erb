@@ -40,7 +40,14 @@
       <div class="col-4">
         <div class="form-group">
           <%= form.label :Método_de_pago, class: "control-label h4"%><br>
-          <%= form.collection_select :payment_method_id, PaymentMethod.all, :id, :name,{ :include_blank => 'Elegir método' },class:"custom-select" %>
+          <%= form.collection_select :payment_method_id, PaymentMethod.all, :id, :name,{ :include_blank => 'Elegir método' }, class:"custom-select"%>
+        </div>
+      </div>
+
+      <div class="col-4">
+        <div class="form-group ml-4">
+          <%= form.label :Fecha_del_cheque, class: "control-label h4"%><br>
+          <%= form.date_select :check_date, {:use_month_names => ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre','Diciembre'], discard_year: true, selected: Date.today}, class:"custom-select"%>
         </div>
       </div>
 

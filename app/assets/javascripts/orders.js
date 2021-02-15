@@ -25,11 +25,9 @@ function getTotalAmount(parentContainer){
     var net_amount = parseFloat(net_amount_input.val()) || 0;
     /* Obtener el neto y el monto de impto. extra */
     if(!isNaN(extra_tax) || !isNaN(multiply) || !isNaN(net_amount) || extra_tax !== "" || multiply !== "") {
-      debugger;
       net_amount = parseFloat(multiply/(1+0.19+extra_tax));
       extra_tax = parseFloat(net_amount * extra_tax);
       extra_tax_input.val(extra_tax);
-      console.log(extra_tax_input.val());
       net_amount_input.val(net_amount);}
     } 
   }
@@ -42,21 +40,16 @@ function getDataCocoon(){
     var hidden_price = parentContainer.find("[data-id='hidden-price']");
     var input_extra_tax = parentContainer.find(".set-extra-tax");
     var input_g_discount = parentContainer.find(".group_discount");
-    var product_id= $('.st-product').val();
+    var product_id= $('.st-product').find('option:selected').val();
+    console.log(product_id);
+    console.log(parentContainer);
       $.ajax({
         type:"GET",
         url:"/products/"+product_id+"/set_price",
         dataType:"json",
         success:function(result){
           input_extra_tax.val(result.extra_tax);
-          console.log(result.stock <= 0)
-          if (result.stock <= 0 || result.stock < quantity){
-            quantity.attr('disabled', true);
-          }
-          else{
-            quantity.attr('disabled', false);
-          };
-
+          console.log('tax',result);
           if(cost == 1){
             hidden_price.val(result.standard_price);
           }
@@ -79,6 +72,7 @@ function getDataCocoon(){
               dataType: "json",
               data: {product_id: product_id, group_id: group_id},
               success: function(result){
+                console.log(result);
                 input_g_discount.val(result[0].discount);
               }
             })

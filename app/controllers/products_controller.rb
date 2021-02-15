@@ -8,7 +8,7 @@ class ProductsController < ApplicationController
 
   def set_price
     @product = Product.find(params[:product_id])
-    @product_info = {standard_price: @product.standard_price, extra_tax: @product.extra_tax, cost: @product.cost, unit: @product.units, stock: @product.stock}
+    @product_info = {id: @product.id, standard_price: @product.standard_price, extra_tax: @product.extra_tax, cost: @product.cost, unit: @product.units, stock: @product.stock}
     respond_to do |format|
       format.html
       format.json {render json: @product_info}
