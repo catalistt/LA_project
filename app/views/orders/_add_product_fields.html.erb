@@ -1,55 +1,38 @@
 <div class="nested-fields">
-  <div class="container ml-3 products_container">
-    <div class="row">
-      <div class="col-4"><br>
-        <div class="field">
-          <%= f.label :Producto, class:"field" %>
-          <%= f.select(:product_id, Product.all.map {|product| ["#{product.code} - #{product.name} - #{product.stock}", product.id] }, { :include_blank => 'Digita el código o nombre del producto' } ,class:"st-product custom-select") %>
-        </div>
-      </div> 
-      
-      <div class="col-3"><br>
-        <div class="field st-price">
-          <%= f.label :Precio %><br>
-          <%= f.select :price, product_costs, {}, class: "p-price form-control custom-select" %>
-          <%= hidden_field_tag :hidden, 0, "data-id" => 'hidden-price' %>
-        </div>
-      </div>
+  <div class="row my-3">
+    <div class="col-4">
+      <%= f.label :Producto, class:"control-label" %>
+      <%= f.select(:product_id, Product.all.map {|product| ["#{product.code} - #{product.name} - #{product.stock}", product.id] }, { :include_blank => 'Digita el código o nombre del producto' } ,class:"st-product custom-select") %>
+    </div>
+    <div class="col-4">
+      <%= f.label :Precio, class: "control-label" %>
+      <%= f.select :price, product_costs, {}, class: " custom-select st-price" %>
+      <%= hidden_field_tag :hidden, 0, class: "hidden-price" %>
+    </div>
 
-      <div class="col-3"><br>
-        <div class="field">
-          <%= f.label :Descuento_de_grupo %>
-          <%= f.number_field :packaging_amount, class: "group_discount form-control",step:"any" %>
-        </div>
-      </div> 
-      </div>
-
-        <div class="row">
-          <div class="col-3"><br>
-            <div class="field">
-              <%= f.label :Cantidad %>
-              <%= f.number_field :quantity, class: "quantity form-control"  %>
-            </div>
-          </div>
-
-          <div class="col-3"><br>
-            <div class="field">
-              <%= f.label :Precio_total %>
-              <%= f.number_field :total_product_amount, class:"p_total_amount form-control" %>
-            </div>
-          </div>
-
-          <div class="form-group hidden">
-            <%= f.hidden_field :extra_tax, class: "form-control set-extra-tax" %>
-            <%= f.hidden_field :net_product_amount, class: "form-control set-net-amount" %>
-          </div>
-    
-          <div class="col-3 offset-1"><br><br>
-            <%= link_to_remove_association "Eliminar producto", f , class:"btn btn-danger"%>
-          </div>
-        </div>
-        <br><br>
-      </div>
+    <div class="col-4">
+      <%= f.label :Descuento_de_grupo, class: "form-label" %>
+      <%= f.number_field :packaging_amount, class: "group_discount form-control", step:"any" %>
     </div>
   </div>
+
+  <div class="row">
+    <div class="col-4">
+      <%= f.label :Cantidad %>
+      <%= f.number_field :quantity, class: "quantity form-control"  %>
+    </div>
+
+    <div class="col-4">
+      <%= f.label :Precio_total %>
+      <%= f.number_field :total_product_amount, class:"p_total_amount form-control" %>
+    </div>
+
+    <%= f.hidden_field :extra_tax, class: "extra_tax" %>
+    <%= f.hidden_field :net_product_amount, class: "net_product_amount" %>
+    
+    <div class="col-4">
+      <%= link_to_remove_association "Eliminar producto", f , class:"btn btn-danger form-control", style: "margin-top: 34px"%>
+    </div>
+  </div>
+  <hr>
 </div>

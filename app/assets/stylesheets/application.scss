@@ -72,5 +72,13 @@
   background-color: darkblue;
   color: white;
 }
-
-
+.custom-select{
+  color: #757C84;
+  &.date{
+    width: 45%;
+  }
+}
+.form-checkbox{
+  width: 25px;
+  height: 25px;
+}
