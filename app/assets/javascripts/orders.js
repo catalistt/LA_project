@@ -1,8 +1,8 @@
 $(document).on('turbolinks:load', function() {
   $(document).on('cocoon:after-insert', function(){
-    getDataCocoon();
+      getDataCocoon();
     });
-    getDataCocoon();
+  getDataCocoon();
 })
 
 function getTotalAmount(parentContainer){
@@ -15,7 +15,7 @@ function getTotalAmount(parentContainer){
   if(!isNaN(hidden_price) || !isNaN(discount) || !isNaN(quantity) || !isNaN(group_discount)) {
     /* Obtener el total, considerando el descuento y la cantidad*/
     var total_amount = parentContainer.find('.p_total_amount');
-    var multiply = (hidden_price * quantity);
+    var multiply = parseFloat(hidden_price * quantity);
     total_amount.val(Math.round(multiply));
     
     /* Obtengo el valor que está en el extra tax input y declaro el neto*/
@@ -28,28 +28,27 @@ function getTotalAmount(parentContainer){
       net_amount = parseFloat(multiply/(1+0.19+extra_tax));
       extra_tax = parseFloat(net_amount * extra_tax);
       extra_tax_input.val(extra_tax);
-      net_amount_input.val(net_amount);}
-    } 
-  }
+      net_amount_input.val(net_amount);
+    }
+  } 
+}
 
 function getDataCocoon(){
-  $('.quantity, .st-product').on('change keyup', function() {
+  $('.st-product').on('change', function() {
     var parentContainer = $(this).parent().parent().parent().parent();
     var quantity = parentContainer.find('.quantity');
     var cost = parentContainer.find(".p-price").val();
     var hidden_price = parentContainer.find("[data-id='hidden-price']");
     var input_extra_tax = parentContainer.find(".set-extra-tax");
     var input_g_discount = parentContainer.find(".group_discount");
-    var product_id= $('.st-product').find('option:selected').val();
-    console.log(product_id);
-    console.log(parentContainer);
+    var product_id= parentContainer.find('.st-product').find('option:selected').val();
       $.ajax({
         type:"GET",
         url:"/products/"+product_id+"/set_price",
         dataType:"json",
         success:function(result){
+          console.log(result);
           input_extra_tax.val(result.extra_tax);
-          console.log('tax',result);
           if(cost == 1){
             hidden_price.val(result.standard_price);
           }
@@ -78,17 +77,15 @@ function getDataCocoon(){
             })
           }
         });
-        
-
     getTotalAmount(parentContainer);
   });
 
-  $('.p_discount').on('keyup', function() {
+  $('.p_discount').on('change', function() {
     var parentContainer = $(this).parent().parent().parent().parent();
     getTotalAmount(parentContainer);
   });
   
-  $('.quantity').on('keyup', function() {
+  $('.quantity').on('change', function() {
     var parentContainer = $(this).parent().parent().parent().parent();
     getTotalAmount(parentContainer);
   });
