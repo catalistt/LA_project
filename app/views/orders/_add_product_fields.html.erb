@@ -1,30 +1,28 @@
 <div class="nested-fields">
-  <div class="row my-3">
+  <div class="row add_new_product mb-5">
     <div class="col-4">
-      <%= f.label :Producto, class:"control-label" %>
-      <%= f.select(:product_id, Product.all.map {|product| ["#{product.code} - #{product.name} - #{product.stock}", product.id] }, { :include_blank => 'Digita el código o nombre del producto' } ,class:"st-product custom-select") %>
+      <%= f.label :product_id, "Producto", class: "control-label" %>
+      <%= f.select(:product_id, Product.all.map {|product| ["#{product.code} - #{product.name} - #{product.stock}", product.id] }, { :include_blank => 'Digita el código o nombre del producto' } ,class:"product custom-select") %>
     </div>
     <div class="col-4">
-      <%= f.label :Precio, class: "control-label" %>
-      <%= f.select :price, product_costs, {}, class: " custom-select st-price" %>
-      <%= hidden_field_tag :hidden, 0, class: "hidden-price" %>
+      <%= label_tag :cost, "Precio", class: "control-label" %>
+      <%= select_tag :cost, options_for_select(product_costs), class: "custom-select cost" %>
+      <%= f.hidden_field :price, class: "price" %>
+      <%= hidden_field_tag :product_cost, 0, class: "product_cost" %>
     </div>
 
     <div class="col-4">
-      <%= f.label :Descuento_de_grupo, class: "form-label" %>
-      <%= f.number_field :packaging_amount, class: "group_discount form-control", step:"any" %>
+      <%= f.label :packaging_amount, "Descuento de grupo", class: "form-label" %>
+      <%= f.number_field :packaging_amount, readonly: true, class: "group_discount form-control", step: "any" %>
     </div>
-  </div>
-
-  <div class="row">
     <div class="col-4">
-      <%= f.label :Cantidad %>
+      <%= f.label :quantity, "Cantidad" %>
       <%= f.number_field :quantity, class: "quantity form-control"  %>
     </div>
 
     <div class="col-4">
-      <%= f.label :Precio_total %>
-      <%= f.number_field :total_product_amount, class:"p_total_amount form-control" %>
+      <%= f.label :total_product_amount, "Precio total" %>
+      <%= f.number_field :total_product_amount, readonly: true, class:" total_product_amount form-control" %>
     </div>
 
     <%= f.hidden_field :extra_tax, class: "extra_tax" %>

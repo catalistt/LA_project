@@ -7,13 +7,8 @@ class ClientsController < ApplicationController
     @clients = Client.all
   end
 
-
-  def set_group
-    @client_group = Client.find(params[:client_id]).group_id
-    respond_to do |format|
-      format.html
-      format.json {render json: @client_group}
-    end
+  def group
+    render json: { group_id: @client.group_id || 0 }
   end
 
   # GET /clients/1

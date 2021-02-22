@@ -5,15 +5,6 @@ class GroupDiscountsController < ApplicationController
     @group_discounts = GroupDiscount.all
   end
 
-  def aut_discount
-    @group_discount = GroupDiscount.select(:discount).where(product_id: group_discount_params[:product_id], group_id: group_discount_params[:group_id])   
-    if @group_discount.size > 0
-      render json: @group_discount
-    else
-      render json: [{discount: 0}]
-    end
-  end
-
   def show
   end
 

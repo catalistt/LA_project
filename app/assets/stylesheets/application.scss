@@ -77,6 +77,9 @@
   &.date{
     width: 45%;
   }
+  &.error{
+    border: 1px solid red;
+  }
 }
 .form-checkbox{
   width: 25px;
