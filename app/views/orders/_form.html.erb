@@ -18,11 +18,11 @@
       </div>
       <div class="col-4">
         <%= form.label :date, "Fecha de entrega", class:"control-label d-block" %>
-        <%= form.date_select :date, {use_month_names: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre','Diciembre'], discard_year: true, selected: Date.today}, class: "custom-select date" %>
+        <%= form.date_select :date, { use_month_names: month_names, discard_year: true, selected: Date.today}, class: "custom-select date" %>
       </div>
       <div class="col-4">
         <%= form.label :client_id, "Cliente", class: "form-label"%>
-        <%= form.select(:client_id, Client.all.map {|client| ["#{client.id} - #{client.business_name}", client.id] }, { include_blank: 'Ingresar cliente' }, class:"custom-select") %>
+        <%= form.select(:client_id, Client.all.map {|client| ["#{client.id} - #{client.business_name}", client.id] }, { include_blank: 'Ingresar cliente' }, class: "custom-select") %>
       </div>
       <%= form.hidden_field :net_amount %>
       <%= form.hidden_field :total_iva, class: "form-control" %>
