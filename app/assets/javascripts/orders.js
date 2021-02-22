@@ -23,6 +23,7 @@ function setProductInfo(){
     var clientId = clientInput.val();
     if(clientId){
       var parentContainer = productInput.closest(".add_new_product");
+      var quantityInput = parentContainer.find(".quantity");
       var priceInput = parentContainer.find(".price");
       var inputExtraTax = parentContainer.find(".extra_tax");
       var productId = parentContainer.find('.product').val();
@@ -37,6 +38,9 @@ function setProductInfo(){
           groupDiscountInput.val(product.discount);
           productCost.val(product.cost);
           priceInput.val(product.standard_price);
+          if(quantityInput.val() === ""){
+            quantityInput.val(1);
+          }
           getTotalAmount(productInput);
         }
       });
@@ -46,10 +50,6 @@ function setProductInfo(){
       clientInput.addClass("error");
     }
   });
-}
-
-function updatePrice(parentContainer){
-
 }
 
 function getTotalAmount(element){
