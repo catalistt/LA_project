@@ -7,13 +7,8 @@ class ClientsController < ApplicationController
     @clients = Client.all
   end
 
-
-  def set_group
-    @client_group = Client.find(params[:client_id]).group_id
-    respond_to do |format|
-      format.html
-      format.json {render json: @client_group}
-    end
+  def group
+    render json: { group_id: @client.group_id || 0 }
   end
 
   # GET /clients/1
@@ -78,6 +73,6 @@ class ClientsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def client_params
-      params.require(:client).permit(:business_name, :rut, :address, :user_id, :phone_number, :schedule, :special_agreeement, :group_id)
+      params.require(:client).permit(:business_name, :rut, :address, :user_id, :phone_number, :schedule, :special_agreement, :group_id)
     end
 end

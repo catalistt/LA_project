@@ -1,31 +1,12 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the rails db:seed command (or created alongside the database with db:setup).
-#
-# Examples:
-#
-#   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
-#   Character.create(name: 'Luke', movie: movies.first)
-
-
-#Supplier.create(name: "COMERCIAL CCU SPA", rut: "	99.554.560-8")
-#Product.create(cod: "A01", name: "COCA COLA 3LT DESECHABLE", type: "BEBIDA", packaging: "DESECHABLE", format: "3LT", description: "Display de 6 unidades", unit: "display", extra_tax: 0.18, standard_price: 11862)
-#PaymentMethod.create(name: "efectivo")
-#grupos de clientes
-#Group.create(name: "Almacenes y botillerias")
-#Group.create(name: "Costo")
-#Group.create(name: "Distribuidores")
-#Group.create(name: "Especiales")
-#Group.create(name: "Especial VIPS")
-#Camiones de despacho
-#DeliveryMethod.create(vehicle_plate: "KXRJ78" ,brand: "JAC" ,vehicle_model: "URBAN 1040" ,max_weight: "3000KG" , consume:"6.7KM/LT" ,last_revision: "25-11-2020", emergency_number: "600 786 1000")
-#DeliveryMethod.create(vehicle_plate: "HDKP82" ,brand: "JAC" ,vehicle_model: "URBAN 1035" ,max_weight: "2.600KG" , consume:"10KM/LT" ,last_revision: "20-01-2020", emergency_number: "569 85282028")
-#DeliveryMethod.create(vehicle_plate: "JSRK95" ,brand: "FOTON" ,vehicle_model: "MIDI CARGO BOX" ,max_weight: "1.339KG" , consume:"10KM/LT" ,last_revision: "01-08-2019", emergency_number: "569 85282028")
-#DeliveryMethod.create(vehicle_plate: "JYGD30" ,brand: "FOTON" ,vehicle_model: "MIDI TRUCK" ,max_weight: "1.339KG" , consume:"10KM/LT" ,last_revision: "09-07-2020", emergency_number: "569 85282028")
-#DeliveryMethod.create(vehicle_plate: "KXRJ79" ,brand: "JAC" ,vehicle_model: "URBAN 1040" ,max_weight: "3000KG" , consume: "6.7KM/LT" ,last_revision: "25-11-2020", emergency_number: "600 786 1000")
-#DeliveryMethod.create(vehicle_plate: "PCYF89" ,brand: "JAC" ,vehicle_model: "X200" ,max_weight: "1.700KG" , consume:"10KM/LT" ,last_revision: "01-01-2023", emergency_number: "600 600 0080")
-#DeliveryMethod.create(vehicle_plate: "PCYF90" ,brand: "JAC" ,vehicle_model: "X200" ,max_weight: "1.700KG" , consume:"10KM/LT" ,last_revision: "01-01-2023", emergency_number: "600 600 0080") 
-#DeliveryMethod.create(vehicle_plate: "HPPJ11" ,brand: "RENAULT" ,vehicle_model: "DOKKER" ,max_weight: "750kg" , consume:"9KM/LT" ,last_revision: "09-07-2020", emergency_number: "569 85282028")
-#AdminUser.create!(email: 'calisteg7@gmail.com', password: 'password', password_confirmation: 'password') if Rails.env.development?
-#Productos
-#Clientes
-
+Supplier.create(name: "COMERCIAL CCU SPA", rut: "99.554.560-8")
+Product.create(code: "A01", name: "COCA COLA 3L DESECHABLE", category: nil, packaging: "DESECHABLE", format: "3LT", description: "DISPLAY DE 6 UNIDADES", unit: "DISPLAY", extra_tax: 0.205, standard_price: 11862.0, stock: 200, cost: 9882.0, units: 6)
+Product.create(code: "A02", name: "COCA COLA ZERO 3L DESECHABLE", category: nil, packaging: "DESECHABLE", format: "3LT", description: "DISPLAY DE 6 UNIDADES", unit: "DISPLAY", extra_tax: 0.18, standard_price: 11862.0, stock: 200, cost: 9882.0, units: 6)
+Product.create(code: "A03", name: "SPRITE 3 LITROS DESECHABLE", category: nil, packaging: "DESECHABLE", format: "3 LITROS ", description: "display de 6 unidades ", unit: "dsp", extra_tax: 0.18, standard_price: 9000.0, stock: 200, cost: 7000, units: 6)
+Group.create(name: "Almacenes y botillerias")
+Group.create(name: "Distribuidores")
+GroupDiscount.create(product_id: 1, group_id: 1, discount: 0.1416)
+GroupDiscount.create(product_id: 2, group_id: 2, discount: 0.2)
+DeliveryMethod.create(vehicle_plate: "KXRJ78", adquisition_date: nil, policy_number: nil, ensurance_company: nil, brand: "JAC", vehicle_model: "URBAN 1040", max_weight: "3000KG", consume: "6.7KM/LT", emergency_number: "600 786 1000", last_revision: "2020-11-25")
+User.create(email: "test@example.com", role: nil, gender: "femenino", birthday: "1996-05-07 00:00:00", address: "Test address", rut: "12.3456.789-0", phone_number: "12345677", health_system: "Isapre Colmena", afp: "AFP Modelo", emergency_number: "23456789", name: "UsuarioTest", provider: nil, uid: nil)
+Client.create(business_name: "Cliente test", rut: "12.345.678-9", address: "test address", user_id: 1, phone_number: "1234567", schedule: "07:00 - 13:00 / 15:00 - 22:00", special_agreement: "Cheque a 15 días", group_id: 1, line_of_business: "venta al por menor de bebidas alcohólicas")
+Client.create(business_name: "Cliente test", rut: "12.345.678-9", address: "test address", user_id: 1, phone_number: "1234567", schedule: "07:00 - 13:00 / 15:00 - 22:00", special_agreement: "Cheque a 15 días", group_id: 2, line_of_business: "venta en almacenes y botillerias")

@@ -29,4 +29,8 @@ module ApplicationHelper
     end
     return payments_name
   end
+
+  def month_names
+    ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre','Diciembre']
+  end
 end

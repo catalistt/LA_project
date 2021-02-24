@@ -7,7 +7,7 @@ one:
   user_id: one
   phone_number: MyString
   schedule: MyString
-  special_agreeement: MyString
+  special_agreement: MyString
   group_id: one
 
 two:
@@ -17,5 +17,5 @@ two:
   user_id: two
   phone_number: MyString
   schedule: MyString
-  special_agreeement: MyString
+  special_agreement: MyString
   group_id: two

@@ -1,5 +1,5 @@
 class ProductsController < ApplicationController
-  before_action :set_product, only: [:show, :edit, :update, :destroy]
+  before_action :set_product, only: [:show, :edit, :update, :destroy, :group_discount]
 
 
   def index
@@ -7,7 +7,6 @@ class ProductsController < ApplicationController
   end
 
   def set_price
-    @product = Product.find(params[:product_id])
     @product_info = {id: @product.id, standard_price: @product.standard_price, extra_tax: @product.extra_tax, cost: @product.cost, unit: @product.units, stock: @product.stock}
     respond_to do |format|
       format.html
@@ -27,8 +26,21 @@ class ProductsController < ApplicationController
   end
 
   def show
+    render json: @product
   end
 
+  def group_discount
+    client = Client.find(params[:client_id])
+    discount = @product.group_discounts.find_by(group_id: client&.group_id)&.discount
+    render json: {
+      standard_price: @product.standard_price.to_f,
+      extra_tax: @product.extra_tax.to_f,
+      cost: @product.cost.to_f,
+      unit: @product.units.to_f,
+      stock: @product.stock.to_i,
+      discount: discount.to_f
+    }
+  end
 
   def new
     @product = Product.new
@@ -85,7 +97,7 @@ class ProductsController < ApplicationController
     
     # Only allow a list of trusted parameters through.
     def product_params
-      params.require(:product).permit(:code, :cost, :name, :category, :packaging, :format, :description, :unit, :units, :extra_tax, :standard_price,
+      params.require(:product).permit(:code, :cost, :name, :category, :packaging, :format, :description, :unit, :units, :extra_tax, :standard_price, :client_id,
       group_discounts_attributes: [:id, :product_id, :group_id, :discount])
     end
 end

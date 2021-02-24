@@ -63,14 +63,27 @@
   color: darkblue;
 }
 
-.borderblue{
-  border:1px solid;
-  border-color: darkblue;
+.border-blue{
+  border: 1px solid darkblue;
 }
 
 .bg-blue{
   background-color: darkblue;
   color: white;
 }
-
-
+.custom-select{
+  color: #757C84;
+  &.date{
+    width: 45%;
+  }
+  &.error{
+    border: 1px solid red;
+  }
+}
+.form-checkbox{
+  width: 25px;
+  height: 25px;
+}
+.form-btn{
+  margin-top: 34px;
+}
