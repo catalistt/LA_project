@@ -6,6 +6,20 @@ class OrdersController < ApplicationController
     @orders_by_sum = Order.select(:client_id, :total_amount).group(:client_id).sum(:total_amount)
   end
 
+  def edit_all
+    @orders = Order.where('DATE(date) >= ?', Date.today)
+
+  end
+
+  def update_all
+    #REVISAR ERROR
+    params['order'].keys.each do |id|
+      @order = Order.find(id.to_i)
+      @order.update_attributes(params['order'][id][:delivery_method_id])
+    end
+    redirect_to(orders_url)
+  end
+
   def my_detail
     @my_orders = Order.where(user_id: current_user.id).select(:client_id).group(:client_id).count
     @my_amounts = Order.where(user_id: current_user.id).select(:client_id, :total_amount).group(:client_id).sum(:total_amount)
