@@ -21,6 +21,7 @@ function setProductInfo(){
     var productInput = $(this);
     var clientInput = $('#order_client_id');
     var clientId = clientInput.val();
+    console.log(productInput);
     if(clientId){
       var parentContainer = productInput.closest(".add_new_product");
       var quantityInput = parentContainer.find(".quantity");

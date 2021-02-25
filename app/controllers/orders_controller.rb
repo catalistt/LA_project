@@ -92,10 +92,13 @@ class OrdersController < ApplicationController
     respond_to do |format|
       if @order.update(order_params)
         #Añadir lógica de eliminación del AddProduct
+        order = @order.id.to_s
+        previous_products = StockMovement.where(id_document: order, movement_type: ["Creación orden", "Actualización de orden"]).pluck("product_id")
+        actual_products = []
+
         #Agregar lógica del update Stock
         @order.add_products.each do |add_product|
           product = add_product.product
-          order = @order.id.to_s
           previous_quantity = StockMovement.where(id_document: order, movement_type: ["Creación orden", "Actualización de orden"], product_id: product.id)
           if previous_quantity == []
             previous_quantity = 0
@@ -104,10 +107,30 @@ class OrdersController < ApplicationController
           end
           #Si la diferencia es positiva, quitaron productos de la orden
           dif = previous_quantity - add_product.quantity
-          StockMovement.create(initial_stock: product.stock, product_id: product.id, final_stock: product.stock + dif, movement_type: "Actualización de orden", stock_quantity: add_product.quantity, id_document: @order.id )
-          product.stock += dif
-          product.save
+          if dif != 0
+            StockMovement.create(initial_stock: product.stock, product_id: product.id, final_stock: product.stock + dif, movement_type: "Actualización de orden", stock_quantity: add_product.quantity, id_document: @order.id )
+            product.stock += dif
+            product.save
+          end
+          element = product.id.to_s
+          actual_products << element
         end
+
+        #Lógica para agregar devolución de stock para productos eliminados
+        deleted_products = previous_products.uniq - actual_products.uniq
+        deleted_products.each do |deleted_product|
+          initial_stock = StockMovement.where(id_document: order, movement_type: ["Creación orden", "Actualización de orden"], product_id: deleted_product).last.final_stock
+          final_stock = StockMovement.where(id_document: order, movement_type: ["Creación orden", "Actualización de orden"], product_id: deleted_product).last.initial_stock
+          last_mov_stock = final_stock - initial_stock
+          if AddProduct.where(order_id: order, product_id: deleted_product).exists?
+          else
+            product = Product.find(deleted_product)
+            StockMovement.create(initial_stock: product.stock, product_id: product.id, final_stock: product.stock + last_mov_stock, movement_type: "Eliminación del producto", id_document: @order.id )
+            product.stock += last_mov_stock
+            product.save
+          end
+        end
+
         format.html { redirect_to @order, notice: 'La orden se actualizó exitosamente.' }
         format.json { render :show, status: :ok, location: @order }
       else

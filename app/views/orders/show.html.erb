@@ -11,9 +11,9 @@
       <div class="row">
         <div class="col w-25 d-table-cell offset-1 justify-content-center">
         <% if request.format == 'application/pdf' %>
-            <%# <br><%= wicked_pdf_image_tag("logoLA.png", class: "img-responsive", id: "navbar-logo", size: "185" ) %>
+            <br><%= wicked_pdf_image_tag("logoLA.png", class: "img-responsive", id: "navbar-logo", size: "185" ) %>
           <% else %>
-          <%# <br><%= image_tag("logoLA.png", class: "img-responsive", id: "navbar-logo", size: "185" ) %>
+            <br><%= image_tag("logoLA.png", class: "img-responsive", id: "navbar-logo", size: "185" ) %>
           <% end %>
 
           </div>
@@ -102,7 +102,7 @@
                 <td><%= item.product.code %></td>
                 <td><%= item.product.name %></td>
                 <td><%= item.quantity %></td>
-                <td><%= number_with_delimiter(item.net_product_amount.round(3)) %></td>
+                <td><%= number_with_delimiter(item.net_product_amount.round) %></td>
                 <td><%= item.product.extra_tax.round(3) %></td>
                 <td><%= number_with_delimiter(item.total_product_amount.round) %></td>
               </tr>  
@@ -129,10 +129,10 @@
                 <h6 class="text-blue text-bold"> Total:</h6>
               </div>
               <div class="col w-35 d-table-cell">
-                <h6>$ <%= number_with_delimiter(@order.net_amount.round(3)) %></h6>
-                <h6>$ <%= number_with_delimiter(@order.total_iva.round(3)) %></h6>
-                <h6>$ <%= number_with_delimiter(@order.total_extra_taxes.round(3)) %></h6>
-                <h6 class="text-bold">$ <%= number_with_delimiter(@order.total_amount.round(3)) %></h6>
+                <h6>$ <%= number_with_delimiter(@order.net_amount.round) %></h6>
+                <h6>$ <%= number_with_delimiter(@order.total_iva.round) %></h6>
+                <h6>$ <%= number_with_delimiter(@order.total_extra_taxes.round) %></h6>
+                <h6 class="text-bold">$ <%= number_with_delimiter(@order.total_amount.round) %></h6>
               </div>
             </div>
           </div>
