@@ -16,18 +16,18 @@
           </thead>
           <% @orders.each do |order| %>
             <%= fields_for "order[]", order do |order_fields| %>
-          <tr class="text-center">
-            <td><%= order.id %></td> 
-            <td><%= order.client_business_name %></td>
-            <td>$ <%= number_with_delimiter(order.total_amount.round) %></td> 
-            <td><%= order_fields.select(:delivery_method_id, DeliveryMethod.all.map {|method| ["#{method.vehicle_plate}", method.id] }, { include_blank: 'Elegir transporte' }, class: "custom-select") %></td>
-          </tr>
+            <tr class="text-center">
+              <td><%= order.id %></td> 
+              <td><%= order.client_business_name %></td>
+              <td>$ <%= number_with_delimiter(order.total_amount.round) %></td> 
+              <td><%= order_fields.select(:delivery_method_id, DeliveryMethod.all.map {|method| ["#{method.vehicle_plate}", method.id] }, { include_blank: 'Elegir transporte' }, class: "custom-select") %></td>
+            </tr>
             <% end %>
           <% end %>
         </table>
 
         <div class="actions">
-          <%= submit_tag %>
+          <%= submit_tag "Agregar transporte", class:"btn btn-info"%>
         </div>
       <% end %>
     </div>

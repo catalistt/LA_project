@@ -8,14 +8,13 @@ class OrdersController < ApplicationController
 
   def edit_all
     @orders = Order.where('DATE(date) >= ?', Date.today)
-
   end
 
   def update_all
     #REVISAR ERROR
     params['order'].keys.each do |id|
       @order = Order.find(id.to_i)
-      @order.update_attributes(params['order'][id][:delivery_method_id])
+      @order.update_attributes(params['order'][id])
     end
     redirect_to(orders_url)
   end
