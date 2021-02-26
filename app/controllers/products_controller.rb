@@ -26,7 +26,10 @@ class ProductsController < ApplicationController
   end
 
   def show
-    render json: @product
+    respond_to do |format|
+      format.html {}
+      format.js{ render json: @product }
+    end
   end
 
   def group_discount
