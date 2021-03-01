@@ -1,16 +1,12 @@
 Rails.application.routes.draw do
   resources :add_items
   match 'orders/all/edit' => 'orders#edit_all', :as => :edit_all, :via => :get
-  match 'orders/all' => 'orders#update_all', :as => :update_all, :via => :put
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
   devise_for :users, controllers: {
     omniauth_callbacks: 'users/omniauth_callbacks' }
   resources :users, only: [:show, :edit, :update]  
   get 'orders/my_order', to: "orders#my_order"
-  
-
-
   get 'payments/set_pendings', to: "payments#set_pendings"
   get 'payments/pending', to: "payments#pending"
   get 'home/index'
@@ -22,7 +18,12 @@ Rails.application.routes.draw do
   resources :adquisition_costs
   resources :stock_movements
   resources :add_products
-  resources :orders
+  resources :orders do
+    collection do
+      get :filter
+      post :search
+    end
+  end
   resources :purchases
   resources :group_discounts
   resources :products do
@@ -35,7 +36,11 @@ Rails.application.routes.draw do
 
   resources :consumes
   resources :resources
-  resources :delivery_methods
+  resources :delivery_methods do
+    collection do
+      put :update_orders
+    end
+  end
   resources :suppliers
   resources :clients do
     get :group

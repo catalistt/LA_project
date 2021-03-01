@@ -1,0 +1,7 @@
+<tr class="text-center">
+  <td><%= f.object.id %></td>
+  <%= f.hidden_field :id %>
+  <td><%= f.object.client_business_name %></td>
+  <td>$ <%= number_with_delimiter(f.object.total_amount.round) %></td>
+  <td><%= f.collection_select(:delivery_method_id, DeliveryMethod.all, :id, :vehicle_plate, {include_blank: 'Elige patente'}, { class: "custom-select", selected: f.object.delivery_method_id}) %></td>
+</tr>
