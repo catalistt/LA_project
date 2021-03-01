@@ -6,7 +6,7 @@
     </div>
     <div class="col-4">
       <%= f.label :price, "Precio bruto unitario", class: "control-label" %>
-      <%= f.number_field :price, class: "item-price form-control form-control", step: "any" %>
+      <%= f.number_field :price, class: "form-control item-price", step: "any" %>
     </div>
 
     <div class="col-4">
@@ -16,7 +16,7 @@
 
     <div class="col-4 mt-3">
       <%= f.label :total_product_amount,"Total bruto del producto" %>
-      <%= f.number_field :total_product_amount, class: "form-control item-amount" %>
+      <%= f.number_field :total_product_amount, class: "form-control item-total", readonly: true %>
     </div>
 
     <div class="col-4 my-3">

@@ -22,7 +22,7 @@
               <%= form.date_select :created_at, { use_month_names: month_names, discard_year: true, selected: Date.today }, class: "custom-select date" %>
             </div>
             <div class="col-4">
-              <%= form.label :Proveedor, class: "control-label"%>
+              <%= form.label :supplier_id, "Proveedor", class: "control-label"%>
               <%= form.select(:supplier_id, Supplier.all.map {|supplier| ["#{supplier.name} - #{supplier.rut}", supplier.id] }, { include_blank: 'Ingresar proveedor' }, class: "custom-select") %>
             </div>
             <div class="col-4">
@@ -43,11 +43,9 @@
             </div>
           </div>
         </div>
-        <div class="col-12 my-3">
-          <h5>Total Factura: <span class="invoice-total">$</span></h5>
-          <%= form.number_field :total_amount, class: "total-purchase" %>
-        </div>
         <div class="col-4 offset-4 my-3">
+          <h5>Total Factura: <span id="invoice-total">$</span></h5>
+          <%= form.hidden_field :total_amount %>
           <%= form.submit "Ingresar compra", class:"btn btn-success form-control" %>
         </div>
     </div>
