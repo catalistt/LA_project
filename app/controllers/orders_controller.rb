@@ -8,20 +8,29 @@ class OrdersController < ApplicationController
 
   def edit_all
     @orders = Order.where('DATE(date) >= ?', Date.today)
-  end
-
-  def update_all
-    #REVISAR ERROR
-    params['order'].keys.each do |id|
-      @order = Order.find(id.to_i)
-      @order.update_attributes(params['order'][id])
-    end
-    redirect_to(orders_url)
+    @delivery_method = DeliveryMethod.new
+    @delivery_method.orders << @orders
   end
 
   def my_detail
     @my_orders = Order.where(user_id: current_user.id).select(:client_id).group(:client_id).count
     @my_amounts = Order.where(user_id: current_user.id).select(:client_id, :total_amount).group(:client_id).sum(:total_amount)
+  end
+
+  def filter
+
+  end
+
+  def search
+    if (params[:client_business_name])
+      client = Client.find_by(business_name: params[:client_business_name])
+      @orders = client&.orders
+    elsif params[:user_name]
+      user = User.find_by(name: params[:user_name])
+      @orders = user&.orders
+    elsif params[:order_id]
+      @orders = Order.find_by(params[:id])
+    end
   end
 
   def my_order
@@ -176,7 +185,7 @@ class OrdersController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def order_params
-      params.require(:order).permit(:_destroy, :client_id, :user_id, :delivery_method_id, :net_amount, :total_iva, :total_extra_taxes, :total_amount, :total_packaging_amount, :visit_start, :visit_end, :discount_amount, :discount_comment, :create_invoive, :responsable, :date,
+      params.require(:order).permit(:_destroy, :client_id, :user_id, :delivery_method_id, :net_amount, :total_iva, :client_business_name, :user_name, :total_extra_taxes, :total_amount, :total_packaging_amount, :visit_start, :visit_end, :discount_amount, :discount_comment, :create_invoive, :responsable, :date,
       add_products_attributes: [:id, :_destroy, :order_id, :product_id, :price, :discount, :quantity, :total_product_amount, :extra_tax, :packaging_amount, :net_product_amount],
       clients_attributes: [:id,:_destroy,  :business_name, :user_id, :rut, :address, :phone_number, :schedule, :special_agreement, :group_id],
       delivery_methods_attributes: [:id, :_destroy, :vehicle_plate, :policy_number, :ensurance_company])

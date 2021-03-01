@@ -1,0 +1,17 @@
+<div class="row">
+  <div class="col-4 offset-4">
+    <%= form_with url: search_orders_path do |f| %>
+
+      <%= f.label :client_business_name, "Cliente" %>
+      <%= f.text_field :client_business_name, class: "form-control" %>
+      <%= f.label :user_name, "Usuario" %>
+      <%= f.text_field :user_name, class: "form-control" %>
+      <%= f.label :order_id %>
+      <%= f.text_field :order_id, class: "form-control" %>
+
+      <%= f.submit %>
+    <% end %>
+  </div>
+</div>
+<div id="orders">
+</div>
