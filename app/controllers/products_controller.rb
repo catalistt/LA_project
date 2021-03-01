@@ -1,7 +1,6 @@
 class ProductsController < ApplicationController
   before_action :set_product, only: [:show, :edit, :update, :destroy, :group_discount]
 
-
   def index
     @products = Product.all
   end
@@ -26,7 +25,10 @@ class ProductsController < ApplicationController
   end
 
   def show
-    render json: @product
+    respond_to do |format|
+      format.html {}
+      format.js { render json: @product }
+    end
   end
 
   def group_discount
@@ -49,10 +51,8 @@ class ProductsController < ApplicationController
   def edit
   end
 
-
   def create
     @product = Product.new(product_params)
-
     respond_to do |format|
       if @product.save
         format.html { redirect_to @product, notice: 'Product was successfully created.' }

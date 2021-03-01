@@ -1,49 +1,59 @@
-<p id="notice"><%= notice %></p>
+<div class="container">
+  <div class="card my-3">
+    <div class="card-body">
+      <div class="row">
+        <div class="col-11">
+          <p>
+            <strong>Cod:</strong>
+            <%= @product.code %>
+          </p>
 
-<p>
-  <strong>Cod:</strong>
-  <%= @product.code %>
-</p>
+          <p>
+            <strong>Nombre:</strong>
+            <%= @product.name %>
+          </p>
 
-<p>
-  <strong>Nombre:</strong>
-  <%= @product.name %>
-</p>
+          <p>
+            <strong>Categoría:</strong>
+            <%= @product.category %>
+          </p>
 
-<p>
-  <strong>Categoría:</strong>
-  <%= @product.category %>
-</p>
+          <p>
+            <strong>Envase:</strong>
+            <%= @product.packaging %>
+          </p>
 
-<p>
-  <strong>Envase:</strong>
-  <%= @product.packaging %>
-</p>
+          <p>
+            <strong>Formato:</strong>
+            <%= @product.format %>
+          </p>
 
-<p>
-  <strong>Formato:</strong>
-  <%= @product.format %>
-</p>
+          <p>
+            <strong>Descripción:</strong>
+            <%= @product.description %>
+          </p>
 
-<p>
-  <strong>Descripción:</strong>
-  <%= @product.description %>
-</p>
+          <p>
+            <strong>Unidad:</strong>
+            <%= @product.unit %>
+          </p>
 
-<p>
-  <strong>Unidad:</strong>
-  <%= @product.unit %>
-</p>
+          <p>
+            <strong>Impuesto extra:</strong>
+            <%= @product.extra_tax %>
+          </p>
 
-<p>
-  <strong>Impuesto extra:</strong>
-  <%= @product.extra_tax %>
-</p>
+          <p>
+            <strong>Precio ruta:</strong>
+            <%= @product.standard_price %>
+          </p>
+        </div>
+        <div class="col-1">
+          <%= link_to raw("<span class='fa fa-edit'></span>"), edit_product_path(@product), class: "btn btn-info btn-block" %>
+        </div>
+      </div>
+    </div>
+  </div>
 
-<p>
-  <strong>Precio ruta:</strong>
-  <%= @product.standard_price %>
-</p>
-
-<%= link_to 'Edit', edit_product_path(@product) %> |
-<%= link_to 'Back', products_path %>
+  <%= link_to 'Back', products_path %>
+</div>

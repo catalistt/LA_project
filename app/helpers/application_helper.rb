@@ -33,4 +33,8 @@ module ApplicationHelper
   def month_names
     ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre','Diciembre']
   end
+
+  def glyphicon(name)
+    "<span class='fa fa-#{name}'></span>"
+  end
 end
