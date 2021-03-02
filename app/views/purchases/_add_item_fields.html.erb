@@ -4,23 +4,29 @@
       <%= f.label :product_id, "Producto" %>
       <%= f.select(:product_id, Product.all.map {|product| ["#{product.code} - #{product.name}", product.id] }, { include_blank: 'Digita el código o nombre del producto' } ,class: "item-product custom-select") %>
     </div>
+
+    <div class="col-4">
+      <%= label_tag :units, "Unidades", class: "control-label" %>
+      <%= text_field_tag :units, nil, readonly: true,  class: "form-control item-units" %>
+    </div>
+
     <div class="col-4">
       <%= f.label :price, "Precio bruto unitario", class: "control-label" %>
       <%= f.number_field :price, class: "form-control item-price", step: "any" %>
     </div>
 
-    <div class="col-4">
+    <div class="col-4 my-3">
       <%= f.label :quantity, "Cantidad" %>
-      <%= f.number_field :quantity, class: "item-quantity form-control", step:"any" %>
+      <%= f.number_field :quantity, class: "item-quantity form-control" %>
     </div>
 
-    <div class="col-4 mt-3">
+    <div class="col-4 my-3">
       <%= f.label :total_product_amount,"Total bruto del producto" %>
       <%= f.number_field :total_product_amount, class: "form-control item-total", readonly: true %>
     </div>
 
     <div class="col-4 my-3">
-      <%= link_to_remove_association "Eliminar producto", f , class:"btn btn-danger btn-block form-btn"%>
+      <%= link_to_remove_association "Eliminar producto", f , class: " btn btn-danger btn-block form-btn"%>
     </div>
   </div>
   <hr>
