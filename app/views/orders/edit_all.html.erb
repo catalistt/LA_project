@@ -4,6 +4,15 @@
     <div class="col-12">
     <br>
     <h1>Asignar transporte a órdenes</h1><br>
+    
+    #Alerta oculta
+    <div class="alert alert-success alert-dismissible fade show hide" role="alert" id="deliveryAlert">
+      <strong>¡Bien hecho!</strong> Las órdenes fueron asignadas a los camiones.
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+
       <%= form_with model: @delivery_method, url: update_orders_delivery_methods_path, method: :put do |form| %>
         <table class="table table-striped bg-light">
           <thead class="text-center">
@@ -20,8 +29,9 @@
           <% end %>
         </table>
         <div class="actions">
-          <%= submit_tag "Agregar transporte", class:"btn btn-info"%>
+          <%= submit_tag "Agregar transporte", class:"btn btn-info delivery-added"%>
         </div>
+            
       <% end %>
     </div>
   </div>

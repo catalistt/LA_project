@@ -1,4 +1,8 @@
 $(document).on('turbolinks:load', function() {
+  $(".delivery-added").click(function(){
+    document.getElementById('deliveryAlert').classList.remove('hide')
+  });
+
   $("#add_products").on('cocoon:after-insert', function(){
     setProductInfo();
     $('.discount').on('change', function(){

@@ -67,7 +67,6 @@ class DeliveryMethodsController < ApplicationController
       order.delivery_method_id = order_attr[1][:delivery_method_id]
       order.save!
     end
-    flash[:notice] = "Cambios guardados"
   end
 
   private
