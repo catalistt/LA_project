@@ -1,14 +1,23 @@
 $(document).on('turbolinks:load', function() {
-  $(document).on('cocoon:after-insert', function(){
-    $('.item-quantity').on('keyup',  getItemProduct);
-    $('.item-price').on('keyup',  getItemProduct);
-    $('.item-product').on('change',  getItemProduct);
+  $(document).on('cocoon:after-insert', function(e,insertedItem){
+    $('.item-quantity').on('keyup', function(){
+      getItemTotal(insertedItem);
+    });
+    $('.item-price').on('keyup',  function(){
+      getItemTotal(insertedItem);
+    });
+    $('.item-product').on('change', function(){
+      setProduct(insertedItem);
+      getTotal();
+    });
   });
 });
 
-function getItemProduct(){
-  var parentContainer = $(this).closest(".items_container");
-  var productSelect = parentContainer.find('.item-product');
+
+
+function setProduct(insertedContainer){
+  var container = $(insertedContainer);
+  var productSelect = container.find('.item-product');
   var productId = productSelect.val();
   if(productId == ""){
     alert("Tienes que seleccionar un producto primero");
@@ -16,27 +25,45 @@ function getItemProduct(){
   }
   else{
     productSelect.removeClass("error");
-    var inputPrice = parentContainer.find(".item-price");
-    var inputQuantity = parentContainer.find(".item-quantity");
-    var inputItemTotal = parentContainer.find('.item-total');
-    var purchaseInput = $("#purchase_total_amount");
+    var inputPrice = container.find(".item-price");
+    var inputQuantity = container.find(".item-quantity");
+    var unitsInput = container.find(".item-units");
+    var inputItemTotal = container.find('.item-total');
     $.ajax({
       type: "GET",
       url: "/products/" + productId,
       dataType: "json",
       success: function(product){
         var units = product.units || 0;
-        var totalPurchase = parseFloat(purchaseInput.val()) || 0;
         var price = parseFloat(inputPrice.val()) || 0 ;
         var quantity = parseFloat(inputQuantity.val()) || 1;
-        var parcialTotal = units * price * quantity;
-        var total = parcialTotal + totalPurchase;
+        var itemTotal = units * price * quantity;
         inputPrice.val(price);
         inputQuantity.val(quantity);
-        inputItemTotal.val(parcialTotal);
-        purchaseInput.val(total);
-        $("#invoice-total").text("$ " + total);
+        unitsInput.val(units);
+        inputItemTotal.val(itemTotal);
       }
     });
   }
+}
+
+function getItemTotal(insertedContainer){
+  var container = $(insertedContainer);
+  var price = container.find(".item-price").val() || 0;
+  var quantity = container.find(".item-quantity").val() || 0;
+  var units = container.find(".item-units").val() || 0;
+  var itemTotal = parseFloat(price) * parseFloat(quantity) * parseFloat(units);
+  container.find(".item-total").val(itemTotal);
+  getTotal();
+}
+
+function getTotal(){
+  var containers = $(".items_container");
+  var total = 0;
+  containers.each(function(){
+    var itemTotalInput = $(this).find(".item-total").val();
+    total = total + parseFloat(itemTotalInput || 0);
+  });
+  $("#purchase_total_amount").val(total);
+  $("#invoice-total").text("$ " + total);
 }
