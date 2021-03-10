@@ -1,5 +1,6 @@
 class OrdersController < ApplicationController
   before_action :set_order, only: [:show, :edit, :update, :destroy]
+  before_action :set_client, only: [:create, :update]
 
   def dashboard_clients
     @orders_by_count = Order.select(:client_id).group(:client_id).count
@@ -74,22 +75,7 @@ class OrdersController < ApplicationController
 
   def create
     @order = Order.new(order_params)
-    @client = Client.find(order_params[:client_id])
     @order.user_id = @client.user_id
-    @order.add_products.each do |add_product|
-      brute_price = add_product.brute_price
-      net_price = add_product.net_price(brute_price)
-      add_product.price = brute_price
-      add_product.net_product_amount = net_price
-      add_product.extra_tax = net_price * add_product.product_extra_tax
-      add_product.discount = add_product.group_discount(@client.group_id)
-    end
-    @add_products = @order.add_products
-    net_amount = @add_products.map(&:net_product_amount).reduce(:+)
-    @order.net_amount = net_amount
-    @order.total_iva = net_amount * 0.19
-    @order.total_amount = @add_products.map(&:total_product_amount).reduce(:+)
-    @order.total_extra_taxes = @add_products.map(&:extra_tax).reduce(:+)
     respond_to do |format|
       if @order.save
         @order.add_products.each do |add_product|
@@ -110,7 +96,7 @@ class OrdersController < ApplicationController
   end
 
   def update
-    
+    @order.user_id = @client.user_id
     respond_to do |format|
       if @order.update(order_params)
         #Añadir lógica de eliminación del AddProduct
@@ -124,7 +110,7 @@ class OrdersController < ApplicationController
           previous_quantity = StockMovement.where(id_document: order, movement_type: ["Creación orden", "Actualización de orden"], product_id: product.id)
           if previous_quantity == []
             previous_quantity = 0
-          else 
+          else
             previous_quantity = StockMovement.where(id_document: order, movement_type: ["Creación orden", "Actualización de orden"], product_id: product.id).last.stock_quantity
           end
           #Si la diferencia es positiva, quitaron productos de la orden
@@ -181,6 +167,10 @@ class OrdersController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_order
       @order = Order.find(params[:id])
+    end
+
+    def set_client
+      @client = Client.find(order_params[:client_id])
     end
 
     # Only allow a list of trusted parameters through.
