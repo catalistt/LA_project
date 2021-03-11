@@ -14,7 +14,7 @@ module ProductsHelper
   end
 
   def product_costs
-    [['Ruta', 1], ['Precio 1', 0.055], ['Precio 2', 0.075], ['Precio 3', 0.095], ['Precio 4', 0.115]]
+    [['Ruta', 1], ['Precio 1', 0.135], ['Precio 2', 0.115], ['Precio 3', 0.095], ['Precio 4', 0.075], ['Precio 5', 0.055]]
   end
 
 end
