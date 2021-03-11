@@ -2,21 +2,10 @@ $(document).on('turbolinks:load', function() {
   $(".delivery-added").click(function(){
     document.getElementById('deliveryAlert').classList.remove('hide')
   });
+  initOrderProduct();
 
   $("#add_products").on('cocoon:after-insert', function(){
-    setProductInfo();
-    $('.discount').on('change', function(){
-      getTotalAmount($(this));
-    });
-    $('.quantity').on('keyup', function(){
-      getTotalAmount($(this));
-    });
-    $('.cost').on('change', function(){
-      getTotalAmount($(this));
-    });
-    $("#order_client_id").on('change', function(){
-      $(this).removeClass("error");
-    });
+    initOrderProduct();
   });
 });
 
@@ -88,4 +77,19 @@ function getTotalAmount(element){
   extraTaxInput.val(extraTax);
   netAmountInput.val(netAmount);
 }
- 
+
+function initOrderProduct(){
+  setProductInfo();
+  $('.discount').on('change', function(){
+    getTotalAmount($(this));
+  });
+  $('.quantity').on('keyup', function(){
+    getTotalAmount($(this));
+  });
+  $('.cost').on('change', function(){
+    getTotalAmount($(this));
+  });
+  $("#order_client_id").on('change', function(){
+    $(this).removeClass("error");
+  });
+}
