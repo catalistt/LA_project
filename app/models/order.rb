@@ -24,7 +24,7 @@ class Order < ApplicationRecord
 
   def set_order_amounts
     add_products.each do |add_product|
-      brute_price = add_product.brute_price
+      brute_price = add_product.total_product_amount
       net_price = add_product.net_price(brute_price)
       add_product.price = brute_price
       add_product.net_product_amount = net_price

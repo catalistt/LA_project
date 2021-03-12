@@ -1,17 +1,23 @@
 <div class="row">
   <div class="col-4 offset-4">
+  <br>
+  <h2>Hacer búsqueda personalizada</h2> 
     <%= form_with url: search_orders_path do |f| %>
-
+      <br>
       <%= f.label :client_business_name, "Cliente" %>
       <%= f.text_field :client_business_name, class: "form-control" %>
-      <%= f.label :user_name, "Usuario" %>
+      <br>
+      <%= f.label :user_name, "Vendedor" %>
       <%= f.text_field :user_name, class: "form-control" %>
-      <%= f.label :order_id %>
+      <br>
+      <%= f.label :order_id, "Número de orden"%>
       <%= f.text_field :order_id, class: "form-control" %>
-
-      <%= f.submit %>
+      <br> 
+      <%= f.submit "Hacer búsqueda", class:"btn btn-info" %>
+      <br>
     <% end %>
   </div>
 </div>
+<br>
 <div id="orders">
 </div>

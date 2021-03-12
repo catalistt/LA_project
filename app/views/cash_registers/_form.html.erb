@@ -1,0 +1,53 @@
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-10 offset-2"><br>
+      <h2>Cuadratura de caja</h2>
+          <%= form_with(model: cash_register, remote: true) do |form| %>
+            <% if cash_register.errors.any? %>
+              <div id="error_explanation">
+                <h2><%= pluralize(cash_register.errors.count, "error") %> prohibited this cash_register from being saved:</h2>
+          
+                <ul>
+                <% cash_register.errors.full_messages.each do |message| %>
+                  <li><%= message %></li>
+                <% end %>
+                </ul>
+              </div>
+            <% end %>
+          
+          <div class="row">
+            <div class="col-3 bg-light border pb-2"><br>
+              <h4>Caja inicial</h4>
+              <div class="field">
+                <%= form.number_field :initial_cash, class:"btn btn-light" %>
+              </div>
+            </div>
+            <div class="col-3 bg-light border pb-2"><br>
+              <h4>Entradas de efectivo</h4>
+              $<%= number_with_delimiter(@cash_in.round)%>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-3 bg-light border pb-2"><br>
+              <h4>Salidas de efectivo</h4>
+              $<%= number_with_delimiter(@cash_out.round)%>
+            </div>
+            <div class="col-3 bg-light border pb-2"><br>
+              <h4>Caja final</h4>
+              <div class="field">
+                <%= form.text_field :final_cash, class:"btn btn-light"%>
+              </div>
+            </div>
+          </div>
+          <br>
+
+            <div class="actions">
+              <%= form.submit "Ingresar registro del día", class:"btn btn-info" %>
+            </div>
+          <% end %> 
+    </div>  
+  </div>
+</div>
+

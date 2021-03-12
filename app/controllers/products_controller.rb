@@ -5,6 +5,14 @@ class ProductsController < ApplicationController
     @products = Product.all
   end
 
+  def presale_sheet
+    @products = Product.all
+    @and_2lt_ret = Product.where(code: ["A01", "A02"])
+    @and_25lt_des = Product.where(code: "A03")
+    @vital_16lt = Product.where(code: "A01")
+    @ccu_3lt = Product.where(code: "A02")
+  end
+
   def set_price
     @product_info = {id: @product.id, standard_price: @product.standard_price, extra_tax: @product.extra_tax, cost: @product.cost, unit: @product.units, stock: @product.stock}
     respond_to do |format|

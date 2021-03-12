@@ -1,4 +1,10 @@
 Rails.application.routes.draw do
+  resources :cash_registers
+  resources :money_movements do
+    collection do
+      get :square
+    end
+  end
   resources :add_items
   match 'orders/all/edit' => 'orders#edit_all', :as => :edit_all, :via => :get
   devise_for :admin_users, ActiveAdmin::Devise.config
@@ -27,6 +33,9 @@ Rails.application.routes.draw do
   resources :purchases
   resources :group_discounts
   resources :products do
+    collection do
+      get :presale_sheet
+    end
     get :set_price
     get :set_product_stock
     member do

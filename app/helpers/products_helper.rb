@@ -17,4 +17,8 @@ module ProductsHelper
     [['Ruta', 1], ['Precio 1', 0.135], ['Precio 2', 0.115], ['Precio 3', 0.095], ['Precio 4', 0.075], ['Precio 5', 0.055]]
   end
 
+  def get_totaled(p_id)
+    @code_totaled = Order.joins(:add_products).where("DATE(date) >= ?", Date.today).where("delivery_method_id = ?", 2).where(add_products: {product_id: p_id}).sum(:quantity)
+  end
+
 end

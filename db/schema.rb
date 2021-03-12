@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_02_22_042629) do
+ActiveRecord::Schema.define(version: 2021_03_12_033625) do
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.string "namespace"
@@ -77,6 +77,13 @@ ActiveRecord::Schema.define(version: 2021_02_22_042629) do
     t.index ["product_id"], name: "index_adquisition_costs_on_product_id"
   end
 
+  create_table "cash_registers", force: :cascade do |t|
+    t.string "initial_cash"
+    t.string "final_cash"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "clients", force: :cascade do |t|
     t.string "business_name"
     t.string "rut"
@@ -89,6 +96,8 @@ ActiveRecord::Schema.define(version: 2021_02_22_042629) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "line_of_business"
+    t.integer "city"
+    t.integer "town"
     t.index ["group_id"], name: "index_clients_on_group_id"
     t.index ["user_id"], name: "index_clients_on_user_id"
   end
@@ -134,6 +143,18 @@ ActiveRecord::Schema.define(version: 2021_02_22_042629) do
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "money_movements", force: :cascade do |t|
+    t.integer "movement_type"
+    t.date "check_date"
+    t.string "received_by"
+    t.string "movement_category"
+    t.string "comment"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "amount_payed"
+    t.integer "payment_method"
   end
 
   create_table "orders", force: :cascade do |t|

@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Initial cash:</strong>
+  <%= @cash_register.initial_cash %>
+</p>
+
+<p>
+  <strong>Final cash:</strong>
+  <%= @cash_register.final_cash %>
+</p>
+
+<%= link_to 'Edit', edit_cash_register_path(@cash_register) %> |
+<%= link_to 'Back', cash_registers_path %>

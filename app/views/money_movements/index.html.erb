@@ -1,0 +1,51 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-12 pl-5 pr-5"><br>
+      <h1>Movimientos de dinero</h1>
+      <br>
+      <table class="table table-striped bg-light">
+        <thead>
+          <tr>
+            <th>Fecha</th>
+            <th>Tipo de movimiento</th>
+            <th>Monto asociado</th>
+            <th>Metodo de pago</th>
+            <th>Fecha del cheque</th>
+            <th>Recibido por</th>
+            <th>Categoría</th>
+            <th>Comentario</th>
+            <th></th>
+            <th></th>
+            <th></th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <% @money_movements.each do |money_movement| %>
+            <td><%= money_movement.created_at.strftime("%d-%m-%Y %I:%M %p") %></td>
+              <% if money_movement.movement_type == 1 %>
+                <td><%= "Egreso de dinero" %></td>
+              <% else %>
+                <td><%= "Ingreso de dinero" %></td>
+              <% end %>
+              <td>$<%= number_with_delimiter(money_movement.amount_payed.round) %></td>
+              <td><%= PaymentMethod.find(money_movement.payment_method) %></td>
+              <% if money_movement.check_date != nil %>
+                <td><%= money_movement.check_date%></td>
+              <% else %>
+                <td>No aplica</td>
+              <% end %>
+              <td><%= User.find(money_movement.received_by) %></td>
+              <td><%= money_movement.movement_category %></td>
+              <td><%= money_movement.comment %></td>
+              <td><%= link_to raw("<span class='fa fa-eye'></span>"), money_movement, class: "btn btn-info" %></td>
+              <td><%= link_to raw("<span class='fa fa-edit'></span>"), edit_money_movement_path(money_movement), class: "btn btn-warning" %></td>
+              <td><%= link_to raw("<span class='fa fa-trash'></span>"), money_movement, method: :delete, class: "btn btn-danger" , data: { confirm: 'Estas seguro/a de eliminar el pago?' } %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+      <br>
+    </div>
+  </div>
+</div>

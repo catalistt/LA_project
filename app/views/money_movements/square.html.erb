@@ -1,0 +1,14 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-8 offset-2"><br>
+      <h2>Cuadratura de caja</h1>
+        <h4>Entradas de efectivo</h4>
+          <%= @cash_in %>
+        
+        <h4>Salidas de efectivo</h4>
+          $<%= number_with_delimiter(@cash_out.round) %>
+
+
+    </div>
+  </div>
+</div>
