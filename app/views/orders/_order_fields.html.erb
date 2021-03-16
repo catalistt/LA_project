@@ -2,7 +2,40 @@
   <td><%= f.object.id %></td>
   <%= f.hidden_field :id %>
   <td><%= f.object.client_business_name %></td>
+  <td><%= f.object.client.user.name %></td>
+
+  
+  <% town_find = f.object.client.town %>
+  <% town_array = towns.find {|town| town[1]== town_find} %>
+  <td><%= town_array[0] %></td>
+
+
+  <% desechable = 0 %>
+  <% retornable = 0 %>
+  <% cerveza = 0 %>
+  <% vino = 0 %>
+  <% tres = 0 %>
+  <% f.object.add_products.each do |product| %>
+    <% if product.product.packaging == "DESECHABLE" %>
+      <% desechable += 1*product.quantity %>
+    <% elsif product.product.packaging == "RETORNABLE" %>
+      <% retornable += 1*product.quantity %>
+    <% elsif product.product.packaging == "3L" %>
+      <% tres += 1*product.quantity %>
+    <% elsif product.product.packaging == "CERVEZAS" %>
+      <% cerveza += 1*product.quantity %>
+  <% end %>
+<% end %>
+    <td><%= desechable %></td>
+    <td><%= retornable %></td>
+    <td><%= tres %></td>
+    <td><%= cerveza %></td>
+
   <td>$ <%= number_with_delimiter(f.object.total_amount.round) %></td>
-  <td><%= f.object.delivery_method_vehicle_plate %></td>
+  <% if f.object.delivery_method_id == nil %></td>
+    <td><%= "No asignado" %></td>
+  <% else %>
+    <td><%= "Asignado" %></td>
+  <% end %>
   <td><%= f.collection_select(:delivery_method_id, DeliveryMethod.all, :id, :vehicle_plate, {include_blank: 'Elige patente'}, { class: "custom-select"}) %></td>
 </tr>

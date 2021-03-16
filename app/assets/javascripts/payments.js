@@ -7,6 +7,7 @@ $(document).on('turbolinks:load', function() {
       data: {order_id: order_id}, 
       dataType:"json",
       success:function(result){
+      console.log(result)
       var order_pending = result.order_amount - result.order_payments
       var client_pending = result.client_buyed - result.client_payments
       $('.order-payment-status').val(order_pending.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));

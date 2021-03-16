@@ -1,9 +1,29 @@
+<div class="container-fluid">
+<br>
+<div class="col-5 border border-dark bg-blue offset-3 negrita">
+  <br>
+  <h3 class="text-center">Asignado hasta ahora</h3><br>
+  <div class="row">
+    <div class="col-6"> 
+      <h5 class="border border-light p-2">-KXRJ78: <%= number_with_delimiter(@KXRJ78.round) %></h5>
+      <h5 class="border border-light p-2">-HDKP82: <%=  number_with_delimiter(@HDKP82.round) %></h5>
+      <h5 class="border border-light p-2">-JSRK95: <%=  number_with_delimiter(@JSRK95.round) %></h5>
+      <h5 class="border border-light p-2">-JYGD30: <%=  number_with_delimiter(@JYGD30.round) %></h5>
+    </div>
+    <div class="col-6"> 
+      <h5 class="border border-light p-2">-KXRJ79: <%=  number_with_delimiter(@KXRJ79.round) %></h5>
+      <h5 class="border border-light p-2">-PCYF89: <%=  number_with_delimiter(@PCYF89.round) %></h5>
+      <h5 class="border border-light p-2">-PCYF90: <%=  number_with_delimiter(@PCYF90.round) %></h5>
+      <h5 class="border border-light p-2">-HPPJ11: <%=  number_with_delimiter(@HPPJ11.round) %></h5>
+    </div>
+  </div>
+</div>
 
-<div class="container">
+
   <div class="row">
     <div class="col-12">
     <br>
-    <h1>Asignar transporte a órdenes</h1><br>
+    <h3>Asignar transporte a órdenes</h3><br>
     
     <div class="alert alert-success alert-dismissible fade show hide" role="alert" id="deliveryAlert">
       <strong>¡Bien hecho!</strong> Las órdenes fueron asignadas a los camiones.
@@ -18,6 +38,12 @@
             <tr>
               <th>N° de orden</th>
               <th>Cliente</th>
+              <th>Vendedor</th>
+              <th>Comuna</th>
+              <th>Cantidad desechables</th>
+              <th>Cantidad retornables</th>
+              <th>Cantidad 3LT</th>
+              <th>Cantidad cervezas</th>
               <th>Monto total</th>
               <th>Transporte actual</th>
               <th>Elegir nuevo transporte</th>

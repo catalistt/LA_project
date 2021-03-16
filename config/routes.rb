@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  resources :cash_registers
+  resources :cash_registers 
   resources :money_movements do
     collection do
       get :square

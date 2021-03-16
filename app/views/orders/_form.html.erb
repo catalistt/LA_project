@@ -17,14 +17,15 @@
           </div>
         <% end %>
       </div>
-      <div class="col-4">
+      <div class="col-3">
         <%= form.label :date, "Fecha de entrega", class:"control-label d-block" %>
         <%= form.date_select :date, { use_month_names: month_names, discard_year: true, selected: Date.today}, class: "custom-select date" %>
       </div>
-      <div class="col-4">
+      <div class="col-3">
         <%= form.label :client_id, "Cliente", class: "form-label"%>
         <%= form.select(:client_id, Client.all.map {|client| ["#{client.id} - #{client.business_name}", client.id] }, { include_blank: 'Ingresar cliente' }, class: "custom-select") %>
       </div>
+
       <%= form.hidden_field :net_amount %>
       <%= form.hidden_field :total_iva, class: "form-control" %>
       <%= form.hidden_field :total_extra_taxes, class: "form-control sum-extra-taxes" %>
@@ -53,8 +54,13 @@
     </div>
             -->
     <div class="col-3">
-        <%= form.label :Hacer_factura, class: "form-label" %><br>
-        <%= form.check_box :create_invoive, class: "form-checkbox" %>
+      <%= form.label :detail, "Tipo de entrega", class: "form-label"%>
+      <%= form.select(:detail, details, { include_blank: 'Ingresar tipo de entrega' }, class: "custom-select") %>
+    </div>
+
+    <div class="col-2">
+      <%= form.label :Hacer_factura, class: "form-label" %><br>
+      <%= form.check_box :create_invoive, class: "form-checkbox custom" %>
     </div>
 
     <!--

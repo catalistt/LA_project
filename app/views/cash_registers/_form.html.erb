@@ -1,7 +1,7 @@
 
 <div class="container-fluid">
   <div class="row">
-    <div class="col-10 offset-2"><br>
+    <div class="col-11 offset-2"><br>
       <h2>Cuadratura de caja</h2>
           <%= form_with(model: cash_register, remote: true) do |form| %>
             <% if cash_register.errors.any? %>
@@ -20,24 +20,33 @@
             <div class="col-3 bg-light border pb-2"><br>
               <h4>Caja inicial</h4>
               <div class="field">
-                <%= form.number_field :initial_cash, class:"btn btn-light" %>
+                <%= form.number_field :initial_cash, class:"btn btn-light initial-cash" %>
               </div>
             </div>
             <div class="col-3 bg-light border pb-2"><br>
               <h4>Entradas de efectivo</h4>
-              $<%= number_with_delimiter(@cash_in.round)%>
+              <p class="cash-in pl-5"><%= number_with_delimiter(@total_in.round)%></p>
             </div>
+
+            <div class="col-2 bg-secondary text-white text-center border border-dark pb-2 offset-1"><br>
+              <h4>Último monto en caja</h4>
+              <p class="cash-out pl-5"><i class="fa fa-money" aria-hidden="true"></i> <%= number_with_delimiter(@last_final_cash)%></p>
+            </div>
+
           </div>
+
+
+
 
           <div class="row">
             <div class="col-3 bg-light border pb-2"><br>
               <h4>Salidas de efectivo</h4>
-              $<%= number_with_delimiter(@cash_out.round)%>
+              <p class="cash-out pl-5"><%= number_with_delimiter(@cash_out.round)%></p>
             </div>
             <div class="col-3 bg-light border pb-2"><br>
               <h4>Caja final</h4>
               <div class="field">
-                <%= form.text_field :final_cash, class:"btn btn-light"%>
+                <%= form.text_field :final_cash, class:"btn btn-light final-cash"%>
               </div>
             </div>
           </div>
@@ -48,6 +57,7 @@
             </div>
           <% end %> 
     </div>  
+
   </div>
 </div>
 
