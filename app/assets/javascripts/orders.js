@@ -1,6 +1,13 @@
 $(document).on('turbolinks:load', function() {
   $(".delivery-added").click(function(){
-    document.getElementById('deliveryAlert').classList.remove('hide')
+        Swal.fire({
+          title: '¡Logrado!',
+          text: 'Se asignaron los camiones a las ordenes exitosamente',
+          icon: 'success',
+          confirmButtonText: '¡Bacan!',
+          timer: 3000
+    });
+    
   });
   initOrderProduct();
 

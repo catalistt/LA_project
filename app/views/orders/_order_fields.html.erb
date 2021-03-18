@@ -32,6 +32,7 @@
     <td><%= cerveza %></td>
 
   <td>$ <%= number_with_delimiter(f.object.total_amount.round) %></td>
+  <td><%= f.object.detail %></td>
   <% if f.object.delivery_method_id == nil %></td>
     <td><%= "No asignado" %></td>
   <% else %>

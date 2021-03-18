@@ -7,6 +7,14 @@ class OrdersController < ApplicationController
     @orders_by_sum = Order.select(:client_id, :total_amount).group(:client_id).sum(:total_amount)
   end
 
+  def edit_delivery_fields
+    @order = Order.find(params[:id])
+  end
+
+  def delivery_orders
+    @orders = Order.where('DATE(date) >= ?', Date.today)
+  end
+
   def edit_all
     @orders = Order.where('DATE(date) >= ?', Date.today)
     @delivery_method = DeliveryMethod.new
@@ -20,6 +28,13 @@ class OrdersController < ApplicationController
     @PCYF89 = Order.where(delivery_method_id: (DeliveryMethod.where(vehicle_plate: "PCYF89").sum(:id)), created_at: Time.zone.now.beginning_of_day..Time.zone.now.end_of_day).sum(:total_amount)
     @PCYF90 = Order.where(delivery_method_id: (DeliveryMethod.where(vehicle_plate: "PCYF90").sum(:id)), created_at: Time.zone.now.beginning_of_day..Time.zone.now.end_of_day).sum(:total_amount)
     @HPPJ11 = Order.where(delivery_method_id: (DeliveryMethod.where(vehicle_plate: "HPPJ11").sum(:id)), created_at: Time.zone.now.beginning_of_day..Time.zone.now.end_of_day).sum(:total_amount)
+
+    @filterrific = initialize_filterrific(
+      Order,
+      params[:filterrific]
+    ) or return
+    @orders = @filterrific.find.page(params[:page])
+
 
   end
 

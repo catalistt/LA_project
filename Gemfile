@@ -48,6 +48,7 @@ gem 'wicked_pdf'
 gem 'wkhtmltopdf-binary'
 gem 'sendgrid-ruby'
 gem 'font-awesome-rails'
+gem 'filterrific'
 # Use ActiveStorage variant
 # gem 'mini_magick', '~> 4.8'
 
