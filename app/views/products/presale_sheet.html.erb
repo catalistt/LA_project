@@ -1,0 +1,88 @@
+<div class="container">
+  <div class="row">
+    <div class="col-3">
+      <table class="table table-striped bg-light">
+        <thead>
+          <tr>
+            <th>Nombre</th>
+            <th>Cod</th>
+            <th>Cantidad</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <% @and_2lt_ret.each do |product| %>
+            <tr>
+              <td><%= product.name %></td>
+              <td><%= product.code %></td>
+              <td><%= get_totaled(product.id) %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+    
+    <div class="col-3">
+      <table class="table table-striped bg-light">
+        <thead>
+          <tr>
+            <th>Nombre</th>
+            <th>Cod</th>
+            
+          </tr>
+        </thead>
+
+        <tbody>
+          <% @and_25lt_des.each do |product| %>
+            <tr>
+              <td><%= product.name %></td>
+              <td><%= product.code %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="col-3">
+      <table class="table table-striped bg-light">
+        <thead>
+          <tr>
+            <th>Nombre</th>
+            <th>Cod</th>
+            
+          </tr>
+        </thead>
+
+        <tbody>
+          <% @vital_16lt.each do |product| %>
+            <tr>
+              <td><%= product.name %></td>
+              <td><%= product.code %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="col-3">
+      <table class="table table-striped bg-light">
+        <thead>
+          <tr>
+            <th>Nombre</th>
+            <th>Cod</th>
+            
+          </tr>
+        </thead>
+
+        <tbody>
+          <% @ccu_3lt.each do |product| %>
+            <tr>
+              <td><%= product.name %></td>
+              <td><%= product.code %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

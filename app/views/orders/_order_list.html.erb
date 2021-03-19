@@ -1,0 +1,31 @@
+<table class="table table-striped bg-light" id="orders">
+  <thead class="text-center">
+    <tr>
+      <th>Fecha</th> 
+      <th>Cliente</th>
+      <th>Vendedor</th>
+      <th>Total bruto</th>
+      <th>Despacho</th>
+      <th>Encargado de camión</th>
+      <th>Monto de descuento</th>
+      <th>Comentario del descuento</th>
+      <th>¿Crear factura?</th>
+      
+    </tr>
+  </thead>
+  <tbody>
+    <% @orders&.each do |order| %>
+      <tr>
+        <td><%= order.date %></td>
+        <td><%= order.client_business_name %></td>
+        <td><%= order.user_name %></td>
+        <td><%= number_with_delimiter(order.total_amount.round) %></td>
+        <td><%= order.delivery_method_vehicle_plate %></td>
+        <td><%= order.responsable %></td>
+        <td><%= number_with_delimiter(order.discount_amount) %></td>
+        <td><%= order.discount_comment %></td>
+        <td><%= order.create_invoive ? 'Sí' : 'No' %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

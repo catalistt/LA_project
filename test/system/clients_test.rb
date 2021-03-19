@@ -20,7 +20,7 @@ class ClientsTest < ApplicationSystemTestCase
     fill_in "Phone number", with: @client.phone_number
     fill_in "Rut", with: @client.rut
     fill_in "Schedule", with: @client.schedule
-    fill_in "Special agreeement", with: @client.special_agreeement
+    fill_in "Special agreeement", with: @client.special_agreement
     fill_in "User id", with: @client.user_id_id
     click_on "Create Client"
 
@@ -38,7 +38,7 @@ class ClientsTest < ApplicationSystemTestCase
     fill_in "Phone number", with: @client.phone_number
     fill_in "Rut", with: @client.rut
     fill_in "Schedule", with: @client.schedule
-    fill_in "Special agreeement", with: @client.special_agreeement
+    fill_in "Special agreeement", with: @client.special_agreement
     fill_in "User id", with: @client.user_id_id
     click_on "Update Client"
 

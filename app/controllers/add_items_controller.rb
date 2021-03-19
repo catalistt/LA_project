@@ -26,7 +26,7 @@ class AddItemsController < InheritedResources::Base
   def update
     respond_to do |format|
       if @add_item.update(add_item_params)
-        format.html { redirect_to @add_item, notice: 'Add product was successfully updated.' }
+        format.html { redirect_to @add_item, notice: 'Se actualizó correctamente' }
         format.json { render :show, status: :ok, location: @add_item }
       else
         format.html { render :edit }

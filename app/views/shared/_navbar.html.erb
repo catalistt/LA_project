@@ -1,7 +1,7 @@
 <% if user_signed_in? %>
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="#">
-        <%= image_tag("logoLA.png", class: "img-responsive", id: "navbar-logo", size: "80" ) %>
+    <a class="navbar-brand" href="/orders/new">
+        <%= image_tag("users.png", class: "img-responsive", id: "navbar-logo", size: "80" ) %>
     </a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
@@ -53,6 +53,18 @@
 
       <li class="nav-item dropdown active">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Cuadratura
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <%= link_to 'Cuadrar', new_cash_register_path, class: "nav-link" %> 
+          <%= link_to 'Ver cuadraturas anteriores', cash_registers_path, class: "nav-link" %>
+        </div>
+      </li>
+
+
+
+      <li class="nav-item dropdown active">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           Clientes
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -87,6 +99,16 @@
       </div>
       </li>
     
+
+      <li class="nav-item dropdown active">
+      <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        Logística
+      </a>
+      <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+        <%= link_to 'Asignar transportes', edit_all_path, class: "nav-link" %>
+      </div>
+      </li>
+
     <!--
     <li class="nav-item dropdown active">
     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -112,7 +134,7 @@
       <% end %>
     </ul>
     <div class="pr-5 mr-5">
-      <i class="fas fa-user"></i>
+      <i class="fa fa-user"></i>
       <%= "#{current_user}" %>
     </div>
   </div>

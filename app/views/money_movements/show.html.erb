@@ -1,0 +1,58 @@
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-10 offset-1"><br>
+      <h2 class="text-bold">Resumen del pago</h2> 
+      <p>
+        <strong>Tipo de movimiento: </strong>
+        <% if @money_movement.movement_type == 1 %>
+          <%= "Egreso de dinero" %>
+        <% else %>
+          <%= "Ingreso de dinero" %>
+        <% end %>
+      </p>
+
+      <p>
+        <strong>Recepcionado por: </strong>
+        <%= User.find(@money_movement.received_by) %>
+      </p>
+
+
+      <p>
+      <% if @money_movement.movement_category != nil %>
+        <strong>Categoría: </strong>
+        <%= @money_movement.movement_category %>
+      <% end %>
+      </p>
+
+      <p>
+        <strong>Monto asociado: </strong>
+        $<%= number_with_delimiter(@money_movement.amount_payed.round) %>
+      </p>
+
+      <p>
+        <strong>Método de pago: </strong>
+        <%= PaymentMethod.find(@money_movement.payment_method) %>
+      </p>
+
+      <p>
+      <% if @money_movement.check_date != nil %>
+        <strong>Fecha del cheque:</strong>
+        <%= @money_movement.check_date    %>
+      <% end %>
+      </p>
+
+      <p>
+      <% if @money_movement.comment != nil %>
+        <strong>Comentario: </strong>
+        <%= @money_movement.comment  %>
+      <% end %>
+      </p>
+
+
+      <%= link_to 'Editar', edit_money_movement_path(@money_movement), class:"btn btn-danger"%>
+      <%= link_to 'Ver todos los pagos', money_movements_path, class:"btn btn-info" %>
+      <%= link_to 'Agregar nuevo pago', new_money_movement_path, class:"btn btn-success" %>
+    </div>
+  </div>
+</div>

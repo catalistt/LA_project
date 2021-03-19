@@ -1,10 +1,7 @@
-<br>
 <div class="row">
-<div class="col-4 offset-4">
-<h3>Agregar producto</h3>
+  <div class="col-6 offset-3">
+    <h3>Agregar producto</h3>
+    <%= render 'form', product: @product %>
+  </div>
 </div>
-</div>
-
-<%= render 'form', product: @product %>
-
 <%= link_to 'Back', products_path %>

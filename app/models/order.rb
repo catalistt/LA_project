@@ -13,22 +13,47 @@ class Order < ApplicationRecord
   has_many :payments
   has_many :payment_methods, through: :payments
 
+  before_save :set_order_amounts
+
   #Delegate ayuda a acceder más fácil a atributos de modelos relacionados
   delegate :business_name, to: :client, prefix: true, allow_nil: true 
   delegate :name, to: :user, prefix: true, allow_nil: true 
-  delegate :vehicle_plate, to: :delivery_method, prefix: true, allow_nil: true 
+  delegate :vehicle_plate, to: :delivery_method, prefix: true, allow_nil: true
 
   paginates_per 50
-  
-  before_save do
-    #Neto
-    self.net_amount = self.add_products.map { |product| product.net_product_amount}.sum.round
-    #IVA
+
+  def set_order_amounts
+    add_products.each do |add_product|
+      brute_price = add_product.total_product_amount
+      net_price = add_product.net_price(brute_price)
+      add_product.price = brute_price
+      add_product.net_product_amount = net_price
+      add_product.extra_tax = net_price * add_product.product_extra_tax
+      add_product.discount = add_product.group_discount(client.group_id)
+    end
+    self.net_amount = add_products.map(&:net_product_amount).reduce(:+)
     self.total_iva = net_amount * 0.19
-    #Total 
-    self.total_amount = self.add_products.map { |product| product.total_product_amount}.sum.round
-    #Extra taxes
-    self.total_extra_taxes = self.add_products.map { |product| product.extra_tax * product.net_product_amount }.sum.round  
-    
+    self.total_amount = add_products.map(&:total_product_amount).reduce(:+)
+    self.total_extra_taxes = add_products.map(&:extra_tax).reduce(:+)
   end
+
+
+  #Agregar filtros
+
+  filterrific(
+    available_filters: [
+      :with_user,
+      :with_town
+    ]
+  )
+
+  scope :with_user, ->(users) {
+    where(user_id: [*users])
+  }
+
+  scope :with_town, ->(towns) {
+    where(town: [*towns])
+  }
+  
+  
 end

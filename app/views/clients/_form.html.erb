@@ -15,42 +15,52 @@
 
       <div class="form-group">
         <%= form.label :Razón_social %>
-        <%= form.text_field :business_name %>
+        <%= form.text_field :business_name, class:"form-control" %>
       </div>
 
       <div class="form-group">
         <%= form.label :RUT %>
-        <%= form.text_field :rut %>
+        <%= form.text_field :rut, class:"form-control"%>
       </div>
 
       <div class="form-group">
         <%= form.label :Dirección %>
-        <%= form.text_field :address %>
+        <%= form.text_field :address, class:"form-control" %>
+      </div>
+
+      <div class="form-group">
+        <%= form.label :Ciudad %>
+        <%= form.select(:city, cities, {}, { class: "custom-select"}) %>
+      </div>
+
+      <div class="form-group">
+        <%= form.label :Comuna %>
+        <%= form.select(:town, towns, {}, { class: "custom-select"}) %>
       </div>
 
       <div class="form-group">
         <%= form.label :Vendedor%>
-        <%= form.collection_select :user_id, User.all, :id, :name, prompt: true %>
+        <%= form.select(:user_id, User.all.map {|user| ["#{user.name}", user.id] }, { include_blank: 'Seleccionar' }, class: "custom-select") %>
       </div>
 
       <div class="form-group">
         <%= form.label :Número_de_teléfono%>
-        <%= form.text_field :phone_number, type: "tel" %>
+        <%= form.text_field :phone_number, type: "tel", class:"form-control" %>
       </div>
 
       <div class="form-group">
         <%= form.label :Horario %>
-        <%= form.text_field :schedule %>
+        <%= form.text_field :schedule, class:"form-control" %>
       </div>
 
       <div class="form-group">
         <%= form.label :Acuerdos_especiales %>
-        <%= form.text_field :special_agreeement %>
+        <%= form.text_field :special_agreement, class:"form-control" %>
       </div>
 
       <div class="form-group">
         <%= form.label :Grupo %>
-        <%= form.collection_select :group_id, Group.all, :id, :name, prompt: true %>
+        <%= form.select(:group_id, Group.all.map {|group| ["#{group.name}", group.id] }, { include_blank: 'Seleccionar' }, class: "custom-select") %>
       </div>
 
       <div class="actions">

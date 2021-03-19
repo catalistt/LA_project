@@ -1,0 +1,71 @@
+<div class="container-fluid">
+  <div class="row">
+  <div class="col-8 offset-2"><br>
+    <h1 class="offset-4 text-bold">Registrar movimiento de dinero</h1><br>
+    <%= form_with(model: money_movement, local: true) do |form| %>
+      <% if money_movement.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(money_movement.errors.count, "error") %> prohibited this money_movement from being saved:</h2>
+          <ul>
+          <% money_movement.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+          </ul>
+        </div>
+      <% end %>
+    <div class="row">
+      <div class="col-4">
+        <div class="form-group">
+          <%= form.label :Tipo, class: "control-label h4"%><br>
+          <%= form.select(:movement_type, money_mov, { :include_blank => 'Elegir tipo de movimiento' }, { class: "custom-select"}) %>
+        </div>
+      </div>
+      <div class="col-4">
+        <div class="form-group">
+          <%= form.label :Categoria, class: "control-label h4"%><br>
+          <%= form.select(:money_category, money_categories, { :include_blank => 'Elegir categoría' }, { class: "custom-select"}) %>
+        </div>
+      </div>
+
+      <div class="col-4">
+        <div class="form-group">
+          <%= form.label :Recibido_por, class: "control-label h4"%><br>
+          <%= form.collection_select :received_by, User.all, :id, :name,{ :include_blank => 'Elegir usuario' }, class:"custom-select"%>
+        </div>
+      </div>
+
+
+    </div>
+
+    <div class="row">
+
+      <div class="col-4">
+        <div class="form-group">
+          <%= form.label :Método_de_pago, class: "control-label h4"%><br>
+          <%= form.collection_select :payment_method, PaymentMethod.all, :id, :name,{ :include_blank => 'Elegir método' }, class:"custom-select"%>
+        </div>
+      </div>
+    
+      <div class="col-4">
+        <div class="form-group ml-4">
+          <%= form.label :"Fecha del cheque (si es que aplica)", class: "control-label h4"%><br>
+          <%= form.date_select :check_date, {:use_month_names => ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre','Diciembre'], discard_year: true, :include_blank => '' },  class:"custom-select"%>
+        </div>
+      </div>
+
+      <div class="col-4">
+        <div class="form-group offset-1">
+          <%= form.label :Monto_total, class:"h4"%><br>
+          <%= form.number_field :amount_payed, class:"form-control" %>
+        </div>
+      </div>
+    </div>
+
+      <div class="actions"><br>
+        <%= form.submit "Registrar movimiento", class:"btn btn-info" %>
+      </div>
+    <% end %>
+    </div>
+  </div>
+</div>
+

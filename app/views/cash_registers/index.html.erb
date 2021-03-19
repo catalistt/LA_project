@@ -1,0 +1,32 @@
+<p id="notice"><%= notice %></p>
+
+<div class="row">
+  <div class="col-6 offset-2">
+    <h1>Registros de caja</h1>
+    <table class="table table-striped bg-light">
+      <thead>
+        <tr>
+          <th>Fecha de registro</th>
+          <th>Caja inicial</th>
+          <th>Caja final</th>
+          <th colspan="1"></th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <% @cash_registers.each do |cash_register| %>
+          <tr>
+            <td><%= cash_register.created_at.strftime("%d-%m-%Y %I:%M %p")%></td>
+            <td><%= number_with_delimiter(cash_register.initial_cash) %></td>
+            <td><%= number_with_delimiter(cash_register.final_cash) %></td>
+            <td><%= link_to raw("<span class='fa fa-trash'></span>"), cash_register, method: :delete, class: "btn btn-danger" , data: { confirm: 'Estas seguro/a de eliminar el registro?' } %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+
+    <br>
+
+    <%= link_to 'Nuevo registro de caja', new_cash_register_path, class:"btn btn-success"%>
+  </div>
+</div>

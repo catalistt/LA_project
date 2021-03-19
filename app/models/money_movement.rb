@@ -1,0 +1,2 @@
+class MoneyMovement < ApplicationRecord
+end

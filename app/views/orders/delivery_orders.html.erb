@@ -1,0 +1,27 @@
+<div class="container-fluid">
+  <h1>Órdenes</h1>
+  <%= link_to 'Exportar a Excel', orders_path(format: :xlsx), class:"btn btn-info" %><br>
+  <br>
+  <table class="table table-striped bg-light" id="orders">
+    <thead>
+      <tr>
+        <th>Folio</th> 
+        <th>Cliente</th>
+        <th>Vendedor</th>
+        <th>Total bruto</th>
+        <th colspan="1"></th>     
+      </tr>
+    </thead>
+    <tbody>
+      <% @orders.each do |order| %>
+        <tr>
+          <td><%= order.id %></td>
+          <td><%= order.client_business_name %></td>
+          <td><%= order.user_name %></td>
+          <td><%= number_with_delimiter(order.total_amount.round) %></td>
+          <td><%= link_to 'Agregar entrega', delivery_edit_path(order), class:"btn btn-success"%></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

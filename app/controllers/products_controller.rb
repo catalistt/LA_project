@@ -1,13 +1,19 @@
 class ProductsController < ApplicationController
-  before_action :set_product, only: [:show, :edit, :update, :destroy]
-
+  before_action :set_product, only: [:show, :edit, :update, :destroy, :group_discount]
 
   def index
     @products = Product.all
   end
 
+  def presale_sheet
+    @products = Product.all
+    @and_2lt_ret = Product.where(code: ["A01", "A02"])
+    @and_25lt_des = Product.where(code: "A03")
+    @vital_16lt = Product.where(code: "A01")
+    @ccu_3lt = Product.where(code: "A02")
+  end
+
   def set_price
-    @product = Product.find(params[:product_id])
     @product_info = {id: @product.id, standard_price: @product.standard_price, extra_tax: @product.extra_tax, cost: @product.cost, unit: @product.units, stock: @product.stock}
     respond_to do |format|
       format.html
@@ -27,8 +33,24 @@ class ProductsController < ApplicationController
   end
 
   def show
+    respond_to do |format|
+      format.html {}
+      format.js { render json: @product }
+    end
   end
 
+  def group_discount
+    client = Client.find(params[:client_id])
+    discount = @product.group_discounts.find_by(group_id: client&.group_id)&.discount
+    render json: {
+      standard_price: @product.standard_price.to_f,
+      extra_tax: @product.extra_tax.to_f,
+      cost: @product.cost.to_f,
+      unit: @product.units.to_f,
+      stock: @product.stock.to_i,
+      discount: discount.to_f
+    }
+  end
 
   def new
     @product = Product.new
@@ -37,10 +59,8 @@ class ProductsController < ApplicationController
   def edit
   end
 
-
   def create
     @product = Product.new(product_params)
-
     respond_to do |format|
       if @product.save
         format.html { redirect_to @product, notice: 'Product was successfully created.' }
@@ -85,7 +105,7 @@ class ProductsController < ApplicationController
     
     # Only allow a list of trusted parameters through.
     def product_params
-      params.require(:product).permit(:code, :cost, :name, :category, :packaging, :format, :description, :unit, :units, :extra_tax, :standard_price,
+      params.require(:product).permit(:code, :cost, :name, :category, :packaging, :format, :description, :unit, :units, :extra_tax, :standard_price, :client_id,
       group_discounts_attributes: [:id, :product_id, :group_id, :discount])
     end
 end

@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  movement_type: 1
+  payment_method: MyString
+  check_date: 2021-03-11
+  received_by: MyString
+  movement_category: MyString
+  comment: MyString
+
+two:
+  movement_type: 1
+  payment_method: MyString
+  check_date: 2021-03-11
+  received_by: MyString
+  movement_category: MyString
+  comment: MyString

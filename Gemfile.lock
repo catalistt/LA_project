@@ -126,6 +126,7 @@ GEM
       multipart-post (>= 1.2, < 3)
       ruby2_keywords
     ffi (1.13.1)
+    filterrific (5.2.1)
     font-awesome-rails (4.7.0.5)
       railties (>= 3.2, < 6.1)
     formtastic (3.1.5)
@@ -350,6 +351,7 @@ DEPENDENCIES
   devise
   dotenv-rails
   faker
+  filterrific
   font-awesome-rails
   highcharts-rails
   jbuilder (~> 2.5)
