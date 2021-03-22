@@ -1,29 +1,33 @@
-<p id="notice"><%= notice %></p>
+<div class="container pt-3">
+  <div class="row">
+    <div class="col-5 bg-white border border-dark"><br>
+      <h2 class="text-bold">Movimiento realizado:</h2> 
+      <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Product:</strong>
-  <%= @stock_movement.product_id %>
-</p>
+      <p>
+        <strong>Producto:</strong>
+        <%= @stock_movement.product.name %>
+      </p>
 
-<p>
-  <strong>Initial stock:</strong>
-  <%= @stock_movement.initial_stock %>
-</p>
+      <p>
+        <strong>Stock inicial:</strong>
+        <%= @stock_movement.initial_stock %>
+      </p>
 
-<p>
-  <strong>Added:</strong>
-  <%= @stock_movement.movement_type %>
-</p>
+      <p>
+        <strong>Cantidad movida:</strong>
+        <%= @stock_movement.stock_quantity %>
+      </p>
 
-<p>
-  <strong>Removed:</strong>
-  <%= @stock_movement.stock_quantity %>
-</p>
+      <p>
+        <strong>Stock final:</strong>
+        <%= @stock_movement.final_stock %>
+      </p>
 
-<p>
-  <strong>Final stock:</strong>
-  <%= @stock_movement.final_stock %>
-</p>
+      <%= link_to 'Ver todos los movimientos', stock_movements_path, class:"btn btn-success" %>
+    <br>
+    <br>
+    </div>
+  </div>
+</div>
 
-<%= link_to 'Edit', edit_stock_movement_path(@stock_movement) %> |
-<%= link_to 'Back', stock_movements_path %>

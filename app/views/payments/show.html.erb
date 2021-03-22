@@ -1,6 +1,6 @@
-<div class="container">
+<div class="container pt-3">
   <div class="row">
-    <div class="col-8 offset-3"><br>
+    <div class="col-5 bg-white border border-dark"><br>
       <h2 class="text-bold">Resumen del pago</h2> 
       <p id="notice"><%= notice %></p>
 
@@ -26,6 +26,8 @@
       </p>
       <%= link_to 'Editar', edit_payment_path(@payment), class:"btn btn-danger"%>
       <%= link_to 'Ingresar otro pago', payments_path, class:"btn btn-info" %>
+      <br>
+      <br>
     </div>
   </div>
 </div>
