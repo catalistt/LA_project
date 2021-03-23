@@ -1,27 +1,35 @@
-<%= form_with(model: resource, local: true) do |form| %>
-  <% if resource.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(resource.errors.count, "error") %> prohibited this resource from being saved:</h2>
+<div class="col-3 offset-1 pt-3">
+  <div class="card border-blue">
+    <div class="card-body">
+      <h1>Registro item</h1>
+      <%= form_with(model: resource, local: true) do |form| %>
+        <% if resource.errors.any? %>
+          <div id="error_explanation">
+            <h2><%= pluralize(resource.errors.count, "error") %> prohibited this resource from being saved:</h2>
 
-      <ul>
-      <% resource.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
+            <ul>
+            <% resource.errors.full_messages.each do |message| %>
+              <li><%= message %></li>
+            <% end %>
+            </ul>
+          </div>
+        <% end %>
+
+        <div class="field pt-2">
+          <%= form.label :Nombre_item %>
+          <%= form.text_field :name, class:"form-control"%>
+        </div>
+
+        <div class="field pt-2">
+          <%= form.label :Costo_unitario %>
+          <%= form.text_field :amount, class:"form-control" %>
+        </div>
+
+        <div class="actions pt-2">
+          <%= form.submit "Agregar item", class:"btn btn-info" %>
+        </div>
       <% end %>
-      </ul>
+      </div>
     </div>
-  <% end %>
-
-  <div class="field">
-    <%= form.label :name %>
-    <%= form.text_field :name %>
   </div>
-
-  <div class="field">
-    <%= form.label :amount %>
-    <%= form.text_field :amount %>
-  </div>
-
-  <div class="actions">
-    <%= form.submit %>
-  </div>
-<% end %>
+<br>

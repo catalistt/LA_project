@@ -69,6 +69,6 @@ class ConsumesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def consume_params
-      params.require(:consume).permit(:user_id_id, :resource_id_id, :quantity, :total_amount)
+      params.require(:consume).permit(:user_id, :resource_id, :quantity, :category, :total_amount)
     end
 end

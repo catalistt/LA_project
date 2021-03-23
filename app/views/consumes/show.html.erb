@@ -1,24 +1,40 @@
-<p id="notice"><%= notice %></p>
+<div class="container pt-3">
+  <div class="row">
+    <div class="col-5 bg-white border border-dark"><br>
+      <h2 class="text-bold">Resumen del registro</h2> 
 
-<p>
-  <strong>User:</strong>
-  <%= @consume.user_id %>
-</p>
+    <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Resource:</strong>
-  <%= @consume.resource_id %>
-</p>
+    <p>
+      <strong>Trabajador/a: </strong>
+      <%= @consume.user.name %>
+    </p>
 
-<p>
-  <strong>Quantity:</strong>
-  <%= @consume.quantity %>
-</p>
+    <p>
+      <strong>Item: </strong>
+      <%= @consume.resource.name %>
+    </p>
 
-<p>
-  <strong>Total amount:</strong>
-  <%= @consume.total_amount %>
-</p>
+    <p>
+      <strong>Cantidad:</strong>
+      <%= @consume.quantity %>
+    </p>
 
-<%= link_to 'Edit', edit_consume_path(@consume) %> |
-<%= link_to 'Back', consumes_path %>
+    <p>
+      <strong>Tipo de descuento:</strong>
+      <%= @consume.category %>
+    </p>
+
+    <p>
+      <strong>Monto total:</strong>
+      <%= @consume.total_amount.round %>
+    </p>
+
+    <%= link_to 'Editar', edit_consume_path(@consume), class:"btn btn-danger" %>
+    <%= link_to 'Registrar otro consumo', new_consume_path, class:"btn btn-info" %>
+    <br>
+    <br>
+  </div>
+</div>
+</div>
+
