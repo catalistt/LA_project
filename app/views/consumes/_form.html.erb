@@ -22,7 +22,7 @@
 
         <div class="field pt-2">
           <%= form.label :Item %>
-          <%= form.select(:resource_id, Resource.all.map {|resource| ["#{resource.name}", resource.id] }, { include_blank: 'Seleccionar' }, class: "custom-select") %>
+          <%= form.select(:resource_id, Resource.all.map {|resource| ["#{resource.name}", resource.id] }, { include_blank: 'Seleccionar' }, class: "custom-select consume-item") %>
         </div>
 
         <div class="field pt-2">
@@ -32,12 +32,12 @@
 
         <div class="field pt-2">
           <%= form.label :Cantidad %>
-          <%= form.number_field :quantity, class:"form-control"  %>
+          <%= form.number_field :quantity, class:"form-control consume-quantity"  %>
         </div>
 
         <div class="field pt-2">
           <%= form.label :Monto_total %>
-          <%= form.text_field :total_amount, class:"form-control" %>
+          <%= form.text_field :total_amount, class:"form-control consume-amount" %>
         </div>
         <br>
         <div class="actions">

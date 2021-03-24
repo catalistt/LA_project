@@ -1,14 +1,21 @@
 class ResourcesController < ApplicationController
   before_action :set_resource, only: [:show, :edit, :update, :destroy]
 
-  # GET /resources
-  # GET /resources.json
+
   def index
     @resources = Resource.all
   end
 
-  # GET /resources/1
-  # GET /resources/1.json
+  def resource_amount
+    @resource = params['resource_id']
+    @amount = Resource.find(@resource).amount
+
+    respond_to do |format|
+      format.html
+      format.json {render json: @amount}
+    end
+  end
+
   def show
   end
 
