@@ -1,12 +1,11 @@
 Rails.application.routes.draw do
-  resources :cash_registers 
+  resources :cash_registers
   resources :money_movements do
     collection do
       get :square
     end
   end
   resources :add_items
-  match 'orders/all/edit' => 'orders#edit_all', :as => :edit_all, :via => :get
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
   devise_for :users, controllers: {
@@ -31,6 +30,8 @@ Rails.application.routes.draw do
       get :filter
       post :search
       get :delivery_orders
+      put :update_all
+      get :edit_all
     end
   end
   resources :purchases
@@ -48,11 +49,7 @@ Rails.application.routes.draw do
 
   resources :consumes
   resources :resources
-  resources :delivery_methods do
-    collection do
-      put :update_orders
-    end
-  end
+  resources :delivery_methods
   resources :suppliers
   resources :clients do
     get :group
