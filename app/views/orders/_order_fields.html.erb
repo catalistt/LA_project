@@ -3,13 +3,9 @@
   <%= f.hidden_field :id %>
   <td><%= f.object.client_business_name %></td>
   <td><%= f.object.client.user.name %></td>
-
-  
   <% town_find = f.object.client.town %>
   <% town_array = towns.find {|town| town[1]== town_find} %>
   <td><%= town_array[0] %></td>
-
-
   <% desechable = 0 %>
   <% retornable = 0 %>
   <% cerveza = 0 %>

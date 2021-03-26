@@ -1,14 +1,24 @@
-<p id="notice"><%= notice %></p>
+<div class="container pt-3">
+  <div class="row">
+    <div class="col-5 bg-white border border-dark"><br>
+      <h2 class="text-bold">Resumen del registro</h2> 
+      <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Name:</strong>
-  <%= @resource.name %>
-</p>
+      <p>
+        <strong>Nombre item:</strong>
+        <%= @resource.name %>
+      </p>
 
-<p>
-  <strong>Amount:</strong>
-  <%= @resource.amount %>
-</p>
+      <p>
+        <strong>Costo unitario:</strong>
+        <%= number_with_delimiter(@resource.amount.round) %>
+      </p>
 
-<%= link_to 'Edit', edit_resource_path(@resource) %> |
-<%= link_to 'Back', resources_path %>
+      <%= link_to 'Editar', edit_resource_path(@resource), class:"btn btn-danger" %>
+      <%= link_to 'Ver items', resources_path, class:"btn btn-info" %>
+      <br>
+      <br>
+    </div>
+  </div>
+</div>
+  

@@ -53,9 +53,11 @@
 
       <li class="nav-item dropdown active">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Cuadratura
+          Movimientos de dinero
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <%= link_to 'Ingresar movimiento', new_money_movement_path, class: "nav-link" %> 
+          <%= link_to 'Ver movimientos', money_movements_path, class: "nav-link" %> 
           <%= link_to 'Cuadrar', new_cash_register_path, class: "nav-link" %> 
           <%= link_to 'Ver cuadraturas anteriores', cash_registers_path, class: "nav-link" %>
         </div>
@@ -86,26 +88,36 @@
           <%= link_to 'Agregar proveedor', new_supplier_path ,class: "nav-link" %>
           <%= link_to 'Ver proveedores', suppliers_path ,class: "nav-link" %> 
         </div>
-      </li>
-
-
-      <li class="nav-item dropdown active">
-      <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        Transportes
-      </a>
-      <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-        <%= link_to 'Detalle transportes', delivery_methods_path, class: "nav-link" %> 
-        <%= link_to 'Nuevo transporte', new_delivery_method_path, class: "nav-link" %> 
-      </div>
-      </li>
-    
+      </li> 
 
       <li class="nav-item dropdown active">
       <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
         Logística
       </a>
       <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+        <%= link_to 'Detalle transportes', delivery_methods_path, class: "nav-link" %> 
         <%= link_to 'Asignar transportes', edit_all_path, class: "nav-link" %>
+      </div>
+      </li>
+
+      <li class="nav-item dropdown active">
+      <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        Despacho
+      </a>
+      <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+        <%= link_to 'Ver pedidos', delivery_orders_orders_path, class: "nav-link" %>
+        <%= link_to 'Ingresar pagos', new_payment_path, class: "nav-link" %>
+      </div>
+      </li>
+
+      <li class="nav-item dropdown active">
+      <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        RRHH
+      </a>
+      <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+        <%= link_to 'Agregar consumo', new_consume_path, class: "nav-link" %>
+        <%= link_to 'Ver consumos', consumes_path, class: "nav-link" %>
+        <%= link_to 'Ver categorías', resources_path, class: "nav-link" %>
       </div>
       </li>
 
@@ -124,7 +136,6 @@
           Configuración
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <%= link_to 'Mi comportamiento', orders_my_detail_path, class: "nav-link" %> 
           <%= link_to 'Editar perfil', edit_user_registration_path, class: "nav-link" %> 
           <%= link_to 'Cerrar sesión', destroy_user_session_path, method: :delete, class: "nav-link" %>
         </div>

@@ -63,7 +63,7 @@ class ProductsController < ApplicationController
     @product = Product.new(product_params)
     respond_to do |format|
       if @product.save
-        format.html { redirect_to @product, notice: 'Product was successfully created.' }
+        format.html { redirect_to @product, notice: 'Se creó el producto exitosamente' }
         format.json { render :show, status: :created, location: @product }
       else
         format.html { render :new }
@@ -77,7 +77,7 @@ class ProductsController < ApplicationController
   def update
     respond_to do |format|
       if @product.update(product_params)
-        format.html { redirect_to @product, notice: 'Product was successfully updated.' }
+        format.html { redirect_to @product, notice: 'Se actualizó el producto exitosamente' }
         format.json { render :show, status: :ok, location: @product }
       else
         format.html { render :edit }

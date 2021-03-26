@@ -68,8 +68,12 @@ function getTotalAmount(element){
   if(cost !== 1){
     var productCost = parseFloat(parentContainer.find(".product_cost").val());
     console.log(cost, productCost);
-    total = (productCost + (cost * productCost)) * quantity;
-  }
+    total = (productCost + (cost * productCost)) * quantity;}
+  else 
+    {var discount = parseFloat(parentContainer.find('.group_discount').val());
+     console.log(discount);
+     total = (total - discount*total)* quantity; }
+
   totalAmountInput.val(Math.round(total));
 
   /* Obtengo el valor que está en el extra tax input y declaro el neto*/
