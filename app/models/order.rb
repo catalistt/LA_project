@@ -6,7 +6,7 @@ class Order < ApplicationRecord
   #Relacion con products y add_products
   has_many :add_products, inverse_of: :order
   has_many :products, through: :add_products
-  accepts_nested_attributes_for :add_products, :reject_if => :all_blank, :allow_destroy => true
+  accepts_nested_attributes_for :add_products, reject_if: :all_blank, allow_destroy: true
   accepts_nested_attributes_for :products
 
   #Relacion con payments y payment_methods

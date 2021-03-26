@@ -2,6 +2,7 @@
   "name": "LA_project",
   "private": true,
   "dependencies": {
+    "datatables": "^1.10.18",
     "highcharts": "^8.2.2",
     "moment": "^2.29.1",
     "sweetalert2": "^10.15.6"

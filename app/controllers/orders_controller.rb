@@ -94,8 +94,11 @@ class OrdersController < ApplicationController
   end
 
   def edit_all
-    @orders = Order.where('DATE(date) >= ?', Date.today)
     @delivery_methods = DeliveryMethod.where.not(vehicle_plate: nil)
+    respond_to do |format|
+      format.html
+      format.json { render json: AssignDeliveryMethodDatatable.new(view_context, { action: params[:action]}) }
+    end
   end
 
   def update_all
