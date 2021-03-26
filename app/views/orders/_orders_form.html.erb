@@ -1,0 +1,69 @@
+  <div class="col-5 border border-white bg-info offset-3 text-white negrita mt-5">
+    <h3 class="text-center">Monto asignado por camión</h3>
+    <div class="row update-deliveries mt-5">
+      <% @delivery_methods.each do |dm|%>
+        <div class="col-6"> 
+          <h5 class="border border-light p-2"><%= dm.vehicle_plate %> <%= number_with_delimiter(dm.orders.sum(:total_amount)) %></h5>
+        </div>
+      <% end %>
+    </div>
+  </div>
+    <table class="table table-striped bg-light mt-5">
+      <thead class="text-center">
+        <tr>
+          <th>N° de orden</th>
+          <th>Cliente</th>
+          <th>Vendedor</th>
+          <th>Comuna</th>
+          <th>Cantidad desechables</th>
+          <th>Cantidad retornables</th>
+          <th>Cantidad 3LT</th>
+          <th>Cantidad cervezas</th>
+          <th>Monto total</th>
+          <th>Tipo de orden</th>
+          <th>Transporte actual</th>
+          <th>Elegir nuevo transporte</th>
+        </tr>
+      </thead>
+      <h3>Asignar transporte a órdenes</h3>
+      <% @orders.each do |order| %>
+        <tr class="text-center order-container">
+          <td><%= order.id %></td>
+          <%= hidden_field_tag :id, order.id, class: "order_id" %>
+          <td><%= order.client_business_name %></td>
+          <td><%= order.client.user.name %></td>
+          <% town_find = order.client.town %>
+          <% town_array = towns&.find {|town| town[1]== town_find} %>
+          <td><%= town_array[0] if town_array.present? %></td>
+
+          <% desechable = 0 %>
+          <% retornable = 0 %>
+          <% cerveza = 0 %>
+          <% vino = 0 %>
+          <% tres = 0 %>
+          <% order.add_products.each do |product| %>
+            <% if product.product.packaging == "DESECHABLE" %>
+              <% desechable += 1*product.quantity %>
+            <% elsif product.product.packaging == "RETORNABLE" %>
+              <% retornable += 1*product.quantity %>
+            <% elsif product.product.packaging == "3L" %>
+              <% tres += 1*product.quantity %>
+            <% elsif product.product.packaging == "CERVEZAS" %>
+              <% cerveza += 1*product.quantity %>
+            <% end %>
+          <% end %>
+          <td><%= desechable %></td>
+          <td><%= retornable %></td>
+          <td><%= tres %></td>
+          <td><%= cerveza %></td>
+
+          <td>$ <%= number_with_delimiter(order.total_amount.round) %></td>
+          <td><%= order.detail %></td>
+          <td><%= order.delivery_method&.vehicle_plate %>
+          </td>
+
+          <td><%= select_tag :delivery_method_id, options_from_collection_for_select(DeliveryMethod.all, :id, :vehicle_plate, {include_blank: 'Elige patente'}), { class: "custom-select delivery_method_id"} %></td>
+        </tr>
+      <% end %>
+    </table>
+    <%= button_tag "Agregar transporte", class: "btn btn-info", id: "update_orders" %>

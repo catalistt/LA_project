@@ -61,23 +61,15 @@ class DeliveryMethodsController < ApplicationController
     end
   end
 
-  def update_orders
-    delivery_method_params[:orders_attributes].each do |order_attr|
-      order = Order.find(order_attr[1][:id])
-      order.delivery_method_id = order_attr[1][:delivery_method_id]
-      order.save!
-    end
+  private
+  # Use callbacks to share common setup or constraints between actions.
+  def set_delivery_method
+    @delivery_method = DeliveryMethod.find(params[:id])
   end
 
-  private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_delivery_method
-      @delivery_method = DeliveryMethod.find(params[:id])
-    end
-
-    # Only allow a list of trusted parameters through.
-    def delivery_method_params
-      params.require(:delivery_method).permit(:id, :vehicle_plate, :adquisition_date, :policy_number, :ensurance_company,
-      orders_attributes: [:id, :delivery_method_id])
-    end
+  # Only allow a list of trusted parameters through.
+  def delivery_method_params
+    params.require(:delivery_method).permit(:id, :vehicle_plate, :adquisition_date, :policy_number, :ensurance_company,
+    orders_attributes: [:id, :delivery_method_id])
+  end
 end

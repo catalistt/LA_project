@@ -36,24 +36,4 @@ class Order < ApplicationRecord
     self.total_amount = add_products.map(&:total_product_amount).reduce(:+)
     self.total_extra_taxes = add_products.map(&:extra_tax).reduce(:+)
   end
-
-
-  #Agregar filtros
-
-  filterrific(
-    available_filters: [
-      :with_user,
-      :with_town
-    ]
-  )
-
-  scope :with_user, ->(users) {
-    where(user_id: [*users])
-  }
-
-  scope :with_town, ->(towns) {
-    where(town: [*towns])
-  }
-  
-  
 end

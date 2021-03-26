@@ -15,36 +15,9 @@ class OrdersController < ApplicationController
     @orders = Order.where('DATE(date) >= ?', Date.today)
   end
 
-  def edit_all
-    @orders = Order.where('DATE(date) >= ?', Date.today)
-    @delivery_method = DeliveryMethod.new
-    @delivery_method.orders << @orders
-
-    @KXRJ78 = Order.where(delivery_method_id: (DeliveryMethod.where(vehicle_plate: "KXRJ78").sum(:id)), created_at: Time.zone.now.beginning_of_day..Time.zone.now.end_of_day).sum(:total_amount)
-    @HDKP82 = Order.where(delivery_method_id: (DeliveryMethod.where(vehicle_plate: "HDKP82").sum(:id)), created_at: Time.zone.now.beginning_of_day..Time.zone.now.end_of_day).sum(:total_amount)
-    @JSRK95 = Order.where(delivery_method_id: (DeliveryMethod.where(vehicle_plate: "JSRK95").sum(:id)), created_at: Time.zone.now.beginning_of_day..Time.zone.now.end_of_day).sum(:total_amount)
-    @JYGD30 = Order.where(delivery_method_id: (DeliveryMethod.where(vehicle_plate: "JYGD30").sum(:id)), created_at: Time.zone.now.beginning_of_day..Time.zone.now.end_of_day).sum(:total_amount)
-    @KXRJ79 = Order.where(delivery_method_id: (DeliveryMethod.where(vehicle_plate: "KXRJ79").sum(:id)), created_at: Time.zone.now.beginning_of_day..Time.zone.now.end_of_day).sum(:total_amount)
-    @PCYF89 = Order.where(delivery_method_id: (DeliveryMethod.where(vehicle_plate: "PCYF89").sum(:id)), created_at: Time.zone.now.beginning_of_day..Time.zone.now.end_of_day).sum(:total_amount)
-    @PCYF90 = Order.where(delivery_method_id: (DeliveryMethod.where(vehicle_plate: "PCYF90").sum(:id)), created_at: Time.zone.now.beginning_of_day..Time.zone.now.end_of_day).sum(:total_amount)
-    @HPPJ11 = Order.where(delivery_method_id: (DeliveryMethod.where(vehicle_plate: "HPPJ11").sum(:id)), created_at: Time.zone.now.beginning_of_day..Time.zone.now.end_of_day).sum(:total_amount)
-
-    @filterrific = initialize_filterrific(
-      Order,
-      params[:filterrific]
-    ) or return
-    @orders = @filterrific.find.page(params[:page])
-
-
-  end
-
   def my_detail
     @my_orders = Order.where(user_id: current_user.id).select(:client_id).group(:client_id).count
     @my_amounts = Order.where(user_id: current_user.id).select(:client_id, :total_amount).group(:client_id).sum(:total_amount)
-  end
-
-  def filter
-
   end
 
   def search
@@ -117,6 +90,30 @@ class OrdersController < ApplicationController
         format.html { render :new }
         format.json { render json: @order.errors, status: :unprocessable_entity }
       end
+    end
+  end
+
+  def edit_all
+    @orders = Order.where('DATE(date) >= ?', Date.today)
+    @delivery_methods = DeliveryMethod.where.not(vehicle_plate: nil)
+  end
+
+  def update_all
+    @orders = []
+    order_params[:orders].each do |_k, order|
+      @order = Order.find_by(id: order[:id])
+      @order.delivery_method_id = order[:delivery_method_id]
+      @orders << @order
+    end
+    @delivery_methods = DeliveryMethod.where.not(vehicle_plate: nil)
+    @update_success = Order.transaction do
+      @orders.each(&:save)
+    end
+    binding.pry
+    if @update_success
+      render partial: 'orders_form', status: 200
+    else
+      render json: { error: 'Error' }, status: 400
     end
   end
 
@@ -203,6 +200,7 @@ class OrdersController < ApplicationController
       params.require(:order).permit(:_destroy, :client_id, :user_id, :delivery_method_id, :net_amount, :total_iva, :client_business_name, :user_name, :total_extra_taxes, :total_amount, :total_packaging_amount, :visit_start, :visit_end, :discount_amount, :discount_comment, :create_invoive, :responsable, :detail, :date,
       add_products_attributes: [:id, :_destroy, :order_id, :product_id, :price, :discount, :quantity, :total_product_amount, :extra_tax, :packaging_amount, :net_product_amount],
       clients_attributes: [:id,:_destroy,  :business_name, :user_id, :rut, :address, :phone_number, :schedule, :special_agreement, :group_id],
-      delivery_methods_attributes: [:id, :_destroy, :vehicle_plate, :policy_number, :ensurance_company])
+      delivery_methods_attributes: [:id, :_destroy, :vehicle_plate, :policy_number, :ensurance_company],
+      orders: [:id, :delivery_method_id])
     end
 end

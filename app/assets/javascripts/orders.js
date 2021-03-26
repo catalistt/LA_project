@@ -1,20 +1,51 @@
 $(document).on('turbolinks:load', function() {
-  $(".delivery-added").click(function(){
+  initOrderProduct();
+  $("#add_products").on('cocoon:after-insert', function(){
+    initOrderProduct();
+  });
+  updateOrders();
+});
+
+function updateOrders(){
+  $("#update_orders").on("click", function(){
+    var orders = [];
+    $(".order-container").each(function(){
+      var order = $(this);
+      var orderId = order.find(".order_id").val();
+      var orderDeliveryId = order.find(".delivery_method_id").val();
+      if(orderId !== "" && orderDeliveryId !== ""){
+        orders.push({ id: orderId, delivery_method_id: orderDeliveryId });
+      }
+    });
+    $.ajax({
+      type: "PUT",
+      url: "/orders/update_all",
+      data: { order: {
+        orders: orders
+        }
+      },
+      success: function(response){
+        $("#edit_orders").html(response);
         Swal.fire({
           title: '¡Logrado!',
           text: 'Se asignaron los camiones a las ordenes exitosamente',
           icon: 'success',
           confirmButtonText: '¡Bacan!',
           timer: 3000
+        });
+      },
+      error: function(){
+        Swal.fire({
+          title: '¡Error!',
+          text: 'Hubo un problema asignando las órdenes',
+          icon: 'error',
+          confirmButtonText: ':( Ok',
+          timer: 3000
+        });
+      }
     });
-    
-  });
-  initOrderProduct();
-
-  $("#add_products").on('cocoon:after-insert', function(){
-    initOrderProduct();
-  });
-});
+  })
+}
 
 function setProductInfo(){
   $('.product').on('change', function() {
