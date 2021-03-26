@@ -59,7 +59,7 @@
 
           <td>$ <%= number_with_delimiter(order.total_amount.round) %></td>
           <td><%= order.detail %></td>
-          <td><%= order.delivery_method.vehicle_plate %>
+          <td><%= order.delivery_method&.vehicle_plate %>
           </td>
 
           <td><%= select_tag :delivery_method_id, options_from_collection_for_select(DeliveryMethod.all, :id, :vehicle_plate, {include_blank: 'Elige patente'}), { class: "custom-select delivery_method_id"} %></td>
