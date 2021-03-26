@@ -68,11 +68,11 @@ function getTotalAmount(element){
   if(cost !== 1){
     var productCost = parseFloat(parentContainer.find(".product_cost").val());
     console.log(cost, productCost);
-    total = (productCost + (cost * productCost)) * quantity;}
+    total = (productCost + (cost * productCost));}
   else 
     {var discount = parseFloat(parentContainer.find('.group_discount').val());
      console.log(discount);
-     total = (total - discount*total)* quantity; }
+     total = (total - discount*total); }
 
   totalAmountInput.val(Math.round(total));
 
