@@ -109,7 +109,6 @@ class OrdersController < ApplicationController
     @update_success = Order.transaction do
       @orders.each(&:save)
     end
-    binding.pry
     if @update_success
       render partial: 'orders_form', status: 200
     else
