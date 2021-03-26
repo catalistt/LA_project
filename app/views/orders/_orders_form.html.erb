@@ -62,7 +62,7 @@
           <td><%= order.delivery_method&.vehicle_plate %>
           </td>
 
-          <td><%= select_tag :delivery_method_id, options_from_collection_for_select(DeliveryMethod.all, :id, :vehicle_plate, {include_blank: 'Elige patente'}), { class: "custom-select delivery_method_id"} %></td>
+          <td><%= select_tag :delivery_method_id, options_from_collection_for_select(DeliveryMethod.all, :id, :vehicle_plate, {include_blank: 'Elige patente', selected: order.delivery_method_id}), { class: "custom-select delivery_method_id"} %></td>
         </tr>
       <% end %>
     </table>
