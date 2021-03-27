@@ -9,10 +9,10 @@ $(document).on('turbolinks:load', function() {
 function updateOrders(){
   $("#update_orders").on("click", function(){
     var orders = [];
-    $(".order-container").each(function(){
-      var order = $(this);
-      var orderId = order.find(".order_id").val();
-      var orderDeliveryId = order.find(".delivery_method_id").val();
+    $(".delivery_method_id").each(function(){
+      var deliveryMethod = $(this);
+      var orderDeliveryId = deliveryMethod.val();
+      var orderId = deliveryMethod.data("oid");
       if(orderId !== "" && orderDeliveryId !== ""){
         orders.push({ id: orderId, delivery_method_id: orderDeliveryId });
       }

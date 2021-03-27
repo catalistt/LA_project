@@ -21,9 +21,7 @@ class AssignDeliveryMethodDatatable
   def data
     orders.map do |order|
       array = []
-      array << content_tag(:div) do
-        hidden_field_tag :id, order.id, class: 'order_id'
-      end
+      array << order.id
       array << order.client_business_name
       array << order.user_name
       array << order.client&.commune_name
@@ -34,7 +32,7 @@ class AssignDeliveryMethodDatatable
       array << order.total_amount.round
       array << order.detail
       array << order.delivery_method_vehicle_plate
-      array << select_tag(:delivery_method_id, options_from_collection_for_select(DeliveryMethod.all, :id, :vehicle_plate, {include_blank: 'Elige patente', selected: order.delivery_method_id }), { class: "custom-select delivery_method_id"})
+      array << select_tag(:delivery_method_id, options_from_collection_for_select(DeliveryMethod.available, :id, :vehicle_plate, { include_blank: 'Elige patente', selected: order.delivery_method_id }), { class: "custom-select delivery_method_id", data: { oid: order.id } })
       array
     end
   end
@@ -46,7 +44,7 @@ class AssignDeliveryMethodDatatable
   def fetch_orders
     orders = custom_sort
     if params[:sSearch].present?
-      orders = orders.where("CAST(orders.id AS TEXT) ILIKE :search OR orders.name ILIKE :search", search: "%#{params[:sSearch]}%")
+      orders = orders.where('CAST(orders.id AS TEXT) ILIKE :search OR orders.name ILIKE :search', search: "%#{params[:sSearch]}%")
     end
 
     orders

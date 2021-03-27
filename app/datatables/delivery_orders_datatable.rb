@@ -38,7 +38,8 @@ class DeliveryOrdersDatatable
   def fetch_orders
     orders = Order.where('DATE(date) >= ?', Date.today).order("#{sort_column} #{sort_direction}").page(page).per_page(per_page)
     if params[:sSearch].present?
-      orders = orders.where("CAST(orders.id AS TEXT) ILIKE :search OR orders.name ILIKE :search", search: "%#{params[:sSearch]}%")
+      plates = Order.includes(:delivery_method).where(delivery_methods: { vehicle_plate: params[:sSearch]})
+      plates.merge(orders.where("CAST(orders.id AS TEXT) ILIKE :search", search: "%#{params[:sSearch]}%"))
     end
 
     orders
@@ -66,11 +67,6 @@ class DeliveryOrdersDatatable
   end
 
   def sort_column
-    array << order.id
-    array << order.delivery_method_vehicle_plate
-    array << order.client_business_name
-    array << order.user_name
-    array << order.total_amount.round
     columns = ['orders.id', 'delivery_methods.vehicle_plate', 'clients.business_name', 'users.name', 'orders.total_amount']
     columns[params[:iSortCol_0].to_i]
   end
