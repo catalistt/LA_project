@@ -5,6 +5,8 @@ class Client < ApplicationRecord
   belongs_to :city
   has_many :orders
 
+  delegate :name, to: :commune, prefix: true, allow_nil: true
+
   def to_s
     business_name
   end

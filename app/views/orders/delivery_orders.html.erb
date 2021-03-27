@@ -1,26 +1,18 @@
 <div class="container-fluid">
   <h1>Órdenes por camión</h1>
   <br>
-  <table class="table table-striped bg-light" id="orders">
+  <table class="table table-striped delivery-orders-datatable bg-light" id="orders" data-source="<%= delivery_orders_orders_url(format: 'json') %>">
     <thead>
       <tr>
         <th>Folio</th> 
+        <th>Patente</th>
         <th>Cliente</th>
         <th>Vendedor</th>
         <th>Total bruto</th>
-        <th colspan="1"></th>     
+        <th></th>     
       </tr>
     </thead>
     <tbody>
-      <% @orders.each do |order| %>
-        <tr>
-          <td><%= order.id %></td>
-          <td><%= order.client_business_name %></td>
-          <td><%= order.user_name %></td>
-          <td><%= number_with_delimiter(order.total_amount.round) %></td>
-          <td><%= link_to 'Agregar entrega', delivery_edit_path(order), class:"btn btn-success"%></td>
-        </tr>
-      <% end %>
     </tbody>
   </table>
 </div>

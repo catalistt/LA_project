@@ -12,7 +12,13 @@ class OrdersController < ApplicationController
   end
 
   def delivery_orders
-    @orders = Order.where('DATE(date) >= ?', Date.today)
+    respond_to do |format|
+      format.html
+      format.json { render json: DeliveryOrdersDatatable.new(view_context, { action: params[:action]}) }
+      format.xlsx {
+        render xlsx: 'delivery_orders', filename: "delivery-orders-#{DateTime.now.to_date}.xlsx"
+      }
+    end
   end
 
   def my_detail
@@ -39,11 +45,10 @@ class OrdersController < ApplicationController
   end
 
   def index
-    @pending_orders = Order.where(visit_end: nil)
-    @delivered_orders = Order.where.not(visit_end: nil)
-    @orders = Order.all.order('created_at DESC')
+    @orders = Order.order('created_at DESC')
     respond_to do |format|
       format.html
+      format.json { render json: OrdersDatatable.new(view_context, { action: params[:action]}) }
       format.xlsx {
         render xlsx: "index", filename: "orders-#{DateTime.now.to_date}.xlsx"
       }

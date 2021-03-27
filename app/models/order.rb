@@ -2,6 +2,7 @@ class Order < ApplicationRecord
   belongs_to :client
   belongs_to :user
   belongs_to :delivery_method, optional: true
+  has_one :commune, through: :client
 
   #Relacion con products y add_products
   has_many :add_products, inverse_of: :order
@@ -16,9 +17,10 @@ class Order < ApplicationRecord
   before_save :set_order_amounts
 
   #Delegate ayuda a acceder más fácil a atributos de modelos relacionados
-  delegate :business_name, to: :client, prefix: true, allow_nil: true 
-  delegate :name, to: :user, prefix: true, allow_nil: true 
-  delegate :vehicle_plate, to: :delivery_method, prefix: true, allow_nil: true
+  delegate :business_name, to: :client, prefix: :client, allow_nil: true 
+  delegate :name, to: :user, prefix: true, allow_nil: true
+  delegate :vehicle_plate, to: :delivery_method, prefix: true,allow_nil: true
+  delegate :name, to: :commune, prefix: true, allow_nil: true
 
   paginates_per 50
 
@@ -36,4 +38,15 @@ class Order < ApplicationRecord
     self.total_amount = add_products.map(&:total_product_amount).reduce(:+)
     self.total_extra_taxes = add_products.map(&:extra_tax).reduce(:+)
   end
+
+  def total_packaging(packaging_type)
+    total = 0
+    add_products.each do |add_product|
+      if add_product.product.packaging == packaging_type
+        total += add_product.quantity
+      end
+    end
+    total
+  end
+
 end

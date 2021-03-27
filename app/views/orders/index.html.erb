@@ -1,40 +1,31 @@
-
-<h1>Órdenes</h1>
-<%= link_to 'Exportar a Excel', orders_path(format: :xlsx), class:"btn btn-info" %><br>
-<br>
-<table class="table table-striped bg-light" id="orders">
-  <thead class="text-center">
-    <tr>
-      <th>Fecha</th> 
-      <th>Cliente</th>
-      <th>Vendedor</th>
-      <th>Total bruto</th>
-      <th>Despacho</th>
-      <th>Encargado de camión</th>
-      <th>Monto de descuento</th>
-      <th>Comentario del descuento</th>
-      <th>¿Crear factura?</th>
-      
-    </tr>
-  </thead>
-  <tbody>
-    <% @orders.each do |order| %>
-      <tr>
-        <td><%= order.date %></td>
-        <td><%= order.client_business_name %></td>
-        <td><%= order.user_name %></td>
-        <td><%= number_with_delimiter(order.total_amount.round) %></td>
-        <td><%= order.delivery_method_vehicle_plate %></td>
-        <td><%= order.responsable %></td>
-        <td><%= number_with_delimiter(order.discount_amount) %></td>
-        <td><%= order.discount_comment %></td>
-        <td><%= order.create_invoive ? 'Sí' : 'No' %></td>
-        <td><%= link_to 'Mostrar', order, class:"btn btn-info" %></td>
-        <td><%= link_to 'Editar', edit_order_path(order), class:"btn btn-success"%></td>
-        <td><%= link_to 'Eliminar', order, method: :delete, data: { confirm: 'Estás seguro/a de eliminar la órden?' }, class:"btn btn-danger" %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
-<%= link_to 'Nueva órden', new_order_path, class:"btn btn-info" %>
+<div class="container-fluid">
+  <div class="row mt-3">
+    <div class="col-10">
+      <h1>Órdenes</h1>
+      <%= link_to 'Exportar a Excel', orders_path(format: :xlsx), class:"btn btn-info" %>
+    </div>
+    <div class="col-2">
+      <%= link_to 'Nueva órden', new_order_path, class:"btn btn-success btn-lg" %>
+    </div>
+    <div class="col-12 mt-3">
+      <table class="table table-striped bg-light orders-datatable" id="orders" data-source="<%= orders_url(format: 'json') %>">
+        <thead class="text-center">
+          <tr>
+            <th>Fecha</th> 
+            <th>Cliente</th>
+            <th>Vendedor</th>
+            <th>Total bruto</th>
+            <th>Despacho</th>
+            <th>Encargado de camión</th>
+            <th>Monto de descuento</th>
+            <th>Comentario del descuento</th>
+            <th>¿Crear factura?</th>
+            <th> Acciones </th>
+          </tr>
+        </thead>
+        <tbody>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
