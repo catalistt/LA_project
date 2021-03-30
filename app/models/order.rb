@@ -37,6 +37,7 @@ class Order < ApplicationRecord
     self.total_iva = net_amount * 0.19
     self.total_amount = add_products.map(&:total_product_amount).reduce(:+)
     self.total_extra_taxes = add_products.map(&:extra_tax).reduce(:+)
+    self.freight = (add_products.map(&:net_product_amount).reduce(:+))
   end
 
   def total_packaging(packaging_type)
