@@ -1,10 +1,22 @@
 $(document).on('turbolinks:load', function() {
   initOrderProduct();
+  $("#client-select").select2({
+    placeholder: "Buscar cliente",
+    theme: 'classic',
+    width: 'resolve'
+   });
   $("#add_products").on('cocoon:after-insert', function(){
     initOrderProduct();
+
+  $("#list-products").select2({
+    placeholder: "Digita el producto o código",
+    theme: 'classic',
+    width: 'resolve'
+   });
   });
   updateOrders();
 });
+
 
 function updateOrders(){
   $("#update_orders").on("click", function(){
@@ -50,7 +62,7 @@ function updateOrders(){
 function setProductInfo(){
   $('.product').on('change', function() {
     var productInput = $(this);
-    var clientInput = $('#order_client_id');
+    var clientInput = $('#client-select');
     var clientId = clientInput.val();
     if(clientId){
       var parentContainer = productInput.closest(".add_new_product");
@@ -64,7 +76,6 @@ function setProductInfo(){
         type: "GET",
         url: "/products/" + productId + "/group_discount/" + clientId,
         success: function(product){
-          console.log(product);
           inputExtraTax.val(product.extra_tax);
           groupDiscountInput.val(product.discount);
           productCost.val(product.cost);
@@ -77,7 +88,13 @@ function setProductInfo(){
       });
     }
     else{
-      alert("Tienes que seleccionar un cliente primero");
+      Swal.fire({
+        title: 'Error',
+        text: 'Debes seleccionar un cliente primero y volver a seleccionar el producto',
+        icon: 'error',
+        confirmButtonText: 'Ok, entendido',
+        timer: 3000
+      });
       clientInput.addClass("error");
     }
   });
@@ -98,11 +115,9 @@ function getTotalAmount(element){
   var total = price * quantity;
   if(cost !== 1){
     var productCost = parseFloat(parentContainer.find(".product_cost").val());
-    console.log(cost, productCost);
-    total = (productCost + (cost * productCost));}
+    total = ((productCost + (cost * productCost)) * quantity);}
   else 
     {var discount = parseFloat(parentContainer.find('.group_discount').val());
-     console.log(discount);
      total = (total - discount*total); }
 
   totalAmountInput.val(Math.round(total));
