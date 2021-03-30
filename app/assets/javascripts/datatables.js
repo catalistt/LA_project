@@ -1,6 +1,9 @@
-var assignDeliveryMethodDatatable = initDatatable(assignDeliveryMethodDatatable, '.assign-delivery-method-datatable');
-var ordersDatatable = initDatatable(ordersDatatable, '.orders-datatable');
-var deliveryOrdersDatatable = initDatatable(deliveryOrdersDatatable, '.delivery-orders-datatable');
+var assignDeliveryMethodDatatable;
+initDatatable(assignDeliveryMethodDatatable, '#assign-delivery-method-datatable');
+var ordersDatatable;
+initDatatable(ordersDatatable, '.orders-datatable');
+var deliveryOrdersDatatable;
+initDatatable(deliveryOrdersDatatable, '.delivery-orders-datatable');
 
 function initDatatable(datatable, element){
     $(document).on('turbolinks:before-cache', function(){

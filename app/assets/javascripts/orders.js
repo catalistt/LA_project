@@ -24,8 +24,7 @@ function updateOrders(){
         orders: orders
         }
       },
-      success: function(response){
-        $("#edit_orders").html(response);
+      success: function(){
         Swal.fire({
           title: '¡Logrado!',
           text: 'Se asignaron los camiones a las ordenes exitosamente',
@@ -33,6 +32,7 @@ function updateOrders(){
           confirmButtonText: '¡Bacan!',
           timer: 3000
         });
+        $('#assign-delivery-method-datatable').DataTable().ajax.reload();
       },
       error: function(){
         Swal.fire({
@@ -44,7 +44,7 @@ function updateOrders(){
         });
       }
     });
-  })
+  });
 }
 
 function setProductInfo(){

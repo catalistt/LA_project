@@ -26,7 +26,7 @@ class DeliveryOrdersDatatable
       array << order.client_business_name
       array << order.user_name
       array << order.total_amount.round
-      array << link_to('Agregar entrega', delivery_edit_path(order), class: 'btn btn-success')
+      array << link_to('Agregar entrega', edit_delivery_info_order_path(order), class: 'btn btn-success')
       array
     end
   end
@@ -38,8 +38,7 @@ class DeliveryOrdersDatatable
   def fetch_orders
     orders = Order.where('DATE(date) >= ?', Date.today).order("#{sort_column} #{sort_direction}").page(page).per_page(per_page)
     if params[:sSearch].present?
-      plates = Order.includes(:delivery_method).where(delivery_methods: { vehicle_plate: params[:sSearch]})
-      plates.merge(orders.where("CAST(orders.id AS TEXT) ILIKE :search", search: "%#{params[:sSearch]}%"))
+      orders = Order.includes(:delivery_method).where('DATE(date) >= ?', Date.today).where(delivery_methods: { vehicle_plate: params[:sSearch]&.strip}).page(page).per_page(per_page)
     end
 
     orders

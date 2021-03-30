@@ -24,8 +24,11 @@ Rails.application.routes.draw do
   resources :adquisition_costs
   resources :stock_movements
   resources :add_products
-  get 'orders/edit_delivery_fields/:id', to: 'orders#edit_delivery_fields', as: :delivery_edit
   resources :orders do
+    member do
+      get :edit_delivery_info
+      put :update_delivery_info
+    end
     collection do
       get :filter
       post :search

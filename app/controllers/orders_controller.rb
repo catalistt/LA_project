@@ -1,14 +1,10 @@
 class OrdersController < ApplicationController
-  before_action :set_order, only: [:show, :edit, :update, :destroy]
+  before_action :set_order, only: [:show, :edit, :update, :destroy, :edit_delivery_info, :update_delivery_info]
   before_action :set_client, only: [:create, :update]
 
   def dashboard_clients
     @orders_by_count = Order.select(:client_id).group(:client_id).count
     @orders_by_sum = Order.select(:client_id, :total_amount).group(:client_id).sum(:total_amount)
-  end
-
-  def edit_delivery_fields
-    @order = Order.find(params[:id])
   end
 
   def delivery_orders
@@ -175,6 +171,13 @@ class OrdersController < ApplicationController
         format.json { render json: @order.errors, status: :unprocessable_entity }
       end
     end
+  end
+
+  def edit_delivery_info
+  end
+
+  def update_delivery_info
+    @order.update(order_params)
   end
 
   def destroy 

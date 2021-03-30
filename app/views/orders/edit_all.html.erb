@@ -9,30 +9,7 @@
       <% end %>
     </div>
   </div>
-  <div class="row mt-5">
-    <div class="col-12 mb-5">
-      <h3 class="mb-3">Asignar transporte a órdenes</h3>
-      <table class="table bg-white assign-delivery-method-datatable m-b-20" data-source="<%= edit_all_orders_url(format: 'json') %>">
-        <thead>
-          <tr>
-            <th>N° de orden</th>
-            <th>Cliente</th>
-            <th>Vendedor</th>
-            <th>Comuna</th>
-            <th>Cantidad desechables</th>
-            <th>Cantidad retornables</th>
-            <th>Cantidad 3LT</th>
-            <th>Cantidad cervezas</th>
-            <th>Monto total</th>
-            <th>Tipo de orden</th>
-            <th>Transporte actual</th>
-            <th>Elegir nuevo transporte</th>
-          </tr>
-        </thead>
-        <tbody>
-        </tbody>
-      </table>
-      <%= button_tag "Agregar transporte", class: "btn btn-info", id: "update_orders" %>
-    </div>
+  <div class="row mt-5" id="edit_orders">
+    <%= render 'orders_form' %>
   </div>
 </div>
