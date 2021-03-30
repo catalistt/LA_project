@@ -2,6 +2,7 @@
  @import "bootstrap";
  @import "select2";
  @import "font-awesome";
+ @import "datatables.net-bs4/css/dataTables.bootstrap4";
 
  .home-page {
   background-color: black;
@@ -89,4 +90,7 @@
 }
 .form-btn{
   margin-top: 34px;
+}
+.bg-white{
+  background-color: #eee;
 }

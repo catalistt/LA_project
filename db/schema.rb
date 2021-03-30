@@ -84,6 +84,13 @@ ActiveRecord::Schema.define(version: 2021_03_23_171628) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "cities", force: :cascade do |t|
+    t.string "name"
+    t.string "code"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "clients", force: :cascade do |t|
     t.string "business_name"
     t.string "rut"
@@ -98,8 +105,21 @@ ActiveRecord::Schema.define(version: 2021_03_23_171628) do
     t.string "line_of_business"
     t.integer "city"
     t.integer "town"
+    t.integer "commune_id"
+    t.integer "city_id"
+    t.index ["city_id"], name: "index_clients_on_city_id"
+    t.index ["commune_id"], name: "index_clients_on_commune_id"
     t.index ["group_id"], name: "index_clients_on_group_id"
     t.index ["user_id"], name: "index_clients_on_user_id"
+  end
+
+  create_table "communes", force: :cascade do |t|
+    t.string "name"
+    t.string "code"
+    t.integer "city_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["city_id"], name: "index_communes_on_city_id"
   end
 
   create_table "consumes", force: :cascade do |t|

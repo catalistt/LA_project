@@ -9,10 +9,10 @@ $(document).on('turbolinks:load', function() {
 function updateOrders(){
   $("#update_orders").on("click", function(){
     var orders = [];
-    $(".order-container").each(function(){
-      var order = $(this);
-      var orderId = order.find(".order_id").val();
-      var orderDeliveryId = order.find(".delivery_method_id").val();
+    $(".delivery_method_id").each(function(){
+      var deliveryMethod = $(this);
+      var orderDeliveryId = deliveryMethod.val();
+      var orderId = deliveryMethod.data("oid");
       if(orderId !== "" && orderDeliveryId !== ""){
         orders.push({ id: orderId, delivery_method_id: orderDeliveryId });
       }
@@ -24,8 +24,7 @@ function updateOrders(){
         orders: orders
         }
       },
-      success: function(response){
-        $("#edit_orders").html(response);
+      success: function(){
         Swal.fire({
           title: '¡Logrado!',
           text: 'Se asignaron los camiones a las ordenes exitosamente',
@@ -33,6 +32,7 @@ function updateOrders(){
           confirmButtonText: '¡Bacan!',
           timer: 3000
         });
+        $('#assign-delivery-method-datatable').DataTable().ajax.reload();
       },
       error: function(){
         Swal.fire({
@@ -44,7 +44,7 @@ function updateOrders(){
         });
       }
     });
-  })
+  });
 }
 
 function setProductInfo(){

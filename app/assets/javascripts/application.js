@@ -15,7 +15,11 @@
 //= require jquery3
 //= require cocoon
 //= require popper
+//= require datatables.net/js/jquery.dataTables
+//= require datatables.net-bs4/js/dataTables.bootstrap4
 //= require bootstrap
+//= require bootstrap-datepicker
+//= require bootstrap-datepicker/locales/bootstrap-datepicker.es.js
 //= require highcharts
 //= require chartkick
 //= require select2

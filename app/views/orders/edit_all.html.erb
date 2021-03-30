@@ -1,3 +1,15 @@
-<div class="container-fluid" id="edit_orders">
-  <%= render 'orders_form' %>
+<div class="container-fluid">
+  <div class="col-5 border border-white bg-info offset-3 text-white negrita mt-5">
+    <h3 class="text-center">Monto asignado por camión</h3>
+    <div class="row update-deliveries mt-5">
+      <% @delivery_methods.each do |dm|%>
+        <div class="col-6"> 
+          <h5 class="border border-light p-2"><%= dm.vehicle_plate %> <%= number_with_delimiter(dm.orders.sum(:total_amount)) %></h5>
+        </div>
+      <% end %>
+    </div>
+  </div>
+  <div class="row mt-5" id="edit_orders">
+    <%= render 'orders_form' %>
+  </div>
 </div>
