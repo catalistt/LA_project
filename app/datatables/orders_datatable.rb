@@ -42,7 +42,7 @@ class OrdersDatatable
   def fetch_orders
     orders = custom_sort
     if params[:sSearch].present?
-      orders = orders.where("CAST(orders.id AS TEXT) ILIKE :search OR orders.name ILIKE :search", search: "%#{params[:sSearch]}%")
+      orders = orders.where("CAST(orders.id AS TEXT) ILIKE :search", search: "%#{params[:sSearch]}%").page(page).per_page(per_page)
     end
 
     orders
