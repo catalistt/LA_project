@@ -6,17 +6,22 @@ $(document).on('turbolinks:load', function() {
     width: 'resolve'
    });
   $("#add_products").on('cocoon:after-insert', function(){
+    disabledAllSelectedOptions();
     initOrderProduct();
+    $(".list-products").select2({
+      placeholder: "Digita el producto o código",
+      theme: 'classic',
+      width: 'resolve'
+     });
+  });
 
-  $("#list-products").select2({
+  $(".list-products").select2({
     placeholder: "Digita el producto o código",
     theme: 'classic',
     width: 'resolve'
    });
-  });
   updateOrders();
 });
-
 
 function updateOrders(){
   $("#update_orders").on("click", function(){
@@ -59,11 +64,24 @@ function updateOrders(){
   });
 }
 
+function disabledAllSelectedOptions(){
+  $(".product option:not(:selected)").prop("disabled", false);
+  var selectedOptions = $(".product option:selected");
+  if(selectedOptions.length > 0){
+    selectedOptions.each(function(){
+      if($(this).val() !== ""){
+        $("option[value=" + $(this).val() +"]").not(":selected").prop("disabled" , "disabled");
+      }
+    });
+  }
+}
+
 function setProductInfo(){
   $('.product').on('change', function() {
     var productInput = $(this);
     var clientInput = $('#client-select');
     var clientId = clientInput.val();
+    var selectedOption = productInput.val();
     if(clientId){
       var parentContainer = productInput.closest(".add_new_product");
       var quantityInput = parentContainer.find(".quantity");
@@ -86,6 +104,7 @@ function setProductInfo(){
           getTotalAmount(productInput);
         }
       });
+      disabledAllSelectedOptions();
     }
     else{
       Swal.fire({

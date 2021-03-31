@@ -2,7 +2,7 @@
   <div class="row add_new_product mb-5">
     <div class="col-4">
       <%= f.label :product_id, "Producto", class: "control-label" %>
-      <%= f.select(:product_id, Product.all.collect {|product| ["#{product.code} - #{product.name} - #{product.stock}", product.id] }, {include_blank: "Digita producto o código", class:"form-control select2-simple-dropdown"}, id:"list-products", class:"product") %>
+      <%= f.select(:product_id, Product.all.collect {|product| ["#{product.code} - #{product.name} - #{product.stock}", product.id] }, {include_blank: "Digita producto o código"}, {class: "form-control select2-simple-dropdown list-products product"})%>
       
     </div>
     <div class="col-4">
