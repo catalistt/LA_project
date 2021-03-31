@@ -6,7 +6,7 @@ module ProductsHelper
   end
 
   def categories
-  [["ENERGETICA", "energetic"], ["BEBIDA ISOTONICA", "isotonic"], ["NECTAR", "nectar"], ["PROMOCION", "promotion"], ["SERVICIO", "service"], ["TE", "tea"], ["BEBIDA", "soda"], [ "CERVEZA", "beer"], ["VINO", "wine"], ["SNACK", "snack"], ["AGUAS","water"]]
+  [["Energetica", "energetic"], ["Bebida isotónica", "isotonic"], ["Nectar", "nectar"], ["Promocion", "promotion"], ["Servicio", "service"], ["Té", "tea"], ["Bebida", "soda"], [ "Cerveza", "beer"], ["Vino", "wine"], ["Snack", "snack"], ["Aguas","water"]]
   end
 
   def taxes
@@ -15,6 +15,10 @@ module ProductsHelper
 
   def product_costs
     [['Ruta', 1], ['Precio 1', 0.135], ['Precio 2', 0.115], ['Precio 3', 0.095], ['Precio 4', 0.075], ['Precio 5', 0.055]]
+  end
+
+  def pack
+    ['Desechable', 'Retornable', '3L', 'Cervezas','Bidon']
   end
 
   def get_totaled(p_id)
