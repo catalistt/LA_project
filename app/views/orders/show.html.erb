@@ -93,7 +93,6 @@
               <th>Cantidad</th>
               <th>Neto</th>
               <th>Porcentaje impuesto extra</th>
-              <th>Total item</th>
             </tr>
           </thead>
           <tbody class="text-center">
@@ -104,7 +103,6 @@
                 <td><%= item.quantity %></td>
                 <td><%= number_with_delimiter(item.net_product_amount.round) %></td>
                 <td><%= item.product.extra_tax.round(3) %></td>
-                <td><%= number_with_delimiter(item.total_product_amount.round) %></td>
               </tr>  
                 <% end %>
               </tbody>

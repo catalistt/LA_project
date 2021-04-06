@@ -20,6 +20,7 @@ Rails.application.routes.draw do
   get 'home/dashboard'
   get 'orders/dashboard_clients'
   get 'orders/my_detail'
+  get 'orders/loading_sheets'
   resources :payments
   resources :payment_methods
   resources :adquisition_costs

@@ -51,6 +51,30 @@ class OrdersController < ApplicationController
     end
   end
 
+  def loading_sheets
+    @orders = Order.where('DATE(date) >= ?', Date.today).where.not(delivery_method_id: nil)
+    @ids_deliveries = Order.where('DATE(date) >= ?', Date.today).where.not(delivery_method_id: nil).pluck(:delivery_method_id)
+    names = []
+    @product_quantity = @ids_deliveries.each do |elem|
+      this_delivery = DeliveryMethod.where(id: elem).map(&:vehicle_plate)
+      @orders.each do |order|
+        @id_quantity = order.add_products.pluck(:product_id, :quantity)
+        @name_quantity = []
+        @id_quantity.each do |elem|
+          name = Product.where(id: elem[0]).select(:code).first.code
+          @name_quantity.push([name, elem[1]])
+        end
+      end
+      return @name_quantity    
+    end
+    respond_to do |format|
+      format.html
+      format.xlsx {
+        render xlsx: "loading_sheets", filename: "Hoja de carga-#{DateTime.now.to_date}.xlsx"
+      }
+    end
+  end
+
   def show
     respond_to do |format|
       format.html

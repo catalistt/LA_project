@@ -90,6 +90,7 @@ function setProductInfo(){
       var productId = parentContainer.find('.product').val();
       var productCost = parentContainer.find(".product_cost");
       var groupDiscountInput = parentContainer.find(".group_discount");
+      var unitPrice = parentContainer.find('.unit-price');
       $.ajax({
         type: "GET",
         url: "/products/" + productId + "/group_discount/" + clientId,
@@ -97,6 +98,8 @@ function setProductInfo(){
           inputExtraTax.val(product.extra_tax);
           groupDiscountInput.val(product.discount);
           productCost.val(product.cost);
+          var productUnit = product.unit;
+          unitPrice.val(productUnit);
           priceInput.val(product.standard_price);
           if(quantityInput.val() === ""){
             quantityInput.val(1);
@@ -123,11 +126,12 @@ function getTotalAmount(element){
   /* Obtengo los valores de los containers de price, discount y quantity */
   var parentContainer = element.closest(".add_new_product");
   var priceInput = parentContainer.find(".price");
+  var htmlUnit = parentContainer.find(".unit-price");
   var cost = parseFloat(parentContainer.find(".cost").val());
   var price = parseFloat(priceInput.val()) || 0;
   var discount = parseFloat(parentContainer.find('.discount').val()) || 0;
   var quantity = parseFloat(parentContainer.find('.quantity').val()) || 1;
-  var groupDiscount = parseFloat(parentContainer.find('.group_discount').val()) || 0;
+  var pUnit = parseInt(parentContainer.find('.unit-price').val());
 
   /* Obtener el total, considerando el descuento y la cantidad*/
   var totalAmountInput = parentContainer.find('.total_product_amount');
@@ -152,7 +156,9 @@ function getTotalAmount(element){
   extraTax = netAmount * extraTax;
   extraTaxInput.val(extraTax);
   netAmountInput.val(netAmount);
-}
+  var unit_amount = parseInt(totalAmountInput.val()) / parseInt(quantity) / parseInt(pUnit);
+  htmlUnit.html("Unitario: $" + parseInt(unit_amount));
+  };
 
 function initOrderProduct(){
   setProductInfo();

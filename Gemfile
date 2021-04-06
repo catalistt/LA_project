@@ -50,6 +50,7 @@ gem 'wkhtmltopdf-binary'
 gem 'sendgrid-ruby'
 gem 'font-awesome-rails'
 gem 'will_paginate'
+gem 'bootstrap-popover-rails'
 # Use ActiveStorage variant
 # gem 'mini_magick', '~> 4.8'
 
