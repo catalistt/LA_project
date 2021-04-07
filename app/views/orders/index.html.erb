@@ -8,24 +8,46 @@
       <%= link_to 'Nueva órden', new_order_path, class:"btn btn-success btn-lg" %>
     </div>
     <div class="col-12 mt-3">
-      <table class="table table-striped bg-light orders-datatable" id="orders" data-source="<%= orders_url(format: 'json') %>">
-        <thead class="text-center">
-          <tr>
-            <th>Fecha</th> 
-            <th>Cliente</th>
-            <th>Vendedor</th>
-            <th>Total bruto</th>
-            <th>Despacho</th>
-            <th>Encargado de camión</th>
-            <th>Monto de descuento</th>
-            <th>Comentario del descuento</th>
-            <th>¿Crear factura?</th>
-            <th> Acciones </th>
-          </tr>
-        </thead>
-        <tbody>
-        </tbody>
-      </table>
+    <table class="table table-striped bg-light text-center">
+    <thead>
+      <tr>
+        <th>Fecha de entrega</th> 
+        <th>Cliente</th>
+        <th>Vendedor</th>
+        <th>Total pedido</th>
+        <th>¿Va con factura?</th>
+        <th>Despacho</th>
+        <th>Responsable</th>
+        <th> Acciones </th>
+      </tr>
+    </thead>
+
+    <tbody class="text-center">
+      <% @orders.each do |order| %>
+        <tr>
+          <td><%= order.date.strftime("%d-%m-%Y") %></td>
+          <td><%= order.client.business_name %></td>
+          <td><%= order.user.name %></td>
+          <td><%= number_with_delimiter(order.total_amount.round) %></td>
+          <% if order.create_invoive == true %>
+            <td><%= "Sí" %></td>
+          <% else %>
+            <td><%= "No" %></td>
+          <% end %>
+          <% if order.delivery_method_id.nil? %>
+            <td><%= "Sin entrega aún" %></td>
+          <% else %>
+            <td><%= order.delivery_method_vehicle_plate %></td>
+          <% end %>
+          <td><%= order.responsable %></td>
+          <td><%=  link_to raw("<span class='fa fa-eye'></span>"), order, class:"btn bg-info" %></td>
+          <td><%= link_to raw("<span class='fa fa-edit'></span>"), edit_order_path(order), class:"btn bg-warning" %></td>
+          <td><%= link_to raw("<span class='fa fa-trash'></span>"), order, method: :delete,class:"btn bg-danger",  data: { confirm: 'Estas seguro/a de eliminar la orden?' } %></td>
+          <td><%= link_to raw("<span class='fa fa-file'></span>"), order, method: :delete,class:"btn bg-primary",  data: { confirm: 'Estas seguro/a de facturar la orden?' } %></td>
+        </tr>
+      <% end %>
+    </tbody>
+
     </div>
   </div>
 </div>

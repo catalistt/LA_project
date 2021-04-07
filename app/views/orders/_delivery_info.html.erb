@@ -1,51 +1,56 @@
-
-<div class="col-12 p-3">
+<div class="col-12 pt-3">
   <h4 class="text-blue">Datos básicos</h4>
-  <%= form_with(model: @order, url: update_delivery_info_order_path(@order), method: :put, remote: true) do |form| %>
-  <div class="row">
-    <div class="col-12">
-      <% if @order.errors.any? %>
-        <div id="error_explanation">
-          <h2><%= pluralize(@order.errors.count, "error") %> prohibited this order from being saved:</h2>
-          <ul>
-            <% @order.errors.full_messages.each do |message| %>
-              <li><%= message %></li>
-            <% end %>
-          </ul>
-        </div>
-      <% end %>
+    <%= form_with(model: @order, url: update_delivery_info_order_path(@order), method: :put) do |form| %>
+    <div class="row">
+      <div class="col-10">
+        <% if @order.errors.any? %>
+          <div id="error_explanation">
+            <h2><%= pluralize(@order.errors.count, "error") %> prohibited this order from being saved:</h2>
+            <ul>
+              <% @order.errors.full_messages.each do |message| %>
+                <li><%= message %></li>
+              <% end %>
+            </ul>
+          </div>
+        <% end %>
+      </div>
     </div>
-  </div>
-  <div class="row">
-    <div class="col-3">
-      <%= form.label :responsable, 'Responsable', class:"form-label" %>
-      <%= form.collection_select :responsable, User.all, :id, :name,{ :include_blank => 'Elegir responsable' }, class:"custom-select" %>
+    <div class="row">
+      <div class="col-3">
+        <%= form.label :responsable, 'Responsable', class:"form-label" %>
+        <%= form.collection_select :responsable, User.all, :name , :name,{ :include_blank => 'Elegir responsable' }, class:"custom-select" %>
+      </div>
+
+      <div class="col-3">
+        <%= form.label :Hora_de_inicio, class: "form-label d-block" %>
+        <%= form.time_select :visit_start,{}, class: "custom-select date" %>
+      </div>
+
+      <div class="col-3">
+        <%= form.label :Hora_de_término, class: "form-label d-block" %>
+        <%= form.time_select :visit_end, {},class: "custom-select date" %>
+      </div>
+    </div>
+    <br>
+    <div class="row">
+      <div class="col-3">
+        <%= form.label :Monto_descontado, class: "form-label" %>
+        <%= form.number_field :discount_amount, class: "form-control disc-amount" %>
+      </div>
+
+      <div class="col-3">
+        <%= form.label :Comentario_descuento, class: "form-label"%>
+        <%= form.text_field :discount_comment, class: "form-control" %>
+      </div>
     </div>
 
-    <div class="col-2">
-      <%= form.label :visit_start, class: "form-label d-block" %>
-      <%= form.time_select :visit_start,{}, class: "custom-select date" %>
+    </div>
+    <div class="row"> 
+      <div class="col-4 offset-3">
+        <%= form.submit "Actualizar datos", class:"my-3 btn btn-success btn-block"%>
+      </div>
     </div>
 
-    <div class="col-2">
-      <%= form.label :visit_end, class: "form-label d-block" %>
-      <%= form.time_select :visit_end, {},class: "custom-select date" %>
-    </div>
-    <div class="col-2">
-      <%= form.label :discount_amount, class: "form-label" %>
-      <%= form.number_field :discount_amount, class: "form-control" %>
-    </div>
-
-    <div class="col-2">
-      <%= form.label :discount_comment, class: "form-label"%>
-      <%= form.text_field :discount_comment, class: "form-control" %>
-    </div>
-  </div>
-  <div class="row"> 
-    <div class="col-4 offset-4">
-      <%= form.submit "Actualizar datos", class:"my-3 btn btn-success btn-block"%>
-    </div>
-  </div>
-
-<% end %>
+  <% end %>
 </div>
+

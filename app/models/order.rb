@@ -19,7 +19,7 @@ class Order < ApplicationRecord
   #Delegate ayuda a acceder más fácil a atributos de modelos relacionados
   delegate :business_name, to: :client, prefix: :client, allow_nil: true 
   delegate :name, to: :user, prefix: true, allow_nil: true
-  delegate :vehicle_plate, to: :delivery_method, prefix: true,allow_nil: true
+  delegate :vehicle_plate, to: :delivery_method, prefix: true, allow_nil: true
   delegate :name, to: :commune, prefix: true, allow_nil: true
 
   paginates_per 50

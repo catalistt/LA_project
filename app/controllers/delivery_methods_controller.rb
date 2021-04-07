@@ -1,34 +1,28 @@
 class DeliveryMethodsController < ApplicationController
   before_action :set_delivery_method, only: [:show, :edit, :update, :destroy]
 
-  # GET /delivery_methods
-  # GET /delivery_methods.json
+
   def index
     @delivery_methods = DeliveryMethod.all
   end
 
-  # GET /delivery_methods/1
-  # GET /delivery_methods/1.json
   def show
   end
 
-  # GET /delivery_methods/new
+
   def new
     @delivery_method = DeliveryMethod.new
   end
 
-  # GET /delivery_methods/1/edit
   def edit
   end
 
-  # POST /delivery_methods
-  # POST /delivery_methods.json
   def create
     @delivery_method = DeliveryMethod.new(delivery_method_params)
 
     respond_to do |format|
       if @delivery_method.save
-        format.html { redirect_to @delivery_method, notice: 'Delivery method was successfully created.' }
+        format.html { redirect_to @delivery_method, notice: 'Se creó el camión exitósamente' }
         format.json { render :show, status: :created, location: @delivery_method }
       else
         format.html { render :new }

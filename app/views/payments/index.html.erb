@@ -13,7 +13,6 @@
           <th>Método de pago</th> 
           <th>Fecha del cheque</th> 
           <th>Monto pagado</th>
-          <th>Estado</th>
           <th colspan="3"></th>
         </tr>
       </thead>
@@ -31,13 +30,8 @@
               <td><%=  "N/A" %></td>
             <% end %>
             <td>$ <%= number_with_delimiter(payment.amount_payed.round) %></td>
-              <% if payment.order.total_amount > payment.amount_payed %>
-                <td><%= "Pago parcial" %></td>
-              <% else %>
-                <td><%= "Pago total" %></td>
-              <% end %>
-            <td><%= link_to 'Editar', edit_payment_path(payment), class:"btn btn-info" %></td>
-            <td><%= link_to 'Eliminar', payment, method: :delete, data: { confirm: '¿Estas seguro/a de eliminar el pago?' }, class:"btn btn-danger" %></td>
+            <td><%= link_to raw("<span class='fa fa-edit'></span>"), edit_payment_path(payment), class:"btn btn-info" %></td>
+            <td><%= link_to raw("<span class='fa fa-trash'></span>"), payment, method: :delete, data: { confirm: '¿Estas seguro/a de eliminar el pago?' }, class:"btn btn-danger" %></td>
           </tr>
         <% end %>
       </tbody>

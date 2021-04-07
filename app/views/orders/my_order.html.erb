@@ -1,43 +1,35 @@
 <p id="notice"><%= notice %></p>
 <div class="row">
-  <div class="col-4 offset-1">
+  <div class="col-10 offset-1">
     <h1>Mis órdenes</h1>
     <br>
-    <h2>Órdenes pendiente de entrega</h2>
-    <br>
-    <table class="table table-striped bg-light">
+    <table class="table table-striped bg-light text-center">
       <thead>
         <tr>
           <th>Fecha creación</th> 
+          <th>Fecha de entrega</th> 
           <th>Cliente</th>
-          <th>Vendedor</th>
-          <th>Patente vehículo</th>
           <th>Total pedido</th>
-          <th>Total envases</th>
-          <th>Monto de descuento</th>
-          <th>Detalle descuento </th>
           <th>¿Va con factura?</th>
-          <th>Responsable de entrega</th>
-          <th colspan="3"></th>
+          <th> Acciones </th>
         </tr>
       </thead>
 
-      <tbody>
-        <% @pending_orders.each do |order| %>
+      <tbody class="text-center">
+        <% @orders.each do |order| %>
           <tr>
-            <td><%= order.created_at %></td>
-            <td><%= order.client_id %></td>
-            <td><%= order.user_id %></td>
-            <td><%= order.delivery_method_id %></td>
-            <td><%= order.total_amount %></td>
-            <td><%= order.total_packaging_amount %></td>
-            <td><%= order.discount_amount %></td>
-            <td><%= order.discount_comment %></td>
-            <td><%= order.create_invoive %></td>
-            <td><%= order.responsable %></td>
-            <td><%= link_to 'Mostrar detalle', order, class:"btn bg-info" %></td>
-            <td><%= link_to 'Editar orden', edit_order_path(order), class:"btn bg-info" %></td>
-            <td><%= link_to 'Eliminar órden', order, method: :delete,class:"btn bg-info",  data: { confirm: 'Estas seguro/a?' } %></td>
+            <td><%= order.created_at.strftime("%d-%m-%Y %I:%M %p") %></td>
+            <td><%= order.date.strftime("%d-%m-%Y") %></td>
+            <td><%= order.client.business_name %></td>
+            <td><%= number_with_delimiter(order.total_amount.round) %></td>
+            <% if order.create_invoive == true %>
+              <td><%= "Sí" %></td>
+            <% else %>
+              <td><%= "No" %></td>
+            <% end %>
+            <td><%=  link_to raw("<span class='fa fa-eye'></span>"), order, class:"btn bg-info" %></td>
+            <td><%= link_to raw("<span class='fa fa-edit'></span>"), edit_order_path(order), class:"btn bg-warning" %></td>
+            <td><%= link_to raw("<span class='fa fa-trash'></span>"), order, method: :delete,class:"btn bg-danger",  data: { confirm: 'Estas seguro/a de eliminar la orden?' } %></td>
           </tr>
         <% end %>
       </tbody>
@@ -46,52 +38,6 @@
     <br>
   </div>
 </div>
-<div class="row">
-  <div class="col-4 offset-1">
-    <h2>Órdenes entregadas</h2>
-    <br>
-    <table class="table table-striped bg-light">
-      <thead>
-        <tr>
-          <th>Fecha creación</th> 
-          <th>Cliente</th>
-          <th>Vendedor</th>
-          <th>Patente vehículo</th>
-          <th>Total neto</th>
-          <th>Total pedido</th>
-          <th>Total envases</th>
-          <th>Monto de descuento</th>
-          <th>Detalle descuento </th>
-          <th>¿Va con factura?</th>
-          <th>Responsable de entrega</th>
-          <th colspan="3"></th>
-        </tr>
-      </thead>
-
-      <tbody>
-        <% @delivered_orders.each do |order| %>
-          <tr>
-            <td><%= order.created_at %></td>
-            <td><%= order.client_id %></td>
-            <td><%= order.user_id %></td>
-            <td><%= order.delivery_method_id %></td>
-            <td><%= order.net_amount %></td>
-            <td><%= order.total_amount %></td>
-            <td><%= order.total_packaging_amount %></td>
-            <td><%= order.discount_amount %></td>
-            <td><%= order.discount_comment %></td>
-            <td><%= order.create_invoive %></td>
-            <td><%= order.responsable %></td>
-            <td><%= link_to 'Mostrar detalle', order, class:"btn bg-info" %></td>
-            <td><%= link_to 'Editar orden', edit_order_path(order), class:"btn bg-info" %></td>
-            <td><%= link_to 'Eliminar órden', order, method: :delete,class:"btn bg-info",  data: { confirm: 'Estas seguro/a?' } %></td>
-          </tr>
-        <% end %>
-      </tbody>
-    </table>
-  </div>
-</div>
-
     <br>
     <%= link_to 'Nueva orden', new_order_path, class:"btn btn-info offset-1" %>
 

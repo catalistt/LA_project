@@ -9,7 +9,7 @@ class PaymentsController < ApplicationController
   end
 
   def pending
-    @orders = Order.all.order('user_id DESC')
+    @orders = Order.all.order('id DESC')
     @sellers = User.with_role(:seller)    
   end
 
@@ -20,6 +20,14 @@ class PaymentsController < ApplicationController
     @order_payments = Payment.where(order_id: @order)
     #encontrar costo de la orden
     @order_amount = Order.find(@order).total_amount
+
+    #encontrar dcto de la orden
+    @disc = Order.find(@order).discount_amount
+    if @disc.nil?
+      @disc_amount = 0
+    else
+      @disc_amount = @disc
+    end
 
     #encontrar cliente asociado
     @client = Order.find(@order).client_id
@@ -32,6 +40,7 @@ class PaymentsController < ApplicationController
     @total_order_buyed = 0
     @total_payed = 0
     @total_buyed = 0
+    @total_discount = 0
 
 
     #sumar todos los cobros del cliente
@@ -43,12 +52,22 @@ class PaymentsController < ApplicationController
       @total_payed += client_payment.amount_payed
     end
 
+    #sumar dctos hechos al cliente en todas las órdenes
+    @client_orders.each do |client_order|
+      if client_order.discount_amount.nil?
+        sum = 0
+      else
+        sum = client_order.discount_amount
+      end
+      @total_discount += sum
+    end
+
     #sumar pagos hechos directamente a la orden
     @order_payments.each do |order_payment|
       @total_order_payed += order_payment.amount_payed
     end
 
-    @result = {order_amount: @order_amount, order_payments: @total_order_payed, client_buyed: @total_buyed, client_payments: @total_payed}
+    @result = {order_discount: @disc_amount, client_discounts: @total_discount, order_amount: @order_amount, order_payments: @total_order_payed, client_buyed: @total_buyed, client_payments: @total_payed}
 
     respond_to do |format|
       format.html

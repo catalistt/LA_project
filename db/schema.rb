@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_03_31_165020) do
+ActiveRecord::Schema.define(version: 2021_04_06_214345) do
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.string "namespace"
@@ -192,7 +192,7 @@ ActiveRecord::Schema.define(version: 2021_03_31_165020) do
     t.float "discount_amount"
     t.string "discount_comment"
     t.boolean "create_invoive"
-    t.integer "responsable"
+    t.string "responsable"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.datetime "date"

@@ -24,8 +24,8 @@
         <strong>Monto pagado:</strong>
         <%= number_with_delimiter(@payment.amount_payed.round) %>
       </p>
-      <%= link_to 'Editar', edit_payment_path(@payment), class:"btn btn-danger"%>
-      <%= link_to 'Ingresar otro pago', payments_path, class:"btn btn-info" %>
+      <%= link_to 'Ver todos los pagos', payments_path, class:"btn btn-warning"%>
+      <%= link_to 'Ingresar otro pago', new_payment_path, class:"btn btn-info" %>
       <br>
       <br>
     </div>

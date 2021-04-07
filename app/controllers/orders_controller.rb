@@ -35,9 +35,7 @@ class OrdersController < ApplicationController
   end
 
   def my_order
-    @orders = Order.where(user: current_user)
-    @pending_orders = Order.where(visit_end: nil)
-    @delivered_orders = Order.where.not(visit_end: nil )
+    @orders = Order.where(user: current_user).order(created_at: :desc)
   end
 
   def index
