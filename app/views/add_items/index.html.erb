@@ -6,26 +6,25 @@
       <table class="table table-striped bg-light">
         <thead>
           <tr>
-            <th>N° de compra asociada</th>
+            <th>Fecha creación</th>
+            <th>Folio</th>
             <th>Producto</th>
             <th>Cantidad</th>
             <th>Precio unitario</th>
             <th>Monto total producto</th>
-            <th>Fecha de vencimiento 1</th>
-            <th>Fecha de vencimiento 2</th>
           </tr>
         </thead>
 
         <tbody>
           <% @add_items.each do |add_item| %>
             <tr>
-              <td><%= add_item.purchase.id %></td>
+          
+              <td><%= add_item.created_at.strftime("%d-%m-%Y %I:%M %p") %></td>
+              <td><%= add_item.purchase.invoice_number %></td>
               <td><%= add_item.product.name %></td>
               <td><%= add_item.quantity %></td>
-              <td><%= add_item.price %></td>
-              <td><%= add_item.total_product_amount %></td>
-              <td><%= add_item.expiration_date %></td>
-              <td><%= add_item.second_expiration_date %></td>
+              <td><%= number_with_delimiter(add_item.price.round) %></td>
+              <td><%= number_with_delimiter(add_item.total_product_amount.round) %></td>
             </tr>
           <% end %>
         </tbody>

@@ -1,27 +1,33 @@
-<%= form_with(model: supplier, local: true) do |form| %>
-  <% if supplier.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(supplier.errors.count, "error") %> prohibited this supplier from being saved:</h2>
+<div class="row">
+  <div class="col-4 offset-1">
+  <br>
+  <h2>Proveedor</h2>
+    <%= form_with(model: supplier, local: true) do |form| %>
+      <% if supplier.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(supplier.errors.count, "error") %> prohibited this supplier from being saved:</h2>
 
-      <ul>
-      <% supplier.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
+          <ul>
+          <% supplier.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+          </ul>
+        </div>
       <% end %>
-      </ul>
-    </div>
-  <% end %>
 
-  <div class="field">
-    <%= form.label :name %>
-    <%= form.text_field :name %>
-  </div>
+      <div class="field">
+        <%= form.label :Nombre %>
+        <%= form.text_field :name, class:"form-control" %>
+      </div>
 
-  <div class="field">
-    <%= form.label :rut %>
-    <%= form.text_field :rut %>
+      <div class="field">
+        <%= form.label :Rut %>
+        <%= form.text_field :rut, class:"form-control"%>
+      </div>
+      <br>
+      <div class="actions">
+        <%= form.submit "Agregar proveedor", class:"btn btn-info" %>
+      </div>
+    <% end %>
   </div>
-
-  <div class="actions">
-    <%= form.submit %>
-  </div>
-<% end %>
+</div>

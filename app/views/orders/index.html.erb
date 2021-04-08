@@ -43,7 +43,7 @@
           <td><%=  link_to raw("<span class='fa fa-eye'></span>"), order, class:"btn bg-info" %></td>
           <td><%= link_to raw("<span class='fa fa-edit'></span>"), edit_order_path(order), class:"btn bg-warning" %></td>
           <td><%= link_to raw("<span class='fa fa-trash'></span>"), order, method: :delete,class:"btn bg-danger",  data: { confirm: 'Estas seguro/a de eliminar la orden?' } %></td>
-          <td><%= link_to raw("<span class='fa fa-file'></span>"), order, method: :delete,class:"btn bg-primary",  data: { confirm: 'Estas seguro/a de facturar la orden?' } %></td>
+          <td><%= link_to raw("<span class='fa fa-file'></span>"), class:"btn bg-primary",  data: { confirm: 'Estas seguro/a de facturar la orden?' } %></td>
         </tr>
       <% end %>
     </tbody>

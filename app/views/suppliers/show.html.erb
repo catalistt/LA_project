@@ -1,14 +1,21 @@
-<p id="notice"><%= notice %></p>
+<div class="container-fluid">
+<br>
+  <div class="row">
+    <div class="col-4 offset-1 bg-light border border-secondary"><br>
+      <h2 class="text-bold">Proveedor ingresado</h2> 
+      <p>
+        <strong>Name:</strong>
+        <%= @supplier.name %>
+      </p>
 
-<p>
-  <strong>Name:</strong>
-  <%= @supplier.name %>
-</p>
+      <p>
+        <strong>Rut:</strong>
+        <%= @supplier.rut %>
+      </p>
 
-<p>
-  <strong>Rut:</strong>
-  <%= @supplier.rut %>
-</p>
-
-<%= link_to 'Edit', edit_supplier_path(@supplier) %> |
-<%= link_to 'Back', suppliers_path %>
+      <%= link_to 'Editar', edit_supplier_path(@supplier), class:"btn btn-danger"%>
+      <%= link_to 'Ver proveedores', suppliers_path, class:"btn btn-info" %>
+      <br><br>
+      </div>
+    </div>
+  </div>
