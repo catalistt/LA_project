@@ -21,6 +21,7 @@ Rails.application.routes.draw do
   get 'orders/dashboard_clients'
   get 'orders/my_detail'
   get 'orders/loading_sheets'
+  get 'orders/today_pending'
   resources :payments
   resources :payment_methods
   resources :adquisition_costs

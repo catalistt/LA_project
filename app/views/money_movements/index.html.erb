@@ -21,7 +21,7 @@
         </thead>
 
         <tbody>
-          <% @money_movements.each do |money_movement| %>
+          <% @money_movements.order('created_at DESC').each do |money_movement| %>
             <td><%= money_movement.created_at.strftime("%d-%m-%Y %I:%M %p") %></td>
               <% if money_movement.movement_type == 1 %>
                 <td><%= "Egreso de dinero" %></td>

@@ -9,14 +9,12 @@ $(document).on('turbolinks:load', function() {
     disabledAllSelectedOptions();
     initOrderProduct();
     $(".list-products").select2({
-      placeholder: "Digita el producto o código",
       theme: 'classic',
       width: 'resolve'
      });
   });
 
   $(".list-products").select2({
-    placeholder: "Digita el producto o código",
     theme: 'classic',
     width: 'resolve'
    });

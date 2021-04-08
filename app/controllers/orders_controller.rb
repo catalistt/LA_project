@@ -22,6 +22,26 @@ class OrdersController < ApplicationController
     @my_amounts = Order.where(user_id: current_user.id).select(:client_id, :total_amount).group(:client_id).sum(:total_amount)
   end
 
+  def today_pending
+    @today_orders = Order.where('DATE(date) >= ?', Date.today)
+    @today_pending_orders = []
+    @today_orders.each do |order|
+      @total_order_payed = 0
+      @order_payments = Payment.where(order_id: order.id)
+      @order_payments.each do |order_payment|
+        @total_order_payed += order_payment.amount_payed
+      end
+      if order.discount_amount.nil?
+        disc = 0
+      else
+        disc = order.discount_amount
+      end
+      if (order.total_amount - disc) > @total_order_payed
+        @today_pending_orders.push(order)
+      end
+    end
+  end
+
   def search
     if (params[:client_business_name])
       client = Client.find_by(business_name: params[:client_business_name])

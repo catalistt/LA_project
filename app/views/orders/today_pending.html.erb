@@ -1,0 +1,42 @@
+<div class="container-fluid">
+  <div class="row mt-3">
+    <div class="col-12 mt-3">
+    <h2><span class="fa fa-exclamation-triangle"></span>Órdenes de hoy - sin pago completo</h2>
+      <table class="table table-striped bg-light text-center">
+        <thead>
+          <tr>
+            <th>Fecha de entrega</th> 
+            <th>Cliente</th>
+            <th>Vendedor</th>
+            <th>Total pedido</th>
+            <th>Pagado hasta ahora</th>
+            <th>Debe</th>
+          </tr>
+        </thead>
+
+        <tbody class="text-center">
+          <% @today_pending_orders.each do |order| %>
+            <tr>
+              <td><%= order.date.strftime("%d-%m-%Y") %></td>
+              <td><%= order.client.business_name %></td>
+              <td><%= order.user.name %></td>
+              <% if order.discount_amount.nil? %>
+                <% disc = 0 %>
+              <% else %>
+                <% disc = order.discount_amount %>
+              <% end %>
+              <td><%= number_with_delimiter((order.total_amount - disc).round) %></td>
+              <% @order_payments = Payment.where(order_id: order.id) %>
+              <% @total_order_payed = 0 %>
+              <% @order_payments.each do |order_payment| %>
+                <% @total_order_payed += order_payment.amount_payed %>
+              <% end %>
+              <td><%= number_with_delimiter(@total_order_payed.round) %></td>
+              <td><%= number_with_delimiter((order.total_amount - @total_order_payed - disc).round) %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
