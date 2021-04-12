@@ -1,4 +1,9 @@
 $(document).on('turbolinks:load', function() {
+  $("#unpaid-select").select2({
+    placeholder: "Elegir orden",
+    theme: 'classic',
+    width: 'resolve'
+   });
   $('.order-payment').on('keyup change', function(){
     order_id = $(this).val();
     $.ajax({

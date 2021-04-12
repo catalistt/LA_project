@@ -8,6 +8,19 @@ class PaymentsController < ApplicationController
   def show
   end
 
+  def delivery_payments
+    @delivery_payments = Hash.new
+    @ids_deliveries = Order.where('DATE(date) >= ?', Date.today).pluck(:delivery_method_id)
+    @deliveries_used = DeliveryMethod.where(id: @ids_deliveries)
+    @delivery_method = DeliveryMethod.all
+    @delivery_method.each do |delivery|
+      @related_orders = Order.where('DATE(date) >= ?', Date.today).where(delivery_method_id: delivery.id).pluck(:id)
+      @this_delivery_payments = Payment.where(created_at: Time.zone.now.beginning_of_day..Time.zone.now.end_of_day, order_id: @related_orders).sum(:amount_payed)
+      @delivery_payments["#{delivery.id}"] = "#{@this_delivery_payments}"
+    end
+
+  end
+
   def pending
     @orders = Order.all.order('id DESC')
     @sellers = User.with_role(:seller)    

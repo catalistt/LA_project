@@ -22,7 +22,11 @@ Rails.application.routes.draw do
   get 'orders/my_detail'
   get 'orders/loading_sheets'
   get 'orders/today_pending'
-  resources :payments
+  resources :payments do
+    collection do
+      get :delivery_payments
+    end
+  end
   resources :payment_methods
   resources :adquisition_costs
   resources :stock_movements
