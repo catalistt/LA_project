@@ -1,4 +1,8 @@
 $(document).on('turbolinks:load', function() {
+
+  $(".date-range").flatpickr({
+    mode: "range"
+  });
   $('.consume-quantity, .consume-item').on('change', function() {
     var item = $('.consume-item').val();
     var quantity = $('.consume-quantity').val();
