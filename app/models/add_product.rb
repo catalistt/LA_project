@@ -4,7 +4,7 @@ class AddProduct < ApplicationRecord
   accepts_nested_attributes_for :product
 
   delegate :standard_price, to: :product, prefix: :product
-  delegate :extra_tax, to: :product, prefix: :product
+  delegate :tax_id, to: :product, prefix: :product
 
   def self.search(search)
     if search
@@ -17,7 +17,7 @@ class AddProduct < ApplicationRecord
   end
 
   def net_price(brute_amount)
-    brute_amount / (1.19 + product_extra_tax)
+    brute_amount / (1.19 + product.tax.percentage)
   end
 
   def group_discount(group_id)

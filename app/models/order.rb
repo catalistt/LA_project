@@ -30,7 +30,7 @@ class Order < ApplicationRecord
       net_price = add_product.net_price(brute_price)
       add_product.price = brute_price
       add_product.net_product_amount = net_price
-      add_product.extra_tax = net_price * add_product.product_extra_tax
+      add_product.extra_tax = net_price * add_product.product.tax.percentage
       add_product.discount = add_product.group_discount(client.group_id)
     end
     self.net_amount = add_products.map(&:net_product_amount).reduce(:+)

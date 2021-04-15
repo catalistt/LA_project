@@ -5,16 +5,8 @@ class ProductsController < ApplicationController
     @products = Product.all
   end
 
-  def presale_sheet
-    @products = Product.all
-    @and_2lt_ret = Product.where(code: ["A01", "A02"])
-    @and_25lt_des = Product.where(code: "A03")
-    @vital_16lt = Product.where(code: "A01")
-    @ccu_3lt = Product.where(code: "A02")
-  end
-
   def set_price
-    @product_info = {id: @product.id, standard_price: @product.standard_price, extra_tax: @product.extra_tax, cost: @product.cost, units: @product.units, stock: @product.stock}
+    @product_info = {id: @product.id, standard_price: @product.standard_price, extra_tax: @product.tax.percentage, cost: @product.cost, units: @product.units, stock: @product.stock}
     respond_to do |format|
       format.html
       format.json {render json: @product_info}
@@ -44,7 +36,7 @@ class ProductsController < ApplicationController
     discount = @product.group_discounts.find_by(group_id: client&.group_id)&.discount
     render json: {
       standard_price: @product.standard_price.to_f,
-      extra_tax: @product.extra_tax.to_f,
+      extra_tax: @product.tax.percentage.to_f,
       cost: @product.cost.to_f,
       unit: @product.units.to_f,
       stock: @product.stock.to_i,
@@ -105,7 +97,7 @@ class ProductsController < ApplicationController
     
     # Only allow a list of trusted parameters through.
     def product_params
-      params.require(:product).permit(:code, :cost, :name, :category, :packaging, :format, :description, :unit, :units, :extra_tax, :standard_price, :client_id,
+      params.require(:product).permit(:code, :cost, :name, :category, :packaging, :format, :description, :unit, :units, :tax_id, :standard_price, :client_id,
       group_discounts_attributes: [:id, :product_id, :group_id, :discount])
     end
 end

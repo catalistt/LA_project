@@ -93,6 +93,7 @@ function setProductInfo(){
         type: "GET",
         url: "/products/" + productId + "/group_discount/" + clientId,
         success: function(product){
+          console.log(product);
           inputExtraTax.val(product.extra_tax);
           groupDiscountInput.val(product.discount);
           productCost.val(product.cost);

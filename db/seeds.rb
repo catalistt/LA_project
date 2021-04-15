@@ -16,3 +16,5 @@ Tax.create(name: "Vinos, chichas y sidras" ,percentage: 0.205 , code: 25)
 Tax.create(name: "Cervezas y otras bebidas alcohólicas" ,percentage: 0.205 , code: 26)
 Tax.create(name: "Aguas minerales y bebidas analcohólicas" ,percentage: 0.1 , code: 27)
 Tax.create(name: "Bebidas analcohólicas con elevado contenido de azucar" ,percentage: 0.18 , code: 271)
+
+Product.create(code: "A05", name: "INKA COLA 3 LITROS DESECHABLE", category: nil, packaging: "DESECHABLE", format: "3 LITROS ", description: "display de 6 unidades", unit: "dsp", tax_id: 6, standard_price: 9000.0, stock: 200, cost: 7000, units: 6)
