@@ -28,7 +28,7 @@
             <td><%= product.description %></td>
             <td><%= product.unit %></td>
             <td><%= product.tax.percentage %></td>
-            <td><%= product.standard_price %></td>
+            <td><%= number_with_delimiter(product.standard_price.round) %></td>
             <td><%= product.stock %></td>
             <td><%= link_to raw("<span class='fa fa-eye'></span>"), product, class: "btn btn-info" %></td>
             <td><%= link_to raw("<span class='fa fa-edit'></span>"), edit_product_path(product), class: "btn btn-warning" %></td>
