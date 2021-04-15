@@ -1,28 +1,27 @@
 class ConsumesController < ApplicationController
   before_action :set_consume, only: [:show, :edit, :update, :destroy]
 
-  # GET /consumes
-  # GET /consumes.json
+
   def index
     @consumes = Consume.all
   end
 
-  # GET /consumes/1
-  # GET /consumes/1.json
+  def sort_by_date
+    respond_to do |format|
+      format.js {render layout: false} 
+    end
+  end
+
   def show
   end
 
-  # GET /consumes/new
   def new
     @consume = Consume.new
   end
 
-  # GET /consumes/1/edit
   def edit
   end
 
-  # POST /consumes
-  # POST /consumes.json
   def create
     @consume = Consume.new(consume_params)
 

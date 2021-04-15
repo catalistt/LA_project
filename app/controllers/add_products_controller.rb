@@ -6,6 +6,24 @@ class AddProductsController < ApplicationController
 
   end
 
+  def print_detail
+    @orders = Order.where('DATE(date) >= ?', Date.today).where.not(delivery_method_id: nil)
+    @orders_products = AddProduct.select("orders.*").includes(:order).joins(:order).where(order_id: @orders)
+
+    @ids_deliveries = Order.where('DATE(date) >= ?', Date.today).where.not(delivery_method_id: nil).pluck(:delivery_method_id)
+    @deliveries = DeliveryMethod.where(id: @ids_deliveries).map(&:vehicle_plate)
+
+
+    respond_to do |format|
+      format.html
+      format.xlsx {
+        render xlsx: "add_product_detail", filename: "Detalle-#{DateTime.now.to_date}.xlsx"
+      }
+    end
+
+  end
+
+
   def search
     @product = Product.search(params[:search])
     respond_to :js

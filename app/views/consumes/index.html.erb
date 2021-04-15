@@ -2,8 +2,9 @@
 <div class="row">
   <div class="col-8 offset-2">
     <h1>Consumos</h1>
-    <%= text_field_tag 'consume_dates', "Seleccionar fechas", class: 'date-range' %><br>
-    <%= link_to 'Buscar fechas', new_consume_path, class:"btn btn-success" %>
+    <%= text_field_tag 'dates', "Selecciona fechas", class: 'flatpickr date-range' %><br>
+    <br>
+    <%= link_to 'Buscar por fechas', consumes_path, class:"btn btn-info", id:"consume-dates" %><br>
 
     <br>
     <table class="table table-striped bg-light">
