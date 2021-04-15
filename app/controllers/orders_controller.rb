@@ -1,5 +1,5 @@
 class OrdersController < ApplicationController
-  before_action :set_order, only: [:show, :edit, :update, :destroy]
+  before_action :set_order, only: [:show, :edit, :update, :destroy, :edit_delivery_info, :update_delivery_info]
   before_action :set_client, only: [:create, :update]
 
   def dashboard_clients
@@ -7,35 +7,14 @@ class OrdersController < ApplicationController
     @orders_by_sum = Order.select(:client_id, :total_amount).group(:client_id).sum(:total_amount)
   end
 
-  def edit_delivery_fields
-    @order = Order.find(params[:id])
-  end
-
   def delivery_orders
-    @orders = Order.where('DATE(date) >= ?', Date.today)
-  end
-
-  def edit_all
-    @orders = Order.where('DATE(date) >= ?', Date.today)
-    @delivery_method = DeliveryMethod.new
-    @delivery_method.orders << @orders
-
-    @KXRJ78 = Order.where(delivery_method_id: (DeliveryMethod.where(vehicle_plate: "KXRJ78").sum(:id)), created_at: Time.zone.now.beginning_of_day..Time.zone.now.end_of_day).sum(:total_amount)
-    @HDKP82 = Order.where(delivery_method_id: (DeliveryMethod.where(vehicle_plate: "HDKP82").sum(:id)), created_at: Time.zone.now.beginning_of_day..Time.zone.now.end_of_day).sum(:total_amount)
-    @JSRK95 = Order.where(delivery_method_id: (DeliveryMethod.where(vehicle_plate: "JSRK95").sum(:id)), created_at: Time.zone.now.beginning_of_day..Time.zone.now.end_of_day).sum(:total_amount)
-    @JYGD30 = Order.where(delivery_method_id: (DeliveryMethod.where(vehicle_plate: "JYGD30").sum(:id)), created_at: Time.zone.now.beginning_of_day..Time.zone.now.end_of_day).sum(:total_amount)
-    @KXRJ79 = Order.where(delivery_method_id: (DeliveryMethod.where(vehicle_plate: "KXRJ79").sum(:id)), created_at: Time.zone.now.beginning_of_day..Time.zone.now.end_of_day).sum(:total_amount)
-    @PCYF89 = Order.where(delivery_method_id: (DeliveryMethod.where(vehicle_plate: "PCYF89").sum(:id)), created_at: Time.zone.now.beginning_of_day..Time.zone.now.end_of_day).sum(:total_amount)
-    @PCYF90 = Order.where(delivery_method_id: (DeliveryMethod.where(vehicle_plate: "PCYF90").sum(:id)), created_at: Time.zone.now.beginning_of_day..Time.zone.now.end_of_day).sum(:total_amount)
-    @HPPJ11 = Order.where(delivery_method_id: (DeliveryMethod.where(vehicle_plate: "HPPJ11").sum(:id)), created_at: Time.zone.now.beginning_of_day..Time.zone.now.end_of_day).sum(:total_amount)
-
-    @filterrific = initialize_filterrific(
-      Order,
-      params[:filterrific]
-    ) or return
-    @orders = @filterrific.find.page(params[:page])
-
-
+    respond_to do |format|
+      format.html
+      format.json { render json: DeliveryOrdersDatatable.new(view_context, { action: params[:action]}) }
+      format.xlsx {
+        render xlsx: 'delivery_orders', filename: "delivery-orders-#{DateTime.now.to_date}.xlsx"
+      }
+    end
   end
 
   def my_detail
@@ -43,8 +22,24 @@ class OrdersController < ApplicationController
     @my_amounts = Order.where(user_id: current_user.id).select(:client_id, :total_amount).group(:client_id).sum(:total_amount)
   end
 
-  def filter
-
+  def today_pending
+    @today_orders = Order.where('DATE(date) >= ?', Date.today)
+    @today_pending_orders = []
+    @today_orders.each do |order|
+      @total_order_payed = 0
+      @order_payments = Payment.where(order_id: order.id)
+      @order_payments.each do |order_payment|
+        @total_order_payed += order_payment.amount_payed
+      end
+      if order.discount_amount.nil?
+        disc = 0
+      else
+        disc = order.discount_amount
+      end
+      if (order.total_amount - disc) > @total_order_payed
+        @today_pending_orders.push(order)
+      end
+    end
   end
 
   def search
@@ -60,19 +55,40 @@ class OrdersController < ApplicationController
   end
 
   def my_order
-    @orders = Order.where(user: current_user)
-    @pending_orders = Order.where(visit_end: nil)
-    @delivered_orders = Order.where.not(visit_end: nil )
+    @orders = Order.where(user: current_user).order(created_at: :desc)
   end
 
   def index
-    @pending_orders = Order.where(visit_end: nil)
-    @delivered_orders = Order.where.not(visit_end: nil)
-    @orders = Order.all.order('created_at DESC')
+    @orders = Order.order('created_at DESC')
+    respond_to do |format|
+      format.html
+      format.json { render json: OrdersDatatable.new(view_context, { action: params[:action]}) }
+      format.xlsx {
+        render xlsx: "index", filename: "orders-#{DateTime.now.to_date}.xlsx"
+      }
+    end
+  end
+
+  def loading_sheets
+    @orders = Order.where('DATE(date) >= ?', Date.today).where.not(delivery_method_id: nil)
+    @ids_deliveries = Order.where('DATE(date) >= ?', Date.today).where.not(delivery_method_id: nil).pluck(:delivery_method_id)
+    names = []
+    @product_quantity = @ids_deliveries.each do |elem|
+      this_delivery = DeliveryMethod.where(id: elem).map(&:vehicle_plate)
+      @orders.each do |order|
+        @id_quantity = order.add_products.pluck(:product_id, :quantity)
+        @name_quantity = []
+        @id_quantity.each do |elem|
+          name = Product.where(id: elem[0]).select(:code).first.code
+          @name_quantity.push([name, elem[1]])
+        end
+      end
+      return @name_quantity    
+    end
     respond_to do |format|
       format.html
       format.xlsx {
-        render xlsx: "index", filename: "orders-#{DateTime.now.to_date}.xlsx"
+        render xlsx: "loading_sheets", filename: "Hoja de carga-#{DateTime.now.to_date}.xlsx"
       }
     end
   end
@@ -117,6 +133,32 @@ class OrdersController < ApplicationController
         format.html { render :new }
         format.json { render json: @order.errors, status: :unprocessable_entity }
       end
+    end
+  end
+
+  def edit_all
+    @delivery_methods = DeliveryMethod.where.not(vehicle_plate: nil)
+    respond_to do |format|
+      format.html
+      format.json { render json: AssignDeliveryMethodDatatable.new(view_context, { action: params[:action]}) }
+    end
+  end
+
+  def update_all
+    @orders = []
+    order_params[:orders].each do |_k, order|
+      @order = Order.find_by(id: order[:id])
+      @order.delivery_method_id = order[:delivery_method_id]
+      @orders << @order
+    end
+    @delivery_methods = DeliveryMethod.where.not(vehicle_plate: nil)
+    @update_success = Order.transaction do
+      @orders.each(&:save)
+    end
+    if @update_success
+      render partial: 'orders_form', status: 200
+    else
+      render json: { error: 'Error' }, status: 400
     end
   end
 
@@ -173,6 +215,13 @@ class OrdersController < ApplicationController
     end
   end
 
+  def edit_delivery_info
+  end
+
+  def update_delivery_info
+    @order.update(order_params)
+  end
+
   def destroy 
     @user = current_user.name
     @order.destroy
@@ -200,9 +249,10 @@ class OrdersController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def order_params
-      params.require(:order).permit(:_destroy, :client_id, :user_id, :delivery_method_id, :net_amount, :total_iva, :client_business_name, :user_name, :total_extra_taxes, :total_amount, :total_packaging_amount, :visit_start, :visit_end, :discount_amount, :discount_comment, :create_invoive, :responsable, :detail, :date,
+      params.require(:order).permit(:_destroy, :client_id, :user_id, :delivery_method_id, :net_amount, :total_iva, :client_business_name, :user_name, :total_extra_taxes, :total_amount, :total_packaging_amount, :visit_start, :visit_end, :discount_amount, :discount_comment, :create_invoive, :freight, :responsable, :detail, :date,
       add_products_attributes: [:id, :_destroy, :order_id, :product_id, :price, :discount, :quantity, :total_product_amount, :extra_tax, :packaging_amount, :net_product_amount],
       clients_attributes: [:id,:_destroy,  :business_name, :user_id, :rut, :address, :phone_number, :schedule, :special_agreement, :group_id],
-      delivery_methods_attributes: [:id, :_destroy, :vehicle_plate, :policy_number, :ensurance_company])
+      delivery_methods_attributes: [:id, :_destroy, :vehicle_plate, :policy_number, :ensurance_company],
+      orders: [:id, :delivery_method_id])
     end
 end

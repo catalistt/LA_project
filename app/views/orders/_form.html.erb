@@ -22,8 +22,9 @@
         <%= form.date_select :date, { use_month_names: month_names, discard_year: true, selected: Date.today}, class: "custom-select date" %>
       </div>
       <div class="col-3">
-        <%= form.label :client_id, "Cliente", class: "form-label"%>
-        <%= form.select(:client_id, Client.all.map {|client| ["#{client.id} - #{client.business_name}", client.id] }, { include_blank: 'Ingresar cliente' }, class: "custom-select") %>
+        <%= form.label :client_id, "Cliente", class: "form-label"%><br>
+        <%= form.select(:client_id, Client.all.collect {|client| ["#{client.id} - #{client.business_name}", client.id] }, { include_blank: 'Ingresar cliente', class: "form-control select2-simple-dropdown"}, id:"client-select") %>
+        
       </div>
 
       <%= form.hidden_field :net_amount %>

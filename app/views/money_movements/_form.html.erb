@@ -1,7 +1,8 @@
 <div class="container-fluid">
+<br>
   <div class="row">
-  <div class="col-8 offset-2"><br>
-    <h1 class="offset-4 text-bold">Registrar movimiento de dinero</h1><br>
+  <div class="col-8 offset-2 pr-4 pl-4 bg-light border border-warning"><br>
+    <h1 class="offset-2 text-bold">Registrar movimiento de dinero</h1><br>
     <%= form_with(model: money_movement, local: true) do |form| %>
       <% if money_movement.errors.any? %>
         <div id="error_explanation">
@@ -20,17 +21,17 @@
           <%= form.select(:movement_type, money_mov, { :include_blank => 'Elegir tipo de movimiento' }, { class: "custom-select"}) %>
         </div>
       </div>
-      <div class="col-4">
+      <div class="col-4 pl-3 ml-4">
         <div class="form-group">
           <%= form.label :Categoria, class: "control-label h4"%><br>
-          <%= form.select(:money_category, money_categories, { :include_blank => 'Elegir categoría' }, { class: "custom-select"}) %>
+          <%= form.select(:money_category, money_categories, { include_blank: '', class: "form-control select2-simple-dropdown"}, id:"money-select") %>
         </div>
       </div>
 
-      <div class="col-4">
+      <div class="col-3">
         <div class="form-group">
           <%= form.label :Recibido_por, class: "control-label h4"%><br>
-          <%= form.collection_select :received_by, User.all, :id, :name,{ :include_blank => 'Elegir usuario' }, class:"custom-select"%>
+          <%= form.collection_select :received_by, User.all, :id, :name,{ include_blank: '', class:"form-control select2-simple-dropdown"}, id:"user-money"%>
         </div>
       </div>
 
@@ -48,7 +49,7 @@
     
       <div class="col-4">
         <div class="form-group ml-4">
-          <%= form.label :"Fecha del cheque (si es que aplica)", class: "control-label h4"%><br>
+          <%= form.label :"Fecha del cheque", class: "control-label h4"%><br>
           <%= form.date_select :check_date, {:use_month_names => ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre','Diciembre'], discard_year: true, :include_blank => '' },  class:"custom-select"%>
         </div>
       </div>
@@ -61,11 +62,21 @@
       </div>
     </div>
 
-      <div class="actions"><br>
+    <div class="row">
+      <div class="col-4">
+        <div class="form-group">
+          <%= form.label :Comentario, class:"h4"%><br>
+          <%= form.text_field :comment, class:"form-control" %>
+        </div>
+      </div>
+  
+      <div class="actions offset-1 pt-2"><br>
         <%= form.submit "Registrar movimiento", class:"btn btn-info" %>
       </div>
+    </div>  
     <% end %>
     </div>
   </div>
 </div>
+<br><br>
 

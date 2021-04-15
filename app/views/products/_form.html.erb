@@ -24,13 +24,18 @@
       </div>
 
       <div class="form-group">
+        <%= form.label :cost, "Costo" %>
+        <%= form.number_field :cost, class: "form-control" %>
+      </div>
+
+      <div class="form-group">
         <%= form.label :category, "Categoría" %>
         <%= form.select(:category, categories, {}, { class: "custom-select"})%>
       </div>
 
       <div class="form-group">
         <%= form.label :packaging, "Envase" %>
-        <%= form.text_field :packaging, class: "form-control" %>
+        <%= form.select(:packaging, pack, {}, { class: "custom-select"}) %>
       </div>
 
       <div class="form-group">
@@ -44,13 +49,19 @@
       </div>
 
       <div class="form-group">
-        <%= form.label :unit, "Unidad" %>
+        <%= form.label :unit, "Tipo de unidad" %>
         <%= form.text_field :unit, class: "form-control" %>
+      </div>
+
+
+      <div class="form-group">
+        <%= form.label :units, "Unidades por display" %>
+        <%= form.text_field :units, class: "form-control" %>
       </div>
 
       <div class="form-group">
         <%= form.label :extra_tax, "Impuesto extra" %>
-        <%= form.select(:extra_tax, taxes, {}, { class: "custom-select"}) %>
+        <%= form.select(:extra_tax,  Tax.all.map {|tax| ["#{tax.code} - #{tax.name} (#{tax.percentage*100}%)", tax.percentage] }, { include_blank: 'Seleccionar' }, class: "custom-select") %>
       </div>
 
       <div class="form-group">

@@ -2,8 +2,11 @@
  @import "bootstrap";
  @import "select2";
  @import "font-awesome";
-
- .home-page {
+ @import "datatables.net-bs4/css/dataTables.bootstrap4";
+ @import "flatpickr";
+ @import 'flatpickr/dist/flatpickr.css';
+ 
+ .home-page { 
   background-color: black;
   width: 100%;
   height: 100%;
@@ -89,4 +92,7 @@
 }
 .form-btn{
   margin-top: 34px;
+}
+.bg-white{
+  background-color: #eee;
 }

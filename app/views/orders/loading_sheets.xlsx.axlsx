@@ -1,0 +1,7 @@
+wb = xlsx_package.workbook
+wb.add_worksheet(name: "Carga") do |sheet|
+sheet.add_row ['Codigo', 'Cantidad']
+  @product_quantity.each do |pq|
+    sheet.add_row [pq]
+  end
+end

@@ -1,7 +1,8 @@
 
 <div class="container-fluid">
+<br>
   <div class="row">
-    <div class="col-10 offset-1"><br>
+    <div class="col-4 offset-1 bg-light border border-secondary"><br>
       <h2 class="text-bold">Resumen del pago</h2> 
       <p>
         <strong>Tipo de movimiento: </strong>
@@ -38,7 +39,7 @@
       <p>
       <% if @money_movement.check_date != nil %>
         <strong>Fecha del cheque:</strong>
-        <%= @money_movement.check_date    %>
+        <%= @money_movement.check_date.strftime("%d-%m")    %>
       <% end %>
       </p>
 
@@ -51,8 +52,9 @@
 
 
       <%= link_to 'Editar', edit_money_movement_path(@money_movement), class:"btn btn-danger"%>
-      <%= link_to 'Ver todos los pagos', money_movements_path, class:"btn btn-info" %>
-      <%= link_to 'Agregar nuevo pago', new_money_movement_path, class:"btn btn-success" %>
+      <%= link_to 'Ver movimientos', money_movements_path, class:"btn btn-info" %>
+      <%= link_to 'Agregar movimiento', new_money_movement_path, class:"btn btn-success" %>
+      <br><br>
     </div>
   </div>
 </div>

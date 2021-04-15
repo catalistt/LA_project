@@ -1,29 +1,31 @@
-<p id="notice"><%= notice %></p>
+<div class="container-fluid">
+  <div class="row mt-3">
+    <div class="col-8">
+    <h1>Proveedores</h1>
+    <table class="table table-striped bg-light text-center">
+      <thead>
+        <tr>
+          <th>Nombre</th>
+          <th>Rut</th>
+          <th colspan="3"></th>
+        </tr>
+      </thead>
 
-<h1>Suppliers</h1>
+      <tbody class="text center">
+        <% @suppliers.each do |supplier| %>
+          <tr>
+            <td><%= supplier.name %></td>
+            <td><%= supplier.rut %></td>
+            <td><%= link_to raw("<span class='fa fa-edit'></span>"), edit_supplier_path(supplier), class:"btn bg-warning" %></td>
+            <td><%= link_to raw("<span class='fa fa-trash'></span>"), supplier, method: :delete, data: { confirm: 'Estas seguro/a de eliminar el proveedor?' }, class:"btn bg-danger" %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
 
-<table class="table">
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Rut</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
+    <br>
 
-  <tbody>
-    <% @suppliers.each do |supplier| %>
-      <tr>
-        <td><%= supplier.name %></td>
-        <td><%= supplier.rut %></td>
-        <td><%= link_to 'Show', supplier %></td>
-        <td><%= link_to 'Edit', edit_supplier_path(supplier) %></td>
-        <td><%= link_to 'Destroy', supplier, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
-<br>
-
-<%= link_to 'New Supplier', new_supplier_path %>
+    <%= link_to 'Nuevo proveedor', new_supplier_path, class:"btn btn-info" %>
+    </div>
+  </div>
+</div>

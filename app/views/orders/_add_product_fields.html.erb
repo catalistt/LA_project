@@ -2,7 +2,8 @@
   <div class="row add_new_product mb-5">
     <div class="col-4">
       <%= f.label :product_id, "Producto", class: "control-label" %>
-      <%= f.select(:product_id, Product.all.map {|product| ["#{product.code} - #{product.name} - #{product.stock}", product.id] }, { :include_blank => 'Digita el código o nombre del producto' } ,class:"product custom-select") %>
+      <%= f.select(:product_id, Product.all.collect {|product| ["#{product.code} - #{product.name} - #{product.stock}", product.id] }, {include_blank: "Digita producto o código"}, {class: "form-control select2-simple-dropdown list-products product"})%>
+      
     </div>
     <div class="col-4">
       <%= label_tag :cost, "Precio", class: "control-label" %>
@@ -27,8 +28,12 @@
 
     <%= f.hidden_field :extra_tax, class: "extra_tax" %>
     <%= f.hidden_field :net_product_amount, class: "net_product_amount" %>
-    
-    <div class="col-4 mt-3">
+
+    <div class="col-2 mt-4 pt-4">
+      <button type="button" class="btn btn-outline-secondary unit-price" id="u-prices" title="Precios">Unitario</button>
+    </div>
+
+    <div class="col-2 mt-3">
       <%= link_to_remove_association "Eliminar producto", f , class:"btn btn-danger form-control", style: "margin-top: 34px"%>
     </div>
   </div>

@@ -14,7 +14,7 @@
       </thead>
 
       <tbody>
-        <% @cash_registers.each do |cash_register| %>
+        <% @cash_registers.order('created_at DESC').each do |cash_register| %>
           <tr>
             <td><%= cash_register.created_at.strftime("%d-%m-%Y %I:%M %p")%></td>
             <td><%= number_with_delimiter(cash_register.initial_cash) %></td>

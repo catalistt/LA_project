@@ -29,10 +29,8 @@
 
   <td>$ <%= number_with_delimiter(f.object.total_amount.round) %></td>
   <td><%= f.object.detail %></td>
-  <% if f.object.delivery_method_id == nil %></td>
-    <td><%= "No asignado" %></td>
-  <% else %>
-    <td><%= "Asignado" %></td>
-  <% end %>
+  <td><%= f.object.delivery_method.vehicle_plate %>
+  </td>
+
   <td><%= f.collection_select(:delivery_method_id, DeliveryMethod.all, :id, :vehicle_plate, {include_blank: 'Elige patente'}, { class: "custom-select"}) %></td>
 </tr>

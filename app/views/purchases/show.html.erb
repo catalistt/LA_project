@@ -1,20 +1,24 @@
-<p id="notice"><%= notice %></p>
-
-<p>
-  <strong>Producto:</strong>
-  <%= @purchase.supplier_id %>
-</p>
-
-
-<p>
-  <strong>Folio:</strong>
-  <%= @purchase.invoice_number %>
-</p>
-
-<p>
-  <strong>Costo total:</strong>
-  <%= @purchase.total_amount %>
-</p>
-
-<%= link_to 'Edit', edit_purchase_path(@purchase) %> |
-<%= link_to 'Back', purchases_path %>
+<div class="container-fluid">
+<br>
+  <div class="row">
+    <div class="col-4 offset-1 bg-light border border-secondary"><br>
+      <h2 class="text-bold">Resumen del pago</h2> 
+      <p>
+        <strong>Proveedor</strong>
+        <%= @purchase.supplier.name %>
+      </p>
+      <p>
+        <strong>Folio:</strong>
+        <%= @purchase.invoice_number %>
+      </p>
+      <p>
+        <strong>Costo total:</strong>
+        <%= number_with_delimiter(@purchase.total_amount.round) %>
+      </p>
+      <%= link_to 'Editar', edit_purchase_path(@purchase), class:"btn btn-danger"%>
+      <%= link_to 'Ver compras', purchases_path, class:"btn btn-info" %>
+      <%= link_to 'Agregar compra', new_purchase_path, class:"btn btn-success" %>
+      <br><br>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,18 @@
+<br>
+<div class="row row-cols-1 row-cols-md-3">
+  <% @deliveries_used.each do |delivery| %>
+    <div class="col-md-4 pt-3">
+      <div class="card offset-1 border-blue" style="width: 18rem;">
+        <div class="card-body">
+          <h5 class="card-title"><%= delivery.vehicle_plate %></h5>
+          <h6 class="card-subtitle mb-2 text-muted">Responsables: <%=  responsables(delivery.id)  %></h6><br>
+          <p class="card-text"><i class="fa fa-truck" aria-hidden="true"></i>  Monto entregado: <%= amount_unpayed(delivery.id) %></p>
+          <p class="card-text"><i class="fa fa-money" aria-hidden="true"></i>  Total recibido en efectivo: <%= delivery_cash_payed(delivery.id) %></p>
+          <p class="card-text"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>  Total recibido en cheque: <%= delivery_check_payed(delivery.id) %></p>
+          <p class="card-text"><i class="fa fa-usd" aria-hidden="true"></i>  Total pagos recibidos: <%= delivery_amount_payed(delivery.id) %></p> 
+        </div>
+      </div>
+    </div>
+    <br>
+  <% end %>
+</div>

@@ -2,7 +2,7 @@ class AddItemsController < InheritedResources::Base
   before_action :set_add_item, only: [:show, :edit, :update, :destroy]
 
   def index
-    @add_items = AddItem.all
+    @add_items = AddItem.all.order('created_at DESC')
 
   end
 

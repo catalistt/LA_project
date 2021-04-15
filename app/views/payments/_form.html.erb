@@ -1,11 +1,10 @@
 <div class="row">
-  <div class="col-8 offset-2"><br>
+  <div class="col-8 offset-2 bg-light border border-secondary"><br>
     <h1 class="offset-4 text-bold">Registrar pago</h1><br>
     <%= form_with(model: payment, local: true) do |form| %>
       <% if payment.errors.any? %>
         <div id="error_explanation">
           <h2><%= pluralize(payment.errors.count, "error") %> prohibited this payment from being saved:</h2>
-
           <ul>
           <% payment.errors.full_messages.each do |message| %>
             <li><%= message %></li>
@@ -17,7 +16,7 @@
       <div class="col-4">
         <div class="form-group">
           <%= form.label :order_id, "Orden", class: "control-label h4"%><br>
-          <%= form.select(:order_id, Order.order(created_at: :desc).map {|order| ["#{order.id} - #{order.client.business_name}", order.id] }, { :include_blank => 'Elegir orden' } ,class:"order-payment form-control") %>
+          <%= form.select(:order_id, unpaid_orders.map {|order| ["#{order.id} - #{order.client.business_name}", order.id] }, { :include_blank => 'Elegir orden' ,class:"order-payment form-control select2-simple-dropdown"}, class:"order-payment",id:"unpaid-select" )%>
         </div>
       </div>
 
@@ -60,8 +59,9 @@
     </div>
 
       <div class="actions"><br>
-        <%= form.submit "Registrar", class:"btn btn-info" %>
+        <%= form.submit "Registrar pago", class:"btn btn-info" %>
       </div>
+      <br>
     <% end %>
   </div>
 </div>

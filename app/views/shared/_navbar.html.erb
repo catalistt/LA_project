@@ -1,7 +1,7 @@
 <% if user_signed_in? %>
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <a class="navbar-brand" href="/orders/new">
-        <%= image_tag("users.png", class: "img-responsive", id: "navbar-logo", size: "80" ) %>
+        <%= image_tag("users.png", class: "img-responsive", id: "navbar-logo", size: "50" ) %>
     </a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
@@ -58,7 +58,8 @@
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
           <%= link_to 'Ingresar movimiento', new_money_movement_path, class: "nav-link" %> 
           <%= link_to 'Ver movimientos', money_movements_path, class: "nav-link" %> 
-          <%= link_to 'Cuadrar', new_cash_register_path, class: "nav-link" %> 
+          <%= link_to 'Cuadrar - Gerencia', new_cash_register_path, class: "nav-link" %> 
+          <%= link_to 'Cuadrar - Camiones', delivery_payments_payments_path, class: "nav-link" %> 
           <%= link_to 'Ver cuadraturas anteriores', cash_registers_path, class: "nav-link" %>
         </div>
       </li>
@@ -83,8 +84,9 @@
           Compras
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <%= link_to 'Detalle compras', purchases_path, class: "nav-link" %> 
+          <%= link_to 'Ver compras', purchases_path, class: "nav-link" %> 
           <%= link_to 'Ingresar compra', new_purchase_path, class: "nav-link" %> 
+          <%= link_to 'Ver detalle de compras', add_items_path, class: "nav-link" %> 
           <%= link_to 'Agregar proveedor', new_supplier_path ,class: "nav-link" %>
           <%= link_to 'Ver proveedores', suppliers_path ,class: "nav-link" %> 
         </div>
@@ -96,7 +98,8 @@
       </a>
       <div class="dropdown-menu" aria-labelledby="navbarDropdown">
         <%= link_to 'Detalle transportes', delivery_methods_path, class: "nav-link" %> 
-        <%= link_to 'Asignar transportes', edit_all_path, class: "nav-link" %>
+        <%= link_to 'Asignar transportes', edit_all_orders_path, class: "nav-link" %>
+        <%= link_to 'Descargas', orders_loading_sheets_path, class: "nav-link" %>
       </div>
       </li>
 
@@ -118,6 +121,7 @@
         <%= link_to 'Agregar consumo', new_consume_path, class: "nav-link" %>
         <%= link_to 'Ver consumos', consumes_path, class: "nav-link" %>
         <%= link_to 'Ver categorías', resources_path, class: "nav-link" %>
+        <%= link_to 'Asignar transportes', edit_all_orders_path, class: "nav-link" %>
       </div>
       </li>
 

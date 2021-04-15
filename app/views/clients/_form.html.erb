@@ -29,13 +29,13 @@
       </div>
 
       <div class="form-group">
-        <%= form.label :Ciudad %>
-        <%= form.select(:city, cities, {}, { class: "custom-select"}) %>
+        <%= form.label :city_id, 'Cuidad' %>
+        <%= form.collection_select(:city_id, City.all,:id, :name, {}, { class: "custom-select"}) %>
       </div>
 
       <div class="form-group">
-        <%= form.label :Comuna %>
-        <%= form.select(:town, towns, {}, { class: "custom-select"}) %>
+        <%= form.label :comune_id, 'Communa' %>
+        <%= form.collection_select(:commune_id, Commune.all, :id, :name, {}, { class: "custom-select"}) %>
       </div>
 
       <div class="form-group">

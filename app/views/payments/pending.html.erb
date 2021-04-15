@@ -1,17 +1,14 @@
 <div class="container">
   <div class="row">
-    <div class="dropdown"><br>
-      <h4>Elegir vendedor </h4><%= select_tag(:user, options_for_select(@sellers), class:"custom-select seller  ")%>
-    </div>
   </div><br>
   <div class="row">
-    <table class="table table-striped bg-light" id="orders">
-      <thead class="text-center">
+    <table class="table table-hover table-warning table-bordered bg-light" id="orders">
+      <thead class="text-center table-warning">
         <tr>
           <th>N° Orden</th> 
+          <th>Vendedor</th>
           <th>Fecha Orden</th>
           <th>Cliente</th>
-          <th>Vendedor</th>
           <th>Saldo pendiente</th>
         </tr>
       </thead>
@@ -23,11 +20,18 @@
             <% @order_payments.each do |order_payment| %>
               <% @total_order_payed += order_payment.amount_payed %>
             <% end %>
-            <% if order.total_amount > @total_order_payed %>
+
+            <% if order.discount_amount.nil? %>
+              <% sum = 0 %>
+            <% else %>
+              <% sum = order.discount_amount %>
+            <% end %>
+
+            <% if (order.total_amount - sum) > @total_order_payed %>
             <td><%= order.id %></td>
+            <td><%= order.client.user.name %></td>
             <td><%= order.created_at.strftime("%d-%m-%Y") %></td>
             <td><%= order.client.business_name %></td>
-            <td><%= order.client.user.name %></td>
             <td>$ <%= number_with_delimiter((order.total_amount - @total_order_payed).round) %></td>
             <% end %>
           </tr>
