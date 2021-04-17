@@ -17,7 +17,6 @@ module LAProject
     # the framework and any gems in your application.
     config.time_zone = 'Santiago'
     config.active_record.default_timezone = :local
-    config.i18n.default_locale = :es
   end
 end
 
