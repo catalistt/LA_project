@@ -27,7 +27,7 @@
 
         <div class="field pt-2">
         <%= form.label :Tipo_de_descuento %>
-        <%= select_tag :category, options_for_select(["Colación","Quincena","Sueldo"]), include_blank:'Seleccionar', class: "custom-select cost" %>
+        <%= form.select(:category, ["Colación","Quincena","Sueldo"], {include_blank:'Seleccionar'}, class: "custom-select cost") %>
         </div>
 
         <div class="field pt-2">

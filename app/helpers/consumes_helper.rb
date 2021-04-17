@@ -1,7 +1,7 @@
 module ConsumesHelper
 
   def this_consume(user, month, week, this_category)
-    if this_category.to_s == "Colación"
+    if this_category == "Colación"
       @user_consumes = Consume.where(user_id: user, category: this_category)
     else 
       @user_consumes = Consume.where(user_id: user).where.not(category: "Colación")
@@ -17,12 +17,12 @@ module ConsumesHelper
       if @number_of_week == week and @month == month
         @total_consumes.push(consume.total_amount)
       end
-      @total_consumes.reduce(&:+)
     end
+    @total_consumes.reduce(&:+)
     if @total_consumes[0].nil?
       @consumes_amount = 0
     else
-      @consumes_amount = @total_consumes[0]
+      @consumes_amount = @total_consumes.reduce(&:+)
     end
     return number_with_delimiter(@consumes_amount.round)
   end

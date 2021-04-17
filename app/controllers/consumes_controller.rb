@@ -4,7 +4,7 @@ class ConsumesController < ApplicationController
 
 
   def index
-    @consumes = Consume.all
+    @consumes = Consume.all.order(created_at: :desc)
   end
 
   def other_consumes
@@ -23,12 +23,6 @@ class ConsumesController < ApplicationController
     @this_month_weeks =  Date.new(@this_month_date[0].to_i, @this_month_date[1].to_i, @this_month_date[2].to_i).total_weeks
     @next_month_weeks =  Date.new(@next_month_date[0].to_i, @next_month_date[1].to_i, @next_month_date[2].to_i).total_weeks
 
-  end
-
-  def sort_by_date
-    respond_to do |format|
-      format.js {render layout: false} 
-    end
   end
 
   def show
