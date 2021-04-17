@@ -58,7 +58,12 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :consumes
+  resources :consumes do
+    collection do
+      get :collation
+      get :other_consumes
+    end
+  end
   resources :resources
   resources :delivery_methods
   resources :suppliers

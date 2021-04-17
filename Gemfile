@@ -51,6 +51,7 @@ gem 'sendgrid-ruby'
 gem 'font-awesome-rails'
 gem 'will_paginate'
 gem 'flatpickr'
+gem 'week_of_month'
 # Use ActiveStorage variant
 # gem 'mini_magick', '~> 4.8'
 

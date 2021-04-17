@@ -1,0 +1,78 @@
+<p id="notice"><%= notice %></p>
+<div class="row">
+  <div class="col-8 offset-2">
+    <h1>Consumos de colación</h1>
+    <br>
+    <h2 class="text-info"><%= month_names[@this_month-1] %></h2>
+    <table class="table table-hover table-info table-bordered bg-light table-sm">
+      <thead>
+        <tr>
+          <th>Trabajador/a</th>
+          <% @this_month_weeks.times do |week| %>
+            <th>Semana <%= week +1 %></th>
+          <% end %>
+        </tr>
+      </thead>
+
+      <tbody>
+        <% @users.each do |user| %>
+          <tr>
+            <td><%= user.name %></td>
+            <% @this_month_weeks.times do |week| %>
+              <td><%= this_consume(user.id, @this_month, week+1, "Colación") %></td>
+            <% end %>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+    <br>
+
+    <h2 class="text-info"><%= month_names[@this_month-2] %></h2>
+    <table class="table table-hover table-info table-bordered bg-light table-sm">
+      <thead>
+        <tr>
+          <th>Trabajador/a</th>
+          <% @last_month_weeks.times do |week| %>
+            <th>Semana <%= week +1 %></th>
+          <% end %>
+        </tr>
+      </thead>
+
+      <tbody>
+        <% @users.each do |user| %>
+          <tr>
+            <td><%= user.name %></td>
+            <% @last_month_weeks.times do |week| %>
+              <td><%= this_consume(user.id, @last_month, week+1, "Colación") %></td>
+            <% end %>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+    <br>
+
+    <h2 class="text-info"><%= month_names[@this_month] %></h2>
+    <table class="table table-hover table-info table-bordered bg-light table-sm">
+      <thead>
+        <tr>
+          <th>Trabajador/a</th>
+          <% @next_month_weeks.times do |week| %>
+            <th>Semana <%= week +1 %></th>
+          <% end %>
+        </tr>
+      </thead>
+
+      <tbody>
+        <% @users.each do |user| %>
+          <tr>
+            <td><%= user.name %></td>
+            <% @next_month_weeks.times do |week| %>
+              <td><%= this_consume(user.id, @next_month, week+1, "Colación") %></td>
+            <% end %>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+    <br>
+  </div>
+</div>
