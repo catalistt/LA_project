@@ -13,9 +13,10 @@
     </div>
 
     <div class="col-4">
-      <%= f.label :packaging_amount, "Descuento de grupo", class: "form-label" %>
-      <%= f.number_field :packaging_amount, readonly: true, class: "group_discount form-control", step: "any" %>
+      <%= f.label :discount, "Descuento de grupo", class: "form-label" %>
+      <%= f.number_field :discount, readonly: true, class: "group_discount form-control", step: "any" %>
     </div>
+
     <div class="col-4 mt-3">
       <%= f.label :quantity, "Cantidad" %>
       <%= f.number_field :quantity, class: "quantity form-control", min:0, step:1 %>
@@ -28,6 +29,7 @@
 
     <%= f.hidden_field :extra_tax, class: "extra_tax" %>
     <%= f.hidden_field :net_product_amount, class: "net_product_amount" %>
+    <%= f.hidden_field :packaging_amount, class: "pack_amount" %>
 
     <div class="col-2 mt-4 pt-4">
       <button type="button" class="btn btn-outline-secondary unit-price" id="u-prices" title="Precios">Unitario</button>

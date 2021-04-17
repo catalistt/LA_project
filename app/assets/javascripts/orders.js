@@ -89,6 +89,7 @@ function setProductInfo(){
       var productSelected = parentContainer.find('.product')
       var productCost = parentContainer.find(".product_cost");
       var groupDiscountInput = parentContainer.find(".group_discount");
+      var packagingAmountInput = parentContainer.find(".pack_amount");
       var unitPrice = parentContainer.find('.unit-price');
       $.ajax({
         type: "GET",
@@ -105,6 +106,7 @@ function setProductInfo(){
             });
           } 
           else{
+          packagingAmountInput.val(product.pack_amount)
           inputExtraTax.val(product.extra_tax);
           groupDiscountInput.val(product.discount);
           productCost.val(product.cost);

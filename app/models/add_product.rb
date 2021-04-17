@@ -16,6 +16,10 @@ class AddProduct < ApplicationRecord
     product_standard_price * (quantity || 1)
   end
 
+  def packaging_a(pack_amount)
+    pack_amount * (quantity || 1)
+  end
+
   def net_price(brute_amount)
     brute_amount / (1.19 + product.tax.percentage)
   end

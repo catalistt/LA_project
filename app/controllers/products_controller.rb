@@ -6,7 +6,7 @@ class ProductsController < ApplicationController
   end
 
   def set_price
-    @product_info = {id: @product.id, standard_price: @product.standard_price, extra_tax: @product.tax.percentage, cost: @product.cost, units: @product.units, stock: @product.stock}
+    @product_info = {pack_amount: @product.packaging, id: @product.id, standard_price: @product.standard_price, extra_tax: @product.tax.percentage, cost: @product.cost, units: @product.units, stock: @product.stock}
     respond_to do |format|
       format.html
       format.json {render json: @product_info}
@@ -40,7 +40,8 @@ class ProductsController < ApplicationController
       cost: @product.cost.to_f,
       unit: @product.units.to_f,
       stock: @product.stock.to_i,
-      discount: discount.to_f
+      discount: discount.to_f,
+      pack_amount: @product.packaging_amount.to_i
     }
   end
 
@@ -97,7 +98,7 @@ class ProductsController < ApplicationController
     
     # Only allow a list of trusted parameters through.
     def product_params
-      params.require(:product).permit(:code, :cost, :name, :category, :packaging, :format, :description, :unit, :units, :tax_id, :standard_price, :client_id,
+      params.require(:product).permit(:code, :cost, :name, :category, :packaging, :packaging_amount, :format, :description, :unit, :units, :tax_id, :standard_price, :client_id,
       group_discounts_attributes: [:id, :product_id, :group_id, :discount])
     end
 end
