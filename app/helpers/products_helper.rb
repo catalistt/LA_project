@@ -25,4 +25,9 @@ module ProductsHelper
     @code_totaled = Order.joins(:add_products).where("DATE(date) >= ?", Date.today).where("delivery_method_id = ?", 2).where(add_products: {product_id: p_id}).sum(:quantity)
   end
 
+  def products_with_stock
+    @products_with_stock = Product.where("stock > ?", 0)
+  end
+
+
 end

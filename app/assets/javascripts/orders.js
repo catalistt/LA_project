@@ -86,6 +86,7 @@ function setProductInfo(){
       var priceInput = parentContainer.find(".price");
       var inputExtraTax = parentContainer.find(".extra_tax");
       var productId = parentContainer.find('.product').val();
+      var productSelected = parentContainer.find('.product')
       var productCost = parentContainer.find(".product_cost");
       var groupDiscountInput = parentContainer.find(".group_discount");
       var unitPrice = parentContainer.find('.unit-price');
@@ -93,18 +94,28 @@ function setProductInfo(){
         type: "GET",
         url: "/products/" + productId + "/group_discount/" + clientId,
         success: function(product){
-          console.log(product);
+          window.thisProductStock = product.stock
+          if(product.stock <= 0){
+            Swal.fire({
+              title: '¡Sin stock! Debes eliminar ese producto',
+              text: 'Este producto no puede ser vendido. NO tiene stock.',
+              icon: 'error',
+              confirmButtonText: ':( Ok',
+              timer: 6000
+            });
+          } 
+          else{
           inputExtraTax.val(product.extra_tax);
           groupDiscountInput.val(product.discount);
           productCost.val(product.cost);
           var productUnit = product.unit;
           unitPrice.val(productUnit);
           priceInput.val(product.standard_price);
-          if(quantityInput.val() === ""){
-            quantityInput.val(1);
-          }
-          getTotalAmount(productInput);
-        }
+            if(quantityInput.val() === ""){
+              quantityInput.val(1);
+            }
+            getTotalAmount(productInput);
+          }}
       });
       disabledAllSelectedOptions();
     }
@@ -164,9 +175,29 @@ function initOrderProduct(){
   $('.discount').on('change', function(){
     getTotalAmount($(this));
   });
-  $('.quantity').on('keyup', function(){
-    getTotalAmount($(this));
+
+  $('.quantity').on('keyup change', function(){
+    var quant = $(this).val() || 0;
+    if(parseInt(quant) > parseInt(thisProductStock)){
+      Swal.fire({
+        title: 'Error de stock',
+        text: 'Agregaste más unidades de las que hay en stock. Debes modificar la cantidad',
+        icon: 'warning',
+        confirmButtonText: 'Ok, entendido'
+      });
+    }
+    else
+      {getTotalAmount($(this));};
+    if (quant%1 != 0){
+      Swal.fire({
+        title: 'Error de tipeo',
+        text: 'Agregaste decimales. Corrige la cantidad, por favor',
+        icon: 'warning',
+        confirmButtonText: 'Ok, entendido'
+      });
+    }
   });
+
   $('.cost').on('change', function(){
     getTotalAmount($(this));
   });
@@ -174,3 +205,4 @@ function initOrderProduct(){
     $(this).removeClass("error");
   });
 }
+

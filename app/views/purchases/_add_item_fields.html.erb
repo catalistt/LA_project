@@ -17,7 +17,7 @@
 
     <div class="col-4 my-3">
       <%= f.label :quantity, "Cantidad" %>
-      <%= f.number_field :quantity, class: "item-quantity form-control" %>
+      <%= f.number_field :quantity, class: "item-quantity form-control", min:0 %>
     </div>
 
     <div class="col-4 my-3">
