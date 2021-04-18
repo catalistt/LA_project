@@ -199,6 +199,29 @@ function initOrderProduct(){
     getTotalAmount($(this));
     getOrderTotal();
   });
+
+  $('.quantity').on('keyup change', function(){
+    var quant = $(this).val() || 0;
+    if(parseInt(quant) > parseInt(thisProductStock)){
+      Swal.fire({
+        title: 'Error de stock',
+        text: 'Agregaste más unidades de las que hay en stock. Debes modificar la cantidad',
+        icon: 'warning',
+        confirmButtonText: 'Ok, entendido'
+      });
+    }
+    else
+      {getTotalAmount($(this));};
+    if (quant%1 != 0){
+      // te recomiendo agregar una función que formatee el campo y no permita escribir esos caracteres y una validación de cantidad en el back para el caso de arriba.
+      Swal.fire({
+        title: 'Error de tipeo',
+        text: 'Agregaste decimales. Corrige la cantidad, por favor',
+        icon: 'warning',
+        confirmButtonText: 'Ok, entendido'
+      });
+    }
+  });
   $('.cost').on('change', function(){
     setProductInfo($(this));
     getTotalAmount($(this));

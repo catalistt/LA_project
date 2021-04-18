@@ -125,7 +125,12 @@ class OrdersController < ApplicationController
         encoding:"UTF-8",
         show_as_html: params[:debug].present?
       end
-    end 
+    end
+  end
+
+  def create_invoice
+    @lioren_service = LiorenService.new(@order)
+    @lioren_service.send_invoice
   end
 
   def new

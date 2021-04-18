@@ -13,6 +13,8 @@
 //= require rails-ujs
 //= require activestorage
 //= require jquery3
+//= require jquery-validation/dist/jquery.validate.js
+//= require jquery.rut/jquery.rut.js
 //= require cocoon
 //= require datatables.net/js/jquery.dataTables
 //= require datatables.net-bs4/js/dataTables.bootstrap4
