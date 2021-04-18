@@ -21,6 +21,7 @@ class OrdersDatatable
   def data
     orders.map do |order|
       array = []
+      array << link_to(raw("<i class='fa fa-file'></i>"), order_path(order), class: 'btn btn-success btn-xs')
       array << order.created_at.to_date
       array << order.client_business_name
       array << order.user_name

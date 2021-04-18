@@ -6,6 +6,7 @@ class Product < ApplicationRecord
   #Relación con order y add_products
   has_many :add_products, dependent: :destroy
   has_many :orders, through: :add_products, dependent: :destroy
+  has_one :tax
 
   #Relación con purchase y add_items
   has_many :add_items, dependent: :destroy
