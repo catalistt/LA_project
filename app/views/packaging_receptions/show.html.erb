@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Client:</strong>
+  <%= @packaging_reception.client %>
+</p>
+
+<p>
+  <strong>Total box amount:</strong>
+  <%= @packaging_reception.total_box_amount %>
+</p>
+
+<p>
+  <strong>Total payed:</strong>
+  <%= @packaging_reception.total_payed %>
+</p>
+
+<%= link_to 'Edit', edit_packaging_reception_path(@packaging_reception) %> |
+<%= link_to 'Back', packaging_receptions_path %>

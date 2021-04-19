@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  client: one
+  total_box_amount: 1
+  total_payed: 1
+
+two:
+  client: two
+  total_box_amount: 1
+  total_payed: 1
