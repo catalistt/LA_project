@@ -7,6 +7,10 @@ class OrdersController < ApplicationController
     @orders_by_sum = Order.select(:client_id, :total_amount).group(:client_id).sum(:total_amount)
   end
 
+  def packaging_status
+    @clients = Client.all
+  end
+
   def delivery_orders
     respond_to do |format|
       format.html

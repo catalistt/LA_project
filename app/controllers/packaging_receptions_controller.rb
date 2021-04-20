@@ -1,5 +1,6 @@
 class PackagingReceptionsController < InheritedResources::Base
 
+
   private
 
     def packaging_reception_params

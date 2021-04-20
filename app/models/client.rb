@@ -4,6 +4,7 @@ class Client < ApplicationRecord
   belongs_to :commune
   belongs_to :city
   has_many :orders
+  has_many :packaging_receptions
 
   delegate :name, to: :commune, prefix: true, allow_nil: true
 

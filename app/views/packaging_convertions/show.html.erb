@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @packaging_convertion.name %>
+</p>
+
+<p>
+  <strong>Cost:</strong>
+  <%= @packaging_convertion.cost %>
+</p>
+
+<p>
+  <strong>Supplier:</strong>
+  <%= @packaging_convertion.supplier %>
+</p>
+
+<%= link_to 'Edit', edit_packaging_convertion_path(@packaging_convertion) %> |
+<%= link_to 'Back', packaging_convertions_path %>

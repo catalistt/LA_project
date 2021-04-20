@@ -1,19 +1,34 @@
-<p id="notice"><%= notice %></p>
+<div class="container pt-3">
+  <div class="row">
+    <div class="col-5 bg-white border border-dark"><br>
+      <h2 class="text-bold">Resumen del registro</h2> 
+      <p>
+        <strong>Cliente:</strong>
+        <%= @packaging_reception.client %>
+      </p>
 
-<p>
-  <strong>Client:</strong>
-  <%= @packaging_reception.client %>
-</p>
+      <p>
+        <strong>Total en cajas:</strong>
+        <% if @packaging_reception.total_box_amount.nil? %>
+          <%= 0 %>
+        <% else %>
+          <%= number_with_delimiter(@packaging_reception.total_box_amount.round) %>
+        <% end %>
+      </p>
 
-<p>
-  <strong>Total box amount:</strong>
-  <%= @packaging_reception.total_box_amount %>
-</p>
+      <p>
+        <strong>Total en monto:</strong>
+        <% if @packaging_reception.total_payed.nil? %>
+          <%= 0 %>
+        <% else %>
+          <%= number_with_delimiter(@packaging_reception.total_payed.round) %>
+        <% end %>
+      </p>
 
-<p>
-  <strong>Total payed:</strong>
-  <%= @packaging_reception.total_payed %>
-</p>
-
-<%= link_to 'Edit', edit_packaging_reception_path(@packaging_reception) %> |
-<%= link_to 'Back', packaging_receptions_path %>
+      <%= link_to 'Editar', edit_packaging_reception_path(@packaging_reception), class:"btn btn-danger" %> 
+      <%= link_to 'Nuevo registro', new_packaging_reception_path, class:"btn btn-info" %>
+<br>
+<br>
+</div>
+</div>
+</div>

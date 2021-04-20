@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  resources :packaging_receptions
+  
   resources :taxes
   resources :cash_registers
   resources :money_movements do
@@ -16,6 +16,9 @@ Rails.application.routes.draw do
   get 'orders/my_order', to: "orders#my_order"
   get 'payments/set_pendings', to: "payments#set_pendings"
   get 'resources/resource_amount', to: "resources#resource_amount"
+  get 'packaging_convertions/pack_info', to: "packaging_convertions#pack_info"
+  resources :packaging_convertions
+  resources :packaging_receptions
   get 'payments/pending', to: "payments#pending"
   get 'home/index'
   get 'home/dashboard'
@@ -44,6 +47,7 @@ Rails.application.routes.draw do
       get :delivery_orders
       put :update_all
       get :edit_all
+      get :packaging_status
     end
   end
   resources :purchases

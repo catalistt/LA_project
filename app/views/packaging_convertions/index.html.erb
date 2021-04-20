@@ -1,0 +1,31 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Packaging Convertions</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Cost</th>
+      <th>Supplier</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @packaging_convertions.each do |packaging_convertion| %>
+      <tr>
+        <td><%= packaging_convertion.name %></td>
+        <td><%= packaging_convertion.cost %></td>
+        <td><%= packaging_convertion.supplier %></td>
+        <td><%= link_to 'Show', packaging_convertion %></td>
+        <td><%= link_to 'Edit', edit_packaging_convertion_path(packaging_convertion) %></td>
+        <td><%= link_to 'Destroy', packaging_convertion, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Packaging Convertion', new_packaging_convertion_path %>

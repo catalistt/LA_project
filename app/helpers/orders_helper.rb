@@ -3,6 +3,15 @@ module OrdersHelper
     ["Sin horario","Prioridad", "Fuera de ruta"]
   end
 
+
+  def pack_given(client)
+    @order_with_pack = Order.where('total_packaging_amount > ?', 0).where(client_id: client).sum(:total_packaging_amount).round || 0
+  end
+
+  def pack_payed(client)
+    @pack_payments = PackagingReception.where(client: client).sum(:total_box_amount).to_i + PackagingReception.where(client: client).sum(:total_payed).round || 0
+  end
+
   def unpaid_orders
     unpaid_order = []
     Order.all.order(id: :desc).each do |order|

@@ -36,13 +36,14 @@
       <div class="dropdown-menu" aria-labelledby="navbarDropdown">
         <%= link_to 'Todas las ordenes', orders_path, class: "nav-link" %> 
         <%= link_to 'Nueva orden', new_order_path, class: "nav-link" %> 
-        <%= link_to 'Mis órdenes', orders_my_order_path, class: "nav-link" %>      
+        <%= link_to 'Mis órdenes', orders_my_order_path, class: "nav-link" %> 
+        <%= link_to 'Envases por cliente', packaging_status_orders_path, class: "nav-link" %>     
       </div>
       </li>
 
       <li class="nav-item dropdown active">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Pago de pedidos
+          Pagos
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
           <%= link_to 'Ver pagos registrados', payments_path, class: "nav-link" %> 
@@ -63,8 +64,6 @@
           <%= link_to 'Ver cuadraturas anteriores', cash_registers_path, class: "nav-link" %>
         </div>
       </li>
-
-
 
       <li class="nav-item dropdown active">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -100,6 +99,9 @@
         <%= link_to 'Detalle transportes', delivery_methods_path, class: "nav-link" %> 
         <%= link_to 'Asignar transportes', edit_all_orders_path, class: "nav-link" %>
         <%= link_to 'Descargas', orders_loading_sheets_path, class: "nav-link" %>
+        <%= link_to 'Ver recepción envases', packaging_receptions_path, class: "nav-link" %>
+        <%= link_to 'Ingresar recepción envases', new_packaging_reception_path, class: "nav-link" %>
+        <%= link_to 'Envases por cliente', packaging_status_orders_path, class: "nav-link" %>
       </div>
       </li>
 
@@ -110,6 +112,7 @@
       <div class="dropdown-menu" aria-labelledby="navbarDropdown">
         <%= link_to 'Ver pedidos', delivery_orders_orders_path, class: "nav-link" %>
         <%= link_to 'Ingresar pagos', new_payment_path, class: "nav-link" %>
+        <%= link_to 'Ingresar recepción envases', new_packaging_reception_path, class: "nav-link" %>
       </div>
       </li>
 

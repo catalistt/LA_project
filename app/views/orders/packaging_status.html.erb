@@ -1,0 +1,39 @@
+<p id="notice"><%= notice %></p>
+<div class="row">
+  <div class="col-10 offset-1">
+    <h1>Resumen de envases por cliente</h1>
+    <br>
+    <table class="table table-sm table-striped bg-light">
+      <thead>
+        <tr>
+          <th>Cliente</th>
+          <th>Monto entregado</th>
+          <th>Monto devuelto</th>
+          <th>Estado actual</th>
+          <th>Diferencia</th>
+
+        </tr>
+      </thead>
+
+      <tbody>
+        <% @clients.each do |client| %>
+          <tr>
+            <td><%= client.business_name %></td>
+            <td><%= number_with_delimiter(pack_given(client)) %></td>
+            <td><%= number_with_delimiter(pack_payed(client)) %></td>
+            <% if (pack_given(client) - pack_payed(client)) > 0 %>
+              <td><%= "Saldo en contra" %></td>
+            <% elsif  number_with_delimiter(pack_given(client) == pack_payed(client))%>
+              <td><%= "Ok" %></td>
+            <% else %>
+              <td><%= "Saldo a favor" %>
+            <% end %><t/d>
+
+            <td><%= number_with_delimiter(pack_given(client) - pack_payed(client)) %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+    <br>
+  </div>
+</div>
