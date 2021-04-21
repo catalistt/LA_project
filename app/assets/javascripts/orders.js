@@ -12,6 +12,7 @@ $(document).on('turbolinks:load', function() {
       theme: 'classic',
       width: 'resolve'
      });
+     getOrderTotal();
   });
 
   $(".list-products").select2({
@@ -117,6 +118,7 @@ function setProductInfo(){
               quantityInput.val(1);
             }
             getTotalAmount(productInput);
+            getOrderTotal();
           }}
       });
       disabledAllSelectedOptions();
@@ -180,6 +182,7 @@ function initOrderProduct(){
 
   $('.quantity').on('keyup change', function(){
     var quant = $(this).val() || 0;
+    getOrderTotal();
     if(parseInt(quant) > parseInt(thisProductStock)){
       Swal.fire({
         title: 'Error de stock',
@@ -206,5 +209,15 @@ function initOrderProduct(){
   $("#order_client_id").on('change', function(){
     $(this).removeClass("error");
   });
+}
+
+function getOrderTotal(){
+  var containers = $(".add_new_product");
+  var total = 0;
+  containers.each(function(){
+    var productTotalInput = $(this).find(".total_product_amount").val();
+    total = total + parseFloat(productTotalInput || 0);
+  });
+  $("#this-order-total").text("$ " + total);
 }
 
