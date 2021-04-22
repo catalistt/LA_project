@@ -97,6 +97,26 @@ function setProductInfo(elem){
         type: "GET",
         url: "/products/" + productId + "/group_discount/" + clientId,
         success: function(product){
+          var quant = parentContainer.find(".quantity").val()
+          window.thisProductStock = product.stock
+          if(product.stock <= 0){
+            Swal.fire({
+              title: '¡Sin stock! Debes eliminar ese producto',
+              text: 'Este producto no puede ser vendido. NO tiene stock.',
+              icon: 'error',
+              confirmButtonText: ':( Ok',
+              timer: 6000
+            });
+          };
+          if(product.stock < parseInt(quant)){
+            Swal.fire({
+              title: '¡No alcanza el stock! ',
+              text: 'Por favor, ajustar cantidad.',
+              icon: 'error',
+              confirmButtonText: ':( Ok',
+              timer: 6000
+            });
+          };
           inputExtraTax.val(product.extra_tax);
           groupDiscountInput.val(product.discount);
           productCost.val(product.cost);
@@ -187,51 +207,6 @@ function initOrderProduct(){
   });
   $("#order_client_id").on('change', function(){
     $(this).removeClass("error");
-  });
-}
-
-function setProductInfo2(){
-  $('.quantity').on('change', function() {
-    var productInput = $(this);
-    var clientInput = $('#client-select');
-    var clientId = clientInput.val();
-    if(clientId){
-      var parentContainer = productInput.closest(".add_new_product");
-      var quantityInput = parentContainer.find(".quantity");
-      var priceInput = parentContainer.find(".price");
-      var inputExtraTax = parentContainer.find(".extra_tax");
-      var productId = parentContainer.find('.product').val();
-      var productCost = parentContainer.find(".product_cost");
-      var groupDiscountInput = parentContainer.find(".group_discount");
-      var packagingAmountInput = parentContainer.find(".pack_amount");
-
-      $.ajax({
-        type: "GET",
-        url: "/products/" + productId + "/group_discount/" + clientId,
-        success: function(product){
-          inputExtraTax.val(product.extra_tax);
-          groupDiscountInput.val(product.discount);
-          productCost.val(product.cost);
-          priceInput.val(product.standard_price);
-          packagingAmountInput.val(product.pack_amount);
-          if(quantityInput.val() === ""){
-            quantityInput.val(1);
-          }
-          getTotalAmount(productInput);
-        }
-      });
-      disabledAllSelectedOptions();
-    }
-    else{
-      Swal.fire({
-        title: 'Error',
-        text: 'Debes seleccionar un cliente primero y volver a seleccionar el producto',
-        icon: 'error',
-        confirmButtonText: 'Ok, entendido',
-        timer: 3000
-      });
-      clientInput.addClass("error");
-    }
   });
 }
 
