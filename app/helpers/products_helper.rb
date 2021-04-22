@@ -1,12 +1,12 @@
 module ProductsHelper
 
   def translate_category(category)
-    categorias_esp = {soda: "Bebida",beer: "Cerveza",wine: "Vino",snack: "Snack",water: "Agua"}
+    categorias_esp = {soda: "Bebida",beer: "Cerveza",wine: "Vino",snack: "Snack",water: "Agua",freight: "Flete"}
     categorias_esp[category.to_sym]
   end
 
   def categories
-  [["Energetica", "energetic"], ["Bebida isotónica", "isotonic"], ["Nectar", "nectar"], ["Promocion", "promotion"], ["Servicio", "service"], ["Té", "tea"], ["Bebida", "soda"], [ "Cerveza", "beer"], ["Vino", "wine"], ["Snack", "snack"], ["Aguas","water"]]
+  [["Energetica", "energetic"], ["Bebida isotónica", "isotonic"], ["Nectar", "nectar"], ["Promocion", "promotion"], ["Servicio", "service"], ["Té", "tea"], ["Bebida", "soda"], [ "Cerveza", "beer"], ["Vino", "wine"], ["Snack", "snack"], ["Aguas","water"], ["Flete", "freight"]]
   end
 
   def taxes
@@ -18,7 +18,7 @@ module ProductsHelper
   end
 
   def pack
-    ['Desechable', 'Retornable', '3L', 'Cervezas','Bidon']
+    ['Desechable', 'Retornable', '3L', 'Cervezas','Bidon', 'Otro']
   end
 
   def get_totaled(p_id)

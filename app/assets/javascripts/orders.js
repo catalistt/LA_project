@@ -1,5 +1,6 @@
 $(document).on('turbolinks:load', function() {
   initOrderProduct();
+  getOrderTotal();
   $("#client-select").select2({
     placeholder: "Buscar cliente",
     theme: 'classic',
@@ -8,14 +9,16 @@ $(document).on('turbolinks:load', function() {
   $("#add_products").on('cocoon:after-insert', function(){
     disabledAllSelectedOptions();
     initOrderProduct();
+    getOrderTotal();
     $(".list-products").select2({
+      placeholder: "Digita el producto o código",
       theme: 'classic',
       width: 'resolve'
      });
-     getOrderTotal();
   });
 
   $(".list-products").select2({
+    placeholder: "Digita el producto o código",
     theme: 'classic',
     width: 'resolve'
    });
@@ -75,51 +78,36 @@ function disabledAllSelectedOptions(){
   }
 }
 
-function setProductInfo(){
-  $('.product').on('change', function() {
-    var productInput = $(this);
+function setProductInfo(elem){
+    var productInput = elem;
     var clientInput = $('#client-select');
     var clientId = clientInput.val();
     var selectedOption = productInput.val();
     if(clientId){
-      var parentContainer = productInput.closest(".add_new_product");
+      var parentContainer = elem.closest(".add_new_product");
       var quantityInput = parentContainer.find(".quantity");
       var priceInput = parentContainer.find(".price");
       var inputExtraTax = parentContainer.find(".extra_tax");
       var productId = parentContainer.find('.product').val();
-      var productSelected = parentContainer.find('.product')
       var productCost = parentContainer.find(".product_cost");
       var groupDiscountInput = parentContainer.find(".group_discount");
       var packagingAmountInput = parentContainer.find(".pack_amount");
-      var unitPrice = parentContainer.find('.unit-price');
+
       $.ajax({
         type: "GET",
         url: "/products/" + productId + "/group_discount/" + clientId,
         success: function(product){
-          window.thisProductStock = product.stock
-          if(product.stock <= 0){
-            Swal.fire({
-              title: '¡Sin stock! Debes eliminar ese producto',
-              text: 'Este producto no puede ser vendido. NO tiene stock.',
-              icon: 'error',
-              confirmButtonText: ':( Ok',
-              timer: 6000
-            });
-          } 
-          else{
-          packagingAmountInput.val(product.pack_amount)
           inputExtraTax.val(product.extra_tax);
           groupDiscountInput.val(product.discount);
           productCost.val(product.cost);
-          var productUnit = product.unit;
-          unitPrice.val(productUnit);
           priceInput.val(product.standard_price);
-            if(quantityInput.val() === ""){
-              quantityInput.val(1);
-            }
-            getTotalAmount(productInput);
-            getOrderTotal();
-          }}
+          packagingAmountInput.val(product.pack_amount);
+          if(quantityInput.val() === ""){
+            quantityInput.val(1);
+          }
+          getTotalAmount(productInput);
+          getOrderTotal();
+        }
       });
       disabledAllSelectedOptions();
     }
@@ -132,20 +120,27 @@ function setProductInfo(){
         timer: 3000
       });
       clientInput.addClass("error");
-    }
-  });
+    };
 }
 
 function getTotalAmount(element){
   /* Obtengo los valores de los containers de price, discount y quantity */
   var parentContainer = element.closest(".add_new_product");
+  var productId = parentContainer.find('.product').val();
   var priceInput = parentContainer.find(".price");
-  var htmlUnit = parentContainer.find(".unit-price");
+  $.ajax({
+    type: "GET",
+    url: "/products/" + productId,
+    success: function(product){
+      priceInput.val(product.standard_price); 
+    }
+  });
+  
   var cost = parseFloat(parentContainer.find(".cost").val());
   var price = parseFloat(priceInput.val()) || 0;
   var discount = parseFloat(parentContainer.find('.discount').val()) || 0;
   var quantity = parseFloat(parentContainer.find('.quantity').val()) || 1;
-  var pUnit = parseInt(parentContainer.find('.unit-price').val());
+  var groupDiscount = parseFloat(parentContainer.find('.group_discount').val()) || 0;
 
   /* Obtener el total, considerando el descuento y la cantidad*/
   var totalAmountInput = parentContainer.find('.total_product_amount');
@@ -170,44 +165,73 @@ function getTotalAmount(element){
   extraTax = netAmount * extraTax;
   extraTaxInput.val(extraTax);
   netAmountInput.val(netAmount);
-  var unit_amount = parseInt(totalAmountInput.val()) / parseInt(quantity) / parseInt(pUnit);
-  htmlUnit.html("Unitario: $" + parseInt(unit_amount));
-  };
+}
 
 function initOrderProduct(){
-  setProductInfo();
   $('.discount').on('change', function(){
+    setProductInfo($(this));
     getTotalAmount($(this));
   });
-
-  $('.quantity').on('keyup change', function(){
-    var quant = $(this).val() || 0;
-    getOrderTotal();
-    if(parseInt(quant) > parseInt(thisProductStock)){
-      Swal.fire({
-        title: 'Error de stock',
-        text: 'Agregaste más unidades de las que hay en stock. Debes modificar la cantidad',
-        icon: 'warning',
-        confirmButtonText: 'Ok, entendido'
-      });
-    }
-    else
-      {getTotalAmount($(this));};
-    if (quant%1 != 0){
-      Swal.fire({
-        title: 'Error de tipeo',
-        text: 'Agregaste decimales. Corrige la cantidad, por favor',
-        icon: 'warning',
-        confirmButtonText: 'Ok, entendido'
-      });
-    }
+  $('.product').on('change', function(){
+    setProductInfo($(this));
+    getTotalAmount($(this));
   });
-
+  $('.quantity').on('change', function(){
+    setProductInfo($(this));
+    getTotalAmount($(this));
+    getOrderTotal();
+  });
   $('.cost').on('change', function(){
+    setProductInfo($(this));
     getTotalAmount($(this));
   });
   $("#order_client_id").on('change', function(){
     $(this).removeClass("error");
+  });
+}
+
+function setProductInfo2(){
+  $('.quantity').on('change', function() {
+    var productInput = $(this);
+    var clientInput = $('#client-select');
+    var clientId = clientInput.val();
+    if(clientId){
+      var parentContainer = productInput.closest(".add_new_product");
+      var quantityInput = parentContainer.find(".quantity");
+      var priceInput = parentContainer.find(".price");
+      var inputExtraTax = parentContainer.find(".extra_tax");
+      var productId = parentContainer.find('.product').val();
+      var productCost = parentContainer.find(".product_cost");
+      var groupDiscountInput = parentContainer.find(".group_discount");
+      var packagingAmountInput = parentContainer.find(".pack_amount");
+
+      $.ajax({
+        type: "GET",
+        url: "/products/" + productId + "/group_discount/" + clientId,
+        success: function(product){
+          inputExtraTax.val(product.extra_tax);
+          groupDiscountInput.val(product.discount);
+          productCost.val(product.cost);
+          priceInput.val(product.standard_price);
+          packagingAmountInput.val(product.pack_amount);
+          if(quantityInput.val() === ""){
+            quantityInput.val(1);
+          }
+          getTotalAmount(productInput);
+        }
+      });
+      disabledAllSelectedOptions();
+    }
+    else{
+      Swal.fire({
+        title: 'Error',
+        text: 'Debes seleccionar un cliente primero y volver a seleccionar el producto',
+        icon: 'error',
+        confirmButtonText: 'Ok, entendido',
+        timer: 3000
+      });
+      clientInput.addClass("error");
+    }
   });
 }
 
@@ -219,5 +243,5 @@ function getOrderTotal(){
     total = total + parseFloat(productTotalInput || 0);
   });
   $("#this-order-total").text("$ " + total);
-}
+};
 

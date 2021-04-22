@@ -105,6 +105,11 @@
                 <td><%= item.product.tax.percentage.round(3) %></td>
               </tr>  
                 <% end %>
+                <td><%= "9999" %></td>
+                <td><%= "FLETE" %></td>
+                <td><%= "1" %></td>
+                <td><%=  number_with_delimiter((@order.freight / 1.19).round) %></td>
+                <td><%= "0" %></td>
               </tbody>
             </table>  
           </div>
@@ -127,10 +132,11 @@
                 <h6 class="text-blue text-bold"> Total:</h6>
               </div>
               <div class="col w-35 d-table-cell">
-                <h6>$ <%= number_with_delimiter(@order.net_amount.round) %></h6>
-                <h6>$ <%= number_with_delimiter(@order.total_iva.round) %></h6>
+                <% @order_net_freight = @order.freight / 1.19 %>
+                <h6>$ <%= number_with_delimiter((@order.net_amount + @order_net_freight).round) %></h6>
+                <h6>$ <%= number_with_delimiter((@order.total_iva + @order_net_freight * 0.19).round)%></h6>
                 <h6>$ <%= number_with_delimiter(@order.total_extra_taxes.round) %></h6>
-                <h6 class="text-bold">$ <%= number_with_delimiter(@order.total_amount.round) %></h6>
+                <h6 class="text-bold">$ <%= number_with_delimiter((@order.total_amount + @order.freight).round) %></h6>
               </div>
             </div>
           </div>

@@ -1,7 +1,7 @@
 class Product < ApplicationRecord
   has_many :group_discounts, dependent: :destroy
   has_many :groups, through: :group_discounts, dependent: :destroy
-  belongs_to :tax
+  belongs_to :tax, optional: true
 
   #Relación con order y add_products
   has_many :add_products, dependent: :destroy

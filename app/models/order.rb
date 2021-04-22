@@ -26,7 +26,7 @@ class Order < ApplicationRecord
 
   def set_order_amounts
     add_products.each do |add_product|
-      brute_price = add_product.total_product_amount
+      brute_price = add_product.total_product_amount * 0.8
       net_price = add_product.net_price(brute_price)
       packaging_amount = add_product.packaging_amount
       add_product.price = brute_price
@@ -38,9 +38,10 @@ class Order < ApplicationRecord
     self.total_packaging_amount = add_products.map(&:packaging_amount).reduce(:+)
     self.net_amount = add_products.map(&:net_product_amount).reduce(:+)
     self.total_iva = net_amount * 0.19
-    self.total_amount = add_products.map(&:total_product_amount).reduce(:+)
+    total_aux = add_products.map(&:total_product_amount).reduce(:+)
+    self.total_amount = total_aux * 0.8
     self.total_extra_taxes = add_products.map(&:extra_tax).reduce(:+)
-    self.freight = (add_products.map(&:net_product_amount).reduce(:+))
+    self.freight = (self.total_amount * 20)/80
   end
 
   def total_packaging(packaging_type)

@@ -27,7 +27,11 @@
             <td><%= product.format %></td>
             <td><%= product.description %></td>
             <td><%= product.unit %></td>
-            <td><%= product.tax.percentage %></td>
+            <% if product.tax.nil? %>
+              <td><%= "N/A" %>
+            <% else %>
+              <td><%= product.tax.percentage %></td>
+            <% end %>
             <td><%= number_with_delimiter(product.standard_price.round) %></td>
             <td><%= product.stock %></td>
             <td><%= link_to raw("<span class='fa fa-eye'></span>"), product, class: "btn btn-info" %></td>
