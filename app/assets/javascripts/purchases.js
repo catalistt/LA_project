@@ -1,4 +1,5 @@
 $(document).on('turbolinks:load', function() {
+  invoiceNum();
   $(document).on('cocoon:after-insert', function(e,insertedItem){
     $('.item-quantity').on('keyup', function(){
       getItemTotal(insertedItem);
@@ -67,3 +68,27 @@ function getTotal(){
   $("#purchase_total_amount").val(total);
   $("#invoice-total").text("$ " + total);
 }
+
+function invoiceNum(){
+  $(".invoice_num").on('change', function(){
+    var this_num = $(this).val();
+    $.ajax({
+      type: "GET",
+      url: "/purchases/purchases_numbers",
+      dataType: "json",
+      success: function(numbers){
+        var compare = numbers.includes(parseInt(this_num));
+        if(compare == true){
+          Swal.fire({
+            title: 'Ya existe este folio',
+            text: 'Revisar el folio o ver si la factura ya fue ingresada',
+            icon: 'error',
+            confirmButtonText: ':( Ok',
+            timer: 6000
+          });
+          $(this).val("");
+        };
+      }
+    });
+});
+};

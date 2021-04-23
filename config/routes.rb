@@ -50,7 +50,11 @@ Rails.application.routes.draw do
       get :packaging_status
     end
   end
-  resources :purchases
+  resources :purchases do
+    collection do
+      get :purchases_numbers
+    end
+  end
   resources :group_discounts
   resources :products do
     collection do

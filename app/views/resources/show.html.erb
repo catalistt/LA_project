@@ -2,8 +2,6 @@
   <div class="row">
     <div class="col-5 bg-white border border-dark"><br>
       <h2 class="text-bold">Resumen del registro</h2> 
-      <p id="notice"><%= notice %></p>
-
       <p>
         <strong>Nombre item:</strong>
         <%= @resource.name %>
@@ -12,6 +10,11 @@
       <p>
         <strong>Costo unitario:</strong>
         <%= number_with_delimiter(@resource.amount.round) %>
+      </p>
+
+      <p>
+        <strong>Categoría:</strong>
+        <%= @resource.group %>
       </p>
 
       <%= link_to 'Editar', edit_resource_path(@resource), class:"btn btn-danger" %>
