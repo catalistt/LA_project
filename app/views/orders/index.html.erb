@@ -28,7 +28,8 @@
           <td><%= order.date.strftime("%d-%m-%Y") %></td>
           <td><%= order.client.business_name %></td>
           <td><%= order.user.name %></td>
-          <td><%= number_with_delimiter(order.total_amount.round) %></td>
+          <% aux_freight = order.freight || 0 %>
+          <td><%= number_with_delimiter((order.total_amount.round + aux_freight).round) %></td>
           <% if order.create_invoive == true %>
             <td><%= "Sí" %></td>
           <% else %>

@@ -32,7 +32,10 @@ class PaymentsController < ApplicationController
     #buscar pagos asociados a la orden
     @order_payments = Payment.where(order_id: @order)
     #encontrar costo de la orden
-    @order_amount = Order.find(@order).total_amount
+    @aux_amount_1 = Order.find(@order).total_amount
+    @aux_amount_2 = Order.find(@order).freight || 0
+    @aux_amount_total = @aux_amount_1 + @aux_amount_2
+    @order_amount = @aux_amount_total
 
     #encontrar dcto de la orden
     @disc = Order.find(@order).discount_amount
@@ -58,7 +61,10 @@ class PaymentsController < ApplicationController
 
     #sumar todos los cobros del cliente
     @client_orders.each do |client_order|
-      @total_buyed += client_order.total_amount
+      @aux_f = client_order.freight || 0
+      @aux_a = client_order.total_amount
+      @aux_t = @aux_f + @aux_a
+      @total_buyed += @aux_t
     end
     #sumar pagos hechos por el cliente en todas las órdenes
     @client_payments.each do |client_payment|
