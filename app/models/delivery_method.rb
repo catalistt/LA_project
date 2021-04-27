@@ -1,5 +1,6 @@
 class DeliveryMethod < ApplicationRecord
   has_many :orders
+  has_many :packaging_receptions
   accepts_nested_attributes_for :orders
 
   validates :vehicle_plate, presence: true

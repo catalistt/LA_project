@@ -8,7 +8,14 @@ class OrdersController < ApplicationController
   end
 
   def packaging_status
-    @clients = Client.all
+    @clients = []
+    Client.all.each do |client|
+      total_given = Order.where('total_packaging_amount > ?', 0).where(client_id: client.id).sum(:total_packaging_amount)
+      if total_given <= 0
+      else
+        @clients.push(client)
+      end
+    end
   end
 
   def delivery_orders

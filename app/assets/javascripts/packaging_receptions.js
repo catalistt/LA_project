@@ -24,4 +24,26 @@ $(document).on('turbolinks:load', function() {
       });
       $(".total_box_amount").val(total);
       });
+
+      $(".pack-form").on("click", function(){
+        var delivery = $(".pack-delivery").val();
+        var client = $('#client-select-packaging').val();
+       if(delivery== ""){
+        Swal.fire({
+          title: 'Error',
+          text: 'Debes seleccionar un camión',
+          icon: 'error',
+          confirmButtonText: 'Ok, entendido'
+        });
+       }
+       if(client== ""){
+        Swal.fire({
+          title: 'Error',
+          text: 'Debes seleccionar un cliente',
+          icon: 'error',
+          confirmButtonText: 'Ok, entendido'
+        });
+       }
+      }
+      );
 });

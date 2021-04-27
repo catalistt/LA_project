@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_04_19_224140) do
+ActiveRecord::Schema.define(version: 2021_04_27_174554) do
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.string "namespace"
@@ -218,7 +218,9 @@ ActiveRecord::Schema.define(version: 2021_04_19_224140) do
     t.integer "total_payed"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "delivery_method_id"
     t.index ["client_id"], name: "index_packaging_receptions_on_client_id"
+    t.index ["delivery_method_id"], name: "index_packaging_receptions_on_delivery_method_id"
   end
 
   create_table "payment_methods", force: :cascade do |t|

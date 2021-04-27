@@ -8,6 +8,11 @@
       </p>
 
       <p>
+        <strong>Camión:</strong>
+        <%= @packaging_reception.delivery_method.vehicle_plate %>
+      </p>
+
+      <p>
         <strong>Total en cajas:</strong>
         <% if @packaging_reception.total_box_amount.nil? %>
           <%= 0 %>
@@ -27,8 +32,8 @@
 
       <%= link_to 'Editar', edit_packaging_reception_path(@packaging_reception), class:"btn btn-danger" %> 
       <%= link_to 'Nuevo registro', new_packaging_reception_path, class:"btn btn-info" %>
-<br>
-<br>
-</div>
-</div>
+      <br>
+      <br>
+    </div>
+  </div>
 </div>

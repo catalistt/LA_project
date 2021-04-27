@@ -21,10 +21,14 @@
           <%= form.select(:client_id, Client.all.collect {|client| ["#{client.id} - #{client.business_name}", client.id] }, { include_blank: 'Ingresar cliente', class: "form-control select2-simple-dropdown"}, id:"client-select-packaging") %>
         </div>
         <br>
-
+        <div class="col-5">
+          <%= form.label :delivery_method_id, "Patente", class: "form-label"%><br>
+          <%= form.select(:delivery_method_id, DeliveryMethod.all.map {|delivery| ["#{delivery.vehicle_plate}", delivery.id] }, { :include_blank => 'Elegir patente' } ,class:"custom-select pack-delivery") %>
+        </div>
+        <br>
         <div class="col-5 ">
           <%= form.label :total_payed, "Monto pagado", class:"form-label" %><br>
-          <%= form.number_field :total_payed, class: "form-control" %>  
+          <%= form.number_field :total_payed,input_html: {value: form.object.total_payed || '1'} ,class: "form-control" %>  
         </div>
         <br>
         <h5>Conversión</h5>
@@ -43,8 +47,8 @@
                 <tr class="parent">
                   <td><%= "#{packaging.name} - #{packaging.supplier.name}"%></td>
                   <td class="pack_cost"><%= packaging.cost %></td>
-                  <td><%= form.number_field :quantity, class:"quant_pack" %></td>
-                  <td><%= form.number_field :total_amount, class:"amount_pack"%></td>
+                  <td><input type="number" min="0" max="200" class="quant_pack" ></td>
+                  <td><input type="number" class="amount_pack" ></td>
                 </tr>
               <% end %>
             </tbody>
@@ -58,7 +62,7 @@
         <br>
 
         <div class="col-4">
-          <%= form.submit "Ingresar recepción", class:"my-3 btn btn-success btn-block"%>
+          <%= form.submit "Ingresar recepción", class:"my-3 btn btn-success btn-block pack-form"%>
         </div>
       <% end %>
   </div>
