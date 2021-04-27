@@ -219,6 +219,7 @@ ActiveRecord::Schema.define(version: 2021_04_27_174554) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "delivery_method_id"
+    t.integer "turn"
     t.index ["client_id"], name: "index_packaging_receptions_on_client_id"
     t.index ["delivery_method_id"], name: "index_packaging_receptions_on_delivery_method_id"
   end

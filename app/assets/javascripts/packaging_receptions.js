@@ -28,6 +28,7 @@ $(document).on('turbolinks:load', function() {
       $(".pack-form").on("click", function(){
         var delivery = $(".pack-delivery").val();
         var client = $('#client-select-packaging').val();
+        var turn = $('.pack-turn').val();
        if(delivery== ""){
         Swal.fire({
           title: 'Error',
@@ -40,6 +41,14 @@ $(document).on('turbolinks:load', function() {
         Swal.fire({
           title: 'Error',
           text: 'Debes seleccionar un cliente',
+          icon: 'error',
+          confirmButtonText: 'Ok, entendido'
+        });
+       }
+       if(turn== ""){
+        Swal.fire({
+          title: 'Error',
+          text: 'Debes seleccionar una vuelta',
           icon: 'error',
           confirmButtonText: 'Ok, entendido'
         });

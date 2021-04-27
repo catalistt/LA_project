@@ -26,6 +26,11 @@
           <%= form.select(:delivery_method_id, DeliveryMethod.all.map {|delivery| ["#{delivery.vehicle_plate}", delivery.id] }, { :include_blank => 'Elegir patente' } ,class:"custom-select pack-delivery") %>
         </div>
         <br>
+        <div class="col-5">
+          <%= form.label :turn, "Patente", class: "form-label"%><br>
+          <%= form.select(:turn, [1,2,3,4], { :include_blank => 'Elegir vuelta' } , class:"custom-select pack-turn") %>
+        </div>
+        <br>
         <div class="col-5 ">
           <%= form.label :total_payed, "Monto pagado", class:"form-label" %><br>
           <%= form.number_field :total_payed,input_html: {value: form.object.total_payed || '1'} ,class: "form-control" %>  

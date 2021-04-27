@@ -13,6 +13,11 @@
       </p>
 
       <p>
+        <strong>Vuelta:</strong>
+        <%= @packaging_reception.turn %>
+      </p>
+
+      <p>
         <strong>Total en cajas:</strong>
         <% if @packaging_reception.total_box_amount.nil? %>
           <%= 0 %>
