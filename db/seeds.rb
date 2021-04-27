@@ -24,27 +24,17 @@
 #PackagingConvertion.create(name: "x9 - Con botellas", cost: 3950, supplier_id: 5)
 #PackagingConvertion.create(name: "x6 - Con botellas", cost: 3200, supplier_id: 5)
 #PackagingConvertion.create(name: "EXPR - Con botellas", cost: 4000, supplier_id: 5)
-
-#PackagingConvertion.create(name: "x8 - Sin botellas", cost: 1700, supplier_id: 5)
-#PackagingConvertion.create(name: "x9 - Sin botellas", cost: 1700, supplier_id: 5)
-#PackagingConvertion.create(name: "x6 - Sin botellas", cost: 1700, supplier_id: 5)
 #PackagingConvertion.create(name: "EXPR - Sin botellas", cost: 1000, supplier_id: 5)
-
 #PackagingConvertion.create(name: "x12 - Con botellas", cost: 4900, supplier_id: 3)
 #PackagingConvertion.create(name: "x10 - Con botellas", cost: 4500, supplier_id: 3)
 #PackagingConvertion.create(name: "x9 - Con botellas", cost: 4300, supplier_id: 3)
 #PackagingConvertion.create(name: "x6 - Con botellas", cost: 3700, supplier_id: 3)
 #PackagingConvertion.create(name: "EXPR - Con botellas", cost: 6100, supplier_id: 3)
-
-#PackagingConvertion.create(name: "x12 - Sin botellas", cost: 2500, supplier_id: 3)
-#PackagingConvertion.create(name: "x10 - Sin botellas", cost: 2500, supplier_id: 3)
-#PackagingConvertion.create(name: "x9 - Sin botellas", cost: 2500, supplier_id: 3)
-#PackagingConvertion.create(name: "x6 - Sin botellas", cost: 2500, supplier_id: 3)
 #PackagingConvertion.create(name: "EXPR - Sin botellas", cost: 6100, supplier_id: 3)
-
 #PackagingConvertion.create(name: "Botella CCU", cost: 200, supplier_id: 3)
 #PackagingConvertion.create(name: "Botella And", cost: 250, supplier_id: 5)
-
+#PackagingConvertion.create(name: "Sin botella", cost: 1700, supplier_id: 5)
+#PackagingConvertion.create(name: "Sin botella", cost: 2500, supplier_id: 3)
 
 
 
