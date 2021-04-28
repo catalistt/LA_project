@@ -5,6 +5,33 @@ $(document).on('turbolinks:load', function() {
     width: 'resolve'
    });  
 
+   $(".pack-bool").on('change', function(){
+     var packBoolean = $(this).val();
+     console.log(packBoolean);
+     if(packBoolean == "Sí"){
+      var client = parseInt($('#client-select-packaging').val());
+      console.log(client);
+      $.ajax({
+        type: "GET",
+        url: "/orders/order_pack_amount",
+        data: {client_id: client},
+        dataType:"json",
+        success: function(result){
+          $(".total_box_amount").val(result);
+        }
+     });
+     }
+     else{
+      $(".pack-show").removeClass('hidden');
+      console.log("tt");
+     };
+   });
+
+
+
+
+
+
     $('.quant_pack').on('change', function() {
       var packParent= $(this).closest(".parent");
       console.log(packParent);

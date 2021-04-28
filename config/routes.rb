@@ -48,6 +48,7 @@ Rails.application.routes.draw do
       put :update_all
       get :edit_all
       get :packaging_status
+      get :order_pack_amount
     end
   end
   resources :purchases do

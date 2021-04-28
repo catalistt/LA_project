@@ -31,13 +31,24 @@
           <%= form.select(:turn, [1,2,3,4], { :include_blank => 'Elegir vuelta' } , class:"custom-select pack-turn") %>
         </div>
         <br>
+        <div class="col-5">
+          <%= form.label "Devuelve el total del pedido?", class: "form-label"%><br>
+          <%= form.select(:boolean, ["Sí", "No"], { :include_blank => 'Elegir opción' } , class:"custom-select pack-bool") %>
+        </div>
+        <br>
         <div class="col-5 ">
           <%= form.label :total_payed, "Monto pagado", class:"form-label" %><br>
           <%= form.number_field :total_payed,input_html: {value: form.object.total_payed || '1'} ,class: "form-control" %>  
         </div>
         <br>
-        <h5>Conversión</h5>
-        <div>
+
+        <div class="col-5">
+          <%= form.label :total_box_amount, "Total en cajas", class:"form-label" %><br>
+          <%= form.number_field :total_box_amount, class: "form-control total_box_amount" %>  
+        </div>
+        <br>
+        <div class="hidden pack-show">
+          <h5>Conversión</h5>
           <table class="table table-striped bg-light ">
             <thead>
             <tr>
@@ -59,12 +70,6 @@
             </tbody>
           </table>
         </div>
-
-        <div class="col-5">
-          <%= form.label :total_box_amount, "Total calculado", class:"form-label" %><br>
-          <%= form.number_field :total_box_amount, class: "form-control total_box_amount" %>  
-        </div>
-        <br>
 
         <div class="col-4">
           <%= form.submit "Ingresar recepción", class:"my-3 btn btn-success btn-block pack-form"%>

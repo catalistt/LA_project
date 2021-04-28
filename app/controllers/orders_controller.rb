@@ -2,6 +2,18 @@ class OrdersController < ApplicationController
   before_action :set_order, only: [:show, :edit, :update, :destroy, :edit_delivery_info, :update_delivery_info]
   before_action :set_client, only: [:create, :update]
 
+  def order_pack_amount
+    @client = params['client_id']
+    @order = Order.where(client_id: @client).last
+    @order_pack_amount = @order.total_packaging_amount || 0
+    respond_to do |format|
+      format.html
+      format.json {render json: @order_pack_amount}
+    end
+  end
+
+
+
   def dashboard_clients
     @orders_by_count = Order.select(:client_id).group(:client_id).count
     @orders_by_sum = Order.select(:client_id, :total_amount).group(:client_id).sum(:total_amount)
