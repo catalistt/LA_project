@@ -76,7 +76,7 @@ class OrdersController < ApplicationController
   end
 
   def my_order
-    @orders = Order.where(user: current_user).order(created_at: :desc)
+    @orders = Order.where(user: current_user).where('DATE(date) >= ?', Date.today).order(created_at: :desc)
   end
 
   def index

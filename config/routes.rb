@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  
+  get 'thermal_prints/print', to: "thermal_prints#print"
   resources :taxes
   resources :cash_registers
   resources :money_movements do

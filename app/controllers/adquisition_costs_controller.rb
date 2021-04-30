@@ -10,6 +10,8 @@ class AdquisitionCostsController < ApplicationController
   # GET /adquisition_costs/1
   # GET /adquisition_costs/1.json
   def show
+    @product = @adquisition_cost.product_id
+    @product_price = Product.find(@product).standard_price
   end
 
   # GET /adquisition_costs/new
@@ -25,10 +27,16 @@ class AdquisitionCostsController < ApplicationController
   # POST /adquisition_costs.json
   def create
     @adquisition_cost = AdquisitionCost.new(adquisition_cost_params)
+    @product_id = @adquisition_cost.product_id
+    @product = Product.find(@product_id)
+    @standard_price = @product.standard_price
+    @actual_cost = @product.cost
+    @percentage = (@standard_price - @actual_cost) / @actual_cost
+    @new_standard_price = (@adquisition_cost.cost * @percentage) + @adquisition_cost.cost
 
     respond_to do |format|
       if @adquisition_cost.save
-        Product.find(@adquisition_cost.product_id).update(cost: @adquisition_cost.cost)
+        @product.update(cost: @adquisition_cost.cost, standard_price: @new_standard_price)
         format.html { redirect_to @adquisition_cost, notice: 'Adquisition cost was successfully created.' }
         format.json { render :show, status: :created, location: @adquisition_cost }
       else
