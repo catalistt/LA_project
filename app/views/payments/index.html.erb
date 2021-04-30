@@ -22,7 +22,8 @@
           <tr> 
             <td><%= payment.order.id %></td>
             <td><%= payment.order.client.business_name %></td>
-            <td>$ <%= number_with_delimiter(payment.order.total_amount.round) %></td>
+            <% @this = payment.order.freight || 0 %>
+            <td>$ <%= number_with_delimiter((@this + payment.order.total_amount).round) %></td>
             <td><%= payment.payment_method %></td>
             <% if payment.payment_method_id == 6 %>
               <td><%= payment.check_date.strftime("%d-%m-%Y") %></td>

@@ -2,7 +2,7 @@
   <div class="row items_container">
     <div class="col-4">
       <%= f.label :product_id, "Producto" %>
-      <%= f.select(:product_id, Product.all.map {|product| ["#{product.code} - #{product.name}", product.id] }, { include_blank: 'Digita el código o nombre del producto' } ,class: "item-product custom-select") %>
+      <%= f.select(:product_id, Product.all.map {|product| ["#{product.code} - #{product.name}", product.id] }, { include_blank: 'Digita el código o nombre del producto' } ,class: "item-product select2-simple-dropdown items-products custom-select product-items") %>
     </div>
 
     <div class="col-4">

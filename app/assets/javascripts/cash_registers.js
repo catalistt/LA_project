@@ -7,8 +7,9 @@ $(document).on('turbolinks:load', function() {
       dataType:"json",
       success:function(result){
       var final_cash = parseInt(initial) + parseInt(result.cash_in) - parseInt(result.cash_out)
-      console.log(final_cash);
+      var final_cash_admin = parseInt(initial) + parseInt(result.cash_delivery) - parseInt(result.cash_out)
       $('.final-cash').val(final_cash.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
+      $('.final-cash-admin').val(final_cash_admin.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
       }
     });
   });
