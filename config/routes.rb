@@ -14,6 +14,7 @@ Rails.application.routes.draw do
     omniauth_callbacks: 'users/omniauth_callbacks' }
   resources :users, only: [:show, :edit, :update]  
   get 'orders/my_order', to: "orders#my_order"
+  get 'packaging_receptions/packaging_resume', to: "packaging_receptions#packaging_resume"
   get 'payments/set_pendings', to: "payments#set_pendings"
   get 'resources/resource_amount', to: "resources#resource_amount"
   get 'packaging_convertions/pack_info', to: "packaging_convertions#pack_info"

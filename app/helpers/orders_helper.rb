@@ -33,4 +33,19 @@ module OrdersHelper
     end
     unpaid_order
   end
+
+  def daily_payed_receptions(this_delivery, this_turn)
+    @daily_payed_receptions = PackagingReception.where(created_at: Time.zone.now.beginning_of_day..Time.zone.now.end_of_day, delivery_method_id: this_delivery, turn: this_turn).sum(:total_payed)
+  end
+
+  def daily_received_receptions(this_delivery, this_turn)
+    @daily_received_receptions = PackagingReception.where(created_at: Time.zone.now.beginning_of_day..Time.zone.now.end_of_day, delivery_method_id: this_delivery, turn: this_turn).sum(:total_box_amount)
+  end
+
+  def vehicle_plate(this_delivery)
+    @vehicle_plate = DeliveryMethod.find(this_delivery).vehicle_plate
+  end
+
+
+
 end

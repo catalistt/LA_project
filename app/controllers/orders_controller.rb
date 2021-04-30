@@ -12,8 +12,6 @@ class OrdersController < ApplicationController
     end
   end
 
-
-
   def dashboard_clients
     @orders_by_count = Order.select(:client_id).group(:client_id).count
     @orders_by_sum = Order.select(:client_id, :total_amount).group(:client_id).sum(:total_amount)

@@ -4,17 +4,34 @@
     <thead>
         <tr>
           <th>Cliente</th>
+          <th>Patente</th>
+          <th>Vuelta</th>
           <th>Total traido en cajas</th>
           <th>Total pagado en dinero</th>
+          <th>Acciones </th>
+          
         </tr>
       </thead>
 
       <tbody>
-        <% @packaging_receptions.each do |packaging_reception| %>
+        <% @packaging_receptions.order(created_at: :desc).each do |packaging_reception| %>
           <tr>
-            <td><%= packaging_reception.client %></td>
-            <td><%= number_with_delimiter(packaging_reception.total_box_amount) %></td>
-            <td><%= number_with_delimiter(packaging_reception.total_payed) %></td>
+            <% if packaging_reception.delivery_method_id.nil? %>
+              <td><%= packaging_reception.client %></td>
+              <td><%= "Sin camión" %></td>
+              <td><%= packaging_reception.turn %></td>
+              <td><%= number_with_delimiter(packaging_reception.total_box_amount) %></td>
+              <td><%= number_with_delimiter(packaging_reception.total_payed) %></td>
+              <td><%= link_to raw("<span class='fa fa-edit'></span>"), edit_packaging_reception_path(packaging_reception), class:"btn bg-warning" %></td>
+            <% else %> 
+              <td><%= packaging_reception.client %></td>
+              <td><%= packaging_reception.delivery_method.vehicle_plate %></td>
+              <td><%= packaging_reception.turn %></td>
+              <td><%= number_with_delimiter(packaging_reception.total_box_amount) %></td>
+              <td><%= number_with_delimiter(packaging_reception.total_payed) %></td>
+              <td><%= link_to raw("<span class='fa fa-edit'></span>"), edit_packaging_reception_path(packaging_reception), class:"btn bg-warning" %></td>
+              <td><%= link_to raw("<span class='fa fa-trash'></span>"), packaging_reception, method: :delete,class:"btn bg-danger",  data: { confirm: 'Estas seguro/a de eliminar la recepción?' } %></td>
+            <% end %>
           </tr>
         <% end %>
       </tbody>
