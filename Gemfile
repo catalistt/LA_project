@@ -52,6 +52,9 @@ gem 'font-awesome-rails'
 gem 'will_paginate'
 gem 'flatpickr'
 gem 'week_of_month'
+gem 'escpos'
+gem 'escpos-image'
+gem 'mini_magick'
 # Use ActiveStorage variant
 # gem 'mini_magick', '~> 4.8'
 

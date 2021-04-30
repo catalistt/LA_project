@@ -1,0 +1,24 @@
+ 
+  <%= center "SOCIEDAD COMERCIAL C Y C LOS AMIGOS SPA" %>
+  <%= center "76.712.576-3" %>
+  <%= center "COMERCIO DE BEBIDAS ALCOHOLICAS, GASEOSAS, CONFITES EN GENERAL." %>
+  <%= text "Dirección: Puerto Santiago 280, bodega F10-E9. Pudahuel" %>
+  <%= text "Orden número #{order[:id]}" %>
+  <%= text "Fecha: #{order[:created_at]}" %>
+  <%= "" %>
+  <%= center "DATOS DEL RECEPTOR" %>
+  <%= text "Nombre: #{order[:client_name]}" %>
+  <%= text "RUT: #{order[:client_rut]}" %>
+  <%= text "Giro: #{order[:line_of_business]}" %>
+  <%= center "ITEMS DEL DOCUMENTO" %>
+  <% add_product.each do |add_product| %>
+    <%= text "#{add_product[:product_name]}" %>
+    <%= text "#{add_product[:product_quantity]} x #{add_product[:total_p_unit]}" %>
+    <%= right "= #{add_product[:total_product]}" %>
+  <% end %>
+  <%= center "TOTALES DEL DOCUMENTO" %>
+  <%= right "Monto neto = #{order[:total_net_amount]}" %>
+  <%= right "Monto IVA = #{order[:total_iva]}" %>
+  <%= right "Monto Imp. Adic = #{order[:total_extra_tax]}" %>
+  <%= right "Monto total = #{order[:total_amount]}" %>
+  
