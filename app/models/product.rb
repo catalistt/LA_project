@@ -21,5 +21,8 @@ class Product < ApplicationRecord
   validates :standard_price, presence: true
 
   delegate :code, to: :tax, prefix: true, allow_nil: true
-  delegate :percentage, to: :tax, prefix: true, allow_nil: true
+
+  def tax_percentage
+    tax&.percentage || 0
+  end
 end

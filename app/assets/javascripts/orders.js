@@ -78,13 +78,14 @@ function disabledAllSelectedOptions(){
   }
 }
 
-function setProductInfo(elem){
-    var productInput = elem;
-    var clientInput = $('#client-select');
+function setProductInfo(){
+  $('.product').on('change', function() {
+    var productInput = $(this);
+    var clientInput = $('#order_client_id');
     var clientId = clientInput.val();
     var selectedOption = productInput.val();
     if(clientId){
-      var parentContainer = elem.closest(".add_new_product");
+      var parentContainer = productInput.closest(".add_new_product");
       var quantityInput = parentContainer.find(".quantity");
       var priceInput = parentContainer.find(".price");
       var inputExtraTax = parentContainer.find(".extra_tax");
@@ -99,6 +100,7 @@ function setProductInfo(elem){
         success: function(product){
           var quant = parentContainer.find(".quantity").val()
           window.thisProductStock = product.stock
+          // no agregues el producto si no está, sólo muestra el error
           if(product.stock <= 0){
             Swal.fire({
               title: '¡Sin stock! Debes eliminar ese producto',
@@ -144,13 +146,14 @@ function setProductInfo(elem){
       });
       clientInput.addClass("error");
     };
+  });
 }
 
 function getTotalAmount(element){
   /* Obtengo los valores de los containers de price, discount y quantity */
   var parentContainer = element.closest(".add_new_product");
-  var htmlUnit = parentContainer.find(".unit-price");
-  var priceInput = parentContainer.find(".price");  
+  var priceInput = parentContainer.find(".price");
+  var htmlUnit = parentContainer.find(".unit-price") || 1;
   var cost = parseFloat(parentContainer.find(".cost").val());
   var price = parseFloat(priceInput.val()) || 0;
   var discount = parseFloat(parentContainer.find('.discount').val()) || 0;
@@ -163,10 +166,13 @@ function getTotalAmount(element){
   var total = price * quantity;
   if(cost !== 1){
     var productCost = parseFloat(parentContainer.find(".product_cost").val());
-    total = ((productCost + (cost * productCost)) * quantity);}
+    total = ((productCost + (cost * productCost)) * quantity);
+  }
   else 
-    {var discount = parseFloat(parentContainer.find('.group_discount').val());
-     total = (total - discount*total); }
+    {
+      var discount = parseFloat(parentContainer.find('.group_discount').val());
+     total = (total - discount*total); 
+    }
 
   totalAmountInput.val(Math.round(total));
 

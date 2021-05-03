@@ -128,9 +128,9 @@ class OrdersController < ApplicationController
     end
   end
 
-  def create_invoice
+  def create_dte
     @lioren_service = LiorenService.new(@order)
-    @lioren_service.send_invoice
+    @lioren_service.post_dte
   end
 
   def new

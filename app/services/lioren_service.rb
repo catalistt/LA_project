@@ -1,4 +1,7 @@
 class LiorenService
+
+  attr_accessor :client
+
   def initialize(order)
     @order = order
     @client = order.client
@@ -7,31 +10,38 @@ class LiorenService
 
   def build_invoice
     @invoice = {
-      'emisor': {
-        'tipodoc': '33',
-        'fecha': @order.date
+      emisor: {
+        tipodoc: '33',
+        fecha: @order.date.strftime('%Y-%m-%d')
       },
-      'receptor': {
-        'rut': @client.rut,
-        'rs': @client.business_name,
-        'giro': @client.line_of_business,
-        'comuna': @client.commune.code,
-        'cuidad': @client.city.code,
-        'direccion': @client.address
+      receptor: {
+        rut: @client.rut,
+        rs: @client.business_name,
+        giro: @client.line_of_business,
+        comuna: @client.commune.code.to_i,
+        ciudad: @client.city.code.to_i,
+        direccion: @client.address
       },
-      'detalles': []
+      detalles: []
+    }
+    @invoice[:detalles] << {
+      codigo: '9999',
+      nombre: 'Flete',
+      cantidad: 1,
+      precio: @order.freight.round(2),
+      exento: false,
     }
     @order.add_products.each do |add_product|
       product = add_product.product
-      @invoice['detalles'] << {
-        'codigo': product.code,
-        'nombre': product.name,
-        'cantidad': add_product.quantity,
-        'price': add_product.net_product_amount,
-        'exento': false,
-        'impuestoadicional': product.tax_code
+      @invoice[:detalles] << {
+        codigo: product.code.to_s,
+        nombre: product.name,
+        cantidad: add_product.quantity,
+        precio: add_product.net_product_amount.round(2),
+        exento: false,
       }
     end
+    @invoice
   end
 
   def post_dte
@@ -46,6 +56,7 @@ class LiorenService
     }
     req = Net::HTTP::Post.new(uri.request_uri, headers)
     req.body = build_invoice.to_json
+    puts req.body
     response = http.request(req)
     puts response
     begin
