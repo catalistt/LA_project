@@ -1,0 +1,17 @@
+<%= if @order.pdf_text.present? %>
+  Swal.fire({
+    title: '¡Error!',
+    text: 'Hubo un problema descargando la factura',
+    icon: 'error',
+    confirmButtonText: ':( Ok',
+    timer: 3000
+  });
+<% else %>
+  Swal.fire({
+    title: '¡Logrado!',
+    text: 'Factura generada exitosamente',
+    icon: 'success',
+    confirmButtonText: '¡Bacan!',
+    timer: 3000
+  });
+<% end %>
