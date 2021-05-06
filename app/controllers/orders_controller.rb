@@ -1,5 +1,5 @@
 class OrdersController < ApplicationController
-  before_action :set_order, only: [:show, :edit, :update, :destroy, :edit_delivery_info, :update_delivery_info]
+  before_action :set_order, only: [:show, :edit, :update, :destroy, :edit_delivery_info, :update_delivery_info, :create_dte]
   before_action :set_client, only: [:create, :update]
 
   def order_pack_amount
@@ -104,7 +104,7 @@ class OrdersController < ApplicationController
           @name_quantity.push([name, elem[1]])
         end
       end
-      return @name_quantity    
+      return @name_quantity
     end
     respond_to do |format|
       format.html
@@ -130,7 +130,12 @@ class OrdersController < ApplicationController
 
   def create_dte
     @lioren_service = LiorenService.new(@order)
-    @lioren_service.post_dte
+    response = @lioren_service.post_dte
+    # pdf = WickedPdf.new.pdf_from_string(response['pdf'])
+    # save_path = Rails.root.join('pdfs','factura.pdf')
+    # File.open(save_path, 'wb') do |file|
+    #   file << pdf
+    # end
   end
 
   def new

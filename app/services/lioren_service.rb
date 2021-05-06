@@ -22,7 +22,8 @@ class LiorenService
         ciudad: @client.city.code.to_i,
         direccion: @client.address
       },
-      detalles: []
+      detalles: [],
+      # expects: 'pdf'
     }
     @invoice[:detalles] << {
       codigo: '9999',
