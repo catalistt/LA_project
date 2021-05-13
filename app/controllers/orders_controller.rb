@@ -140,6 +140,7 @@ class OrdersController < ApplicationController
       send_data(raw_pdf_str, filename: "factura_#{@order.id}.pdf")
     rescue StandardError => e
       puts e
+      redirect_to orders_path
     end
   end
 
