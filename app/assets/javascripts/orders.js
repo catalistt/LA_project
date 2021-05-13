@@ -247,3 +247,34 @@ function getOrderTotal(){
   $("#this-order-total").text("$ " + total);
 };
 
+function generateInvoice(){
+  $(".create_invoice_btn").on("click", function (){
+    var orderId = $(this).data("oid")
+    $.ajax({
+      type: "POST",
+      url: "/orders/" + orderId + "/create_dte/",
+      success: function(request_status){
+        if(request_status = 200){
+          Swal.fire({
+            title: '¡Logrado!',
+            text: 'Se generó la factura exitosamente',
+            icon: 'success',
+            confirmButtonText: '¡Ok!',
+            timer: 3000
+          });
+          $("#download_invoice_" + orderId).trigger("click");
+        }
+        else{
+          Swal.fire({
+            title: '¡Error!',
+            text: 'Hubo un problema asignando las órdenes',
+            icon: 'error',
+            confirmButtonText: ':( Ok',
+            timer: 3000
+          });
+        }
+      }
+    });
+  })
+}
+
