@@ -25,6 +25,9 @@ function initDatatable(datatable, element){
         Processing: true,
         bServerSide: true,
         bDestroy: true,
+        initComplete: function(){
+          generateInvoice();
+        },
         sAjaxSource: $(element).data('source'),
         fnServerData: function (sSource, aoData, fnCallback){
            start_date = $('#f_start_date').val()
@@ -38,6 +41,7 @@ function initDatatable(datatable, element){
            $.getJSON(sSource, aoData, function(json){
             fnCallback(json);
            });
+           generateInvoice();
         },
         oLanguage: {
           sProcessing:     'Procesando...',
