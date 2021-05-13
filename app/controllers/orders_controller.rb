@@ -1,5 +1,5 @@
 class OrdersController < ApplicationController
-  before_action :set_order, only: [:show, :edit, :update, :destroy, :edit_delivery_info, :update_delivery_info, :create_dte]
+  before_action :set_order, only: [:show, :edit, :update, :destroy, :edit_delivery_info, :update_delivery_info, :create_dte, :download_dte]
   before_action :set_client, only: [:create, :update]
 
   def order_pack_amount
@@ -132,16 +132,18 @@ class OrdersController < ApplicationController
     if @order.pdf_text.nil?
       @lioren_service = LiorenService.new(@order)
       response = @lioren_service.post_dte
-      @order.update_attributes(pdf_text: response['pdf'])
+      @order.update_attributes(pdf_text: response['pdf']) if response['pdf'].present?
     end
-    pdf_text = @order.pdf_text
-    begin
-      raw_pdf_str = Base64.decode64(pdf_text)
-      send_data(raw_pdf_str, filename: "factura_#{@order.id}.pdf")
-    rescue StandardError => e
-      puts e
-      redirect_to orders_path
+    if @order.pdf_text.present?
+      render json: { status: :ok }
+    else
+      render json: { status: :bad_request }
     end
+  end
+
+  def download_dte
+    raw_pdf_str = Base64.decode64(@order.pdf_text)
+    send_data(raw_pdf_str, filename: "factura_#{@order.id}.pdf")
   end
 
   def new
