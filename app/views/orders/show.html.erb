@@ -103,7 +103,7 @@
                 <td><%= item.product.name %></td>
                 <td><%= item.quantity %></td>
                 <td><%= number_with_delimiter(item.net_product_amount.round) %></td>
-                <td><%= item.product.tax.percentage.round(3) %></td>
+                <td><%= item.product.tax_percentage.round(3) %></td>
               </tr>  
                 <% end %>
                 <td><%= "9999" %></td>

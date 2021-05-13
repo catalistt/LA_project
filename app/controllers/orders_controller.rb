@@ -1,5 +1,5 @@
 class OrdersController < ApplicationController
-  before_action :set_order, only: [:show, :edit, :update, :destroy, :edit_delivery_info, :update_delivery_info]
+  before_action :set_order, only: [:show, :edit, :update, :destroy, :edit_delivery_info, :update_delivery_info, :create_dte]
   before_action :set_client, only: [:create, :update]
 
   def order_pack_amount
@@ -104,7 +104,7 @@ class OrdersController < ApplicationController
           @name_quantity.push([name, elem[1]])
         end
       end
-      return @name_quantity    
+      return @name_quantity
     end
     respond_to do |format|
       format.html
@@ -125,7 +125,22 @@ class OrdersController < ApplicationController
         encoding:"UTF-8",
         show_as_html: params[:debug].present?
       end
-    end 
+    end
+  end
+
+  def create_dte
+    if @order.pdf_text.nil?
+      @lioren_service = LiorenService.new(@order)
+      response = @lioren_service.post_dte
+      @order.update_attributes(pdf_text: response['pdf'])
+    end
+    pdf_text = @order.pdf_text
+    begin
+      raw_pdf_str = Base64.decode64(pdf_text)
+      send_data(raw_pdf_str, filename: "factura_#{@order.id}.pdf")
+    rescue StandardError => e
+      puts e
+    end
   end
 
   def new

@@ -84,6 +84,16 @@
   &.error{
     border: 1px solid red;
   }
+  &.full-date{
+    width: 32%;
+  }
+}
+.error{
+  color: red;
+
+}
+.success{
+  color: green;
 }
 .form-checkbox{
   width: 25px;

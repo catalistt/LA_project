@@ -7,6 +7,10 @@ class Client < ApplicationRecord
   has_many :packaging_receptions
 
   delegate :name, to: :commune, prefix: true, allow_nil: true
+  validates :rut, presence: true, uniqueness: true
+  validates :business_name, presence: true
+  validates :line_of_business, presence: true
+  validates :address, presence: true
 
   def to_s
     business_name

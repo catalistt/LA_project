@@ -16,6 +16,8 @@ class Order < ApplicationRecord
 
   before_save :set_order_amounts
 
+  validates :date, presence: true
+
   #Delegate ayuda a acceder más fácil a atributos de modelos relacionados
   delegate :business_name, to: :client, prefix: :client, allow_nil: true 
   delegate :name, to: :user, prefix: true, allow_nil: true
@@ -32,7 +34,7 @@ class Order < ApplicationRecord
       add_product.price = brute_price
       add_product.packaging_amount = add_product.packaging_a(packaging_amount)
       add_product.net_product_amount = net_price
-      add_product.extra_tax = net_price * add_product.product.tax.percentage
+      add_product.extra_tax = net_price * add_product.product.tax_percentage
       add_product.discount = add_product.group_discount(client.group_id)
     end
     self.total_packaging_amount = add_products.map(&:packaging_amount).reduce(:+)

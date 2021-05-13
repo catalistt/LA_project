@@ -1,76 +1,75 @@
 <div class="row">
-  <div class="col-4 offset-4">
-    <br>
+  <div class="col-4 offset-4 bg-white">
     <h1>Registrar usuario</h1>
 
     <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
       <%= render "devise/shared/error_messages", resource: resource %>
 
       <div class="form-group">
-        <%= f.label :Nombre %><br>
-        <%= f.text_field :name %>
+        <%= f.label :name, raw('Nombre <span class="error">*</span>') %>
+        <%= f.text_field :name, class: "form-control" %>
       </div>
 
       <div class="form-group">
-        <%= f.label :Género %><br>
-        <%= f.select :gender, User.genders.keys, autofocus: true %>
+        <%= f.label :gender, raw('Género <span class="error">*</span>') %>
+        <%= f.select :gender, User.genders.keys, {}, {autofocus: true, class: "custom-select"} %>
       </div>
 
       <div class="form-group">
-        <%= f.label :Fecha_de_nacimiento %><br>
-        <%= f.date_select :birthday, :start_year=>1950,:end_year=>2020 %>
+        <%= f.label :birthday, 'Fecha de nacimiento', class: "d-block" %>
+        <%= f.date_select :birthday, { order: [:day, :month, :year] , start_year: 1950,end_year: 2020}, class: "custom-select full-date" %>
       </div>
 
       <div class="form-group">
-        <%= f.label :Dirección %><br>
-        <%= f.text_field :address %>
+        <%= f.label :address, 'Dirección' %>
+        <%= f.text_field :address, class: "form-control" %>
       </div>
 
       <div class="form-group">
-        <%= f.label :RUT %><br>
-        <%= f.text_field :rut %>
+        <%= f.label :rut, raw('RUT <span class="error">*</span>') %>
+        <%= f.text_field :rut, class: "form-control" %>
       </div>
 
       <div class="form-group">
-        <%= f.label :Número_de_contacto %><br>
-        <%= f.telephone_field :phone_number %>
+        <%= f.label :phone_number, 'Número de contacto' %>
+        <%= f.telephone_field :phone_number, class: "form-control" %>
       </div>
 
       <div class="form-group">
-        <%= f.label :Sistema_de_salud %><br>
-        <%= f.select(:health_system, health_system_name) %>
+        <%= f.label :health_system, 'Sistema de Salud' %>
+        <%= f.select(:health_system, health_system_name, {}, class: "custom-select") %>
       </div>
 
       <div class="form-group">
-        <%= f.label :AFP %><br>
-        <%= f.select(:afp, afps) %>
+        <%= f.label :afp, 'AFP' %>
+        <%= f.select(:afp, afps, {}, class: "custom-select") %>
       </div>
 
       <div class="form-group">
-        <%= f.label :Número_de_emergencia %><br>
-        <%= f.telephone_field :emergency_number %>
+        <%= f.label :emergency_number, 'Número de Emergencia' %>
+        <%= f.telephone_field :emergency_number, class: "form-control" %>
       </div>
 
       <div class="form-group">
-        <%= f.label :Email %><br />
-        <%= f.email_field :email, autocomplete: "email" %>
+        <%= f.label :email, raw('Email <span class="error">*</span>') %>
+        <%= f.email_field :email, autocomplete: "email", class: "form-control" %>
       </div>
 
       <div class="form-group">
-        <%= f.label :Contraseña %>
+        <%= f.label :password, raw('Contraseña <span class="error">*</span>') %>
         <% if @minimum_password_length %>
         <em>(<%= @minimum_password_length %> caracteres mínimo)</em>
-        <% end %><br />
-        <%= f.password_field :password, autocomplete: "new-password" %>
+        <% end %>
+        <%= f.password_field :password, class: "form-control",autocomplete: "new-password" %>
       </div>
 
       <div class="form-group">
-        <%= f.label :Confirmar_contraseña %><br />
-        <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
+        <%= f.label :password_confirmation, raw('Confirmar contraseña <span class="error">*</span>') %>
+        <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "form-control" %>
       </div>
 
       <div class="actions">
-        <%= f.submit "Registrarse", class:"btn btn-info" %>
+        <%= f.submit "Registrarse", class: "btn btn-info" %>
       </div>
     <% end %>
 <br>

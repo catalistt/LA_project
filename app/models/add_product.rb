@@ -3,6 +3,9 @@ class AddProduct < ApplicationRecord
   belongs_to :order, inverse_of: :add_products
   accepts_nested_attributes_for :product
 
+  validates :quantity, presence: true
+  # validates :net_product_amount, presence: true
+
   delegate :standard_price, to: :product, prefix: :product
   delegate :tax_id, to: :product, prefix: :product
 
@@ -21,7 +24,7 @@ class AddProduct < ApplicationRecord
   end
 
   def net_price(brute_amount)
-    brute_amount / (1.19 + product.tax.percentage)
+    brute_amount / (1.19 + (product&.tax&.percentage || 0))
   end
 
   def group_discount(group_id)

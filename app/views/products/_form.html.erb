@@ -14,17 +14,17 @@
       <% end %>
 
       <div class="form-group">
-        <%= form.label :code, "Código" %>
+        <%= form.label :code, raw('Código <span class="error">*</span>') %>
         <%= form.text_field :code, class: "form-control" %>
       </div>
 
       <div class="form-group">
-        <%= form.label :name, "Nombre" %>
+        <%= form.label :name, raw('Nombre <span class="error">*</span>') %>
         <%= form.text_field :name, class: "form-control" %>
       </div>
 
       <div class="form-group">
-        <%= form.label :cost, "Costo" %>
+        <%= form.label :cost,raw('Costo <span class="error">*</span>') %>
         <%= form.number_field :cost, class: "form-control" %>
       </div>
 
@@ -65,7 +65,7 @@
       </div>
 
       <div class="form-group">
-        <%= form.label :Precio_ruta %>
+        <%= form.label :standard_price, raw('Precio ruta <span class="error">*</span>') %>
         <%= form.number_field :standard_price, class: "form-control" %>
       </div>
 

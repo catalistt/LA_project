@@ -6,7 +6,7 @@ class ProductsController < ApplicationController
   end
 
   def set_price
-    @product_info = {pack_amount: @product.packaging, id: @product.id, standard_price: @product.standard_price, extra_tax: @product.tax.percentage, cost: @product.cost, units: @product.units, stock: @product.stock}
+    @product_info = {pack_amount: @product.packaging, id: @product.id, standard_price: @product.standard_price, extra_tax: @product.tax_percentage, cost: @product.cost, units: @product.units, stock: @product.stock}
     respond_to do |format|
       format.html
       format.json {render json: @product_info}
@@ -36,7 +36,7 @@ class ProductsController < ApplicationController
     discount = @product.group_discounts.find_by(group_id: client&.group_id)&.discount
     render json: {
       standard_price: @product.standard_price.to_f,
-      extra_tax: @product.tax.percentage.to_f,
+      extra_tax: @product.tax_percentage.to_f,
       cost: @product.cost.to_f,
       unit: @product.units.to_f,
       stock: @product.stock.to_i,

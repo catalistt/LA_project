@@ -14,4 +14,15 @@ class Product < ApplicationRecord
   has_many :stock_movements
   has_many :adquisition_costs, dependent: :destroy
   enum category: [:soda, :beer, :wine, :snack, :water, :energetic, :isotonic, :nectar, :service, :promotion, :tea]
+
+  validates :code, presence: true, format: { with: /\A[0-9a-zA-Z]+\z/,
+    message: 'Sólo se permite letras y números' }
+  validates :name, presence: true
+  validates :standard_price, presence: true
+
+  delegate :code, to: :tax, prefix: true, allow_nil: true
+
+  def tax_percentage
+    tax&.percentage || 0
+  end
 end

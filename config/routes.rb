@@ -41,6 +41,7 @@ Rails.application.routes.draw do
     member do
       get :edit_delivery_info
       put :update_delivery_info
+      post :create_dte
     end
     collection do
       get :filter
