@@ -40,6 +40,7 @@ function initDatatable(datatable, element){
            }
            $.getJSON(sSource, aoData, function(json){
             fnCallback(json);
+            generateInvoice();
            });
            generateInvoice();
         },

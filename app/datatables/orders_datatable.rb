@@ -40,7 +40,7 @@ class OrdersDatatable
     if order.pdf_text.present?
       button_tag(raw("<i class='fa fa-file'></i>"), type: :button, class: 'btn btn-info btn-xs mr-1 create_invoice_btn', data: {oid: order.id}) + link_to(raw('<i class="fa fa-download"></i>'), download_dte_order_path(order), method: :get, class: "btn btn-success btn-xs ", id: "download_invoice_#{order.id}")
     else
-      button_tag(raw("<i class='fa fa-file'></i>"), type: :button, class: 'btn btn-info btn-xs mr-1', data: { oid: order.id })
+      button_tag(raw("<i class='fa fa-file'></i>"), type: :button, class: 'btn btn-info btn-xs mr-1 create_invoice_btn', data: { oid: order.id })
     end
   end
 

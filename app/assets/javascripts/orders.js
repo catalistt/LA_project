@@ -1,6 +1,7 @@
 $(document).on('turbolinks:load', function() {
   initOrderProduct();
   getOrderTotal();
+  generateInvoice();
   $("#client-select").select2({
     placeholder: "Buscar cliente",
     theme: 'classic',
