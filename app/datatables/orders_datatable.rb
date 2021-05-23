@@ -30,17 +30,17 @@ class OrdersDatatable
       array << order.discount_amount
       array << order.discount_comment
       array << order.create_invoive? ? 'Si' : 'No'
-      array << link_to(raw("<i class='fa fa-eye'></i>"), order_path(order), class: 'btn btn-info btn-xs mr-1') + link_to(raw("<i class='fa fa-edit'></i>"), edit_order_path(order), class: 'btn btn-success btn-xs mr-1') + link_to(raw("<i class='fa fa-trash'></i>"), order_path(order), class: 'btn btn-danger btn-xs', method: :delete)
-      array <<  + check_invoice(order)
+      array << check_invoice(order)
+      array << link_to(raw("<i class='fa fa-eye'></i>"), order_path(order), class: 'btn btn-info btn-block') + link_to(raw("<i class='fa fa-edit'></i>"), edit_order_path(order), class: 'btn btn-warning btn-block') + link_to(raw("<i class='fa fa-trash'></i>"), order_path(order), class: 'btn btn-danger btn-block', method: :delete)
       array
     end
   end
 
   def check_invoice(order)
     if order.pdf_text.present?
-      button_tag(raw("<i class='fa fa-file'></i>"), type: :button, class: 'btn btn-info btn-xs mr-1 create_invoice_btn', data: {oid: order.id}) + link_to(raw('<i class="fa fa-download"></i>'), download_dte_order_path(order), method: :get, class: "btn btn-success btn-xs ", id: "download_invoice_#{order.id}")
+      button_tag('Factura', type: :button, class: 'btn btn-info btn-block create_invoice_btn', data: {oid: order.id, dte_type: 'invoice'}) + button_tag('Boleta', type: :button, class: 'btn btn-warning btn-block create_invoice_btn', data: {oid: order.id, dte_type: 'receipt'}) + link_to(raw('<i class="fa fa-download"></i>'), download_dte_order_path(order), method: :get, class: "btn btn-success btn-block ", id: "download_invoice_#{order.id}")
     else
-      button_tag(raw("<i class='fa fa-file'></i>"), type: :button, class: 'btn btn-info btn-xs mr-1', data: { oid: order.id })
+      button_tag(raw("<i class='fa fa-file'></i>"), type: :button, class: 'btn btn-info btn-xs mr-1', data: { oid: order.id, dteType: 'invoice' }) + button_tag(raw("<i class='fa fa-file'></i>"), type: :button, class: 'btn btn-info btn-xs mr-1', data: { oid: order.id, dteType: 'receipt' })
     end
   end
 

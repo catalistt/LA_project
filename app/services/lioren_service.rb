@@ -8,10 +8,11 @@ class LiorenService
     @token = ENV['LIOREN_AUTH_TOKEN']
   end
 
-  def build_invoice
+  def build_invoice(doc_type)
+    dte_code = dte_type.eql?('invoice') ? '33' : '39'
     @invoice = {
       emisor: {
-        tipodoc: '33',
+        tipodoc: dte_code,
         fecha: @order.date.strftime('%Y-%m-%d')
       },
       receptor: {
@@ -45,7 +46,7 @@ class LiorenService
     @invoice
   end
 
-  def post_dte
+  def post_dte(dte_type)
     uri = URI.parse("#{lioren_api_url}dtes")
     http = Net::HTTP.new(uri.host, uri.port)
     http.verify_mode = OpenSSL::SSL::VERIFY_NONE
@@ -56,7 +57,7 @@ class LiorenService
       'Accept'=>'application/json'
     }
     req = Net::HTTP::Post.new(uri.request_uri, headers)
-    req.body = build_invoice.to_json
+    req.body = build_invoice(dte_type).to_json
     puts req.body
     response = http.request(req)
     puts response

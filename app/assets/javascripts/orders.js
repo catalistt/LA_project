@@ -249,10 +249,11 @@ function getOrderTotal(){
 
 function generateInvoice(){
   $(".create_invoice_btn").on("click", function (){
-    var orderId = $(this).data("oid")
+    var orderId = $(this).data("oid");
     $.ajax({
       type: "POST",
       url: "/orders/" + orderId + "/create_dte/",
+      data: "dte_type=" + $(this).data("dte-type"),
       success: function(request_status){
         if(request_status = 200){
           Swal.fire({
@@ -267,7 +268,7 @@ function generateInvoice(){
         else{
           Swal.fire({
             title: '¡Error!',
-            text: 'Hubo un problema asignando las órdenes',
+            text: 'Hubo un problema creando la factura',
             icon: 'error',
             confirmButtonText: ':( Ok',
             timer: 3000

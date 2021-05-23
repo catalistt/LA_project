@@ -131,7 +131,7 @@ class OrdersController < ApplicationController
   def create_dte
     if @order.pdf_text.nil?
       @lioren_service = LiorenService.new(@order)
-      response = @lioren_service.post_dte
+      response = @lioren_service.post_dte(params[:dte_type])
       @order.update_attributes(pdf_text: response['pdf']) if response['pdf'].present?
     end
     if @order.pdf_text.present?
@@ -142,8 +142,10 @@ class OrdersController < ApplicationController
   end
 
   def download_dte
-    raw_pdf_str = Base64.decode64(@order.pdf_text)
-    send_data(raw_pdf_str, filename: "factura_#{@order.id}.pdf")
+    if @order.pdf_text.present?
+      raw_pdf_str = Base64.decode64(@order.pdf_text)
+      send_data(raw_pdf_str, filename: "factura_#{@order.id}.pdf")
+    end
   end
 
   def new
