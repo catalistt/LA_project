@@ -4,7 +4,7 @@ class DeliveryMethod < ApplicationRecord
   accepts_nested_attributes_for :orders
 
   validates :vehicle_plate, presence: true
-  before_save :sanitize_plate
+  #before_save :sanitize_plate
 
   def sanitize_plate
     vehicle_plate.uppercase

@@ -23,6 +23,11 @@ Rails.application.routes.draw do
   get 'payments/pending', to: "payments#pending"
   get 'home/index'
   get 'home/dashboard'
+  get 'home/downloads'
+  get 'home/index_communes'
+  get 'home/index_cities'
+  get 'home/packaging_convertions'
+  get 'home/index_products'
   get 'orders/dashboard_clients'
   get 'orders/my_detail'
   get 'orders/loading_sheets'

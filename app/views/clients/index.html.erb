@@ -8,7 +8,7 @@
         <th>Razón social</th>
         <th>Rut</th>
         <th>Dirección</th>
-        <th>Usuario</th>
+        <th>Vendedor</th>
         <th>Teléfono</th>
         <th>Horario</th>
         <th>Acuerdos de pagos</th>
@@ -23,14 +23,12 @@
           <td><%= client.business_name %></td>
           <td><%= client.rut %></td>
           <td><%= client.address %></td>
-          <td><%= client.user_id %></td>
+          <td><%= client.user.name %></td>
           <td><%= client.phone_number %></td>
           <td><%= client.schedule %></td>
           <td><%= client.special_agreement %></td>
-          <td><%= client.group_id %></td>
-          <td><%= link_to 'Mostrar', client, class:"btn btn-info" %></td>
-          <td><%= link_to 'Editar', edit_client_path(client), class:"btn btn-info" %></td>
-          <td><%= link_to 'Eliminar', client, method: :delete, data: { confirm: 'Estas seguro/a?' }, class:"btn btn-info" %></td>
+          <td><%= client.group.name %></td>
+          <td><%= link_to 'Editar', edit_client_path(client), class:"btn btn-warning" %></td>
         </tr>
       <% end %>
     </tbody>

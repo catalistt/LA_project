@@ -35,6 +35,3 @@
 #PackagingConvertion.create(name: "Botella And", cost: 250, supplier_id: 5)
 #PackagingConvertion.create(name: "Sin botella", cost: 1700, supplier_id: 5)
 #PackagingConvertion.create(name: "Sin botella", cost: 2500, supplier_id: 3)
-
-
-

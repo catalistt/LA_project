@@ -1,0 +1,7 @@
+wb = xlsx_package.workbook
+wb.add_worksheet(name: "Cities") do |sheet|
+sheet.add_row ['Id', 'Ciudad', 'Código']
+  @cities.each do |city|
+    sheet.add_row [city.id, city.name, city.code]
+  end
+end

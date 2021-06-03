@@ -7,6 +7,34 @@ class HomeController < ApplicationController
       @orders_by_seller = Order.select(:user_id, :total_amount, :created_at).group(:user_id).sum(:total_amount)
       #@orders_by_date = Order.where(:created_at => @selected_start_date..@selected_end_date)
     end
+
+    def index_communes
+      @communes = Commune.all
+      respond_to do |format|
+        format.xlsx {
+          render xlsx: "index_communes", filename: "Comunas-#{DateTime.now.to_date}.xlsx"
+        }
+      end
+    end
+
+    def index_cities
+      @cities = City.all
+      respond_to do |format|
+        format.xlsx {
+          render xlsx: "index_cities", filename: "Ciudades-#{DateTime.now.to_date}.xlsx"
+        }
+      end
+    end
+
+    def index_products
+      @products = Product.all
+      respond_to do |format|
+        format.xlsx {
+          render xlsx: "index_products", filename: "Productos-#{DateTime.now.to_date}.xlsx"
+        }
+      end
+
+    end
   
     private
       # Use callbacks to share common setup or constraints between actions.
