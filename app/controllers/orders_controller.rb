@@ -155,7 +155,22 @@ class OrdersController < ApplicationController
 
   def create
     @order = Order.new(order_params)
+    @client = Client.find(order_params[:client_id])
     @order.user_id = @client.user_id
+    @order.add_products.each do |add_product|
+      brute_price = add_product.brute_price
+      net_price = add_product.net_price(brute_price)
+      add_product.price = brute_price
+      add_product.net_product_amount = net_price
+      add_product.extra_tax = net_price * add_product.product.tax.percentage
+      add_product.discount = add_product.group_discount(@client.group_id)
+    end
+    @add_products = @order.add_products
+    net_amount = @add_products.map(&:net_product_amount).reduce(:+)
+    @order.net_amount = net_amount
+    @order.total_iva = net_amount * 0.19
+    @order.total_amount = @add_products.map(&:total_product_amount).reduce(:+)
+    @order.total_extra_taxes = @add_products.map(&:extra_tax).reduce(:+)
     respond_to do |format|
       if @order.save
         @order.add_products.each do |add_product|

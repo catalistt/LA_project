@@ -1,0 +1,31 @@
+<br>
+<div class="container">
+  <div class="row">
+  <h3 class="text-bold">No pagaron hoy</h3>
+    <table class="table table-hover table-warning table-bordered bg-light" id="orders">
+      <thead class="text-center table-warning">
+        <tr>
+          <th>N° Orden</th> 
+          <th>Fecha Orden</th>
+          <th>Cliente</th>
+          <th>Saldo pendiente</th>
+        </tr>
+      </thead>
+      <tbody class="text-center">
+        <% @orders_unpayed.each do |order| %>
+            <td><%= order.id %></td>
+            <td><%= order.created_at.strftime("%d-%m-%Y") %></td>
+            <td><%= order.client.business_name %></td>
+            <% discount = order.discount_amount %>
+            <% if discount.nil? %>
+              <% aux = 0 %>
+            <% else %>
+              <% aux = discount %>
+            <% end %>
+            <td>$ <%= number_with_delimiter((order.total_amount - aux + order.freight).round) %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>

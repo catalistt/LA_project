@@ -2,6 +2,7 @@ $(document).on('turbolinks:load', function() {
   initOrderProduct();
   getOrderTotal();
   generateInvoice();
+
   $("#client-select").select2({
     placeholder: "Buscar cliente",
     theme: 'classic',
@@ -79,89 +80,84 @@ function disabledAllSelectedOptions(){
   }
 }
 
-function setProductInfo(){
-  $('.product').on('change', function() {
-    var productInput = $(this);
-    var clientInput = $('#order_client_id');
-    var clientId = clientInput.val();
-    var selectedOption = productInput.val();
-    if(clientId){
-      var parentContainer = productInput.closest(".add_new_product");
-      var quantityInput = parentContainer.find(".quantity");
-      var priceInput = parentContainer.find(".price");
-      var inputExtraTax = parentContainer.find(".extra_tax");
-      var productId = parentContainer.find('.product').val();
-      var productCost = parentContainer.find(".product_cost");
-      var groupDiscountInput = parentContainer.find(".group_discount");
-      var packagingAmountInput = parentContainer.find(".pack_amount");
-      var unitPrice = parentContainer.find('.unit-price');
-      $.ajax({
-        type: "GET",
-        url: "/products/" + productId + "/group_discount/" + clientId,
-        success: function(product){
-          var quant = parentContainer.find(".quantity").val()
-          window.thisProductStock = product.stock
-          // no agregues el producto si no está, sólo muestra el error
-          if(product.stock <= 0){
-            Swal.fire({
-              title: '¡Sin stock! Debes eliminar ese producto',
-              text: 'Este producto no puede ser vendido. NO tiene stock.',
-              icon: 'error',
-              confirmButtonText: ':( Ok',
-              timer: 6000
-            });
-          };
-          if(product.stock < parseInt(quant)){
-            Swal.fire({
-              title: '¡No alcanza el stock! ',
-              text: 'Por favor, ajustar cantidad.',
-              icon: 'error',
-              confirmButtonText: ':( Ok',
-              timer: 6000
-            });
-          };
-          inputExtraTax.val(product.extra_tax);
-          groupDiscountInput.val(product.discount);
-          productCost.val(product.cost);
-          priceInput.val(product.standard_price);
-          packagingAmountInput.val(product.pack_amount);
-          console.log(product);
-          var productUnit = product.unit;
-          unitPrice.val(productUnit);
-          if(quantityInput.val() === ""){
-            quantityInput.val(1);
-          }
-          getTotalAmount(productInput);
-          getOrderTotal();
+function setProductInfo(elem){
+  var productInput = elem;
+  var clientInput = $('#client-select');
+  var clientId = clientInput.val();
+  if(clientId){
+    var parentContainer = elem.closest(".add_new_product");
+    var quantityInput = parentContainer.find(".quantity");
+    var priceInput = parentContainer.find(".price");
+    var inputExtraTax = parentContainer.find(".extra_tax");
+    var productId = parentContainer.find('.product').val();
+    var productCost = parentContainer.find(".product_cost");
+    var groupDiscountInput = parentContainer.find(".group_discount");
+    var packagingAmountInput = parentContainer.find(".pack_amount");
+    var unitPrice = parentContainer.find('.unit-price');
+    $.ajax({
+      type: "GET",
+      url: "/products/" + productId + "/group_discount/" + clientId,
+      success: function(product){
+        var quant = parentContainer.find(".quantity").val()
+        window.thisProductStock = product.stock
+        if(product.stock <= 0){
+          Swal.fire({
+            title: '¡Sin stock! Debes eliminar ese producto',
+            text: 'Este producto no puede ser vendido. NO tiene stock.',
+            icon: 'error',
+            confirmButtonText: ':( Ok',
+            timer: 6000
+          });
+        };
+        if(product.stock < parseInt(quant)){
+          Swal.fire({
+            title: '¡No alcanza el stock! ',
+            text: 'Por favor, ajustar cantidad.',
+            icon: 'error',
+            confirmButtonText: ':( Ok',
+            timer: 6000
+          });
+        };
+        inputExtraTax.val(product.extra_tax);
+        groupDiscountInput.val(product.discount);
+        productCost.val(product.cost);
+        priceInput.val(product.standard_price);
+        packagingAmountInput.val(product.pack_amount);
+        var productUnit = product.unit;
+        unitPrice.val(productUnit);
+        if(quantityInput.val() === ""){
+          quantityInput.val(1);
         }
-      });
-      disabledAllSelectedOptions();
-    }
-    else{
-      Swal.fire({
-        title: 'Error',
-        text: 'Debes seleccionar un cliente primero y volver a seleccionar el producto',
-        icon: 'error',
-        confirmButtonText: 'Ok, entendido',
-        timer: 7000
-      });
-      clientInput.addClass("error");
-    };
-  });
+        getTotalAmount(productInput);
+        getOrderTotal();
+      }
+    });
+    disabledAllSelectedOptions();
+  }
+  else{
+    Swal.fire({
+      title: 'Error',
+      text: 'Debes seleccionar un cliente primero y volver a seleccionar el producto',
+      icon: 'error',
+      confirmButtonText: 'Ok, entendido',
+      timer: 7000
+    });
+    clientInput.addClass("error");
+  };
 }
+
 
 function getTotalAmount(element){
   /* Obtengo los valores de los containers de price, discount y quantity */
   var parentContainer = element.closest(".add_new_product");
   var priceInput = parentContainer.find(".price");
   var htmlUnit = parentContainer.find(".unit-price") || 1;
-  var cost = parseFloat(parentContainer.find(".cost").val());
+  var cost = parseFloat(parentContainer.find(".costp").val());
   var price = parseFloat(priceInput.val()) || 0;
   var discount = parseFloat(parentContainer.find('.discount').val()) || 0;
   var quantity = parseFloat(parentContainer.find('.quantity').val()) || 1;
   var groupDiscount = parseFloat(parentContainer.find('.group_discount').val()) || 0;
   var pUnit = parseInt(parentContainer.find('.unit-price').val());
-
   /* Obtener el total, considerando el descuento y la cantidad*/
   var totalAmountInput = parentContainer.find('.total_product_amount');
   var total = price * quantity;
@@ -171,8 +167,8 @@ function getTotalAmount(element){
   }
   else 
     {
-      var discount = parseFloat(parentContainer.find('.group_discount').val());
-     total = (total - discount*total); 
+      var discount = (parseFloat(parentContainer.find('.group_discount').val())/100);
+      total = (total - discount*total);
     }
 
   totalAmountInput.val(Math.round(total));
@@ -229,7 +225,7 @@ function initOrderProduct(){
       });
     }
   });
-  $('.cost').on('change', function(){
+  $('.costp').on('change', function(){
     setProductInfo($(this));
     getTotalAmount($(this));
   });

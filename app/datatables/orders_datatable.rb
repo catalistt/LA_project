@@ -25,11 +25,8 @@ class OrdersDatatable
       array << order.client_business_name
       array << order.user_name
       array << order.total_amount.round
-      array << order.delivery_method_vehicle_plate
-      array << order.responsable
       array << order.discount_amount
-      array << order.discount_comment
-      array << order.create_invoive? ? 'Si' : 'No'
+      array << order.responsable
       array << link_to(raw("<i class='fa fa-eye'></i>"), order_path(order), class: 'btn btn-info btn-xs mr-1') + link_to(raw("<i class='fa fa-edit'></i>"), edit_order_path(order), class: 'btn btn-success btn-xs mr-1') + link_to(raw("<i class='fa fa-trash'></i>"), order_path(order), class: 'btn btn-danger btn-xs', method: :delete)
       array <<  + check_invoice(order)
       array

@@ -92,8 +92,9 @@
               <th>Código</th> 
               <th>Producto</th>
               <th>Cantidad</th>
-              <th>Neto</th>
+              <th>Precio Neto</th>
               <th>Porcentaje impuesto extra</th>
+              <th>Total</th>
             </tr>
           </thead>
           <tbody class="text-center">
@@ -102,15 +103,11 @@
                 <td><%= item.product.code %></td>
                 <td><%= item.product.name %></td>
                 <td><%= item.quantity %></td>
+                <td><%= number_with_delimiter(item.net_product_amount.round/item.quantity) %></td>
+                <td><%= "#{item.product.tax_percentage.round(3)*100}%" %></td>
                 <td><%= number_with_delimiter(item.net_product_amount.round) %></td>
-                <td><%= item.product.tax_percentage.round(3) %></td>
               </tr>  
                 <% end %>
-                <td><%= "9999" %></td>
-                <td><%= "FLETE" %></td>
-                <td><%= "1" %></td>
-                <td><%=  number_with_delimiter((@order.freight / 1.19).round) %></td>
-                <td><%= "0" %></td>
               </tbody>
             </table>  
           </div>

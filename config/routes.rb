@@ -21,6 +21,7 @@ Rails.application.routes.draw do
   resources :packaging_convertions
   resources :packaging_receptions
   get 'payments/pending', to: "payments#pending"
+  get 'payments/today_pending', to:"payments#today_pending"
   get 'home/index'
   get 'home/dashboard'
   get 'home/downloads'

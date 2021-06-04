@@ -23,7 +23,7 @@
       </div>
       <div class="col-3">
         <%= form.label :client_id, "Cliente", class: "form-label"%><br>
-        <%= form.select(:client_id, Client.all.map {|client| ["#{client.id} - #{client.business_name}", client.id] }, { include_blank: 'Ingresar cliente'}, class: "custom-select") %>
+        <%= form.select(:client_id, Client.all.map {|client| ["#{client.id} - #{client.business_name}", client.id] }, { include_blank: 'Ingresar cliente'}, id: "client-select", class: "custom-select") %>
         
       </div>
 

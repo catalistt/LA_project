@@ -23,7 +23,30 @@ class PaymentsController < ApplicationController
 
   def pending
     @orders = Order.all.order('id DESC')
-    @sellers = User.with_role(:seller)    
+    @gerencia = User.where(role: "admin")
+    @p_gerencia = Order.where(user_id: @gerencia)
+    @antonio = User.find(3)
+    @p_antonio = Order.where(user_id: @antonio)
+    @brian = User.find(2)
+    @p_brian = Order.where(user_id: @brian)
+    @ronald = User.find(5)
+    @p_ronald = Order.where(user_id: @ronald)
+    @luis = User.find(4)
+    @p_luis = Order.where(user_id: @luis)
+  end
+
+  def today_pending
+    @today_orders = Order.where(created_at: Time.zone.now.beginning_of_day..Time.zone.now.end_of_day)
+    @order_payments= Payment.where(order_id: @today_orders)
+    @orders = []
+    sum = 0
+    @today_orders.each do |order|
+      @total_order_payed = Payment.where(order_id: order.id).pluck(:amount_payed)
+      if @total_order_payed[0].nil?
+        @orders.push(order.id)
+      end
+    end
+    @orders_unpayed = Order.where(id: @orders)
   end
 
   def set_pendings
