@@ -9,6 +9,7 @@ class User < ApplicationRecord
   has_many :consumes
   has_many :resources, through: :consume
   has_many :orders
+  has_many :payments
   enum gender: [:masculino, :femenino, :otro]
 
   before_save :clean_rut

@@ -127,7 +127,7 @@ class PaymentsController < ApplicationController
 
   def create
     @payment = Payment.new(payment_params)
-
+    @payment.user_id = current_user.id
     respond_to do |format|
       if @payment.save
         format.html { redirect_to @payment, notice: 'Se registró el pago correctamente.' }
@@ -165,7 +165,7 @@ class PaymentsController < ApplicationController
     end
 
     def payment_params
-      params.require(:payment).permit(:order_id, :payment_method_id, :amount_payed, :check_date, :status,
+      params.require(:payment).permit(:order_id, :payment_method_id, :user_id, :amount_payed, :check_date, :status,
       orders_attributes: [:id, :client_id, :user_id, :delivery_method_id, :net_amount, :total_iva, :total_extra_taxes, :total_amount, :total_packaging_amount, :visit_start, :visit_end, :discount_amount, :discount_comment, :create_invoive, :responsable],
       payment_methods_attributes: [:name])
     end

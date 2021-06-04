@@ -1,5 +1,5 @@
 <div class="row">
-  <div class="col-8 offset-2">
+  <div class="col-10 offset-1">
     <p id="notice"><%= notice %></p>
 
     <h1>Pagos recibidos</h1>
@@ -7,6 +7,7 @@
     <table class="table table-striped bg-light"> 
       <thead>
         <tr>
+          <th>Creador por</th>
           <th>N° Orden asociada</th>
           <th>Cliente/a</th>
           <th>Monto total de la orden</th>
@@ -19,7 +20,8 @@
 
       <tbody>
         <% @payments.each do |payment| %>
-          <tr> 
+          <tr>
+            <td><%= payment.user.name %></td>
             <td><%= payment.order.id %></td>
             <td><%= payment.order.client.business_name %></td>
             <% @this = payment.order.freight || 0 %>

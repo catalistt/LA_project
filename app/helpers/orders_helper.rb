@@ -27,7 +27,7 @@ module OrdersHelper
         sum = order.discount_amount
       end
 
-      if (order.total_amount - sum) > @total_order_payed
+      if (order.total_amount - sum + order.freight) > @total_order_payed
         unpaid_order.push(order)
       end
     end
