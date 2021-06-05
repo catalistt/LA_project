@@ -30,22 +30,35 @@ $(document).on('turbolinks:load', function() {
 function updateOrders(){
   $("#update_orders").on("click", function(){
     var orders = [];
+    var o_rounds = [];
     $(".delivery_method_id").each(function(){
       var deliveryMethod = $(this);
       var orderDeliveryId = deliveryMethod.val();
-      var orderId = deliveryMethod.data("oid");
+      var orderId = deliveryMethod.data("oid");      
+
       if(orderId !== "" && orderDeliveryId !== ""){
-        orders.push({ id: orderId, delivery_method_id: orderDeliveryId });
+        orders.push({ id: orderId, delivery_method_id: orderDeliveryId});
+      }
+    });
+    $(".round_id").each(function(){
+      var round = $(this);
+      var orderRoundId = round.val();
+      var orderId = round.data("oid");      
+
+      if(orderId !== "" && orderRoundId !== ""){
+        o_rounds.push({  id: orderId, round: orderRoundId });
       }
     });
     $.ajax({
       type: "PUT",
       url: "/orders/update_all",
       data: { order: {
-        orders: orders
+        orders: orders,
+        o_rounds: o_rounds
         }
       },
       success: function(){
+        console.log(orders);
         Swal.fire({
           title: '¡Logrado!',
           text: 'Se asignaron los camiones a las ordenes exitosamente',

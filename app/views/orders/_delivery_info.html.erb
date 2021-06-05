@@ -18,7 +18,7 @@
     <div class="row">
       <div class="col-3">
         <%= form.label :responsable, 'Responsable', class:"form-label" %>
-        <%= form.collection_select :responsable, User.all, :name , :name,{ :include_blank => 'Elegir responsable' }, class:"custom-select" %>
+        <%= form.collection_select :responsable, User.all, :name , :name,{ :include_blank => 'Elegir responsable' }, class:"custom-select responsable" %>
       </div>
 
       <div class="col-3">

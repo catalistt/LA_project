@@ -1,0 +1,33 @@
+
+[1mFrom:[0m /home/system/LA_project_2/app/controllers/orders_controller.rb:213 OrdersController#update_all:
+
+    [1;34m201[0m: [32mdef[0m [1;34mupdate_all[0m
+    [1;34m202[0m:   @orders = []
+    [1;34m203[0m:   @o_rounds = []
+    [1;34m204[0m:   order_params[[33m:orders[0m].each [32mdo[0m |_k, order|
+    [1;34m205[0m:     @order = [1;34;4mOrder[0m.find_by([35mid[0m: order[[33m:id[0m])
+    [1;34m206[0m:     @order.delivery_method_id = order[[33m:delivery_method_id[0m]
+    [1;34m207[0m:     @orders << @order
+    [1;34m208[0m:   [32mend[0m
+    [1;34m209[0m:   @delivery_methods = [1;34;4mDeliveryMethod[0m.where.not([35mvehicle_plate[0m: [1;36mnil[0m)
+    [1;34m210[0m:   @update_success = [1;34;4mOrder[0m.transaction [32mdo[0m
+    [1;34m211[0m:     @orders.each(&[33m:save[0m)
+    [1;34m212[0m:   [32mend[0m
+ => [1;34m213[0m:   binding.pry
+    [1;34m214[0m:   order_params[[33m:o_rounds[0m].each [32mdo[0m |_k, order|
+    [1;34m215[0m:     @order = [1;34;4mOrder[0m.find_by([35mid[0m: order[[33m:id[0m])
+    [1;34m216[0m:     @order.round = order[[33m:round[0m].to_i
+    [1;34m217[0m:     @orders << @order
+    [1;34m218[0m:   [32mend[0m
+    [1;34m219[0m:   
+    [1;34m220[0m:   @update_success = [1;34;4mOrder[0m.transaction [32mdo[0m
+    [1;34m221[0m:     @orders.each(&[33m:save[0m)
+    [1;34m222[0m:   [32mend[0m
+    [1;34m223[0m: 
+    [1;34m224[0m:   [32mif[0m @update_success
+    [1;34m225[0m:     render [35mpartial[0m: [31m[1;31m'[0m[31morders_form[1;31m'[0m[31m[0m, [35mstatus[0m: [1;34m200[0m
+    [1;34m226[0m:   [32melse[0m
+    [1;34m227[0m:     render [35mjson[0m: { [35merror[0m: [31m[1;31m'[0m[31mError[1;31m'[0m[31m[0m }, [35mstatus[0m: [1;34m400[0m
+    [1;34m228[0m:   [32mend[0m
+    [1;34m229[0m: [32mend[0m
+

@@ -27,6 +27,8 @@ class DeliveryOrdersDatatable
       array << order.user_name
       array << order.total_amount.round
       array << link_to('Agregar entrega', edit_delivery_info_order_path(order), class: 'btn btn-success')
+      array << link_to('Agregar pago', new_payment_path, class: 'btn btn-info')
+      array << link_to('Envases', new_packaging_reception_path, class: 'btn btn-secondary')
       array
     end
   end

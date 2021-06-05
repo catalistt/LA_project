@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_06_04_154219) do
+ActiveRecord::Schema.define(version: 2021_06_05_004118) do
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.string "namespace"
@@ -199,6 +199,7 @@ ActiveRecord::Schema.define(version: 2021_06_04_154219) do
     t.string "detail"
     t.float "freight"
     t.string "pdf_text"
+    t.integer "round"
     t.index ["client_id"], name: "index_orders_on_client_id"
     t.index ["delivery_method_id"], name: "index_orders_on_delivery_method_id"
     t.index ["user_id"], name: "index_orders_on_user_id"

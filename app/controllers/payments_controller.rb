@@ -36,7 +36,7 @@ class PaymentsController < ApplicationController
   end
 
   def today_pending
-    @today_orders = Order.where(created_at: Time.zone.now.beginning_of_day..Time.zone.now.end_of_day)
+    @today_orders = Order.where(date: Time.zone.now.beginning_of_day..Time.zone.now.end_of_day)
     @order_payments= Payment.where(order_id: @today_orders)
     @orders = []
     sum = 0

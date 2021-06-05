@@ -14,7 +14,7 @@ class CashRegistersController < InheritedResources::Base
     @cash_in = MoneyMovement.where(created_at: Time.zone.now.beginning_of_day..Time.zone.now.end_of_day, movement_type: 0, payment_method: 1).sum(:amount_payed)
     @last_final_cash = CashRegister.last.final_cash
     @total_in_no_delivery = @sale_in_no_delivery + @cash_in
-    @response = {cash_in: @total_in_no_delivery, cash_delivery: @sale_in_delivery, cash_out: @cash_out}
+    @response = {cash_in: @total_in_no_delivery, cash_no_delivery: @sale_in_no_delivery ,cash_delivery: @sale_in_delivery, cash_out: @cash_out}
     respond_to do |format|
       format.html
       format.json {render json: @response}
