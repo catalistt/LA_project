@@ -40,13 +40,17 @@ module PaymentsHelper
         sum = order.discount_amount
       end
 
-      if (order.total_amount - sum + order.freight) > @total_order_payed
-        total = order.total_amount - sum + order.freight - @total_order_payed
+      @this_order_payed = Payment.where(order_id: order).sum(:amount_payed)
+      if @this_order_payed.nil?
+        @this_order_payed = 0
+      end
+
+      if (order.total_amount - sum + order.freight) || 0 > @this_order_payed
+        total = order.total_amount - sum + order.freight - @this_order_payed
       end
       total_sum += total
     end
-    total_sum
-
+    total_sum || 0
   end
 
 

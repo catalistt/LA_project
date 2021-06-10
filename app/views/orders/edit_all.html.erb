@@ -1,13 +1,17 @@
 <div class="container-fluid">
-  <div class="col-5 border border-white bg-info offset-3 text-white negrita mt-5">
-    <h3 class="text-center">Monto asignado por camión</h3>
-    <div class="row update-deliveries mt-5">
-      <% @delivery_methods.each do |dm|%>
-        <div class="col-6"> 
-          <h5 class="border border-light p-2"><%= dm.vehicle_plate %> <%= number_with_delimiter(dm.orders.where('DATE(date) >= ?', Date.today).sum(:total_amount).round) %></h5>
+  <div class="row ml-2 mr-2">
+    <% @today_rounds.each do |round|%>
+      <div class="col-4 border border-white bg-blue text-white negrita mt-5">
+        <h4 class="text-center">Monto por camión - Vuelta <%=round%></h4>
+        <div class="row update-deliveries mt-3">
+            <% @delivery_methods.each do |dm|%>
+              <div class="col-6"> 
+                <h6 class="border border-light p-2"><%= dm.vehicle_plate %>: <%= number_with_delimiter(dm.orders.where('DATE(date) >= ?', Date.today).where(round: round).sum(:total_amount).round) %></h6>
+              </div>
+            <% end %>
         </div>
-      <% end %>
-    </div>
+      </div>
+    <% end %>
   </div>
   <div class="row mt-5" id="edit_orders">
     <%= render 'orders_form' %>

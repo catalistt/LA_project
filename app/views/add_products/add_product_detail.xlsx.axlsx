@@ -7,27 +7,31 @@ sheet.add_row ['Folio', 'Cliente', 'Producto', 'Cantidad', 'Camión']
 
   
   @deliveries.each do |delivery|
-    wb.add_worksheet(name: "#{delivery}-totalizado") do |sheet|
-      sheet.add_row ['Codigo','Cantidad']
-      @aux_delivery = DeliveryMethod.where(vehicle_plate: delivery)
-      @aux_orders = Order.where(delivery_method_id: @aux_delivery).where('DATE(date) >= ?', Date.today)
-      @aux_add_p = AddProduct.where(order_id: @aux_orders).group(:product)
-      @aux_add = @aux_add_p.sum(:quantity) 
-      @aux_add.each do |elem|
-        aux_p_name = Product.where(id: elem[0]).pluck(:code).join(',')
-        sheet.add_row [aux_p_name,elem[1]]
+    @today_rounds.each do |round|
+      wb.add_worksheet(name: "#{delivery}-totalizado-vuelta #{round}") do |sheet|
+        sheet.add_row ['Codigo','Cantidad']
+        @aux_delivery = DeliveryMethod.where(vehicle_plate: delivery)
+        @aux_orders = Order.where(delivery_method_id: @aux_delivery).where('DATE(date) >= ?', Date.today).where(round: round)
+        @aux_add_p = AddProduct.where(order_id: @aux_orders).group(:product)
+        @aux_add = @aux_add_p.sum(:quantity) 
+        @aux_add.each do |elem|
+          aux_p_name = Product.where(id: elem[0]).pluck(:code).join(',')
+          sheet.add_row [aux_p_name,elem[1]]
+        end
       end
     end
   end
 
   @deliveries.each do |delivery|
-    wb.add_worksheet(name: "#{delivery}-base") do |sheet|
-      @aux_delivery = DeliveryMethod.where(vehicle_plate: delivery)
-      @aux_orders = Order.where(delivery_method_id: @aux_delivery).where('DATE(date) >= ?', Date.today)
-      @aux_add_p = AddProduct.select("orders.*").includes(:order).joins(:order).where(order_id: @aux_orders)
-      sheet.add_row ['Folio', 'Cliente', 'Producto', 'Cantidad']
-      @aux_add_p.each do |op|
-        sheet.add_row [op.order_id, op.order.client.business_name, op.product.code, op.quantity]
+    @today_rounds.each do |round|
+      wb.add_worksheet(name: "#{delivery}-base-vuelta #{round}") do |sheet|
+        @aux_delivery = DeliveryMethod.where(vehicle_plate: delivery)
+        @aux_orders = Order.where(delivery_method_id: @aux_delivery).where('DATE(date) >= ?', Date.today).where(round: round)
+        @aux_add_p = AddProduct.select("orders.*").includes(:order).joins(:order).where(order_id: @aux_orders)
+        sheet.add_row ['Folio', 'Cliente', 'Producto', 'Cantidad']
+        @aux_add_p.each do |op|
+          sheet.add_row [op.order_id, op.order.client.business_name, op.product.code, op.quantity]
+        end
       end
     end
   end

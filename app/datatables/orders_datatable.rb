@@ -21,12 +21,19 @@ class OrdersDatatable
   def data
     orders.map do |order|
       array = []
+      array << order.id
       array << order.created_at.to_date
       array << order.client_business_name
-      array << order.user_name
-      array << order.total_amount.round
-      array << order.discount_amount
-      array << order.responsable
+      array << order.user_name.partition(" ").first.upcase
+      initial_sum = order.total_amount + order.freight
+      final_sum = order.total_amount + order.freight - (order.discount_amount || 0)
+      array << initial_sum
+      array << final_sum
+      if order.responsable.nil?
+        array << "NO ASIGNADO"
+      else
+        array << order.responsable.partition(" ").first.upcase
+      end
       array << link_to(raw("<i class='fa fa-eye'></i>"), order_path(order), class: 'btn btn-info btn-xs mr-1') + link_to(raw("<i class='fa fa-edit'></i>"), edit_order_path(order), class: 'btn btn-success btn-xs mr-1') + link_to(raw("<i class='fa fa-trash'></i>"), order_path(order), class: 'btn btn-danger btn-xs', method: :delete)
       array <<  + check_invoice(order)
       array

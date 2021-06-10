@@ -23,6 +23,7 @@ class DeliveryOrdersDatatable
       array = []
       array << order.id
       array << order.delivery_method_vehicle_plate
+      array << order.round
       array << order.client_business_name
       array << order.user_name
       array << order.total_amount.round

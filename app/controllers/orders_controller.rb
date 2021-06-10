@@ -191,7 +191,10 @@ class OrdersController < ApplicationController
   end
 
   def edit_all
-    @delivery_methods = DeliveryMethod.where.not(vehicle_plate: nil)
+    @today_deliveries = Order.where('DATE(date) >= ?', Date.today).where.not(round: nil).pluck(:delivery_method_id).uniq
+    @delivery_methods = DeliveryMethod.where(id:@today_deliveries)
+    @today_rounds = Order.where('DATE(date) >= ?', Date.today).where.not(round: nil).pluck(:round).uniq.sort
+
     respond_to do |format|
       format.html
       format.json { render json: AssignDeliveryMethodDatatable.new(view_context, { action: params[:action]}) }

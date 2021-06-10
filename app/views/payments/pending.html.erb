@@ -87,7 +87,7 @@
                   <td><%= order.id %></td>
                   <td><%= order.created_at.strftime("%d-%m-%Y") %></td>
                   <td><%= order.client.business_name %></td>
-                  <td>$ <%= number_with_delimiter((order.total_amount - sum + order.freight - @total_order_payed).round) %></td>
+                  <td>$ <%= number_with_delimiter((order.total_amount - sum + order.freight - @total_order_payed).round) || 0 %></td>
                   <% end %>
                 </tr>
               <% end %>

@@ -9,7 +9,7 @@ class AddProductsController < ApplicationController
   def print_detail
     @orders = Order.where('DATE(date) >= ?', Date.today).where.not(delivery_method_id: nil)
     @orders_products = AddProduct.select("orders.*").includes(:order).joins(:order).where(order_id: @orders)
-
+    @today_rounds = Order.where('DATE(date) >= ?', Date.today).where.not(delivery_method_id: nil).pluck(:round).uniq.sort
     @ids_deliveries = Order.where('DATE(date) >= ?', Date.today).where.not(delivery_method_id: nil).pluck(:delivery_method_id)
     @deliveries = DeliveryMethod.where(id: @ids_deliveries).map(&:vehicle_plate)
 
@@ -79,6 +79,6 @@ class AddProductsController < ApplicationController
       add_items_attributes: [product_id, :quantity, :total_product_amount, :price, :expiration_date, :second_expiration_date, :purchase_id],
       add_clients_attributes: [:client_id, :business_name],
       add_delivery_methods_attributes: [:delivery_method_id, :vehicle_plate, :policy_number, :ensurance_company],
-      add_orders_attributes: [:order_id, :client_id, :user_id, :delivery_method_id])
+      add_orders_attributes: [:order_id, :client_id, :user_id, :delivery_method_id, :round])
     end
 end
