@@ -382,6 +382,7 @@ DEPENDENCIES
   ransack
   rolify
   sass-rails (~> 5.0)
+  sassc
   select2-rails
   selenium-webdriver
   sendgrid-ruby
