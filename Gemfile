@@ -55,6 +55,7 @@ gem 'week_of_month'
 gem 'escpos'
 gem 'escpos-image'
 gem 'mini_magick'
+gem 'mimemagic', '~> 0.3.6'
 # Use ActiveStorage variant
 # gem 'mini_magick', '~> 4.8'
 
