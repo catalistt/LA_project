@@ -1,6 +1,9 @@
 {
   "name": "LA_project",
   "private": true,
+  "scripts": {
+    "start": "node server.js"
+  },
   "dependencies": {
     "datatables.net-bs4": "^1.10.24",
     "highcharts": "^8.2.2",
