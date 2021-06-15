@@ -34,3 +34,8 @@ sendgrid.env
 sendgrid.env
 
 .env
+
+
+npm-debug.log
+.DS_Store
+/*.env
