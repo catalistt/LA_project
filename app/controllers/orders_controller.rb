@@ -1,10 +1,31 @@
 class OrdersController < ApplicationController
-  before_action :set_order, only: [:show, :edit, :update, :destroy, :edit_delivery_info, :update_delivery_info]
+  before_action :set_order, only: [:show, :edit, :update, :destroy, :edit_delivery_info, :update_delivery_info, :create_dte, :download_dte]
   before_action :set_client, only: [:create, :update]
+
+  def order_pack_amount
+    @client = params['client_id']
+    @order = Order.where(client_id: @client).last
+    @order_pack_amount = @order.total_packaging_amount || 0
+    respond_to do |format|
+      format.html
+      format.json {render json: @order_pack_amount}
+    end
+  end
 
   def dashboard_clients
     @orders_by_count = Order.select(:client_id).group(:client_id).count
     @orders_by_sum = Order.select(:client_id, :total_amount).group(:client_id).sum(:total_amount)
+  end
+
+  def packaging_status
+    @clients = []
+    Client.all.each do |client|
+      total_given = Order.where('total_packaging_amount > ?', 0).where(client_id: client.id).sum(:total_packaging_amount)
+      if total_given <= 0
+      else
+        @clients.push(client)
+      end
+    end
   end
 
   def delivery_orders
@@ -55,7 +76,7 @@ class OrdersController < ApplicationController
   end
 
   def my_order
-    @orders = Order.where(user: current_user).order(created_at: :desc)
+    @orders = Order.where(user: current_user).where('DATE(date) >= ?', Date.today).order(created_at: :desc)
   end
 
   def index
@@ -83,7 +104,7 @@ class OrdersController < ApplicationController
           @name_quantity.push([name, elem[1]])
         end
       end
-      return @name_quantity    
+      return @name_quantity
     end
     respond_to do |format|
       format.html
@@ -104,7 +125,25 @@ class OrdersController < ApplicationController
         encoding:"UTF-8",
         show_as_html: params[:debug].present?
       end
-    end 
+    end
+  end
+
+  def create_dte
+    if @order.pdf_text.nil?
+      @lioren_service = LiorenService.new(@order)
+      response = @lioren_service.post_dte
+      @order.update_attributes(pdf_text: response['pdf'])
+    end
+    if @order.pdf_text.present?
+      render json: { status: :ok }
+    else
+      render json: { status: :bad_request }
+    end
+  end
+
+  def download_dte
+    raw_pdf_str = Base64.decode64(@order.pdf_text)
+    send_data(raw_pdf_str, filename: "factura_#{@order.id}.pdf")
   end
 
   def new
@@ -116,7 +155,22 @@ class OrdersController < ApplicationController
 
   def create
     @order = Order.new(order_params)
+    @client = Client.find(order_params[:client_id])
     @order.user_id = @client.user_id
+    @order.add_products.each do |add_product|
+      brute_price = add_product.brute_price
+      net_price = add_product.net_price(brute_price)
+      add_product.price = brute_price
+      add_product.net_product_amount = net_price
+      add_product.extra_tax = net_price * add_product.product.tax.percentage
+      add_product.discount = add_product.group_discount(@client.group_id)
+    end
+    @add_products = @order.add_products
+    net_amount = @add_products.map(&:net_product_amount).reduce(:+)
+    @order.net_amount = net_amount
+    @order.total_iva = net_amount * 0.19
+    @order.total_amount = @add_products.map(&:total_product_amount).reduce(:+)
+    @order.total_extra_taxes = @add_products.map(&:extra_tax).reduce(:+)
     respond_to do |format|
       if @order.save
         @order.add_products.each do |add_product|
@@ -137,7 +191,10 @@ class OrdersController < ApplicationController
   end
 
   def edit_all
-    @delivery_methods = DeliveryMethod.where.not(vehicle_plate: nil)
+    @today_deliveries = Order.where('DATE(date) >= ?', Date.today).where.not(round: nil).pluck(:delivery_method_id).uniq
+    @delivery_methods = DeliveryMethod.where(id:@today_deliveries)
+    @today_rounds = Order.where('DATE(date) >= ?', Date.today).where.not(round: nil).pluck(:round).uniq.sort
+
     respond_to do |format|
       format.html
       format.json { render json: AssignDeliveryMethodDatatable.new(view_context, { action: params[:action]}) }
@@ -146,6 +203,7 @@ class OrdersController < ApplicationController
 
   def update_all
     @orders = []
+    @o_rounds = []
     order_params[:orders].each do |_k, order|
       @order = Order.find_by(id: order[:id])
       @order.delivery_method_id = order[:delivery_method_id]
@@ -155,6 +213,15 @@ class OrdersController < ApplicationController
     @update_success = Order.transaction do
       @orders.each(&:save)
     end
+    order_params[:o_rounds].each do |_k, order|
+      @order = Order.find_by(id: order[:id])
+      @order.round = order[:round].to_i
+      @orders << @order
+    end
+    @update_success = Order.transaction do
+      @orders.each(&:save)
+    end
+
     if @update_success
       render partial: 'orders_form', status: 200
     else
@@ -249,10 +316,11 @@ class OrdersController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def order_params
-      params.require(:order).permit(:_destroy, :client_id, :user_id, :delivery_method_id, :net_amount, :total_iva, :client_business_name, :user_name, :total_extra_taxes, :total_amount, :total_packaging_amount, :visit_start, :visit_end, :discount_amount, :discount_comment, :create_invoive, :freight, :responsable, :detail, :date,
+      params.require(:order).permit(:_destroy, :client_id, :user_id, :round, :delivery_method_id, :net_amount, :total_iva, :client_business_name, :user_name, :total_extra_taxes, :total_amount, :total_packaging_amount, :visit_start, :visit_end, :discount_amount, :discount_comment, :create_invoive, :freight, :responsable, :detail, :date,
       add_products_attributes: [:id, :_destroy, :order_id, :product_id, :price, :discount, :quantity, :total_product_amount, :extra_tax, :packaging_amount, :net_product_amount],
       clients_attributes: [:id,:_destroy,  :business_name, :user_id, :rut, :address, :phone_number, :schedule, :special_agreement, :group_id],
       delivery_methods_attributes: [:id, :_destroy, :vehicle_plate, :policy_number, :ensurance_company],
-      orders: [:id, :delivery_method_id])
+      orders: [:id, :delivery_method_id, :round],
+      o_rounds: [:round, :o_rounds, :id])
     end
 end

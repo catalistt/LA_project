@@ -1,5 +1,5 @@
 class OrdersDatatable
-  delegate :params, :h, :link_to, :number_to_currency, :content_tag, :raw, to: :@view
+  delegate :params, :h, :link_to, :number_to_currency, :content_tag, :raw,:button_tag, to: :@view
   include Rails.application.routes.url_helpers
 
   def initialize(view, options = {})
@@ -21,17 +21,30 @@ class OrdersDatatable
   def data
     orders.map do |order|
       array = []
+      array << order.id
       array << order.created_at.to_date
       array << order.client_business_name
-      array << order.user_name
-      array << order.total_amount.round
-      array << order.delivery_method_vehicle_plate
-      array << order.responsable
-      array << order.discount_amount
-      array << order.discount_comment
-      array << order.create_invoive? ? 'Si' : 'No'
+      array << order.user_name.partition(" ").first.upcase
+      initial_sum = order.total_amount + order.freight
+      final_sum = order.total_amount + order.freight - (order.discount_amount || 0)
+      array << initial_sum
+      array << final_sum
+      if order.responsable.nil?
+        array << "NO ASIGNADO"
+      else
+        array << order.responsable.partition(" ").first.upcase
+      end
       array << link_to(raw("<i class='fa fa-eye'></i>"), order_path(order), class: 'btn btn-info btn-xs mr-1') + link_to(raw("<i class='fa fa-edit'></i>"), edit_order_path(order), class: 'btn btn-success btn-xs mr-1') + link_to(raw("<i class='fa fa-trash'></i>"), order_path(order), class: 'btn btn-danger btn-xs', method: :delete)
+      array <<  + check_invoice(order)
       array
+    end
+  end
+
+  def check_invoice(order)
+    if order.pdf_text.present?
+      button_tag(raw("<i class='fa fa-file'></i>"), type: :button, class: 'btn btn-info btn-xs mr-1 create_invoice_btn', data: {oid: order.id}) + link_to(raw('<i class="fa fa-download"></i>'), download_dte_order_path(order), method: :get, class: "btn btn-success btn-xs ", id: "download_invoice_#{order.id}")
+    else
+      button_tag(raw("<i class='fa fa-file'></i>"), type: :button, class: 'btn btn-info btn-xs mr-1 create_invoice_btn', data: { oid: order.id })
     end
   end
 

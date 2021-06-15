@@ -1,0 +1,18 @@
+<h3 class="p-4">Resumen de envases por camión y vuelta</h3>
+<% @total_turns.times do |turn| %>
+  <div class="row row-cols-1 row-cols-md-2">
+    <% @packaging_reception_deliveries.each do |delivery| %>
+      <div class="col-md-4 pt-2">
+        <div class="card offset-1 border-blue" style="width: 18rem;">
+          <div class="card-body">
+            <h5 class="card-title"><%= vehicle(delivery) %></h5>
+            <p class="card-text"><i class="fa fa-circle"></i> Vuelta: <%= turn +1%> </p>
+            <p class="card-text"><i class="fa fa-money" aria-hidden="true"></i>  Monto en plata: <%= daily_payed_receptions(delivery, turn+1) %></p>
+            <p class="card-text"><i class="fa fa-truck" aria-hidden="true"></i>  Monto en cajas: <%= daily_received_receptions(delivery, turn+1) %></p>
+          </div>
+        </div>
+      </div>
+      <br>
+    <% end %>
+  </div>
+<% end %>

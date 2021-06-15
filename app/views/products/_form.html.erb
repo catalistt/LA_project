@@ -14,28 +14,28 @@
       <% end %>
 
       <div class="form-group">
-        <%= form.label :code, "Código" %>
+        <%= form.label :code, raw('Código <span class="error">*</span>') %>
         <%= form.text_field :code, class: "form-control" %>
       </div>
 
       <div class="form-group">
-        <%= form.label :name, "Nombre" %>
+        <%= form.label :name, raw('Nombre <span class="error">*</span>') %>
         <%= form.text_field :name, class: "form-control" %>
       </div>
 
       <div class="form-group">
-        <%= form.label :cost, "Costo" %>
+        <%= form.label :cost,raw('Costo <span class="error">*</span>') %>
         <%= form.number_field :cost, class: "form-control" %>
       </div>
 
       <div class="form-group">
         <%= form.label :category, "Categoría" %>
-        <%= form.select(:category, categories, {}, { class: "custom-select"})%>
+        <%= form.select(:category, categories, {include_black: "Elegir"}, { class: "custom-select"})%>
       </div>
 
       <div class="form-group">
         <%= form.label :packaging, "Envase" %>
-        <%= form.select(:packaging, pack, {}, { class: "custom-select"}) %>
+        <%= form.select(:packaging, pack, {include_black: "Elegir"}, { class: "custom-select"}) %>
       </div>
 
       <div class="form-group">
@@ -60,12 +60,12 @@
       </div>
 
       <div class="form-group">
-        <%= form.label :extra_tax, "Impuesto extra" %>
-        <%= form.select(:extra_tax,  Tax.all.map {|tax| ["#{tax.code} - #{tax.name} (#{tax.percentage*100}%)", tax.percentage] }, { include_blank: 'Seleccionar' }, class: "custom-select") %>
+        <%= form.label :tax_id, "Impuesto extra" %>
+        <%= form.select(:tax_id,  Tax.all.map {|tax| ["#{tax.code} - #{tax.name} (#{tax.percentage*100}%)", tax.percentage] }, { include_blank: 'Seleccionar' }, class: "custom-select") %>
       </div>
 
       <div class="form-group">
-        <%= form.label :Precio_ruta %>
+        <%= form.label :standard_price, raw('Precio ruta <span class="error">*</span>') %>
         <%= form.number_field :standard_price, class: "form-control" %>
       </div>
 

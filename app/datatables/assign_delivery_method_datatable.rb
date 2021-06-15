@@ -33,6 +33,7 @@ class AssignDeliveryMethodDatatable
       array << order.detail
       array << order.delivery_method_vehicle_plate
       array << select_tag(:delivery_method_id, options_from_collection_for_select(DeliveryMethod.available, :id, :vehicle_plate, { include_blank: 'Elige patente', selected: order.delivery_method_id }), { class: "custom-select delivery_method_id", data: { oid: order.id } })
+      array << select_tag(:round, options_from_collection_for_select(DeliveryMethod.available, :id, :id, { include_blank: 'Elige vuelta', selected: order.round }), { class: "custom-select round_id", data: { oid: order.id } })
       array
     end
   end

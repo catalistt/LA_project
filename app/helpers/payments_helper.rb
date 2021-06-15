@@ -23,4 +23,40 @@ module PaymentsHelper
     @responsables = Order.where('DATE(date) >= ?', Date.today).where(delivery_method_id: delivery_id).pluck(:responsable).join(', ')
   end
 
+  def pending_by(user_id)
+    @orders = Order.where(user_id: user_id)
+    @order_payments = Payment.where(order_id: @orders)
+    #esta variable guarda el total pagado por los clientes del user_id
+    @total_order_payed = 0
+    @order_payments.each do |order_payment|
+      @total_order_payed += order_payment.amount_payed
+    end
+
+    total_sum = 0
+    @orders.each do |order|
+      if order.discount_amount.nil?
+        sum = 0
+      else
+        sum = order.discount_amount
+      end
+
+      @this_order_payed = Payment.where(order_id: order).sum(:amount_payed)
+      if @this_order_payed.nil?
+        @this_order_payed = 0
+      end
+
+      if (order.total_amount - sum + order.freight) || 0 > @this_order_payed
+        total = order.total_amount - sum + order.freight - @this_order_payed
+      end
+      total_sum += total
+    end
+    total_sum || 0
+  end
+
+
+
+
+
+
+
 end

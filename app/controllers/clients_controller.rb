@@ -35,7 +35,10 @@ class ClientsController < ApplicationController
         format.html { redirect_to @client, notice: 'Client was successfully created.' }
         format.json { render :show, status: :created, location: @client }
       else
-        format.html { render :new }
+        format.html {
+          flash[:error] = 'Hubo un problema creando este cliente'
+          render :new
+        }
         format.json { render json: @client.errors, status: :unprocessable_entity }
       end
     end
@@ -73,6 +76,6 @@ class ClientsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def client_params
-      params.require(:client).permit(:business_name, :rut, :address, :user_id, :phone_number, :schedule, :special_agreement, :group_id, :city_id, :commune_id)
+      params.require(:client).permit(:business_name, :rut, :address, :user_id, :phone_number, :schedule, :special_agreement, :group_id, :city_id, :commune_id, :line_of_business)
     end
 end

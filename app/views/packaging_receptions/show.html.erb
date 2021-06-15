@@ -1,0 +1,44 @@
+<div class="container pt-3">
+  <div class="row">
+    <div class="col-5 bg-white border border-dark"><br>
+      <h2 class="text-bold">Resumen del registro</h2> 
+      <p>
+        <strong>Cliente:</strong>
+        <%= @packaging_reception.client %>
+      </p>
+
+      <p>
+        <strong>Camión:</strong>
+        <%= @packaging_reception.delivery_method.vehicle_plate %>
+      </p>
+
+      <p>
+        <strong>Vuelta:</strong>
+        <%= @packaging_reception.turn %>
+      </p>
+
+      <p>
+        <strong>Total en cajas:</strong>
+        <% if @packaging_reception.total_box_amount.nil? %>
+          <%= 0 %>
+        <% else %>
+          <%= number_with_delimiter(@packaging_reception.total_box_amount.round) %>
+        <% end %>
+      </p>
+
+      <p>
+        <strong>Total en monto:</strong>
+        <% if @packaging_reception.total_payed.nil? %>
+          <%= 0 %>
+        <% else %>
+          <%= number_with_delimiter(@packaging_reception.total_payed.round) %>
+        <% end %>
+      </p>
+
+      <%= link_to 'Editar', edit_packaging_reception_path(@packaging_reception), class:"btn btn-danger" %> 
+      <%= link_to 'Nuevo registro', new_packaging_reception_path, class:"btn btn-info" %>
+      <br>
+      <br>
+    </div>
+  </div>
+</div>

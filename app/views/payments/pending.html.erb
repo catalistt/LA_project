@@ -1,42 +1,253 @@
+
 <div class="container">
   <div class="row">
   </div><br>
-  <div class="row">
-    <table class="table table-hover table-warning table-bordered bg-light" id="orders">
-      <thead class="text-center table-warning">
-        <tr>
-          <th>N° Orden</th> 
-          <th>Vendedor</th>
-          <th>Fecha Orden</th>
-          <th>Cliente</th>
-          <th>Saldo pendiente</th>
-        </tr>
-      </thead>
-      <tbody class="text-center">
-        <% @orders.each do |order| %>
-          <tr>
-            <% @order_payments = Payment.where(order_id: order.id) %>
-            <% @total_order_payed = 0 %>
-            <% @order_payments.each do |order_payment| %>
-              <% @total_order_payed += order_payment.amount_payed %>
-            <% end %>
+      <div class="accordion" id="accordionExample">
+      <div class="card">
+      <div class="card-header" id="headingOne">
+        <h5 class="mb-0">
+          <button class="btn text-bold collapsed" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+               <%= "Gerencia     -       total: #{number_with_delimiter(pending_by(9).round)}" %> 
+              </button>
+            </h5>
+          </div>
 
-            <% if order.discount_amount.nil? %>
-              <% sum = 0 %>
-            <% else %>
-              <% sum = order.discount_amount %>
-            <% end %>
+          <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
+            <div class="card-body">
+            <table class="table table-hover table-warning table-bordered bg-light" id="orders">
+            <thead class="text-center table-warning">
+              <tr>
+                <th>N° Orden</th> 
+                <th>Fecha Orden</th>
+                <th>Cliente</th>
+                <th>Saldo pendiente</th>
+              </tr>
+            </thead>
+            <tbody class="text-center">
+              <% @p_gerencia.each do |order| %>
+                <tr>
+                  <% @order_payments = Payment.where(order_id: order.id) %>
+                  <% @total_order_payed = 0 %>
+                  <% @order_payments.each do |order_payment| %>
+                    <% @total_order_payed += order_payment.amount_payed %>
+                  <% end %>
 
-            <% if (order.total_amount - sum) > @total_order_payed %>
-            <td><%= order.id %></td>
-            <td><%= order.client.user.name %></td>
-            <td><%= order.created_at.strftime("%d-%m-%Y") %></td>
-            <td><%= order.client.business_name %></td>
-            <td>$ <%= number_with_delimiter((order.total_amount - @total_order_payed).round) %></td>
+                  <% if order.discount_amount.nil? %>
+                    <% sum = 0 %>
+                  <% else %>
+                    <% sum = order.discount_amount %>
+                  <% end %>
+                  <% if (order.total_amount - sum + order.freight) > @total_order_payed %>
+                  <td><%= order.id %></td>
+                  <td><%= order.created_at.strftime("%d-%m-%Y") %></td>
+                  <td><%= order.client.business_name %></td>
+                  <td>$ <%= number_with_delimiter((order.total_amount - sum + order.freight - @total_order_payed).round) %></td>
+                  <% end %>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+            </div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-header" id="headingTwo">
+            <h5 class="mb-0">
+              <button class="btn text-bold collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+              <%= "Antonio    -       total: #{number_with_delimiter(pending_by(3).round)}" %> 
+              </button>
+            </h5>
+          </div>
+          <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
+            <div class="card-body">
+            <table class="table table-hover table-warning table-bordered bg-light" id="orders">
+            <thead class="text-center table-warning">
+              <tr>
+                <th>N° Orden</th>
+                <th>Fecha Orden</th>
+                <th>Cliente</th>
+                <th>Saldo pendiente</th>
+              </tr>
+            </thead>
+            <tbody class="text-center">
+              <% @p_antonio.each do |order| %>
+                <tr>
+                  <% @order_payments = Payment.where(order_id: order.id) %>
+                  <% @total_order_payed = 0 %>
+                  <% @order_payments.each do |order_payment| %>
+                    <% @total_order_payed += order_payment.amount_payed %>
+                  <% end %>
+
+                  <% if order.discount_amount.nil? %>
+                    <% sum = 0 %>
+                  <% else %>
+                    <% sum = order.discount_amount %>
+                  <% end %>
+                  <% if (order.total_amount - sum + order.freight) > @total_order_payed %>
+                  <td><%= order.id %></td>
+                  <td><%= order.created_at.strftime("%d-%m-%Y") %></td>
+                  <td><%= order.client.business_name %></td>
+                  <td>$ <%= number_with_delimiter((order.total_amount - sum + order.freight - @total_order_payed).round) || 0 %></td>
+                  <% end %>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+            </div>
+          </div>
+        </div>
+  
+
+        <div class="card">
+          <div class="card-header" id="headingThree">
+            <h5 class="mb-0">
+              <button class="btn text-bold collapsed" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+              <%= "Brian     -       total: #{number_with_delimiter(pending_by(2).round)}" %> 
+              </button>
+            </h5>
+          </div>
+          <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
+            <div class="card-body">
+            <table class="table table-hover table-warning table-bordered bg-light" id="orders">
+            <thead class="text-center table-warning">
+              <tr>
+                <th>N° Orden</th>
+                <th>Fecha Orden</th>
+                <th>Cliente</th>
+                <th>Saldo pendiente</th>
+              </tr>
+            </thead>
+            <tbody class="text-center">
+              <% @p_brian.each do |order| %>
+                <tr>
+                  <% @order_payments = Payment.where(order_id: order.id) %>
+                  <% @total_order_payed = 0 %>
+                  <% @order_payments.each do |order_payment| %>
+                    <% @total_order_payed += order_payment.amount_payed %>
+                  <% end %>
+
+                  <% if order.discount_amount.nil? %>
+                    <% sum = 0 %>
+                  <% else %>
+                    <% sum = order.discount_amount %>
+                  <% end %>
+
+                  <% if (order.total_amount - sum + order.freight) > @total_order_payed %>
+                  <td><%= order.id %></td>
+                  <td><%= order.created_at.strftime("%d-%m-%Y") %></td>
+                  <td><%= order.client.business_name %></td>
+                  <td>$ <%= number_with_delimiter((order.total_amount - sum + order.freight - @total_order_payed).round) %></td>
+                  <% end %>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+            </div>
+          </div>
+        </div>
+
+      
+
+        <div class="card">
+        <div class="card-header" id="headingFour">
+          <h5 class="mb-0">
+            <button class="btn text-bold collapsed" type="button" data-toggle="collapse" data-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+            <%= "Ronald     -       total: #{number_with_delimiter(pending_by(5).round)}" %> 
+            </button>
+          </h5>
+        </div>
+        <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#accordionExample">
+          <div class="card-body">
+          <table class="table table-hover table-warning table-bordered bg-light" id="orders">
+          <thead class="text-center table-warning">
+            <tr>
+              <th>N° Orden</th>
+              <th>Fecha Orden</th>
+              <th>Cliente</th>
+              <th>Saldo pendiente</th>
+            </tr>
+          </thead>
+          <tbody class="text-center">
+            <% @p_ronald.each do |order| %>
+              <tr>
+                <% @order_payments = Payment.where(order_id: order.id) %>
+                <% @total_order_payed = 0 %>
+                <% @order_payments.each do |order_payment| %>
+                  <% @total_order_payed += order_payment.amount_payed %>
+                <% end %>
+
+                <% if order.discount_amount.nil? %>
+                  <% sum = 0 %>
+                <% else %>
+                  <% sum = order.discount_amount %>
+                <% end %>
+
+                <% if (order.total_amount - sum + order.freight) > @total_order_payed %>
+                <td><%= order.id %></td>
+                <td><%= order.created_at.strftime("%d-%m-%Y") %></td>
+                <td><%= order.client.business_name %></td>
+                <td>$ <%= number_with_delimiter((order.total_amount - sum + order.freight - @total_order_payed).round) %></td>
+                <% end %>
+              </tr>
             <% end %>
-          </tr>
-        <% end %>
-      </tbody>
-    </table>
+          </tbody>
+        </table>
+          </div>
+        </div>
+      </div>
+
+
+
+
+
+
+        <div class="card">
+          <div class="card-header" id="headingFive">
+            <h5 class="mb-0">
+              <button class="btn text-bold collapsed" type="button" data-toggle="collapse" data-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
+              <%= "Luis    -       total: #{number_with_delimiter(pending_by(4).round)}" %> 
+              </button>
+            </h5>
+          </div>
+          <div id="collapseFive" class="collapse" aria-labelledby="headingFive" data-parent="#accordionExample">
+            <div class="card-body">
+              <table class="table table-hover table-warning table-bordered bg-light" id="orders">
+                <thead class="text-center table-warning">
+                  <tr>
+                    <th>N° Orden</th>
+                    <th>Fecha Orden</th>
+                    <th>Cliente</th>
+                    <th>Saldo pendiente</th>
+                  </tr>
+                </thead>
+                <tbody class="text-center">
+                  <% @p_luis.each do |order| %>
+                    <tr>
+                      <% @order_payments = Payment.where(order_id: order.id) %>
+                      <% @total_order_payed = 0 %>
+                      <% @order_payments.each do |order_payment| %>
+                        <% @total_order_payed += order_payment.amount_payed %>
+                      <% end %>
+
+                      <% if order.discount_amount.nil? %>
+                        <% sum = 0 %>
+                      <% else %>
+                        <% sum = order.discount_amount %>
+                      <% end %>
+
+                      <% if (order.total_amount - sum + order.freight) > @total_order_payed %>
+                      <td><%= order.id %></td>
+                      <td><%= order.created_at.strftime("%d-%m-%Y") %></td>
+                      <td><%= order.client.business_name %></td>
+                      <td>$ <%= number_with_delimiter((order.total_amount - sum + order.freight - @total_order_payed).round) %></td>
+                      <% end %>
+                    </tr>
+                  <% end %>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
-</div>

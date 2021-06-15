@@ -3,8 +3,11 @@ class AddProduct < ApplicationRecord
   belongs_to :order, inverse_of: :add_products
   accepts_nested_attributes_for :product
 
+  validates :quantity, presence: true
+  # validates :net_product_amount, presence: true
+
   delegate :standard_price, to: :product, prefix: :product
-  delegate :extra_tax, to: :product, prefix: :product
+  delegate :tax_id, to: :product, prefix: :product
 
   def self.search(search)
     if search
@@ -16,8 +19,12 @@ class AddProduct < ApplicationRecord
     product_standard_price * (quantity || 1)
   end
 
+  def packaging_a(pack_amount)
+    pack_amount * (quantity || 1)
+  end
+
   def net_price(brute_amount)
-    brute_amount / (1.19 + product_extra_tax)
+    brute_amount / (1.19 + (product&.tax&.percentage || 0))
   end
 
   def group_discount(group_id)

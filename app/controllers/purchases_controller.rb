@@ -8,6 +8,14 @@ class PurchasesController < ApplicationController
   def show
   end
 
+  def purchases_numbers
+    @purchases_num = Purchase.all.pluck(:invoice_number)
+    respond_to do |format|
+      format.html
+      format.json {render json: @purchases_num}
+    end
+  end
+
   def new
     @purchase = Purchase.new
   end

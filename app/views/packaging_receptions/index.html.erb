@@ -1,0 +1,42 @@
+<div class="container">
+  <h3>Recepción de envases</h3>
+  <table class="table table-striped bg-light">
+    <thead>
+        <tr>
+          <th>Cliente</th>
+          <th>Patente</th>
+          <th>Vuelta</th>
+          <th>Total traido en cajas</th>
+          <th>Total pagado en dinero</th>
+          <th>Acciones </th>
+          
+        </tr>
+      </thead>
+
+      <tbody>
+        <% @packaging_receptions.order(created_at: :desc).each do |packaging_reception| %>
+          <tr>
+            <% if packaging_reception.delivery_method_id.nil? %>
+              <td><%= packaging_reception.client %></td>
+              <td><%= "Sin camión" %></td>
+              <td><%= packaging_reception.turn %></td>
+              <td><%= number_with_delimiter(packaging_reception.total_box_amount) %></td>
+              <td><%= number_with_delimiter(packaging_reception.total_payed) %></td>
+              <td><%= link_to raw("<span class='fa fa-edit'></span>"), edit_packaging_reception_path(packaging_reception), class:"btn bg-warning" %></td>
+            <% else %> 
+              <td><%= packaging_reception.client %></td>
+              <td><%= packaging_reception.delivery_method.vehicle_plate %></td>
+              <td><%= packaging_reception.turn %></td>
+              <td><%= number_with_delimiter(packaging_reception.total_box_amount) %></td>
+              <td><%= number_with_delimiter(packaging_reception.total_payed) %></td>
+              <td><%= link_to raw("<span class='fa fa-edit'></span>"), edit_packaging_reception_path(packaging_reception), class:"btn bg-warning" %></td>
+              <td><%= link_to raw("<span class='fa fa-trash'></span>"), packaging_reception, method: :delete,class:"btn bg-danger",  data: { confirm: 'Estas seguro/a de eliminar la recepción?' } %></td>
+            <% end %>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+    <br>
+    <%= link_to 'Agregar nueva recepción', new_packaging_reception_path, class:"btn btn-success" %>
+</div>
+   

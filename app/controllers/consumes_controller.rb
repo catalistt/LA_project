@@ -1,28 +1,40 @@
 class ConsumesController < ApplicationController
   before_action :set_consume, only: [:show, :edit, :update, :destroy]
+  before_action :collation, only: [:other_consumes]
 
-  # GET /consumes
-  # GET /consumes.json
+
   def index
-    @consumes = Consume.all
+    @consumes = Consume.all.order(created_at: :desc)
   end
 
-  # GET /consumes/1
-  # GET /consumes/1.json
+  def other_consumes
+  end
+
+  def collation
+    @users = User.all
+    @last_month = (Time.now.beginning_of_month - 1.day).strftime("%m").to_i
+    @this_month = (Time.now.beginning_of_month).strftime("%m").to_i
+    @next_month = (Time.now.end_of_month + 1.day).strftime("%m").to_i
+    @last_month_date = (Time.now.beginning_of_month - 1.day).strftime("%Y-%m-%d").split("-")
+    @this_month_date = (Time.now.beginning_of_month).strftime("%Y-%m-%d").split("-")
+    @next_month_date = (Time.now.end_of_month + 1.day).strftime("%Y-%m-%d").split("-")
+
+    @last_month_weeks =  Date.new(@last_month_date[0].to_i, @last_month_date[1].to_i, @last_month_date[2].to_i).total_weeks
+    @this_month_weeks =  Date.new(@this_month_date[0].to_i, @this_month_date[1].to_i, @this_month_date[2].to_i).total_weeks
+    @next_month_weeks =  Date.new(@next_month_date[0].to_i, @next_month_date[1].to_i, @next_month_date[2].to_i).total_weeks
+
+  end
+
   def show
   end
 
-  # GET /consumes/new
   def new
     @consume = Consume.new
   end
 
-  # GET /consumes/1/edit
   def edit
   end
 
-  # POST /consumes
-  # POST /consumes.json
   def create
     @consume = Consume.new(consume_params)
 

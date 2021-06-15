@@ -1,10 +1,7 @@
 <p id="notice"><%= notice %></p>
 <div class="row">
-  <div class="col-8 offset-2">
+  <div class="col-10 offset-1">
     <h1>Consumos</h1>
-    <%= text_field_tag 'consume_dates', "Seleccionar fechas", class: 'date-range' %><br>
-    <%= link_to 'Buscar fechas', new_consume_path, class:"btn btn-success" %>
-
     <br>
     <table class="table table-striped bg-light">
       <thead>
@@ -27,7 +24,7 @@
             <td><%= consume.resource.name %></td>
             <td><%= consume.category %></td>
             <td><%= consume.quantity %></td>
-            <td><%= consume.total_amount.round %></td>
+            <td><%= number_with_delimiter(consume.total_amount.round) %></td>
             <td><%= link_to raw("<span class='fa fa-edit'></span>"), edit_consume_path(consume), class: "btn btn-warning" %></td>
             <td><%= link_to raw("<span class='fa fa-trash'></span>"), consume, method: :delete,class: "btn btn-danger" , data: { confirm: 'Estas seguro/a de eliminar el registro?' } %></td>
           </tr>

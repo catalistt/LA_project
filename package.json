@@ -1,9 +1,14 @@
 {
   "name": "LA_project",
   "private": true,
+  "engines": {
+    "yarn": "1.22.10"
+  },
   "dependencies": {
     "datatables.net-bs4": "^1.10.24",
     "highcharts": "^8.2.2",
+    "jquery-validation": "^1.19.3",
+    "jquery.rut": "^1.1.2",
     "moment": "^2.29.1",
     "sweetalert2": "^10.15.6"
   }

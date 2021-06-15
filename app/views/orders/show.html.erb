@@ -2,6 +2,7 @@
   <div class="row">
     <div class="col-6 offset-2 justify-content-center">
       <br><%= link_to 'Ver pdf - imprimir', order_path(id: @order.id, format: :pdf), target: '_blank', class: "btn btn-info" %>
+      <%= link_to 'Impresion térmica', thermal_prints_print_path, class: "btn btn-success  " %>
       <%= link_to 'Agregar nueva orden', new_order_path, class: "btn btn-success  " %>
     </div>
   </div>
@@ -91,8 +92,9 @@
               <th>Código</th> 
               <th>Producto</th>
               <th>Cantidad</th>
-              <th>Neto</th>
+              <th>Precio Neto</th>
               <th>Porcentaje impuesto extra</th>
+              <th>Total</th>
             </tr>
           </thead>
           <tbody class="text-center">
@@ -101,8 +103,9 @@
                 <td><%= item.product.code %></td>
                 <td><%= item.product.name %></td>
                 <td><%= item.quantity %></td>
+                <td><%= number_with_delimiter(item.net_product_amount.round/item.quantity) %></td>
+                <td><%= "#{item.product.tax_percentage.round(3)*100}%" %></td>
                 <td><%= number_with_delimiter(item.net_product_amount.round) %></td>
-                <td><%= item.product.extra_tax.round(3) %></td>
               </tr>  
                 <% end %>
               </tbody>
@@ -127,10 +130,11 @@
                 <h6 class="text-blue text-bold"> Total:</h6>
               </div>
               <div class="col w-35 d-table-cell">
-                <h6>$ <%= number_with_delimiter(@order.net_amount.round) %></h6>
-                <h6>$ <%= number_with_delimiter(@order.total_iva.round) %></h6>
+                <% @order_net_freight = @order.freight / 1.19 %>
+                <h6>$ <%= number_with_delimiter((@order.net_amount + @order_net_freight).round) %></h6>
+                <h6>$ <%= number_with_delimiter((@order.total_iva + @order_net_freight * 0.19).round)%></h6>
                 <h6>$ <%= number_with_delimiter(@order.total_extra_taxes.round) %></h6>
-                <h6 class="text-bold">$ <%= number_with_delimiter(@order.total_amount.round) %></h6>
+                <h6 class="text-bold">$ <%= number_with_delimiter((@order.total_amount + @order.freight).round) %></h6>
               </div>
             </div>
           </div>

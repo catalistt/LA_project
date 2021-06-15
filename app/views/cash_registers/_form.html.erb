@@ -15,6 +15,13 @@
                 </ul>
               </div>
             <% end %>
+            <div class="row">
+            <div class="col-3 bg-secondary text-white text-center border border-dark pb-2"><br>
+              <h4>Último monto en caja</h4>
+              <p class="cash-out pl-5"><i class="fa fa-money" aria-hidden="true"></i> <%= number_with_delimiter(@last_final_cash)%></p>
+            </div>
+          </div>
+          <br>
           
           <div class="row">
             <div class="col-3 bg-light border pb-2"><br>
@@ -24,19 +31,15 @@
               </div>
             </div>
             <div class="col-3 bg-light border pb-2"><br>
-              <h4>Entradas de efectivo</h4>
-              <p class="cash-in pl-5"><%= number_with_delimiter(@total_in.round)%></p>
+              <h4>Entradas de efectivo - Gerencia</h4>
+              <p class="cash-in pl-5"><%= number_with_delimiter(@total_in_no_delivery.round)%></p>
             </div>
-
-            <div class="col-2 bg-secondary text-white text-center border border-dark pb-2 offset-1"><br>
-              <h4>Último monto en caja</h4>
-              <p class="cash-out pl-5"><i class="fa fa-money" aria-hidden="true"></i> <%= number_with_delimiter(@last_final_cash)%></p>
+            <div class="col-3 bg-light border pb-2"><br>
+              <h4>Entradas de efectivo - Recibido Ruta</h4>
+              <p class="cash-in pl-5"><%= number_with_delimiter(@sale_in_delivery.round)%></p>
             </div>
 
           </div>
-
-
-
 
           <div class="row">
             <div class="col-3 bg-light border pb-2"><br>
@@ -44,14 +47,19 @@
               <p class="cash-out pl-5"><%= number_with_delimiter(@cash_out.round)%></p>
             </div>
             <div class="col-3 bg-light border pb-2"><br>
-              <h4>Caja final</h4>
+              <h4>Caja final - Gerencia</h4>
+              <div class="field">
+                <%= form.text_field :final_cash_admin, class:"btn btn-light final-cash-admin"%>
+              </div>
+            </div>
+            <div class="col-3 bg-light border pb-2"><br>
+              <h4>Caja final - total</h4>
               <div class="field">
                 <%= form.text_field :final_cash, class:"btn btn-light final-cash"%>
               </div>
             </div>
           </div>
-          <br>
-
+            <br>
             <div class="actions">
               <%= form.submit "Ingresar registro del día", class:"btn btn-info" %>
             </div>

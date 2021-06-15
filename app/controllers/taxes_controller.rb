@@ -1,4 +1,4 @@
-class TaxesController < InheritedResources::Base
+class TaxesController < ApplicationController
 
   private
 

@@ -25,14 +25,14 @@
               <% else %>
                 <% disc = order.discount_amount %>
               <% end %>
-              <td><%= number_with_delimiter((order.total_amount - disc).round) %></td>
+              <td><%= number_with_delimiter((order.total_amount + order.freight - disc).round) %></td>
               <% @order_payments = Payment.where(order_id: order.id) %>
               <% @total_order_payed = 0 %>
               <% @order_payments.each do |order_payment| %>
                 <% @total_order_payed += order_payment.amount_payed %>
               <% end %>
               <td><%= number_with_delimiter(@total_order_payed.round) %></td>
-              <td><%= number_with_delimiter((order.total_amount - @total_order_payed - disc).round) %></td>
+              <td><%= number_with_delimiter((order.total_amount + order.freight - @total_order_payed - disc).round) %></td>
             </tr>
           <% end %>
         </tbody>

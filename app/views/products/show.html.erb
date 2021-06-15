@@ -40,7 +40,11 @@
 
           <p>
             <strong>Impuesto extra:</strong>
-            <%= @product.extra_tax %>
+            <% if @product.tax.nil? %>
+              <%= "N/A" %>
+            <% else %>
+              <%= @product.tax.percentage %>
+            <% end %>
           </p>
 
           <p>

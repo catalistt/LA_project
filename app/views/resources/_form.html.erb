@@ -25,6 +25,11 @@
           <%= form.text_field :amount, class:"form-control" %>
         </div>
 
+        <div class="field pt-2">
+          <%= form.label :Categoria %>
+          <%= form.select(:group, ["Consumo oficina", "Otros descuentos"], {include_blank:'Seleccionar'}, class: "custom-select") %>
+        </div>
+
         <div class="actions pt-2">
           <%= form.submit "Agregar item", class:"btn btn-info" %>
         </div>

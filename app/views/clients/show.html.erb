@@ -1,44 +1,52 @@
-<p id="notice"><%= notice %></p>
+<div class="container pt-3">
+  <div class="row">
+    <div class="col-5 bg-white border border-dark"><br>
+      <h2 class="text-bold">Cliente ingresado</h2> 
+      <p>
+        <strong>Razón social:</strong>
+        <%= @client.business_name %>
+      </p>
 
-<p>
-  <strong>Business name:</strong>
-  <%= @client.business_name %>
-</p>
+      <p>
+        <strong>Rut:</strong>
+        <%= @client.rut %>
+      </p>
 
-<p>
-  <strong>Rut:</strong>
-  <%= @client.rut %>
-</p>
+      <p>
+        <strong>Direccion:</strong>
+        <%= @client.address %>
+      </p>
 
-<p>
-  <strong>Address:</strong>
-  <%= @client.address %>
-</p>
+      <p>
+        <strong>Vendedor:</strong>
+        <%= @client.user.name %>
+      </p>
 
-<p>
-  <strong>User:</strong>
-  <%= @client.user_id %>
-</p>
+      <p>
+        <strong>Teléfono:</strong>
+        <%= @client.phone_number %>
+      </p>
 
-<p>
-  <strong>Phone number:</strong>
-  <%= @client.phone_number %>
-</p>
+      <p>
+        <strong>Horario:</strong>
+        <%= @client.schedule %>
+      </p>
 
-<p>
-  <strong>Schedule:</strong>
-  <%= @client.schedule %>
-</p>
+      <p>
+        <strong>Acuerdos especiales:</strong>
+        <%= @client.special_agreement %>
+      </p>
 
-<p>
-  <strong>Special agreeement:</strong>
-  <%= @client.special_agreement %>
-</p>
-
-<p>
-  <strong>Group:</strong>
-  <%= @client.group_id %>
-</p>
-
-<%= link_to 'Edit', edit_client_path(@client) %> |
-<%= link_to 'Back', clients_path %>
+      <p>
+        <strong>Grupo:</strong>
+        <%= @client.group.name %>
+      </p>
+      <%= link_to 'Ver todos los clientes', clients_path, class:"btn btn-warning"%>
+      <%= link_to 'Ingresar otro cliente', new_client_path, class:"btn btn-info" %>
+      <br>
+      <br>
+    </div>
+  </div>
+</div>
+<br>
+<br>

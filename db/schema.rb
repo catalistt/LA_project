@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_04_06_214345) do
+ActiveRecord::Schema.define(version: 2021_06_05_004118) do
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.string "namespace"
@@ -198,9 +198,32 @@ ActiveRecord::Schema.define(version: 2021_04_06_214345) do
     t.datetime "date"
     t.string "detail"
     t.float "freight"
+    t.string "pdf_text"
+    t.integer "round"
     t.index ["client_id"], name: "index_orders_on_client_id"
     t.index ["delivery_method_id"], name: "index_orders_on_delivery_method_id"
     t.index ["user_id"], name: "index_orders_on_user_id"
+  end
+
+  create_table "packaging_convertions", force: :cascade do |t|
+    t.string "name"
+    t.integer "cost"
+    t.integer "supplier_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["supplier_id"], name: "index_packaging_convertions_on_supplier_id"
+  end
+
+  create_table "packaging_receptions", force: :cascade do |t|
+    t.integer "client_id"
+    t.integer "total_box_amount"
+    t.integer "total_payed"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "delivery_method_id"
+    t.integer "turn"
+    t.index ["client_id"], name: "index_packaging_receptions_on_client_id"
+    t.index ["delivery_method_id"], name: "index_packaging_receptions_on_delivery_method_id"
   end
 
   create_table "payment_methods", force: :cascade do |t|
@@ -217,8 +240,10 @@ ActiveRecord::Schema.define(version: 2021_04_06_214345) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.datetime "check_date"
+    t.integer "user_id"
     t.index ["order_id"], name: "index_payments_on_order_id"
     t.index ["payment_method_id"], name: "index_payments_on_payment_method_id"
+    t.index ["user_id"], name: "index_payments_on_user_id"
   end
 
   create_table "products", force: :cascade do |t|
@@ -229,13 +254,15 @@ ActiveRecord::Schema.define(version: 2021_04_06_214345) do
     t.string "format"
     t.string "description"
     t.string "unit"
-    t.float "extra_tax"
     t.float "standard_price"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "stock"
     t.float "cost"
     t.integer "units"
+    t.integer "tax_id"
+    t.integer "packaging_amount"
+    t.index ["tax_id"], name: "index_products_on_tax_id"
   end
 
   create_table "purchases", force: :cascade do |t|
@@ -251,6 +278,7 @@ ActiveRecord::Schema.define(version: 2021_04_06_214345) do
     t.float "amount"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "group"
   end
 
   create_table "roles", force: :cascade do |t|
@@ -338,6 +366,7 @@ ActiveRecord::Schema.define(version: 2021_04_06_214345) do
     t.string "name"
     t.string "provider"
     t.string "uid"
+    t.date "birth_date"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end

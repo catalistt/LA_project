@@ -1,5 +1,12 @@
 $(document).on('turbolinks:load', function() {
+  invoiceNum();
   $(document).on('cocoon:after-insert', function(e,insertedItem){
+    $(".items-products").select2({
+      placeholder: "Digita el producto o código",
+      theme: 'classic',
+      width: 'resolve'
+     });
+     disabledAllSelectedOptions();
     $('.item-quantity').on('keyup', function(){
       getItemTotal(insertedItem);
     });
@@ -13,6 +20,18 @@ $(document).on('turbolinks:load', function() {
   });
 });
 
+
+function disabledAllSelectedOptions(){
+  $(".product-items option:not(:selected)").prop("disabled", false);
+  var selectedOptions = $(".product-items option:selected");
+  if(selectedOptions.length > 0){
+    selectedOptions.each(function(){
+      if($(this).val() !== ""){
+        $("option[value=" + $(this).val() +"]").not(":selected").prop("disabled" , "disabled");
+      }
+    });
+  }
+}
 
 
 function setProduct(insertedContainer){
@@ -67,3 +86,27 @@ function getTotal(){
   $("#purchase_total_amount").val(total);
   $("#invoice-total").text("$ " + total);
 }
+
+function invoiceNum(){
+  $(".invoice_num").on('change', function(){
+    var this_num = $(this).val();
+    $.ajax({
+      type: "GET",
+      url: "/purchases/purchases_numbers",
+      dataType: "json",
+      success: function(numbers){
+        var compare = numbers.includes(parseInt(this_num));
+        if(compare == true){
+          Swal.fire({
+            title: 'Ya existe este folio',
+            text: 'Revisar el folio o ver si la factura ya fue ingresada',
+            icon: 'error',
+            confirmButtonText: ':( Ok',
+            timer: 6000
+          });
+          $(this).val("");
+        };
+      }
+    });
+});
+};

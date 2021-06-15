@@ -4,7 +4,6 @@
  @import "font-awesome";
  @import "datatables.net-bs4/css/dataTables.bootstrap4";
  @import "flatpickr";
- @import 'flatpickr/dist/flatpickr.css';
  
  .home-page { 
   background-color: black;
@@ -85,6 +84,16 @@
   &.error{
     border: 1px solid red;
   }
+  &.full-date{
+    width: 32%;
+  }
+}
+.error{
+  color: red;
+
+}
+.success{
+  color: green;
 }
 .form-checkbox{
   width: 25px;
@@ -96,3 +105,5 @@
 .bg-white{
   background-color: #eee;
 }
+
+div.hidden{ display: none; }

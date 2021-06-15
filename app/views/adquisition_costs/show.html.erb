@@ -1,14 +1,27 @@
-<p id="notice"><%= notice %></p>
+<div class="container pt-3">
+  <div class="row">
+    <div class="col-5 bg-white border border-dark"><br>
+      <h2 class="text-bold">Resumen del registro</h2> 
+      <p>
+        <strong>Producto:</strong>
+        <%= @adquisition_cost.product.name %>
+      </p>
 
-<p>
-  <strong>Product:</strong>
-  <%= @adquisition_cost.product_id %>
-</p>
+      <p>
+        <strong>Nuevo costo:</strong>
+        <%= number_with_delimiter(@adquisition_cost.cost.round) %>
+      </p>
 
-<p>
-  <strong>Cost:</strong>
-  <%= @adquisition_cost.cost %>
-</p>
+      <p>
+        <strong>Nuevo precio ruta:</strong>
+        <%= number_with_delimiter(@product_price.round) %>
+      </p>
 
-<%= link_to 'Edit', edit_adquisition_cost_path(@adquisition_cost) %> |
-<%= link_to 'Back', adquisition_costs_path %>
+      <%= link_to 'Editar', edit_adquisition_cost_path(@adquisition_cost), class:"btn btn-danger" %>
+      <%= link_to 'Volver', adquisition_costs_path(@adquisition_cost), class:"btn btn-info" %>
+      <br>
+      <br>
+    </div>
+  </div>
+</div>
+      

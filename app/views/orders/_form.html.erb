@@ -23,7 +23,7 @@
       </div>
       <div class="col-3">
         <%= form.label :client_id, "Cliente", class: "form-label"%><br>
-        <%= form.select(:client_id, Client.all.collect {|client| ["#{client.id} - #{client.business_name}", client.id] }, { include_blank: 'Ingresar cliente', class: "form-control select2-simple-dropdown"}, id:"client-select") %>
+        <%= form.select(:client_id, Client.all.map {|client| ["#{client.id} - #{client.business_name}", client.id] }, { include_blank: 'Ingresar cliente'}, id: "client-select", class: "custom-select") %>
         
       </div>
 
@@ -82,7 +82,9 @@
         </div>
       </div>
     </div>
-    <div class="col-4 offset-4">
+    <div class="col-4 offset-4 my-3">
+      <h5>Total Orden: <span id="this-order-total">$</span></h5>
+    <div class="col-7 offset-1">
       <%= form.submit "Ingresar orden", class:"my-3 btn btn-success btn-block"%>
     </div>
   <% end %>

@@ -1,12 +1,12 @@
 module ProductsHelper
 
   def translate_category(category)
-    categorias_esp = {soda: "Bebida",beer: "Cerveza",wine: "Vino",snack: "Snack",water: "Agua"}
+    categorias_esp = {soda: "Bebida",beer: "Cerveza",wine: "Vino",snack: "Snack",water: "Agua",freight: "Flete"}
     categorias_esp[category.to_sym]
   end
 
   def categories
-  [["Energetica", "energetic"], ["Bebida isotónica", "isotonic"], ["Nectar", "nectar"], ["Promocion", "promotion"], ["Servicio", "service"], ["Té", "tea"], ["Bebida", "soda"], [ "Cerveza", "beer"], ["Vino", "wine"], ["Snack", "snack"], ["Aguas","water"]]
+  [["ENERGETICA", "energetic"], ["BEBIDA ISOTONICA", "isotonic"], ["NECTAR", "nectar"], ["PROMOCION", "promotion"], ["SERVICIO", "service"], ["TE", "tea"], ["BEBIDA", "soda"], [ "CERVEZA", "beer"], ["VINO", "wine"], ["SNACK", "snack"], ["AGUAS","water"], ["FLETE", "freight"], ["ENVASE", "package"]]
   end
 
   def taxes
@@ -18,11 +18,16 @@ module ProductsHelper
   end
 
   def pack
-    ['Desechable', 'Retornable', '3L', 'Cervezas','Bidon']
+    ['Desechable', 'Retornable', '3L', 'Cervezas','Bidon', 'Otro']
   end
 
   def get_totaled(p_id)
     @code_totaled = Order.joins(:add_products).where("DATE(date) >= ?", Date.today).where("delivery_method_id = ?", 2).where(add_products: {product_id: p_id}).sum(:quantity)
   end
+
+  def products_with_stock
+    @products_with_stock = Product.where("stock > ?", 0)
+  end
+
 
 end

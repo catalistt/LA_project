@@ -35,7 +35,7 @@
               <% else %>
                 <td>No aplica</td>
               <% end %>
-              <td><%= User.find(money_movement.received_by) %></td>
+              <td><%= User.find(money_movement.received_by).name.partition(" ").first %></td>
               <td><%= money_movement.movement_category %></td>
               <td><%= money_movement.comment %></td>
               <td><%= link_to raw("<span class='fa fa-eye'></span>"), money_movement, class: "btn btn-info" %></td>
