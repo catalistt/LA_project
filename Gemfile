@@ -56,7 +56,6 @@ gem 'escpos'
 gem 'escpos-image'
 gem 'mini_magick'
 gem 'mimemagic', '~> 0.3.6'
-gem 'sassc'
 # Use ActiveStorage variant
 # gem 'mini_magick', '~> 4.8'
 
