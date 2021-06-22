@@ -13,14 +13,12 @@
 //= require rails-ujs
 //= require activestorage
 //= require jquery3
-//= require jquery-validation/dist/jquery.validate.js
-//= require jquery.rut/jquery.rut.js
+//= require jquery-validation
+//= require jquery.rut
 //= require cocoon
-//= require datatables.net/js/jquery.dataTables
-//= require datatables.net-bs4/js/dataTables.bootstrap4
+//= require datatables.net
 //= require bootstrap
 //= require bootstrap-datepicker
-//= require bootstrap-datepicker/locales/bootstrap-datepicker.es.js
 //= require highcharts
 //= require chartkick
 //= require flatpickr
