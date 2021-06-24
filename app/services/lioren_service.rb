@@ -49,8 +49,9 @@ class LiorenService
           cantidad: add_product.quantity,
           precio: add_product.net_product_amount.round(2),
           exento: false,
-          impuestoadicional: product.tax.code,
+          impuestoadicional: product.tax&.code,
         }
+      end
     end
     @invoice
   end
