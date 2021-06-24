@@ -1,5 +1,5 @@
 class Report < ApplicationRecord
-  include Discard::Model
+  # include Discard::Model
 
   def item(text)
     @count ||= 0
