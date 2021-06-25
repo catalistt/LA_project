@@ -170,16 +170,13 @@
     -->
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Configuración
+          Cuenta
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
           <%= link_to 'Editar perfil', edit_user_registration_path, class: "nav-link" %> 
           <%= link_to 'Cerrar sesión', destroy_user_session_path, method: :delete, class: "nav-link" %>
         </div>
       </li> 
-      <% if current_user.has_role? :admin %>
-        <%= link_to 'Admin sitio', admin_dashboard_path, class: "nav-link" %> 
-      <% end %>
     </ul>
     <div class="pr-5 mr-5">
       <i class="fa fa-user"></i>
