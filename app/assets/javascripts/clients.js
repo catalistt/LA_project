@@ -1,9 +1,9 @@
 $(document).on('turbolinks:load', function() {
-  $("#client_rut").rut({formatOn: "keyup"});
-  $.validator.addMethod("validateRut", function(value, element) {
-    console.log(value);
-    return this.optional(element) || $.validateRut(value);
-  }, "Rut inválido");
+//  $("#client_rut").rut({formatOn: "keyup"});
+//  $.validator.addMethod("validateRut", function(value, element) {
+//    console.log(value);
+//   return this.optional(element) || $.validateRut(value);
+//  }, "Rut inválido");
   validateClientForm();
 });
 

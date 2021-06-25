@@ -1,5 +1,5 @@
 $(document).on('turbolinks:load', function() {
-  $("#user_rut").rut({formatOn: "keyup"});
+  //$("#user_rut").rut({formatOn: "keyup"});
   validateUserForm();
 });
 
