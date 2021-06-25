@@ -13,7 +13,7 @@ class CashRegistersController < InheritedResources::Base
     
     @cash_in = MoneyMovement.where(created_at: Time.zone.now.beginning_of_day..Time.zone.now.end_of_day, movement_type: 0, payment_method: 1).sum(:amount_payed)
     
-    if CashRegister.last.final_cash.nil?
+    if CashRegister.last.nil?
       @last_final_cash = 0
     else  
       @last_final_cash = CashRegister.last.final_cash
