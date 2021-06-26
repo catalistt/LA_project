@@ -1,13 +1,13 @@
-$(document).on('turbolinks:load', function() {
+//  $(document).on('turbolinks:load', function() {
 //  $("#client_rut").rut({formatOn: "keyup"});
 //  $.validator.addMethod("validateRut", function(value, element) {
 //    console.log(value);
 //   return this.optional(element) || $.validateRut(value);
 //  }, "Rut inválido");
-  validateClientForm();
-});
+//  validateClientForm();
+//});
 
-function validateClientForm(){
+/*function validateClientForm(){
   $("#client_form").validate({
     debug: true,
     errorClass: "error",
@@ -56,4 +56,5 @@ function validateClientForm(){
       }
     }
   });
-}
+//}
+*/

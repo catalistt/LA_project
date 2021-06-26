@@ -34,7 +34,7 @@ class LiorenService
     }
     @order.add_products.each do |add_product|
       product = add_product.product
-      if product.tax_id.nil?
+      if product.tax_id == 7
         @invoice[:detalles] << {
           codigo: product.code.to_s,
           nombre: product.name,
