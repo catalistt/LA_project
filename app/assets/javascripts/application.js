@@ -17,6 +17,10 @@
 //= require bootstrap
 //= require bootstrap-datepicker
 //= require bootstrap-datepicker/locales/bootstrap-datepicker.es.js
+//= require jquery-validation/dist/jquery.validate.js
+//= require jquery.rut/jquery.rut.js
+//= require datatables.net/js/jquery.dataTables
+//= require datatables.net-bs4/js/dataTables.bootstrap4
 //= require highcharts
 //= require chartkick
 //= require flatpickr
