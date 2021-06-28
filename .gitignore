@@ -34,7 +34,7 @@ sendgrid.env
 sendgrid.env
 
 .env
-
+/db/seeds.rb
 
 npm-debug.log
 .DS_Store

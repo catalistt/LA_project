@@ -12,7 +12,13 @@ class CashRegistersController < InheritedResources::Base
     @sale_in_delivery = Payment.where(created_at: Time.zone.now.beginning_of_day..Time.zone.now.end_of_day, payment_method_id: 1, user_id: @no_admins).sum(:amount_payed)
     
     @cash_in = MoneyMovement.where(created_at: Time.zone.now.beginning_of_day..Time.zone.now.end_of_day, movement_type: 0, payment_method: 1).sum(:amount_payed)
-    @last_final_cash = CashRegister.last.final_cash
+    
+    if CashRegister.last.nil?
+      @last_final_cash = 0
+    else  
+      @last_final_cash = CashRegister.last.final_cash
+    end
+    
     @total_in_no_delivery = @sale_in_no_delivery + @cash_in
     @response = {cash_in: @total_in_no_delivery, cash_no_delivery: @sale_in_no_delivery ,cash_delivery: @sale_in_delivery, cash_out: @cash_out}
     respond_to do |format|
