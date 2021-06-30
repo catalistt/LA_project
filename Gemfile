@@ -56,6 +56,7 @@ gem 'escpos-image'
 gem 'mini_magick'
 gem 'mimemagic', '~> 0.3.6'
 gem 'jquery-rails'
+gem 'jquery-validation-rails'
 # Use ActiveStorage variant
 # gem 'mini_magick', '~> 4.8'
 
