@@ -34,23 +34,26 @@ class LiorenService
     }
     @order.add_products.each do |add_product|
       product = add_product.product
-      if product.tax_id == 7
-        @invoice[:detalles] << {
-          codigo: product.code.to_s,
-          nombre: product.name,
-          cantidad: add_product.quantity,
-          precio: add_product.net_product_amount.round(2),
-          exento: false,
-        }
+      if product.name == "Flete"
       else
-        @invoice[:detalles] << {
-          codigo: product.code.to_s,
-          nombre: product.name,
-          cantidad: add_product.quantity,
-          precio: add_product.net_product_amount.round(2),
-          exento: false,
-          impuestoadicional: product.tax&.code,
-        }
+        if product.tax_id == 7
+          @invoice[:detalles] << {
+            codigo: product.code.to_s,
+            nombre: product.name,
+            cantidad: add_product.quantity,
+            precio: add_product.net_product_amount.round(2),
+            exento: false,
+          }
+        else
+          @invoice[:detalles] << {
+            codigo: product.code.to_s,
+            nombre: product.name,
+            cantidad: add_product.quantity,
+            precio: add_product.net_product_amount.round(2),
+            exento: false,
+            impuestoadicional: product.tax&.code,
+          }
+        end
       end
     end
     @invoice

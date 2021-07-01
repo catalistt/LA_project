@@ -6,7 +6,7 @@ $(document).on('turbolinks:load', function() {
       theme: 'classic',
       width: 'resolve'
      });
-     disabledAllSelectedOptions();
+     disabledAllSelectedOptions2();
     $('.item-quantity').on('keyup', function(){
       getItemTotal(insertedItem);
     });
@@ -21,7 +21,7 @@ $(document).on('turbolinks:load', function() {
 });
 
 
-function disabledAllSelectedOptions(){
+function disabledAllSelectedOptions2(){
   $(".product-items option:not(:selected)").prop("disabled", false);
   var selectedOptions = $(".product-items option:selected");
   if(selectedOptions.length > 0){

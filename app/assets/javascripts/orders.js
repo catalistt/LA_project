@@ -2,13 +2,14 @@ $(document).on('turbolinks:load', function() {
   initOrderProduct();
   getOrderTotal();
   generateInvoice();
-
   $("#client-select").select2({
     placeholder: "Buscar cliente",
     theme: 'classic',
     width: 'resolve'
    });
   $("#add_products").on('cocoon:after-insert', function(){
+    console.log("wtf");
+    debugger;
     disabledAllSelectedOptions();
     initOrderProduct();
     getOrderTotal();
@@ -26,6 +27,19 @@ $(document).on('turbolinks:load', function() {
    });
   updateOrders();
 });
+
+function disabledAllSelectedOptions(){
+  console.log("init");
+  $(".product option:not(:selected)").prop("disabled", false);
+  var selectedOptions = $(".product option:selected");
+  if(selectedOptions.length > 0){
+    selectedOptions.each(function(){
+      if($(this).val() !== ""){
+        $("option[value=" + $(this).val() +"]").not(":selected").prop("disabled" , "disabled");
+      }
+    });
+  }
+}
 
 function updateOrders(){
   $("#update_orders").on("click", function(){
@@ -79,18 +93,6 @@ function updateOrders(){
       }
     });
   });
-}
-
-function disabledAllSelectedOptions(){
-  $(".product option:not(:selected)").prop("disabled", false);
-  var selectedOptions = $(".product option:selected");
-  if(selectedOptions.length > 0){
-    selectedOptions.each(function(){
-      if($(this).val() !== ""){
-        $("option[value=" + $(this).val() +"]").not(":selected").prop("disabled" , "disabled");
-      }
-    });
-  }
 }
 
 function setProductInfo(elem){
