@@ -12,11 +12,3 @@ WickedPdf.config = {
   exe_path: '/usr/local/bin/wkhtmltopdf',
   enable_local_file_access: true
 }
-
-if Rails.env.production?
-else
-
-  wkhtmltopdf_path = "#{Rails.root}/bin/wkhtmltopdf-0.9.9-OS-X.i386"            
-  # Windows
-  # wkhtmltopdf_path = 'C:\Program Files/wkhtmltopdf/wkhtmltopdf.exe'
-end

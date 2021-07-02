@@ -44,9 +44,8 @@ gem 'pg_search'
 gem 'acts-as-taggable-on', '~> 6.0'
 gem 'caxlsx'
 gem 'caxlsx_rails'
+gem "wkhtmltopdf-binary", group: :development
 gem 'wicked_pdf'
-gem 'wkhtmltopdf-binary', '~> 0.9.9'
-gem "wkhtmltopdf-heroku"
 gem 'sendgrid-ruby'
 gem 'font-awesome-rails'
 gem 'will_paginate'
