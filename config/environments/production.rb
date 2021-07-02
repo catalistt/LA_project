@@ -97,4 +97,5 @@ Rails.application.configure do
 
   #Wicked pdf
   config.assets.precompile += ['application.css.scss', 'application.js']
+  config.assets.precompile += ['documents.css.scss.erb']
 end
