@@ -57,6 +57,7 @@ gem 'mini_magick'
 gem 'mimemagic', '~> 0.3.6'
 gem 'jquery-rails'
 gem 'jquery-validation-rails'
+gem 'wkhtmltopdf-binary'
 # Use ActiveStorage variant
 # gem 'mini_magick', '~> 4.8'
 
