@@ -19,23 +19,26 @@
       </thead>
 
       <tbody class="text-center">
-        <% @stock_movements.each do |stock_movement| %>
-          <tr>
-            <td><%= stock_movement.created_at.strftime("%d-%m-%Y %I:%M %p") %></td> 
-            <td><%= stock_movement.product.code %></td>
-            <td><%= stock_movement.product.name %></td>
-            <td><%= stock_movement.initial_stock %></td>
-            <td><%= stock_movement.final_stock - stock_movement.initial_stock %></td>
-            <td><%= stock_movement.final_stock %></td> 
-            <% if stock_movement.movement_type == nil %>
-              <td><%= "Edición manual" %></td>
-            <% else %>
-              <td><%= stock_movement.movement_type %></td>
-            <% end %>
-            <td><%= stock_movement.id_document || 0 %></td>
-                       
-          </tr>
-        <% end %>
+        <% if @stock_movements.nil? %>
+        <% else %>
+          <% @stock_movements.each do |stock_movement| %>
+            <tr>
+              <td><%= stock_movement.created_at.strftime("%d-%m-%Y %I:%M %p") %></td> 
+              <td><%= stock_movement.product.code %></td>
+              <td><%= stock_movement.product.name %></td>
+              <td><%= stock_movement.initial_stock %></td>
+              <td><%= stock_movement.final_stock - stock_movement.initial_stock %></td>
+              <td><%= stock_movement.final_stock %></td> 
+              <% if stock_movement.movement_type == nil %>
+                <td><%= "Edición manual" %></td>
+              <% else %>
+                <td><%= stock_movement.movement_type %></td>
+              <% end %>
+              <td><%= stock_movement.id_document || 0 %></td>
+                        
+            </tr>
+          <% end %>
+      <% end %>
       </tbody>
     </table>
 

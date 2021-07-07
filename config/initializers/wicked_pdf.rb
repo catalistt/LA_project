@@ -8,7 +8,10 @@
 #
 # https://github.com/mileszs/wicked_pdf/blob/master/README.md
 
-WickedPdf.config = {
-  exe_path: '/usr/local/bin/wkhtmltopdf',
-  enable_local_file_access: true
-}
+WickedPdf.config do |config|  
+  if Rails.env == 'production'
+    config.exe_path = '/usr/local/bin/wkhtmltopdf'
+  else
+    config.exe_path = '/usr/bin/wkhtmltopdf' 
+  end
+end
