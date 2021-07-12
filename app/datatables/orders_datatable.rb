@@ -27,8 +27,8 @@ class OrdersDatatable
       array << order.user_name.partition(" ").first.upcase
       initial_sum = order.total_amount + order.freight
       final_sum = order.total_amount + order.freight - (order.discount_amount || 0)
-      array << initial_sum
-      array << final_sum
+      array << initial_sum.round
+      array << final_sum.round
       if order.responsable.nil?
         array << "NO ASIGNADO"
       else

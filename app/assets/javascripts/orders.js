@@ -8,8 +8,6 @@ $(document).on('turbolinks:load', function() {
     width: 'resolve'
    });
   $("#add_products").on('cocoon:after-insert', function(){
-    console.log("wtf");
-    debugger;
     disabledAllSelectedOptions();
     initOrderProduct();
     getOrderTotal();

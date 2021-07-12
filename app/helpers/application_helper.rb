@@ -1,5 +1,4 @@
 module ApplicationHelper
-
   def afps
     ["AFP Capital","AFP Cuprum","AFP Habitat","AFP Modelo","AFP Planvital","AFP Provida"]
   end
