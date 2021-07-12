@@ -6,9 +6,9 @@
         <div class="col bg-white">
           <div class="col w-25 d-table-cell offset-1 justify-content-center">
           <% if request.format == 'application/pdf' %>
-              <br><%= wicked_pdf_image_tag("logoapp", class: "img-responsive", id: "navbar-logo", size: "185" ) %>
+              <br><%= wicked_pdf_image_tag("logoapp.png", class: "img-responsive", id: "navbar-logo", size: "185" ) %>
             <% else %>
-            <br><%= image_tag("logoapp", class: "img-responsive", id: "navbar-logo", size: "185" ) %>
+            <br><%= image_tag("logoapp.png", class: "img-responsive", id: "navbar-logo", size: "185" ) %>
             <% end %>
 
             </div>
@@ -29,15 +29,11 @@
               <div class="col w-25 d-table-cell">
                 <h6 class="text-blue">Giro:</h6><br>
                 <h6 class="text-blue">Dirección:</h6>
-                <h6 class="text-blue">Comuna:</h6>
-                <h6 class="text-blue">Región:</h6>
               </div>
               <div class="col w-95 d-table-cell">
                 <h6>VENTA AL POR MENOR DE BEBIDAS</h6>
                 <h6> ALCOHÓLICAS Y NO ALCOHÓLICAS.</h6>
-                <h6>Laguna sur 9600, bodega F10.</h6>
-                <h6>Pudahuel.</h6>
-                <h6>Metropolitana.</h6>
+                <h6>Laguna sur 9600, bodega F10. Pudahuel, Region Metropolitana.</h6>
               </div>
             </div>
           </div>
@@ -73,6 +69,31 @@
         </div>
       </div><br>
 
+      <!--Sección información del documento -->
+      <div class="row bg-white">
+        <div class="bg-blue">
+          <h5 class="text-center pt-1">Información del documento</h5>
+        </div>
+      </div>
+      <div class="row d-table-row bg-white">
+        <div class="col w-25 ml-2 border pt-1 border-dark">
+          <div class="row">
+            <div class="col w-30 d-table-cell pr-0">
+              <h6 class="text-blue"> Monto neto:</h6>
+              <h6 class="text-blue"> IVA:</h6>
+              <h6 class="text-blue"> Imptos. extra:</h6>
+              <h6 class="text-blue text-bold"> Total:</h6>
+            </div>
+          <div class="col w-30 d-table-cell">
+            <h6>$<%= number_with_delimiter(@order.net_amount.round) %></h6>
+            <h6>$<%= number_with_delimiter(@order.total_iva.round) %></h6>
+            <h6>$<%= number_with_delimiter(@order.total_extra_taxes.round) %></h6>
+            <h6 class="text-bold">$<%= number_with_delimiter(@order.total_amount.round) %></h6>
+          </div>
+        </div>
+      </div>
+    <br>
+
       <!--Sección información de la orden-->
       <div class="row bg-white">
         <div class="bg-blue">
@@ -82,7 +103,7 @@
 
       <div class="row bg-white">
         <div class="col w-25 d-table-cell ml-1">
-          <table class="table table-striped border border-dark">
+          <table class="table table-striped border border-dark page-break">
             <thead class="text-center">
               <tr>
                 <th>Código</th> 
@@ -94,6 +115,7 @@
               </tr>
             </thead>
             <tbody class="text-center">
+            
               <% @order.add_products.each do |item| %>
                 <tr>
                   <td><%= item.product.code %></td>
@@ -105,38 +127,11 @@
                 </tr>  
               <% end %>
             </tbody>
-          </table>  
+          </table> 
         </div>
       </div>
-      <!--Sección información de montos-->
-      <div class="row  bg-white pr-3">
-        <div class="col w-20 d-table-cell"></div>
-          <div class="offset-9 text-right bg-blue">
-            <h5 class="text-center pt-1">Detalle montos</h5>
-          </div>
-      </div>
-      <div class="row pr-3 ">
-        <div class="col d-table-cell"></div>
-          <div class="offset-9 border border-dark">
-            <div class="row m-2">
-              <div class="col w-45 d-table-cell">
-                <h6 class="text-blue"> Monto neto:</h6>
-                <h6 class="text-blue"> IVA:</h6>
-                <h6 class="text-blue"> Imptos. extra:</h6>
-                <h6 class="text-blue text-bold"> Total:</h6>
-              </div>
-              <div class="col d-table-cell">
-                <h6>$<%= number_with_delimiter(@order.net_amount.round) %></h6>
-                <h6>$<%= number_with_delimiter(@order.total_iva.round) %></h6>
-                <h6>$<%= number_with_delimiter(@order.total_extra_taxes.round) %></h6>
-                <h6 class="text-bold">$<%= number_with_delimiter(@order.total_amount.round) %></h6>
-              </div>
-            </div>
-          </div>
-        </div>  
-      </div>
     </div>  
-    <br><br><br><br><br><br><br><br>
+    <br>
   </div>
 </div>
           
