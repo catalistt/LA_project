@@ -26,6 +26,17 @@ class HomeController < ApplicationController
       end
     end
 
+    def index_clients
+      @clients = Client.all
+      respond_to do |format|
+        format.xlsx {
+          render xlsx: "index_clients", filename: "Clientes-#{DateTime.now.to_date}.xlsx"
+        }
+      end
+    end
+
+
+
     def index_products
       @products = Product.all
       respond_to do |format|

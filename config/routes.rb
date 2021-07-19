@@ -27,6 +27,7 @@ Rails.application.routes.draw do
   get 'home/downloads'
   get 'home/index_communes'
   get 'home/index_cities'
+  get 'home/index_clients'
   get 'home/packaging_convertions'
   get 'home/index_products'
   get 'orders/dashboard_clients'
