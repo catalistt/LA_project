@@ -8,6 +8,7 @@ $(document).on('turbolinks:load', function() {
     width: 'resolve'
    });
   $("#add_products").on('cocoon:after-insert', function(){
+    countItems();
     disabledAllSelectedOptions();
     initOrderProduct();
     getOrderTotal();
@@ -277,7 +278,7 @@ function generateInvoice(){
         else{
           Swal.fire({
             title: '¡Error!',
-            text: 'Hubo un problema asignando las órdenes',
+            text: 'Hubo un problema generando la factura. Contacte a soporte',
             icon: 'error',
             confirmButtonText: ':( Ok',
             timer: 3000
@@ -287,4 +288,17 @@ function generateInvoice(){
     });
   })
 }
+
+function countItems(){
+  var quant_items = $('.nested-fields').length
+  if(quant_items > 58){
+    Swal.fire({
+      title: '¡Máximo de items alcanzado!',
+      text: 'Se alcanzó el máximo de items por orden. Por favor, genere otra con el resto de productos',
+      icon: 'error',
+      confirmButtonText: '¡Ok, haré otra orden!',
+      timer: 10000
+    });
+  };
+};
 
