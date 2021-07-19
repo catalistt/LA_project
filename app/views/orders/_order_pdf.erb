@@ -5,11 +5,7 @@
       <div class="row bg-white">
         <div class="col bg-white">
           <div class="col w-25 d-table-cell offset-1 justify-content-center">
-          <% if request.format == 'application/pdf' %>
-              <br><%= wicked_pdf_image_tag("logoapp.png", class: "img-responsive", id: "navbar-logo", size: "185" ) %>
-            <% else %>
-            <br><%= image_tag("logoapp.png", class: "img-responsive", id: "navbar-logo", size: "185" ) %>
-            <% end %>
+              <br><%= image_tag wicked_pdf_asset_base64('logoapp.png'), width: 200, height: 200%>
 
             </div>
           <div class="col w-25 d-table-cell bg-white border border-danger mt-3 mr-3">
@@ -74,7 +70,7 @@
         <div class="bg-blue">
           <h5 class="text-center pt-1">Información del documento</h5>
         </div>
-      </div>
+     
       <div class="row d-table-row bg-white">
         <div class="col w-25 ml-2 border pt-1 border-dark">
           <div class="row">
@@ -91,9 +87,10 @@
             <h6 class="text-bold">$<%= number_with_delimiter(@order.total_amount.round) %></h6>
           </div>
         </div>
+        </div>
       </div>
-    <br>
-
+      <br>
+    
       <!--Sección información de la orden-->
       <div class="row bg-white">
         <div class="bg-blue">
@@ -102,7 +99,7 @@
       </div>
 
       <div class="row bg-white">
-        <div class="col w-25 d-table-cell ml-1">
+        <div class="col d-table-cell ml-1">
           <table class="table table-striped border border-dark page-break">
             <thead class="text-center">
               <tr>
