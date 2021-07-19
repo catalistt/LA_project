@@ -35,6 +35,16 @@ class HomeController < ApplicationController
       end
     end
 
+    def index_prices
+      @products = Product.all
+      @group_discounts = GroupDiscount.all
+      respond_to do |format|
+        format.xlsx {
+          render xlsx: "index_prices", filename: "Precios-#{DateTime.now.to_date}.xlsx"
+        }
+      end
+    end
+
 
 
     def index_products

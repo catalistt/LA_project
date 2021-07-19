@@ -1,0 +1,8 @@
+wb = xlsx_package.workbook
+wb.add_worksheet(name: "Products") do |sheet|
+sheet.add_row ['ID', 'Codigo', 'Costo', 'Ruta', 'Distribuidores', 'Especial', 'Vips', 'Precio 1', 'Precio 2', 'Precio 3', 'Precio 4', 'Precio 5']
+  @products.each do |product|
+    sheet.add_row [product.id, product.code, product.cost, product.standard_price, product.standard_price - (((GroupDiscount.where(product_id: product.id, group_id: 2).pluck(:discount).join.to_f)/100) * product.standard_price).round, product.standard_price - (((GroupDiscount.where(product_id: product.id, group_id: 3).pluck(:discount).join.to_f)/100) * product.standard_price).round, product.standard_price - (((GroupDiscount.where(product_id: product.id, group_id: 5).pluck(:discount).join.to_f)/100) * product.standard_price).round, (product.cost + product.cost*0.135).round , (product.cost + product.cost*0.115).round, (product.cost + product.cost*0.095).round, (product.cost + product.cost*0.075).round, (product.cost + product.cost*0.055).round ]
+    
+  end
+end

@@ -1,7 +1,14 @@
 wb = xlsx_package.workbook
 wb.add_worksheet(name: "Products") do |sheet|
-sheet.add_row ['Id', 'Comuna', 'Código', 'Id ciudad', 'Ciudad']
+sheet.add_row ['ID', 'Codigo', 'Envase', 'Formato', 'Descripcion', 'Unidades', 'Precio ruta', 'Stock', 'Costo', 'Unidades', 'Porc. Impuesto','Cod. Impuesto', 'Costo por envase']
   @products.each do |product|
-    sheet.add_row [product.id, product.code, product.category, product.packaging, product.format, product.description, product.unit, product.standard_price, product.stock, product.cost, product.units, product.tax_id, product.packaging_amount]
+    if product.tax.nil? 
+      tax = 0
+      tax_percentage = 0
+    else
+      tax_code = product.tax.code
+      tax_percentage = product.tax.percentage
+    end
+    sheet.add_row [product.id, product.code, product.packaging, product.format, product.description, product.unit, product.standard_price, product.stock, product.cost, product.units, tax_percentage, tax_code, product.packaging_amount]
   end
 end
