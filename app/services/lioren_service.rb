@@ -29,7 +29,7 @@ class LiorenService
       codigo: '9999',
       nombre: 'Flete',
       cantidad: 1,
-      precio: @order.freight.round(2),
+      precio: @order.freight.round(2)/1.19,
       exento: false,
     }
     @order.add_products.each do |add_product|
