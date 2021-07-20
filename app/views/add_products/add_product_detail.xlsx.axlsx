@@ -28,14 +28,14 @@ sheet.add_row ['Folio', 'Cliente', 'Producto', 'Cantidad', 'Camión']
         @aux_delivery = DeliveryMethod.where(vehicle_plate: delivery)
         @aux_orders = Order.where(delivery_method_id: @aux_delivery).where('DATE(date) >= ?', Date.today).where(round: round)
         @aux_add_p = AddProduct.select("orders.*").includes(:order).joins(:order).where(order_id: @aux_orders)
-        sheet.add_row ['Folio', 'Cliente', 'Producto', 'Cantidad', 'Precio unitario', 'Horario', 'Direccion', 'Vendedor', 'Teléfono', 'Total orden']
+        sheet.add_row ['Folio', 'Cliente', 'Producto', 'Display comprados', 'Unidades por display' , 'Precio unitario', 'Horario', 'Direccion', 'Vendedor', 'Teléfono', 'Total orden']
         @aux_add_p.each do |op|
           if op.product.units.nil?
             units = 1
           else
             units = op.product.units
           end
-          sheet.add_row [op.order_id, op.order.client.business_name, op.product.code, op.quantity, (op.total_product_amount / op.quantity / units).round, op.order.client.schedule, op.order.client.address, op.order.client.user.name, op.order.client.phone_number, (op.order.total_amount + op.order.freight).round]
+          sheet.add_row [op.order_id, op.order.client.business_name, op.product.code, op.quantity,units ,(op.total_product_amount / op.quantity / units).round, op.order.client.schedule, op.order.client.address, op.order.client.user.name, op.order.client.phone_number, (op.order.total_amount + op.order.freight).round]
         end
       end
     end
