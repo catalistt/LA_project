@@ -25,7 +25,7 @@ class DeliveryOrdersDatatable
       array << order.delivery_method_vehicle_plate
       array << order.round
       array << order.client_business_name
-      array << order.user_name
+      array << order.user_name.partition(" ").first.upcase
       array << order.total_amount.round
       array << link_to('Agregar entrega', edit_delivery_info_order_path(order), class: 'btn btn-success')
       array << link_to('Agregar pago', new_payment_path, class: 'btn btn-info')

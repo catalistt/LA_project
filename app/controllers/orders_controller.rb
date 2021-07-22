@@ -1,5 +1,5 @@
 class OrdersController < ApplicationController
-  before_action :set_order, only: [:show, :edit, :update, :destroy, :edit_delivery_info, :update_delivery_info, :create_dte, :download_dte]
+  before_action :set_order, only: [:show, :edit, :update, :destroy, :edit_delivery_info, :update_delivery_info, :delivery_info, :create_dte, :download_dte]
   before_action :set_client, only: [:create, :update]
 
   def order_pack_amount
@@ -11,6 +11,32 @@ class OrdersController < ApplicationController
       format.json {render json: @order_pack_amount}
     end
   end
+
+  def monthly_sales
+    @last_month_orders = Order.where("strftime('%m', created_at) = ?",@last_month)
+    @this_month_orders = Order.where("strftime('%m', created_at) = ?",@this_month)
+
+    @last_month = (Time.now.beginning_of_month - 1.day).strftime("%m").to_s
+    @this_month = (Time.now.beginning_of_month).strftime("%m").to_s 
+
+    @antonio_last_month = @last_month_orders.where(user_id: 3)
+    @antonio_this_month = @this_month_orders.where(user_id: 3)
+
+    @brian_last_month = @last_month_orders.where(user_id: 2)
+    @brian_this_month = @this_month_orders.where(user_id: 2)
+
+    @luis_last_month = @last_month_orders.where(user_id: 4)
+    @luis_this_month = @this_month_orders.where(user_id: 4)
+
+    @ronald_last_month = @last_month_orders.where(user_id: 5)
+    @ronald_this_month = @this_month_orders.where(user_id: 5)
+
+    @gerencia_last_month = @last_month_orders.where(user_id: 10)
+    @gerencia_this_month = @this_month_orders.where(user_id: 10)
+
+  end
+
+
 
   def dashboard_clients
     @orders_by_count = Order.select(:client_id).group(:client_id).count
@@ -230,7 +256,7 @@ class OrdersController < ApplicationController
   end
 
   def update
-    @order.user_id = @client.user_id
+    @order.user_id = @client.user_id || 0
     respond_to do |format|
       if @order.update(order_params)
         #Añadir lógica de eliminación del AddProduct

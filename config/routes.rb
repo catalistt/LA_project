@@ -36,6 +36,7 @@ Rails.application.routes.draw do
   get 'orders/loading_sheets'
   get 'add_products/print_detail'
   get 'orders/today_pending'
+  get 'orders/monthly_sales'
   resources :payments do
     collection do
       get :delivery_payments

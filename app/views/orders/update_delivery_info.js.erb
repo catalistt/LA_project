@@ -6,7 +6,6 @@
     confirmButtonText: '¡:C Ok!',
     timer: 3000
   });
-  $("#delivery-info").html("<%= j render partial: 'delivery_info' %>");
 <% else %>
   Swal.fire({
     title: '¡Logrado!',
@@ -15,5 +14,4 @@
     confirmButtonText: '¡Bacan!',
     timer: 3000
   });
-  location.reload();
 <% end %>

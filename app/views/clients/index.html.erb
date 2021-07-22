@@ -23,7 +23,7 @@
           <td><%= client.business_name %></td>
           <td><%= client.rut %></td>
           <td><%= client.address %></td>
-          <td><%= client.user.name %></td>
+          <td><%= client.user.name.partition(" ").first.upcase %></td>
           <td><%= client.phone_number %></td>
           <td><%= client.schedule %></td>
           <td><%= client.special_agreement %></td>

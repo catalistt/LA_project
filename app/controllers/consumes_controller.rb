@@ -40,7 +40,7 @@ class ConsumesController < ApplicationController
 
     respond_to do |format|
       if @consume.save
-        format.html { redirect_to @consume, notice: 'Consume was successfully created.' }
+        format.html { redirect_to @consume, notice: 'El consumo fue creado con éxito' }
         format.json { render :show, status: :created, location: @consume }
       else
         format.html { render :new }
@@ -68,7 +68,7 @@ class ConsumesController < ApplicationController
   def destroy
     @consume.destroy
     respond_to do |format|
-      format.html { redirect_to consumes_url, notice: 'Consume was successfully destroyed.' }
+      format.html { redirect_to consumes_url, notice: 'El consumo se eliminó correctamente' }
       format.json { head :no_content }
     end
   end
