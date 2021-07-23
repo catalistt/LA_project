@@ -1,6 +1,6 @@
 <div class="col-12 pt-3">
   <h4 class="text-blue">Datos básicos</h4>
-    <%= form_with(model: @order, url: update_delivery_info_order_path(@order), method: :put) do |form| %>
+  <%= form_with(model: @order, url: update_delivery_info_order_path(@order), method: :put) do |form| %>
     <div class="row">
       <div class="col-10">
         <% if @order.errors.any? %>
@@ -31,7 +31,6 @@
         <%= form.time_select :visit_end, {},class: "custom-select date" %>
       </div>
     </div>
-    <br>
     <div class="row">
       <div class="col-3">
         <%= form.label :Monto_descontado, class: "form-label" %>
@@ -43,14 +42,11 @@
         <%= form.text_field :discount_comment, class: "form-control" %>
       </div>
     </div>
-
-    </div>
     <div class="row"> 
       <div class="col-4 offset-3">
-        <%= form.submit "Actualizar datos", class:"my-3 btn btn-success btn-block dely"%>
+        <%= form.submit "Actualizar datos", class: "my-3 btn btn-success btn-block dely"%>
       </div>
     </div>
-
   <% end %>
 </div>
 
