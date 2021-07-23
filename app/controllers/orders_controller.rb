@@ -188,7 +188,7 @@ class OrdersController < ApplicationController
       net_price = add_product.net_price(brute_price)
       add_product.price = brute_price
       add_product.net_product_amount = net_price
-      add_product.extra_tax = net_price * (add_product.product&.tax&.percentage || 1)
+      add_product.extra_tax = net_price * add_product.product.tax.percentage
       add_product.discount = add_product.group_discount(@client.group_id)
     end
     @add_products = @order.add_products

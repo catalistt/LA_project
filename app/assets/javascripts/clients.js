@@ -1,14 +1,15 @@
- $(document).on('turbolinks:load', function() {
-  // $("#client_rut").rut({formatOn: "keyup"});
-  // $.validator.addMethod("validateRut", function(value, element) {
-  //   return this.optional(element) || $.validateRut(value);
-  // }, "Rut inválido");
-  // validateClientForm();
-});
+//  $(document).on('turbolinks:load', function() {
+//  $("#client_rut").rut({formatOn: "keyup"});
+//  $.validator.addMethod("validateRut", function(value, element) {
+//    console.log(value);
+//   return this.optional(element) || $.validateRut(value);
+//  }, "Rut inválido");
+//  validateClientForm();
+//});
 
-function validateClientForm(){
+/*function validateClientForm(){
   $("#client_form").validate({
-    debug: false,
+    debug: true,
     errorClass: "error",
     validClass: "success",
     errorElement: "small",
@@ -55,4 +56,5 @@ function validateClientForm(){
       }
     }
   });
-}
+//}
+*/

@@ -5,7 +5,7 @@ $(document).on('turbolinks:load', function() {
 
 function validateUserForm(){
   $("#user_form").validate({
-    debug: false,
+    debug: true,
     errorClass: "error",
     validClass: "success",
     errorElement: "small",
