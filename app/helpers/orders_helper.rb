@@ -98,9 +98,17 @@ module OrdersHelper
     end
 
     #Cantidad de clientes atendidos
-    @clients_served = @this_month_orders.distinct.pluck(:client_id).count 
+    if @this_month_orders.nil?
+      @clients_served = 0
+    else  
+      @clients_served = @this_month_orders.distinct.pluck(:client_id).count 
+    end
     #Atendidos mes pasado vs este mes
-    @clients_served_last = @last_month_orders.distinct.pluck(:client_id).count
+    if @last_month_orders.nil?
+      @clients_served_last = 0
+    else
+      @clients_served_last = @last_month_orders.distinct.pluck(:client_id).count
+    end
 
     if @clients_served_last == 0
       @clients_vs = 0
