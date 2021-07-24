@@ -8,7 +8,7 @@ class CashRegistersController < InheritedResources::Base
     @no_admins = User.where.not(role:"admin")
 
     @cash_out = MoneyMovement.where(created_at: Time.zone.now.beginning_of_day..Time.zone.now.end_of_day, movement_type: 1, payment_method: 1).sum(:amount_payed)
-    @sale_in_no_delivery = Payment.where(: Time.zone.now.beginning_of_day..Time.zone.now.end_of_day, payment_method_id: 1, user_id: @admins).sum(:amount_payed)
+    @sale_in_no_delivery = Payment.where(created_at: Time.zone.now.beginning_of_day..Time.zone.now.end_of_day, payment_method_id: 1, user_id: @admins).sum(:amount_payed)
     @sale_in_delivery = Payment.where(created_at: Time.zone.now.beginning_of_day..Time.zone.now.end_of_day, payment_method_id: 1, user_id: @no_admins).sum(:amount_payed)
     
     @cash_in = MoneyMovement.where(created_at: Time.zone.now.beginning_of_day..Time.zone.now.end_of_day, movement_type: 0, payment_method: 1).sum(:amount_payed)
