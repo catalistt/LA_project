@@ -63,7 +63,7 @@ module OrdersHelper
 
     #Ordenes del mes pasado  
     if Rails.env.production?
-      @this_month_orders = Order.where("extract(month from created_at) = ?","0#{@last_month}").where(user_id: user).where("extract(year from created_at) = ?",year)
+      @last_month_orders = Order.where("extract(month from created_at) = ?","0#{@last_month}").where(user_id: user).where("extract(year from created_at) = ?",year)
     else  
       @last_month_orders = Order.where("strftime('%m/%Y', created_at) = ?","0#{@last_month}/#{year}").where(user_id: user)
     end
