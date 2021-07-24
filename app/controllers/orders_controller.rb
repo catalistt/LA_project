@@ -13,18 +13,6 @@ class OrdersController < ApplicationController
   end
 
   def monthly_sales
-    @jan_orders_2022 = Order.where("strftime('%m/%Y', created_at) = ?","01/2022")
-    @feb_orders_2022 = Order.where("strftime('%m/%Y', created_at) = ?","02/2022")
-    @mar_orders_2022 = Order.where("strftime('%m/%Y', created_at) = ?","03/2022")
-    @apr_orders_2022 = Order.where("strftime('%m/%Y', created_at) = ?","04/2022")
-    @may_orders_2022 = Order.where("strftime('%m/%Y', created_at) = ?","05/2022")
-    @jun_orders_2022 = Order.where("strftime('%m/%Y', created_at) = ?","06/2022")
-    @jul_orders_2021 = Order.where("strftime('%m/%Y', created_at) = ?","07/2021")
-    @aug_orders_2021 = Order.where("strftime('%m/%Y', created_at) = ?","08/2021")
-    @sep_orders_2021 = Order.where("strftime('%m/%Y', created_at) = ?","09/2021")
-    @oct_orders_2021 = Order.where("strftime('%m/%Y', created_at) = ?","10/2021")
-    @nov_orders_2021 = Order.where("strftime('%m/%Y', created_at) = ?","11/2021")
-    @dic_orders_2021 = Order.where("strftime('%m/%Y', created_at) = ?","12/2021")
     @sellers = [3,2,4,5,10]
   end
 

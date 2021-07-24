@@ -48,15 +48,25 @@ module OrdersHelper
 
   def monthly_sale(user, month, year, output)
     #Ordenes del mes y año, del usuario especificado
-    @this_month_orders = Order.where("strftime('%m/%Y', created_at) = ?","0#{month}/#{year}").where(user_id: user)
+    if Rails.env.production?
+      @this_month_orders = Order.where("extract(month from created_at) = ?","0#{month}").where(user_id: user).where("extract(year from created_at) = ?",year)
+    else
+      @this_month_orders = Order.where("strftime('%m/%Y', created_at) = ?","0#{month}/#{year}").where(user_id: user)
+    end 
+    
     #Mes pasado
     if month.to_i == 1
       @last_month = 12
     else
       @last_month = month.to_i - 1 
     end
-    #Ordenes del mes pasado    
-    @last_month_orders = Order.where("strftime('%m/%Y', created_at) = ?","0#{@last_month}/#{year}").where(user_id: user)
+
+    #Ordenes del mes pasado  
+    if Rails.env.production?
+      @this_month_orders = Order.where("extract(month from created_at) = ?","0#{@last_month}").where(user_id: user).where("extract(year from created_at) = ?",year)
+    else  
+      @last_month_orders = Order.where("strftime('%m/%Y', created_at) = ?","0#{@last_month}/#{year}").where(user_id: user)
+    end
 
     #Todas las órdenes del usuario
     @this_user_orders = Order.where(user_id: user)
@@ -73,7 +83,12 @@ module OrdersHelper
     @orders_total = @orders_sell - @orders_total_discounts + @orders_freight
     
     #Pagos hechos este mes, para órdenes del usuario
-    @payments = Payment.where("strftime('%m/%Y', created_at) = ?","0#{month}/#{year}").where(order_id: @this_user_orders)
+    if Rails.env.production?
+      @payments = Payment.where("extract(month from created_at) = ?","0#{month}").where(order_id: @this_user_orders).where("extract(year from created_at) = ?",year)
+    else  
+      @payments = Payment.where("strftime('%m/%Y', created_at) = ?","0#{month}/#{year}").where(order_id: @this_user_orders)
+    end
+
     @payments_total = @payments.sum(:amount_payed)
     
     #Cálculo de rentabilidad
