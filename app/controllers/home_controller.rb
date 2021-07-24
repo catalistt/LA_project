@@ -66,7 +66,7 @@ class HomeController < ApplicationController
       # Only allow a list of trusted parameters through.
       def home_params
         params.require(:home).permit(
-        add_orders_attributes: [:client_id, :user_id, :delivery_method_id, :net_amount, :total_iva, :total_extra_taxes, :total_amount, :total_packaging_amount, :visit_start, :visit_end, :discount_amount, :discount_comment, :create_invoive, :responsable])
+        add_orders_attributes: [:client_id, :user_id, :delivery_method_id, :net_amount,:order_cost, :total_iva, :total_extra_taxes, :total_amount, :total_packaging_amount, :visit_start, :visit_end, :discount_amount, :discount_comment, :create_invoive, :responsable])
       end
 
 

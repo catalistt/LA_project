@@ -114,6 +114,8 @@ function setProductInfo(elem){
       success: function(product){
         var quant = parentContainer.find(".quantity").val()
         window.thisProductStock = product.stock
+        var addProductCost = parentContainer.find('.ap_cost');
+        addProductCost.val(product.cost);
         if(product.stock <= 0){
           Swal.fire({
             title: '¡Sin stock! Debes eliminar ese producto',

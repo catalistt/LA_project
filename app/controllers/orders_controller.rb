@@ -13,27 +13,19 @@ class OrdersController < ApplicationController
   end
 
   def monthly_sales
-    @last_month_orders = Order.where("strftime('%m', created_at) = ?",@last_month)
-    @this_month_orders = Order.where("strftime('%m', created_at) = ?",@this_month)
-
-    @last_month = (Time.now.beginning_of_month - 1.day).strftime("%m").to_s
-    @this_month = (Time.now.beginning_of_month).strftime("%m").to_s 
-
-    @antonio_last_month = @last_month_orders.where(user_id: 3)
-    @antonio_this_month = @this_month_orders.where(user_id: 3)
-
-    @brian_last_month = @last_month_orders.where(user_id: 2)
-    @brian_this_month = @this_month_orders.where(user_id: 2)
-
-    @luis_last_month = @last_month_orders.where(user_id: 4)
-    @luis_this_month = @this_month_orders.where(user_id: 4)
-
-    @ronald_last_month = @last_month_orders.where(user_id: 5)
-    @ronald_this_month = @this_month_orders.where(user_id: 5)
-
-    @gerencia_last_month = @last_month_orders.where(user_id: 10)
-    @gerencia_this_month = @this_month_orders.where(user_id: 10)
-
+    @jan_orders_2022 = Order.where("strftime('%m/%Y', created_at) = ?","01/2022")
+    @feb_orders_2022 = Order.where("strftime('%m/%Y', created_at) = ?","02/2022")
+    @mar_orders_2022 = Order.where("strftime('%m/%Y', created_at) = ?","03/2022")
+    @apr_orders_2022 = Order.where("strftime('%m/%Y', created_at) = ?","04/2022")
+    @may_orders_2022 = Order.where("strftime('%m/%Y', created_at) = ?","05/2022")
+    @jun_orders_2022 = Order.where("strftime('%m/%Y', created_at) = ?","06/2022")
+    @jul_orders_2021 = Order.where("strftime('%m/%Y', created_at) = ?","07/2021")
+    @aug_orders_2021 = Order.where("strftime('%m/%Y', created_at) = ?","08/2021")
+    @sep_orders_2021 = Order.where("strftime('%m/%Y', created_at) = ?","09/2021")
+    @oct_orders_2021 = Order.where("strftime('%m/%Y', created_at) = ?","10/2021")
+    @nov_orders_2021 = Order.where("strftime('%m/%Y', created_at) = ?","11/2021")
+    @dic_orders_2021 = Order.where("strftime('%m/%Y', created_at) = ?","12/2021")
+    @sellers = [3,2,4,5,10]
   end
 
 
@@ -342,8 +334,8 @@ class OrdersController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def order_params
-      params.require(:order).permit(:_destroy, :client_id, :user_id, :round, :delivery_method_id, :net_amount, :total_iva, :client_business_name, :user_name, :total_extra_taxes, :total_amount, :total_packaging_amount, :visit_start, :visit_end, :discount_amount, :discount_comment, :create_invoive, :freight, :responsable, :detail, :date,
-      add_products_attributes: [:id, :_destroy, :order_id, :product_id, :price, :discount, :quantity, :total_product_amount, :extra_tax, :packaging_amount, :net_product_amount],
+      params.require(:order).permit(:_destroy, :client_id, :user_id, :round, :delivery_method_id, :net_amount, :total_iva, :client_business_name, :user_name, :total_extra_taxes, :total_amount, :total_packaging_amount, :visit_start, :visit_end, :discount_amount, :discount_comment, :create_invoive, :order_cost, :freight, :responsable, :detail, :date,
+      add_products_attributes: [:id, :_destroy, :order_id, :product_id, :price, :discount, :quantity, :total_product_amount, :extra_tax, :packaging_amount, :net_product_amount, :product_cost],
       clients_attributes: [:id,:_destroy,  :business_name, :user_id, :rut, :address, :phone_number, :schedule, :special_agreement, :group_id],
       delivery_methods_attributes: [:id, :_destroy, :vehicle_plate, :policy_number, :ensurance_company],
       orders: [:id, :delivery_method_id, :round],

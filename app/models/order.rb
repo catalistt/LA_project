@@ -38,6 +38,7 @@ class Order < ApplicationRecord
       add_product.discount = add_product.group_discount(client.group_id)
     end
     self.total_packaging_amount = add_products.map(&:packaging_amount).reduce(:+)
+    self.order_cost = add_products.map(&:product_cost).reduce(:+)
     self.net_amount = add_products.map(&:net_product_amount).reduce(:+)
     self.total_iva = net_amount * 0.19
     total_aux = add_products.map(&:total_product_amount).reduce(:+)

@@ -166,7 +166,7 @@ class PaymentsController < ApplicationController
 
     def payment_params
       params.require(:payment).permit(:order_id, :payment_method_id, :user_id, :amount_payed, :check_date, :status,
-      orders_attributes: [:id, :client_id, :user_id, :delivery_method_id, :net_amount, :total_iva, :total_extra_taxes, :total_amount, :total_packaging_amount, :visit_start, :visit_end, :discount_amount, :discount_comment, :create_invoive, :responsable],
+      orders_attributes: [:id, :client_id, :order_cost, :user_id, :delivery_method_id, :net_amount, :total_iva, :total_extra_taxes, :total_amount, :total_packaging_amount, :visit_start, :visit_end, :discount_amount, :discount_comment, :create_invoive, :responsable],
       payment_methods_attributes: [:name])
     end
 end
