@@ -29,6 +29,11 @@ class OrdersDatatable
       final_sum = order.total_amount + order.freight - (order.discount_amount || 0)
       array << initial_sum.round
       array << final_sum.round
+      if order.discount_comment.nil?
+        array << "S/C"
+      else
+        array << order.discount_comment
+      end
       if order.responsable.nil?
         array << "NO ASIGNADO"
       else
