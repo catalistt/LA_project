@@ -12,6 +12,12 @@ $(document).on('turbolinks:load', function() {
     });
   });
 
+  $(".stock-product").select2({
+    placeholder: "Buscar producto",
+    theme: 'classic',
+    width: 'resolve'
+   });
+
   $('.quantity-stock').on('keyup change', function(){
     var quantity_st = parseInt($(this).val());
     var initial_st = parseInt($('.initial-stock').val());
