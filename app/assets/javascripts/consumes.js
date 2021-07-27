@@ -1,17 +1,11 @@
 $(document).on('turbolinks:load', function() {
 
-  $(".date-range").flatpickr({
-    mode: "range",
-    dateFormat: "d-m-Y",
-    defaultDate: ["01-04-2021", "today"]
-  }); 
+  $(".name-select").select2({
+    placeholder: "Buscar trabajador",
+    theme: 'classic',
+    width: 'resolve'
+   });
 
-  $("#consume-dates").on("click", function(){
-    var dates_values = $('.date-range').val();
-    var dates_array = dates_values.split(" ");
-    var init_date = dates_array[0];
-    var finish_date = dates_array[2];
-  }); 
 
   $('.consume-quantity, .consume-item').on('change', function() {
     var item = $('.consume-item').val();

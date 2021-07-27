@@ -17,7 +17,7 @@
 
         <div class="field pt-2">
           <%= form.label :Trabajador %><br>
-          <%= form.select(:user_id, User.all.map {|user| ["#{user.name}", user.id] }, { include_blank: 'Seleccionar' }, class: "custom-select") %>
+          <%= form.select(:user_id, User.all.map {|user| ["#{user.name}", user.id] }, { include_blank: 'Seleccionar' }, class: "name-select custom-select") %>
         </div>
 
         <div class="field pt-2">
