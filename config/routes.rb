@@ -31,6 +31,7 @@ Rails.application.routes.draw do
   get 'home/index_prices'
   get 'home/packaging_convertions'
   get 'home/index_products'
+  get 'home/index_natalia'
   get 'orders/dashboard_clients'
   get 'orders/my_detail'
   get 'orders/loading_sheets'

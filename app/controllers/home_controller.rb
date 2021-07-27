@@ -17,6 +17,18 @@ class HomeController < ApplicationController
       end
     end
 
+    def index_natalia
+      @natalia = Client.where(rut: 773408521)
+      @orders_natalia = Order.where(client_id: @natalia).where(date: Time.zone.now.beginning_of_month..Time.zone.now.end_of_month)
+      @add_products_natalia = AddProduct.where(order_id: @orders_natalia)
+      respond_to do |format|
+        format.xlsx {
+          render xlsx: "index_natalia", filename: "Natalia-#{DateTime.now.to_date}.xlsx"
+        }
+      end
+    end
+
+
     def index_cities
       @cities = City.all
       respond_to do |format|

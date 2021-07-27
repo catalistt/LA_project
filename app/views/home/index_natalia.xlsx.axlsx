@@ -1,0 +1,7 @@
+wb = xlsx_package.workbook
+wb.add_worksheet(name: "Detalle") do |sheet|
+sheet.add_row ['Fecha', 'Folio', 'Codigo', 'Cantidad']
+  @add_products_natalia.each do |item|
+    sheet.add_row [item.order.date, item.order_id, item.product.code, item.quantity]
+  end
+end
