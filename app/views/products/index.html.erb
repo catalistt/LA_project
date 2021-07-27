@@ -5,11 +5,11 @@
         <tr>
           <th>Código</th>
           <th>Nombre</th>
-          <th>Categoría</th>
           <th>Envase</th>
           <th>Formato</th>
           <th>Descripción</th>
           <th>Unidad</th>
+          <th>Costo envases</th>  
           <th>Impuesto extra</th>
           <th>Precio ruta</th>
           <th>Stock</th>
@@ -22,15 +22,15 @@
           <tr>
             <td><%= product.code %></td>
             <td><%= product.name %></td>
-            <td><%= product.category %></td>
             <td><%= product.packaging %></td>
             <td><%= product.format %></td>
             <td><%= product.description %></td>
             <td><%= product.unit %></td>
+            <td><%= product.packaging_amount %></th>   
             <% if product.tax.nil? %>
               <td><%= "N/A" %>
             <% else %>
-              <td><%= product.tax.percentage %></td>
+              <td><%= "#{product.tax.percentage*100}%" %></td>
             <% end %>
             <td><%= number_with_delimiter(product.standard_price.round) %></td>
             <td><%= product.stock %></td>
