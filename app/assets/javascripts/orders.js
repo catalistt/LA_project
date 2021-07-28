@@ -196,6 +196,10 @@ function getTotalAmount(element){
   var netAmount = parseFloat(netAmountInput.val()) || 0;
   /* Obtener el neto y el monto de impto. extra */
 
+  var unit_cost = parseFloat(parentContainer.find('.ap_cost').val()) || 1;
+  var total_cost = unit_cost * quantity;
+  parentContainer.find('.ap_cost').val(total_cost);
+
   netAmount = total/(1.19 + extraTax);
   extraTax = netAmount * extraTax;
   extraTaxInput.val(extraTax);
