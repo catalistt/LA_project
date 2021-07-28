@@ -11,12 +11,12 @@ class ConsumesController < ApplicationController
   end
 
   def monthly_collation
-    @users = User.all
+    @users = User.all.order(name: :asc)
     @months = [1,2,3,4,5,6,7,8,9,10,11,12]
   end
 
   def collation
-    @users = User.all
+    @users = User.all.order(name: :asc)
     @last_month = (Time.now.beginning_of_month - 1.day).strftime("%m").to_i
     @this_month = (Time.now.beginning_of_month).strftime("%m").to_i
     @next_month = (Time.now.end_of_month + 1.day).strftime("%m").to_i
