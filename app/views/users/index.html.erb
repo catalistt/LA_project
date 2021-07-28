@@ -1,0 +1,38 @@
+<p id="notice"><%= notice %></p>
+
+<div class="container">
+<h3>Usuarios</h3>
+  <table class="table table-striped bg-light">
+    <thead>
+      <tr>
+        <th>Nombre</th>
+        <th>Rut</th>
+        <th>Fecha de nacimiento</th>
+        <th>Dirección</th>
+        <th>Rol</th>
+        <th>Teléfono</th>
+        <th>Salud</th>
+        <th>AFP</th>
+        <th>Número de emergencia</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @users.each do |user| %>
+        <tr>
+          <td><%= user.name %></td>
+          <td><%= user.rut %></td>
+          <td><%= user.birth_date %></td>
+          <td><%= user.address %></td>
+          <td><%= user.role %></td>
+          <td><%= user.phone_number %></td>
+          <td><%= user.health_system %></td>
+          <td><%= user.afp %></td>
+          <td><%= user.emergency_number %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+  <br>
+</div>

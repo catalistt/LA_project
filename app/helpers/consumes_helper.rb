@@ -20,9 +20,9 @@ module ConsumesHelper
     end
     @total_consumes.reduce(&:+)
     if @total_consumes[0].nil?
-      @consumes_amount = 0
+      @consumes_amount = 9000
     else
-      @consumes_amount = @total_consumes.reduce(&:+)
+      @consumes_amount = 9000 - @total_consumes.reduce(&:+)
     end
     return number_with_delimiter(@consumes_amount.round)
   end

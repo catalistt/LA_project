@@ -1,0 +1,35 @@
+<p id="notice"><%= notice %></p>
+
+<div class="container">
+<h2>Cumpleaños</h2>
+<% @months.each do |month| %>
+  <table class="table table-hover table-bordered bg-light">
+    <thead class="table-warning">
+      <h3><%= month_names[month-1] %></h3>
+      <tr> 
+        <th>Nombre</th>
+        <th>Día de nacimiento</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @users.each do |user| %>
+        <tr>
+            <% if user.birthday.nil? %>
+              <% if user.birth_date.month == month %>
+                <td><%= user.name%></td>
+                <td><%= user.birth_date.day %></td>
+              <% end %>
+            <% else %>
+              <% if user.birthday.month == month %>
+                <td><%= user.name%></td>
+                <td><%= user.birthday.day %></td>
+              <% end %>
+            <% end %>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% end %>
+  <br>
+</div>
