@@ -10,6 +10,11 @@ class ConsumesController < ApplicationController
   def other_consumes
   end
 
+  def monthly_collation
+    @users = User.all
+    @months = [1,2,3,4,5,6,7,8,9,10,11,12]
+  end
+
   def collation
     @users = User.all
     @last_month = (Time.now.beginning_of_month - 1.day).strftime("%m").to_i

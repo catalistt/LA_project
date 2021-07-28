@@ -86,6 +86,7 @@ Rails.application.routes.draw do
     collection do
       get :collation
       get :other_consumes
+      get :monthly_collation
     end
   end
   resources :resources

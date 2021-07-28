@@ -1,0 +1,28 @@
+<p id="notice"><%= notice %></p>
+
+<div class="container">
+  <h2>Consumo mensual colación 2021</h2>
+  <% @months.each do |month| %>
+    <h3 class="text-info"><%= month_names[month-1] %></h3>
+    <table class="table table-hover table-info table-bordered bg-light table-sm">
+      <thead>
+        <tr>
+          <th>Trabajador/a</th>
+          <th>Consumo total</th>
+          <th>A pagar total</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @users.each do |user| %>
+          <tr>
+            <td><%= user.name%></td>
+            <td><%= number_with_delimiter(monthly_consumes(user.id, month, 2021)) %></td>
+            <td><%= number_with_delimiter(36000 - monthly_consumes(user.id, month, 2021)) %></td>
+          <% end %>
+        </tr>
+      </tbody>
+    </table>
+  <% end %>
+</div>
+
+       
