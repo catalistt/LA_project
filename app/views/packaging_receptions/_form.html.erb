@@ -18,16 +18,16 @@
 
         <div class="col-8">
           <%= form.label :client_id, "Cliente", class: "form-label"%><br>
-          <%= form.select(:client_id, Client.all.collect {|client| ["#{client.id} - #{client.business_name}", client.id] }, { include_blank: 'Ingresar cliente', class: "form-control select2-simple-dropdown"}, id:"client-select-packaging") %>
+          <%= form.select(:client_id, Client.all.collect {|client| ["#{client.id} - #{client.business_name}", client.id] }, { include_blank: 'Ingresar cliente', class: "form-control select2-simple-dropdown", required: true}, id:"client-select-packaging") %>
         </div>
         <br>
         <div class="col-5">
           <%= form.label :delivery_method_id, "Patente", class: "form-label"%><br>
-          <%= form.select(:delivery_method_id, DeliveryMethod.all.map {|delivery| ["#{delivery.vehicle_plate}", delivery.id] }, { :include_blank => 'Elegir patente' } ,class:"custom-select pack-delivery") %>
+          <%= form.select(:delivery_method_id, DeliveryMethod.all.map {|delivery| ["#{delivery.vehicle_plate}", delivery.id] }, { :include_blank => 'Elegir patente' } ,class:"custom-select pack-delivery", required: true) %>
         </div>
         <br>
         <div class="col-5">
-          <%= form.label :turn, "Patente", class: "form-label"%><br>
+          <%= form.label :turn, "Vuelta", class: "form-label"%><br>
           <%= form.select(:turn, [1,2,3,4], { :include_blank => 'Elegir vuelta' } , class:"custom-select pack-turn") %>
         </div>
         <br>

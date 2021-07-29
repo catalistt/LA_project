@@ -17,12 +17,12 @@
 
         <div class="field pt-2">
           <%= form.label :Trabajador %><br>
-          <%= form.select(:user_id, User.all.map {|user| ["#{user.name}", user.id] }, { include_blank: 'Seleccionar' }, class: "name-select custom-select") %>
+          <%= form.select(:user_id, User.all.map {|user| ["#{user.name}", user.id] }, { include_blank: 'Seleccionar' }, class: "name-select custom-select", required: true) %>
         </div>
 
         <div class="field pt-2">
           <%= form.label :Item %>
-          <%= form.select(:resource_id, Resource.all.map {|resource| ["#{resource.name}", resource.id] }, { include_blank: 'Seleccionar' }, class: "custom-select consume-item") %>
+          <%= form.select(:resource_id, Resource.all.map {|resource| ["#{resource.name}", resource.id] }, { include_blank: 'Seleccionar' }, class: "custom-select consume-item", required: true) %>
         </div>
 
         <div class="field pt-2">
@@ -32,12 +32,12 @@
 
         <div class="field pt-2">
           <%= form.label :Cantidad %>
-          <%= form.number_field :quantity, class:"form-control consume-quantity"  %>
+          <%= form.number_field :quantity, class:"form-control consume-quantity", required: true  %>
         </div>
 
         <div class="field pt-2">
           <%= form.label :Monto_total %>
-          <%= form.text_field :total_amount, class:"form-control consume-amount" %>
+          <%= form.text_field :total_amount, class:"form-control consume-amount", required: true %>
         </div>
         <br>
         <div class="actions">

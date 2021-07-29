@@ -43,7 +43,7 @@
       <div class="col-4">
         <div class="form-group">
           <%= form.label :Método_de_pago, class: "control-label h4"%><br>
-          <%= form.collection_select :payment_method, PaymentMethod.all, :id, :name,{ :include_blank => 'Elegir método' }, class:"custom-select"%>
+          <%= form.collection_select :payment_method, PaymentMethod.all, :id, :name,{ :include_blank => 'Elegir método' }, class:"custom-select", required: true%>
         </div>
       </div>
     
@@ -57,7 +57,7 @@
       <div class="col-4">
         <div class="form-group offset-1">
           <%= form.label :Monto_total, class:"h4"%><br>
-          <%= form.number_field :amount_payed, class:"form-control" %>
+          <%= form.number_field :amount_payed, class:"form-control", required: true%>
         </div>
       </div>
     </div>

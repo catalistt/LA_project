@@ -17,17 +17,17 @@
 
         <div class="field pt-2">
           <%= form.label :Nombre_item %>
-          <%= form.text_field :name, class:"form-control"%>
+          <%= form.text_field :name, class:"form-control", required: true%>
         </div>
 
         <div class="field pt-2">
           <%= form.label :Costo_unitario %>
-          <%= form.text_field :amount, class:"form-control" %>
+          <%= form.text_field :amount, class:"form-control", required: true%>
         </div>
 
         <div class="field pt-2">
           <%= form.label :Categoria %>
-          <%= form.select(:group, ["Consumo oficina", "Otros descuentos"], {include_blank:'Seleccionar'}, class: "custom-select") %>
+          <%= form.select(:group, ["Consumo oficina", "Otros descuentos"], {include_blank:'Seleccionar'}, class: "custom-select", required: true) %>
         </div>
 
         <div class="actions pt-2">
