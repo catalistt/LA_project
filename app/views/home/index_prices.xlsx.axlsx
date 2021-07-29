@@ -1,8 +1,25 @@
 wb = xlsx_package.workbook
-wb.add_worksheet(name: "Products") do |sheet|
-sheet.add_row ['ID', 'Codigo', 'Costo', 'Ruta', 'Distribuidores', 'Especial', 'Vips', 'Precio 1', 'Precio 2', 'Precio 3', 'Precio 4', 'Precio 5']
+
+wb.add_worksheet(name: "Unitario") do |sheet|
+sheet.add_row ['Codigo','Id', 'Costo', 'Ruta', 'Distribuidores', 'Especial', 'Vips', 'Precio 1', 'Precio 2', 'Precio 3', 'Precio 4', 'Precio 5']
   @products.each do |product|
-    sheet.add_row [product.id, product.code, product.cost, product.standard_price, product.standard_price - (((GroupDiscount.where(product_id: product.id, group_id: 2).pluck(:discount).join.to_f)/100) * product.standard_price).round, product.standard_price - (((GroupDiscount.where(product_id: product.id, group_id: 3).pluck(:discount).join.to_f)/100) * product.standard_price).round, product.standard_price - (((GroupDiscount.where(product_id: product.id, group_id: 5).pluck(:discount).join.to_f)/100) * product.standard_price).round, (product.cost + product.cost*0.135).round , (product.cost + product.cost*0.115).round, (product.cost + product.cost*0.095).round, (product.cost + product.cost*0.075).round, (product.cost + product.cost*0.055).round ]
-    
+    @unit_cost = product.cost / product.units
+    @unit_standard = (product.standard_price / product.units).round
+    @distribution = product.standard_price - (((GroupDiscount.where(product_id: product.id, group_id: 2).pluck(:discount).join.to_f)/100) * product.standard_price).round
+    @especial = product.standard_price - (((GroupDiscount.where(product_id: product.id, group_id: 3).pluck(:discount).join.to_f)/100) * product.standard_price).round
+    @vips = product.standard_price - (((GroupDiscount.where(product_id: product.id, group_id: 5).pluck(:discount).join.to_f)/100) * product.standard_price).round
+    @p_1 = product.cost + product.cost*0.135
+    @p_2 = product.cost + product.cost*0.115
+    @p_3 = product.cost + product.cost*0.095
+    @p_4 = product.cost + product.cost*0.075
+    @p_5 = product.cost + product.cost*0.055
+    sheet.add_row [product.code,product.id,@unit_cost, @unit_standard, (@distribution /product.units).round, (@especial / product.units).round, (@vips / product.units).round, (@p_1 / product.units).round, (@p_2 / product.units).round, (@p_3 / product.units).round, (@p_4 / product.units).round, (@p_5 / product.units).round]
+  end
+end
+
+wb.add_worksheet(name: "Por display") do |sheet|
+sheet.add_row ['Codigo','Id', 'Costo', 'Ruta', 'Distribuidores', 'Especial', 'Vips', 'Precio 1', 'Precio 2', 'Precio 3', 'Precio 4', 'Precio 5']
+  @products.each do |product|
+    sheet.add_row [product.code, product.id, product.cost, product.standard_price, product.standard_price - (((GroupDiscount.where(product_id: product.id, group_id: 2).pluck(:discount).join.to_f)/100) * product.standard_price).round, product.standard_price - (((GroupDiscount.where(product_id: product.id, group_id: 3).pluck(:discount).join.to_f)/100) * product.standard_price).round, product.standard_price - (((GroupDiscount.where(product_id: product.id, group_id: 5).pluck(:discount).join.to_f)/100) * product.standard_price).round, (product.cost + product.cost*0.135).round , (product.cost + product.cost*0.115).round, (product.cost + product.cost*0.095).round, (product.cost + product.cost*0.075).round, (product.cost + product.cost*0.055).round ]
   end
 end
