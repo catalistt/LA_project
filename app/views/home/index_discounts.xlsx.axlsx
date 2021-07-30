@@ -1,0 +1,7 @@
+wb = xlsx_package.workbook
+wb.add_worksheet(name: "Descuentos") do |sheet|
+sheet.add_row ['Producto', 'Grupo', 'Descuento','Precio unitario', 'Precio display']
+  @discounts.each do |discount|
+    sheet.add_row [discount.product.name, discount.group.name, discount.discount,(((discount.product.standard_price * (discount.discount/100)) + discount.product.standard_price)/discount.product.units).round, ((discount.product.standard_price * (discount.discount/100)) + discount.product.standard_price).round ]
+  end
+end

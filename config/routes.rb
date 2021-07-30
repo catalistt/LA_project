@@ -30,6 +30,7 @@ Rails.application.routes.draw do
   get 'home/index_cities'
   get 'home/index_clients'
   get 'home/index_prices'
+  get 'home/index_discounts'
   get 'home/packaging_convertions'
   get 'home/index_products'
   get 'home/index_natalia'
